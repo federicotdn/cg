@@ -15,24 +15,41 @@ public class Matrix4 {
 	 * ---                ---
 	 */
 	
-	private float m00;
-	private float m01;
-	private float m02;
-	private float m03;
-	private float m10;
-	private float m11;
-	private float m12;
-	private float m13;
-	private float m20;
-	private float m21;
-	private float m22;
-	private float m23;
-	private float m30;
-	private float m31;
-	private float m32;
-	private float m33;
+	public float m00;
+	public float m01;
+	public float m02;
+	public float m03;
+	public float m10;
+	public float m11;
+	public float m12;
+	public float m13;
+	public float m20;
+	public float m21;
+	public float m22;
+	public float m23;
+	public float m30;
+	public float m31;
+	public float m32;
+	public float m33;
 	
-	public Matrix4() {
-		m00 = m11 = m22 = m33 = 1;
+	public Matrix4 clone() {
+		Matrix4 m = new Matrix4();
+		m.m00 = m00;
+		m.m01 = m01;
+		m.m02 = m02;
+		m.m03 = m03;
+		m.m10 = m10;
+		m.m11 = m11;
+		m.m12 = m12;
+		m.m13 = m13;
+		m.m20 = m20;
+		m.m21 = m21;
+		m.m22 = m22;
+		m.m23 = m23;
+		m.m30 = m30;
+		m.m31 = m31;
+		m.m32 = m32;
+		m.m33 = m33;
+		return m;
 	}
 }
