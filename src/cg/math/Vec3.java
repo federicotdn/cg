@@ -4,36 +4,36 @@ public class Vec3 {
 	/*
 	 * 3x1 Vector
 	 * 
-	 * ------
-	 * | v0 |
-	 * |    |
-	 * | v1 |
-	 * |    |
-	 * | v2 |
-	 * ------
+	 * -----
+	 * | x |
+	 * |   |
+	 * | y |
+	 * |   |
+	 * | z |
+	 * -----
 	 */	
 
-	public float v0;
-	public float v1;
-	public float v2;
+	public float x;
+	public float y;
+	public float z;
 	private boolean normalized;
 	
 	public Vec3() {
 		/* float fields initialized to 0.0f by default */
 	}
 	
-	public Vec3(float v0, float v1, float v2) {
-		this.v0 = v0;
-		this.v1 = v1;
-		this.v2 = v2;
+	public Vec3(float x, float y, float z) {
+		this.x = x;
+		this.y = y;
+		this.z = z;
 	}
 	
-	public Vec3 nor() {
+	public Vec3 normalize() {
 		if (!normalized) {
-			float len = (float) Math.sqrt(v0 * v0 + v1 * v1 + v2 * v2);
-			v0 /= len;
-			v1 /= len;
-			v2 /= len;
+			float len = (float) Math.sqrt(x * x + y * y + z * z);
+			x /= len;
+			y /= len;
+			z /= len;
 			normalized = true;
 		}
 		return this;
