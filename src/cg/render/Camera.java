@@ -3,16 +3,16 @@ package cg.render;
 import cg.math.Vec3;
 
 public class Camera {
-	private float fov;
+	private float fovDegrees;
 	//TODO: add translation and rotation
 	
 	public Camera(float fov) {
-		this.fov = fov;
+		this.fovDegrees = fov;
 	}
 	
 	public Ray rayFor(Image img, int pixelX, int pixelY) {
 		float aspectRatio = img.aspectRatio();
-		double halfImagePlane = Math.tan(Math.toRadians(fov / 2));
+		double halfImagePlane = Math.tan(Math.toRadians(fovDegrees / 2));
 		
 		double ndcx = ((double)pixelX + 0.5) / img.getWidth();
 		double ndcy = ((double)pixelY + 0.5) / img.getHeight();

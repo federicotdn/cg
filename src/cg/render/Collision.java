@@ -8,4 +8,8 @@ public class Collision {
 		this.ray = ray;
 		this.t = t;
 	}
+	
+	public float getT() {
+		return t;
+	}
 }
