@@ -82,6 +82,54 @@ public class Matrix4 {
 		return m;		
 	}
 	
+	public Matrix4 inverse() {
+		float c00 = m11 * m22 * m33 + m12 * m23 * m31 + m13 * m21 * m32 - m31 * m22 * m13 - m32 * m23 * m11 - m21 * m12 * m33;
+		float c01 = m10 * m22 * m33 + m12 * m23 * m30 + m13 * m20 * m32 - m30 * m22 * m13 - m32 * m23 * m10 - m20 * m12 * m33;
+		float c02 = m10 * m21 * m33 + m11 * m23 * m30 + m13 * m20 * m31 - m30 * m21 * m13 - m31 * m23 * m10 - m20 * m11 * m33;
+		float c03 = m10 * m21 * m32 + m11 * m22 * m30 + m12 * m20 * m31 - m30 * m21 * m12 - m31 * m22 * m10 - m20 * m11 * m32;
+		float c10 = m01 * m22 * m33 + m02 * m23 * m31 + m03 * m21 * m32 - m31 * m22 * m03 - m32 * m23 * m01 - m21 * m02 * m33;
+		float c11 = m00 * m22 * m33 + m02 * m23 * m30 + m03 * m20 * m32 - m30 * m22 * m03 - m32 * m23 * m00 - m20 * m02 * m33;
+		float c12 = m00 * m21 * m33 + m01 * m23 * m30 + m03 * m20 * m31 - m30 * m21 * m03 - m31 * m23 * m00 - m20 * m01 * m33;
+		float c13 = m00 * m21 * m32 + m01 * m22 * m30 + m02 * m20 * m31 - m30 * m21 * m02 - m31 * m22 * m00 - m20 * m01 * m32;
+		float c20 = m01 * m12 * m33 + m02 * m13 * m31 + m03 * m11 * m32 - m31 * m12 * m03 - m32 * m13 * m01 - m11 * m02 * m33;
+		float c21 = m00 * m12 * m33 + m02 * m13 * m30 + m03 * m10 * m32 - m30 * m12 * m03 - m32 * m13 * m00 - m10 * m02 * m33;
+		float c22 = m00 * m11 * m33 + m01 * m13 * m30 + m03 * m10 * m31 - m30 * m11 * m03 - m31 * m13 * m00 - m10 * m01 * m33;
+		float c23 = m00 * m11 * m32 + m01 * m12 * m30 + m02 * m10 * m31 - m30 * m11 * m02 - m31 * m12 * m00 - m10 * m01 * m32;
+		float c30 = m01 * m12 * m23 + m02 * m13 * m21 + m03 * m11 * m22 - m21 * m12 * m03 - m22 * m13 * m01 - m11 * m02 * m23;
+		float c31 = m00 * m12 * m23 + m02 * m13 * m20 + m03 * m10 * m22 - m20 * m12 * m03 - m22 * m13 * m00 - m10 * m02 * m23;
+		float c32 = m00 * m11 * m23 + m01 * m13 * m20 + m03 * m10 * m21 - m20 * m11 * m03 - m21 * m13 * m00 - m10 * m01 * m23;
+		float c33 = m00 * m11 * m22 + m01 * m12 * m20 + m02 * m10 * m21 - m20 * m11 * m02 - m21 * m12 * m00 - m10 * m01 * m22;
+		
+		float det = m00 * c00 - m01 * c01 + m02 * c02 - m03 * c03;
+		if (det == 0.0f) {
+			return null;
+		}
+		float idet = 1.0f / det;
+		
+		Matrix4 i = new Matrix4();
+		i.m00 = c00 * idet;
+		i.m01 = -c10 * idet;
+		i.m02 = c20 * idet;
+		i.m03 = -c30 * idet;
+		
+		i.m10 = c01 * idet;
+		i.m11 = -c11 * idet;
+		i.m12 = c21 * idet;
+		i.m13 = -c31 * idet;
+		
+		i.m20 = c02 * idet;
+		i.m21 = -c12 * idet;
+		i.m22 = c22 * idet;
+		i.m23 = -c32 * idet;
+		
+		i.m30 = c03 * idet;
+		i.m31 = -c13 * idet;
+		i.m32 = c23 * idet;
+		i.m33 = -c33 * idet;
+		
+		return i;
+	}
+	 
 	public Matrix4 mult(Matrix4 m) {
 		float t00 = m00 * m.m00 + m01 * m.m10 + m02 * m.m20 + m03 * m.m30;
 		float t01 = m00 * m.m01 + m01 * m.m11 + m02 * m.m21 + m03 * m.m31;
@@ -150,7 +198,7 @@ public class Matrix4 {
 	@Override
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
-		String fmt = "%5.2f";
+		String fmt = "%10.4f";
 		
 		sb.append("| ");
 		sb.append(String.format(fmt, m00) + " ");

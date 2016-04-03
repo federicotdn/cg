@@ -2,6 +2,7 @@ package cg.run;
 
 import java.io.IOException;
 
+import cg.math.Matrix4;
 import cg.render.Camera;
 import cg.render.Image;
 import cg.render.Ray;
@@ -10,6 +11,12 @@ import cg.render.Sphere;
 public class Start {
 
 	public static void main(String[] args) throws IOException {		
+		
+		Matrix4 m = new Matrix4();
+		m.inverse();
+		m = new Matrix4(new float[] {11,2,3,0,2,6,9,89,9,10,11,12,13,114,15,16});
+		System.out.println(m.inverse());
+		
 		Sphere sphere = new Sphere(1.0f);
 		int width = 1920;
 		int height = 1080;
