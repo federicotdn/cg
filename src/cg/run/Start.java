@@ -3,6 +3,7 @@ package cg.run;
 import java.io.IOException;
 
 import cg.math.Matrix4;
+import cg.math.Vec3;
 import cg.render.Camera;
 import cg.render.Image;
 import cg.render.Ray;
@@ -22,7 +23,7 @@ public class Start {
 		int height = 1080;
 		
 		Image img = new Image(width, height);
-		Camera cam = new Camera(90);
+		Camera cam = new Camera(new Vec3(0, 0, -2), new Vec3(), 90);
 
 		System.out.println("Begin.");
 		

@@ -27,6 +27,14 @@ public class Vec3 {
 		this.z = z;
 	}
 	
+	public Vec4 asDirection() {
+		return new Vec4(x, y, z, 0);
+	}
+	
+	public Vec4 asPosition() {
+		return new Vec4(x, y, z, 1);
+	}
+	
 	public Vec3 normalize() {
 		float len = (float) Math.sqrt(x * x + y * y + z * z);
 		x /= len;

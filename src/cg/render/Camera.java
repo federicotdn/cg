@@ -1,13 +1,19 @@
 package cg.render;
 
+import cg.math.Matrix4;
 import cg.math.Vec3;
 
 public class Camera {
 	private float fovDegrees;
-	//TODO: add translation and rotation
+	private Matrix4 transform;
 	
-	public Camera(float fov) {
+	public Camera(Vec3 pos, Vec3 rotation, float fov) {
+		transform = Matrix4.transFromVec(pos);
 		this.fovDegrees = fov;
+	}
+	
+	public Matrix4 getTransform() {
+		return transform;
 	}
 	
 	public Ray rayFor(Image img, int pixelX, int pixelY) {
