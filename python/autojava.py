@@ -15,6 +15,7 @@ line = "float {0} = " \
 
 cofactor_idxs = [0, 4, 8, 1, 5, 6, 2, 3, 7, 6, 4, 2, 7, 5, 0, 3, 1, 8]
 
+print('/* Generated with autojava.py */')
 for row in range(4):
     for col in range(4):
         cofactor_vals = []
@@ -28,4 +29,7 @@ for row in range(4):
         params = []
         for idx in cofactor_idxs:
             params.append(cofactor_vals[idx])
+
         print(line.format(cofactor_name, *params))
+
+print('/* Generated with autojava.py - end */')

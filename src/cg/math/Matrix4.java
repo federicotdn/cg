@@ -83,6 +83,7 @@ public class Matrix4 {
 	}
 	
 	public Matrix4 inverse() {
+		/* Generated with autojava.py */
 		float c00 = m11 * m22 * m33 + m12 * m23 * m31 + m13 * m21 * m32 - m31 * m22 * m13 - m32 * m23 * m11 - m21 * m12 * m33;
 		float c01 = m10 * m22 * m33 + m12 * m23 * m30 + m13 * m20 * m32 - m30 * m22 * m13 - m32 * m23 * m10 - m20 * m12 * m33;
 		float c02 = m10 * m21 * m33 + m11 * m23 * m30 + m13 * m20 * m31 - m30 * m21 * m13 - m31 * m23 * m10 - m20 * m11 * m33;
@@ -99,6 +100,7 @@ public class Matrix4 {
 		float c31 = m00 * m12 * m23 + m02 * m13 * m20 + m03 * m10 * m22 - m20 * m12 * m03 - m22 * m13 * m00 - m10 * m02 * m23;
 		float c32 = m00 * m11 * m23 + m01 * m13 * m20 + m03 * m10 * m21 - m20 * m11 * m03 - m21 * m13 * m00 - m10 * m01 * m23;
 		float c33 = m00 * m11 * m22 + m01 * m12 * m20 + m02 * m10 * m21 - m20 * m11 * m02 - m21 * m12 * m00 - m10 * m01 * m22;
+		/* Generated with autojava.py - end */
 		
 		float det = m00 * c00 - m01 * c01 + m02 * c02 - m03 * c03;
 		if (det == 0.0f) {
@@ -112,20 +114,20 @@ public class Matrix4 {
 		i.m02 = c20 * idet;
 		i.m03 = -c30 * idet;
 		
-		i.m10 = c01 * idet;
-		i.m11 = -c11 * idet;
-		i.m12 = c21 * idet;
-		i.m13 = -c31 * idet;
+		i.m10 = -c01 * idet;
+		i.m11 = c11 * idet;
+		i.m12 = -c21 * idet;
+		i.m13 = c31 * idet;
 		
 		i.m20 = c02 * idet;
 		i.m21 = -c12 * idet;
 		i.m22 = c22 * idet;
 		i.m23 = -c32 * idet;
 		
-		i.m30 = c03 * idet;
-		i.m31 = -c13 * idet;
-		i.m32 = c23 * idet;
-		i.m33 = -c33 * idet;
+		i.m30 = -c03 * idet;
+		i.m31 = c13 * idet;
+		i.m32 = -c23 * idet;
+		i.m33 = c33 * idet;
 		
 		return i;
 	}
