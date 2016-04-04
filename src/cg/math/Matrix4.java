@@ -82,6 +82,51 @@ public class Matrix4 {
 		return m;		
 	}
 	
+	public static Matrix4 rotationX(float deg) {
+		float rad = (float)Math.toRadians(deg);
+		Matrix4 m = new Matrix4();
+		
+		float cosAngle = (float)Math.cos(rad);
+		float sinAngle = (float)Math.sin(rad);
+		
+		m.m11 = cosAngle;
+		m.m22 = cosAngle;
+		m.m12 = -sinAngle;
+		m.m21 = sinAngle;
+		
+		return m;
+	}
+	
+	public static Matrix4 rotationY(float deg) {
+		float rad = (float)Math.toRadians(deg);
+		Matrix4 m = new Matrix4();
+		
+		float cosAngle = (float)Math.cos(rad);
+		float sinAngle = (float)Math.sin(rad);
+		
+		m.m00 = cosAngle;
+		m.m02 = sinAngle;
+		m.m20 = -sinAngle;
+		m.m22 = cosAngle;
+		
+		return m;
+	}
+	
+	public static Matrix4 rotationZ(float deg) {
+		float rad = (float)Math.toRadians(deg);
+		Matrix4 m = new Matrix4();
+		
+		float cosAngle = (float)Math.cos(rad);
+		float sinAngle = (float)Math.sin(rad);
+		
+		m.m00 = cosAngle;
+		m.m01 = -sinAngle;
+		m.m11 = cosAngle;
+		m.m10 = sinAngle;
+		
+		return m;
+	}
+	
 	public Matrix4 inverse() {
 		/* Generated with autojava.py */
 		float c00 = m11 * m22 * m33 + m12 * m23 * m31 + m13 * m21 * m32 - m31 * m22 * m13 - m32 * m23 * m11 - m21 * m12 * m33;

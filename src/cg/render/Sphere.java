@@ -1,7 +1,5 @@
 package cg.render;
 
-import java.util.Optional;
-
 import cg.math.Vec3;
 
 public class Sphere extends Primitive {
@@ -13,7 +11,7 @@ public class Sphere extends Primitive {
 	}
 	
 	@Override
-	protected Optional<Collision> calculateCollision(Ray ray) {
+	protected Collision calculateCollision(Ray ray) {
 		Vec3 orig = ray.getOrigin();
 		Vec3 dir = ray.getDirection();
 		
@@ -23,7 +21,7 @@ public class Sphere extends Primitive {
 		
 		float det = (B * B) - (4 * A * C);
 		if (det < 0) {
-			return Optional.empty();
+			return null;
 		}
 		
 		float t0 = (float) ((-B - Math.sqrt(det)) / (2 * A));
@@ -31,6 +29,6 @@ public class Sphere extends Primitive {
 		
 		float t = (t0 > t1 ? t1 : t0);
 		
-		return Optional.of(new Collision(ray, t));
+		return new Collision(ray, t);
 	}
 }

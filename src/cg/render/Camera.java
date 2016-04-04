@@ -2,6 +2,7 @@ package cg.render;
 
 import cg.math.Matrix4;
 import cg.math.Vec3;
+import cg.math.Vec4;
 
 public class Camera {
 	private float fovDegrees;
@@ -9,11 +10,8 @@ public class Camera {
 	
 	public Camera(Vec3 pos, Vec3 rotation, float fov) {
 		transform = Matrix4.transFromVec(pos);
+		//TODO: add rotation matrices
 		this.fovDegrees = fov;
-	}
-	
-	public Matrix4 getTransform() {
-		return transform;
 	}
 	
 	public Ray rayFor(Image img, int pixelX, int pixelY) {
@@ -26,10 +24,14 @@ public class Camera {
 		double px = ((2 * ndcx) - 1) * aspectRatio * halfImagePlane;
 		double py = (1 - (2 * ndcy)) * halfImagePlane;
 
-		//Vec3 origin = new Vec3();
-		Vec3 origin = new Vec3(0, 0, -2); //uncomment to make it work without having camera translation
-		Vec3 direction = (new Vec3((float)px, (float)py, -1)).normalize();
+		Vec3 origin3 = new Vec3();
+		Vec4 origin = origin3.asPosition();
+		origin.mul(transform);
+		
+		Vec3 direction3 = new Vec3((float)px, (float)py, -1);
+		Vec4 direction = direction3.asDirection();
+		direction.mul(transform);
 
-		return new Ray(origin, direction);
+		return new Ray(origin.toVec3(), direction.toVec3().normalize());
 	}
 }

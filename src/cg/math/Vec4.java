@@ -20,7 +20,7 @@ public class Vec4 {
 	public float z;
 	public float w;
 	
-	public Vec4() {
+	private Vec4() {
 		/* float fields initialized to 0.0f by default */
 	}
 	
@@ -29,6 +29,36 @@ public class Vec4 {
 		this.y = y;
 		this.z = z;
 		this.w = w;
+	}
+	
+	public Vec4 normalize() {
+		if (w != 0.0f) {
+			x /= w;
+			y /= w;
+			z /= w;
+			w /= w;
+		}
+		return this;
+	}
+	
+	public Vec3 toVec3() {
+		float ax = x, ay = y, az = z;
+		if (w != 0.0f) {
+			ax /= w;
+			ay /= w;
+			az /= w;
+		}
+		
+		return new Vec3(ax, ay, az);
+	}
+	
+	public Vec4 clone() {
+		Vec4 v = new Vec4();
+		v.x = x;
+		v.y = y;
+		v.z = z;
+		v.w = w;
+		return v;
 	}
 	
 	// M x V (stores result in V)
