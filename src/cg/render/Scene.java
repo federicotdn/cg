@@ -15,11 +15,12 @@ public class Scene {
 	}
 	
 	public void render(Camera cam, Image img) {
-		for (int i = 0; i < img.getHeight(); i++) {
-			for (int j = 0; j < img.getWidth(); j++) {
-				Ray ray = cam.rayFor(img, j, i);
+		for (int p = 0; p < img.getHeight() * img.getWidth(); p++) {
+				int x = p % img.getWidth();
+				int y = p / img.getWidth();
+				Ray ray = cam.rayFor(img, x, y);
 				Collision last = null;
-				int c = argbGray(0); // black
+				Color c = Color.BLACK; // black
 				
 				for (int k = 0; k < primitives.size(); k++) {
 					Collision col = primitives.get(k).collideWith(ray);
@@ -29,11 +30,10 @@ public class Scene {
 				}
 				
 				if (last != null) {
-					c = argbGray(1.0f); // white
+					c = Color.WHITE; // white
 				}
-				
-				img.setPixel(j, i, c);
-			}
+
+				img.setPixel(x, y, c);
 		}
 	}
 	
