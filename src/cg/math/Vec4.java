@@ -15,13 +15,14 @@ public class Vec4 {
 	 * -----
 	 */	
 
-	public float x;
-	public float y;
-	public float z;
-	public float w;
+	public final float x;
+	public final float y;
+	public final float z;
+	public final float w;
 	
 	private Vec4() {
 		/* float fields initialized to 0.0f by default */
+		this(0, 0, 0, 0);
 	}
 	
 	public Vec4(float x, float y, float z, float w) {
@@ -32,33 +33,16 @@ public class Vec4 {
 	}
 	
 	public Vec4 normalize() {
-		if (w != 0.0f) {
-			x /= w;
-			y /= w;
-			z /= w;
-			w /= w;
-		}
-		return this;
+		float len = (float) Math.sqrt(x * x + y * y + z * z + w * w);
+		return new Vec4(x/len, y/len, z/len, w/len);
 	}
 	
 	public Vec3 toVec3() {
-		float ax = x, ay = y, az = z;
-		if (w != 0.0f) {
-			ax /= w;
-			ay /= w;
-			az /= w;
-		}
-		
-		return new Vec3(ax, ay, az);
+		return new Vec3(x, y, z);
 	}
 	
 	public Vec4 clone() {
-		Vec4 v = new Vec4();
-		v.x = x;
-		v.y = y;
-		v.z = z;
-		v.w = w;
-		return v;
+		return new Vec4(x, y, z, w);
 	}
 	
 	// M x V (stores result in V)
@@ -67,12 +51,7 @@ public class Vec4 {
 		float n1 = x * m.m10 + y * m.m11 + z * m.m12 + w * m.m13;
 		float n2 = x * m.m20 + y * m.m21 + z * m.m22 + w * m.m23;
 		float n3 = x * m.m30 + y * m.m31 + z * m.m32 + w * m.m33;
-
-		x = n0;
-		y = n1;
-		z = n2;
-		w = n3;
 		
-		return this;
+		return new Vec4(n0, n1, n2, n3);
 	}
 }

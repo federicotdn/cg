@@ -4,8 +4,14 @@ import cg.math.Matrix4;
 import cg.math.Vec3;
 import cg.math.Vec4;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class Primitive {	
 	private Matrix4 invTransform = new Matrix4();
+	private Matrix4 transform;
+	private List<Primitive> children = new ArrayList<Primitive>();
+	private Primitive parent;
 	
 	public void setTransform(Vec3 t, Vec3 r, Vec3 s) {
 		if (t == null) {
@@ -27,16 +33,17 @@ public abstract class Primitive {
 		Matrix4 scale = Matrix4.scaleFromVec(s);
 		
 		Matrix4 transform = translation;
-		transform.mult(rotZ).mult(rotY).mult(rotX).mult(scale);
+		transform = transform.mult(rotZ).mult(rotY).mult(rotX).mult(scale);
 		invTransform = transform.inverse();
+		this.transform = transform;
 	}
 	
 	public Collision collideWith(Ray ray) {
 		Vec4 localOrigin = ray.getOrigin().asPosition();
-		localOrigin.mul(invTransform);
+		localOrigin = localOrigin.mul(invTransform);
 		
 		Vec4 localDirection = ray.getDirection().asDirection();
-		localDirection.mul(invTransform);
+		localDirection = localDirection.mul(invTransform);
 		
 		return calculateCollision(new Ray(localOrigin.toVec3(), localDirection.toVec3().normalize()));
 	}

@@ -13,12 +13,13 @@ public class Vec3 {
 	 * -----
 	 */	
 
-	public float x;
-	public float y;
-	public float z;
+	public final float x;
+	public final float y;
+	public final float z;
 	
 	public Vec3() {
 		/* float fields initialized to 0.0f by default */
+		this(0,0,0);
 	}
 	
 	public Vec3(float x, float y, float z) {
@@ -37,9 +38,6 @@ public class Vec3 {
 	
 	public Vec3 normalize() {
 		float len = (float) Math.sqrt(x * x + y * y + z * z);
-		x /= len;
-		y /= len;
-		z /= len;
-		return this;
+		return new Vec3(x/len, y/len, z/len);
 	}
 }
