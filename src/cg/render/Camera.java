@@ -32,6 +32,6 @@ public class Camera {
 		Vec4 direction = direction3.asDirection();
 		direction = direction.mul(transform);
 
-		return new Ray(origin.toVec3(), direction.toVec3().normalize());
+		return new Ray(origin.toVec3(), direction.toVec3());
 	}
 }

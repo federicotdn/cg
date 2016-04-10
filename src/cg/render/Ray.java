@@ -8,7 +8,7 @@ public class Ray {
 	
 	public Ray(Vec3 origin, Vec3 direction) {
 		this.origin = origin;
-		this.direction = direction;
+		this.direction = direction.normalize();
 	}
 	
 	public Vec3 getOrigin() {

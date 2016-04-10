@@ -36,12 +36,4 @@ public class Scene {
 				img.setPixel(x, y, c);
 		}
 	}
-	
-	private int argbGray(float v) {
-		int c = 255 << 24;
-		c += ((int)(255 * v)) << 16;
-		c += ((int)(255 * v)) << 8;
-		c += (int)(255 * v);
-		return c;
-	}
 }
