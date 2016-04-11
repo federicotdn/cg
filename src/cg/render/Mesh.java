@@ -1,6 +1,6 @@
 package cg.render;
 
-import java.util.Optional;
+import cg.math.Matrix4;
 
 public class Mesh extends Primitive {
 
@@ -10,4 +10,8 @@ public class Mesh extends Primitive {
 		return null;
 	}
 
+	@Override
+	protected BoundingBox calculateBBox(Matrix4 t, Matrix4 r, Matrix4 s) {
+		return null;
+	}
 }

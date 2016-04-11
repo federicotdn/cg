@@ -235,6 +235,15 @@ public class Matrix4 {
 				m30, m31, m32, m33);
 	}
 
+	public Vec4 mul(Vec4 v) {
+		float n0 = v.x * m00 + v.y * m01 + v.z * m02 + v.w * m03;
+		float n1 = v.x * m10 + v.y * m11 + v.z * m12 + v.w * m13;
+		float n2 = v.x * m20 + v.y * m21 + v.z * m22 + v.w * m23;
+		float n3 = v.x * m30 + v.y * m31 + v.z * m32 + v.w * m33;
+
+		return new Vec4(n0, n1, n2, n3);
+	}
+
 	@Override
 	public String toString() {
 		StringBuffer sb = new StringBuffer();

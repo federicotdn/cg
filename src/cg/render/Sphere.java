@@ -1,13 +1,15 @@
 package cg.render;
 
+import cg.math.Matrix4;
 import cg.math.Vec3;
 
 public class Sphere extends Primitive {
 
 	private float radius;
 	
-	public Sphere(float radius) {
+	public Sphere(Vec3 t, Vec3 r, Vec3 s, float radius) {
 		this.radius = radius;
+		setTransform(t, r, s);
 	}
 	
 	@Override
@@ -30,5 +32,17 @@ public class Sphere extends Primitive {
 		float t = (t0 > t1 ? t1 : t0);
 		
 		return new Collision(ray, t);
+	}
+
+	@Override
+	protected BoundingBox calculateBBox(Matrix4 t, Matrix4 r, Matrix4 s) {
+		Vec3 pMin = new Vec3(-radius, -radius, -radius);
+		Vec3 pMax = pMin.mul(-1);
+		Matrix4 ts = t.mult(s);
+
+		pMin = ts.mul(pMin.asPosition()).toVec3();
+		pMax = ts.mul(pMax.asPosition()).toVec3();
+
+		return  new BoundingBox(pMin, pMax);
 	}
 }

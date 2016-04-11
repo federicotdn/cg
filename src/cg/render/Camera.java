@@ -26,11 +26,11 @@ public class Camera {
 
 		Vec3 origin3 = new Vec3();
 		Vec4 origin = origin3.asPosition();
-		origin = origin.mul(transform);
+		origin = transform.mul(origin);
 		
 		Vec3 direction3 = new Vec3((float)px, (float)py, -1);
 		Vec4 direction = direction3.asDirection();
-		direction = direction.mul(transform);
+		direction = transform.mul(direction);
 
 		return new Ray(origin.toVec3(), direction.toVec3());
 	}

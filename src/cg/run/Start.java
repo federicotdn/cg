@@ -1,12 +1,12 @@
 package cg.run;
 
-import java.io.IOException;
-
 import cg.math.Vec3;
 import cg.render.Camera;
 import cg.render.Image;
 import cg.render.Scene;
 import cg.render.Sphere;
+
+import java.io.IOException;
 
 public class Start {
 
@@ -33,8 +33,7 @@ public class Start {
 		for (int i = 0; i < depth; i++) {
 			for (int j = 0; j < depth; j++) {
 				for (int k = 0; k < depth; k++) {
-					Sphere p = new Sphere(0.6f);
-					p.setTransform(new Vec3(i * 1.3f, j * 1.3f, k * 1.3f), null, null);
+					Sphere p = new Sphere(new Vec3(i * 1.3f, j * 1.3f, k * 1.3f), null, null, 0.6f);
 					s.addPrimitive(p);
 				}
 			}

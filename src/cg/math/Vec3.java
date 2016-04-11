@@ -27,6 +27,10 @@ public class Vec3 {
 		this.y = y;
 		this.z = z;
 	}
+
+	public Vec3 mul(float scalar) {
+		return new Vec3(x * scalar, y * scalar, z * scalar);
+	}
 	
 	public Vec4 asDirection() {
 		return new Vec4(x, y, z, 0);
@@ -39,5 +43,14 @@ public class Vec3 {
 	public Vec3 normalize() {
 		float len = (float) Math.sqrt(x * x + y * y + z * z);
 		return new Vec3(x/len, y/len, z/len);
+	}
+
+	@Override
+	public String toString() {
+		return "Vec3{" +
+				"x=" + x +
+				", y=" + y +
+				", z=" + z +
+				'}';
 	}
 }

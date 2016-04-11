@@ -44,14 +44,4 @@ public class Vec4 {
 	public Vec4 clone() {
 		return new Vec4(x, y, z, w);
 	}
-	
-	// M x V (stores result in V)
-	public Vec4 mul(Matrix4 m) {
-		float n0 = x * m.m00 + y * m.m01 + z * m.m02 + w * m.m03;
-		float n1 = x * m.m10 + y * m.m11 + z * m.m12 + w * m.m13;
-		float n2 = x * m.m20 + y * m.m21 + z * m.m22 + w * m.m23;
-		float n3 = x * m.m30 + y * m.m31 + z * m.m32 + w * m.m33;
-		
-		return new Vec4(n0, n1, n2, n3);
-	}
 }

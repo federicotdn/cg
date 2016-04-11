@@ -9,11 +9,12 @@ import java.util.List;
 
 public abstract class Primitive {	
 	private Matrix4 invTransform = new Matrix4();
-	private Matrix4 transform;
-	private List<Primitive> children = new ArrayList<Primitive>();
-	private Primitive parent;
+	protected Matrix4 transform;
+	protected List<Primitive> children = new ArrayList<Primitive>();
+	protected Primitive parent;
+	private BoundingBox bbox;
 	
-	public void setTransform(Vec3 t, Vec3 r, Vec3 s) {
+	protected void setTransform(Vec3 t, Vec3 r, Vec3 s) {
 		if (t == null) {
 			t = new Vec3();
 		}
@@ -30,23 +31,30 @@ public abstract class Primitive {
 		Matrix4 rotX = Matrix4.rotationX(r.x);
 		Matrix4 rotY = Matrix4.rotationY(r.y);
 		Matrix4 rotZ = Matrix4.rotationZ(r.z);
+		Matrix4 rot = rotZ.mult(rotY).mult(rotX);
 		Matrix4 scale = Matrix4.scaleFromVec(s);
 		
 		Matrix4 transform = translation;
-		transform = transform.mult(rotZ).mult(rotY).mult(rotX).mult(scale);
+		transform = transform.mult(rot).mult(scale);
 		invTransform = transform.inverse();
 		this.transform = transform;
+		this.bbox = calculateBBox(translation, rot, scale);
 	}
 	
 	public Collision collideWith(Ray ray) {
 		Vec4 localOrigin = ray.getOrigin().asPosition();
-		localOrigin = localOrigin.mul(invTransform);
+		localOrigin = invTransform.mul(localOrigin);
 		
 		Vec4 localDirection = ray.getDirection().asDirection();
-		localDirection = localDirection.mul(invTransform);
+		localDirection = invTransform.mul(localDirection);
 		
 		return calculateCollision(new Ray(localOrigin.toVec3(), localDirection.toVec3().normalize()));
 	}
+
+	public BoundingBox getBBox() {
+		return bbox;
+	}
 	
 	protected abstract Collision calculateCollision(Ray ray);
+	protected abstract BoundingBox calculateBBox(Matrix4 t, Matrix4 r, Matrix4 s);
 }
