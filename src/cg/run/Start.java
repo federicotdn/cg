@@ -4,7 +4,7 @@ import cg.math.Vec3;
 import cg.render.Camera;
 import cg.render.Image;
 import cg.render.Scene;
-import cg.render.Sphere;
+import cg.render.shapes.Sphere;
 
 import java.io.IOException;
 
@@ -16,7 +16,7 @@ public class Start {
 		
 		Scene scene = new Scene();
 		Image img = new Image(width, height);
-		Camera cam = new Camera(new Vec3(3, 0, -3), new Vec3(10,0,0), 90);
+		Camera cam = new Camera(new Vec3(3, 2, 7), new Vec3(10,0,0), 60);
 
 		testFillScene(scene);
 		

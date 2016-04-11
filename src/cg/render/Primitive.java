@@ -48,7 +48,19 @@ public abstract class Primitive {
 		Vec4 localDirection = ray.getDirection().asDirection();
 		localDirection = invTransform.mul(localDirection);
 		
-		return calculateCollision(new Ray(localOrigin.toVec3(), localDirection.toVec3().normalize()));
+		Ray localRay = new Ray(localOrigin.toVec3(), localDirection.toVec3().normalize());
+		Collision localCol = calculateCollision(localRay);
+		if (localCol == null) {
+			return null;
+		}
+		
+		Vec3 localCollisionPos = localRay.getOrigin().sum(localRay.getDirection().mul(localCol.getT()));
+		Vec3 collisionPos = transform.mul(localCollisionPos.asPosition()).toVec3();
+		
+		Vec3 path = collisionPos.sub(ray.getOrigin());
+		float t = path.len();
+
+		return new Collision(ray, t);
 	}
 
 	public BoundingBox getBBox() {

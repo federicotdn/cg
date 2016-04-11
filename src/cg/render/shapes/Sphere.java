@@ -1,7 +1,11 @@
-package cg.render;
+package cg.render.shapes;
 
 import cg.math.Matrix4;
 import cg.math.Vec3;
+import cg.render.BoundingBox;
+import cg.render.Collision;
+import cg.render.Primitive;
+import cg.render.Ray;
 
 public class Sphere extends Primitive {
 

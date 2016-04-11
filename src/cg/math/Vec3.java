@@ -32,6 +32,14 @@ public class Vec3 {
 		return new Vec3(x * scalar, y * scalar, z * scalar);
 	}
 	
+	public Vec3 sum(Vec3 v) {
+		return new Vec3(x + v.x, y + v.y, z + v.z);
+	}
+	
+	public Vec3 sub(Vec3 v) {
+		return new Vec3(x - v.x, y - v.y, z - v.z);
+	}
+	
 	public Vec4 asDirection() {
 		return new Vec4(x, y, z, 0);
 	}
@@ -41,8 +49,12 @@ public class Vec3 {
 	}
 	
 	public Vec3 normalize() {
-		float len = (float) Math.sqrt(x * x + y * y + z * z);
+		float len = len();
 		return new Vec3(x/len, y/len, z/len);
+	}
+	
+	public float len() {
+		return (float) Math.sqrt(x * x + y * y + z * z);
 	}
 
 	@Override
