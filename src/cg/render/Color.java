@@ -6,8 +6,8 @@ package cg.render;
 public class Color {
     private float alpha;
     private float red;
-    private float blue;
     private float green;
+    private float blue;
 
     public static final Color RED = new Color(1,0,0);
     public static final Color GREEN = new Color(0,1,0);
@@ -15,8 +15,8 @@ public class Color {
     public static final Color BLACK = new Color(0);
     public static final Color WHITE = new Color(1);
 
-    public Color(float red, float blue, float green) {
-        this(1.0f, red, blue, green);
+    public Color(float red, float green, float blue) {
+        this(1.0f, red, green, blue);
 
     }
 
@@ -24,11 +24,18 @@ public class Color {
         this(1.0f, color, color, color);
     }
 
-    public Color(float alpha, float red, float blue, float green) {
+    public Color(float alpha, float red, float green, float blue) {
         this.alpha = alpha;
         this.red = red;
-        this.blue = blue;
         this.green = green;
+        this.blue = blue;
+    }
+    
+    public Color sum(Color other) {
+    	float r = (red + other.red > 1 ? 1 : red + other.red);
+    	float g = (green + other.green > 1 ? 1 : green + other.green);
+    	float b = (blue + other.blue > 1 ? 1 : blue + other.blue);
+    	return new Color(r, g, b);
     }
 
     public float getAlpha() {
@@ -39,11 +46,11 @@ public class Color {
         return red;
     }
 
-    public float getBlue() {
-        return blue;
-    }
-
     public float getGreen() {
         return green;
+    }
+    
+    public float getBlue() {
+        return blue;
     }
 }

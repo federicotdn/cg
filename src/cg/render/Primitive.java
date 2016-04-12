@@ -7,9 +7,13 @@ import cg.math.Vec4;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Primitive {	
-	private Matrix4 invTransform = new Matrix4();
+public abstract class Primitive {
+	
 	protected Matrix4 transform;
+	private Matrix4 invTransform;
+
+	private Matrix4 invRotation;
+	
 	protected List<Primitive> children = new ArrayList<Primitive>();
 	protected Primitive parent;
 	private BoundingBox bbox;
@@ -31,36 +35,43 @@ public abstract class Primitive {
 		Matrix4 rotX = Matrix4.rotationX(r.x);
 		Matrix4 rotY = Matrix4.rotationY(r.y);
 		Matrix4 rotZ = Matrix4.rotationZ(r.z);
-		Matrix4 rot = rotZ.mult(rotY).mult(rotX);
+		Matrix4 rot = rotZ.mul(rotY).mul(rotX);
 		Matrix4 scale = Matrix4.scaleFromVec(s);
 		
 		Matrix4 transform = translation;
-		transform = transform.mult(rot).mult(scale);
-		invTransform = transform.inverse();
+		transform = transform.mul(rot).mul(scale);
+		
+		this.invTransform = transform.inverse();
 		this.transform = transform;
+		
+		this.invRotation = rot.inverse();
+		
 		this.bbox = calculateBBox(translation, rot, scale);
 	}
 	
 	public Collision collideWith(Ray ray) {
 		Vec4 localOrigin = ray.getOrigin().asPosition();
-		localOrigin = invTransform.mul(localOrigin);
+		localOrigin = invTransform.mulVec(localOrigin);
 		
 		Vec4 localDirection = ray.getDirection().asDirection();
-		localDirection = invTransform.mul(localDirection);
+		localDirection = invTransform.mulVec(localDirection);
 		
-		Ray localRay = new Ray(localOrigin.toVec3(), localDirection.toVec3().normalize());
+		Ray localRay = new Ray(localOrigin.asVec3(), localDirection.asVec3().normalize());
 		Collision localCol = calculateCollision(localRay);
 		if (localCol == null) {
 			return null;
 		}
 		
-		Vec3 localCollisionPos = localRay.getOrigin().sum(localRay.getDirection().mul(localCol.getT()));
-		Vec3 collisionPos = transform.mul(localCollisionPos.asPosition()).toVec3();
+		Vec3 localCollisionPos = localCol.getPosition();
+		Vec3 collisionPos = transform.mulVec(localCollisionPos.asPosition()).asVec3();
 		
 		Vec3 path = collisionPos.sub(ray.getOrigin());
 		float t = path.len();
 
-		return new Collision(ray, t);
+		Vec4 localNormal = localCol.getNormal().asDirection();
+		Vec3 worldNormal = invRotation.mulVec(localNormal).asVec3();
+		
+		return new Collision(ray, t, worldNormal);
 	}
 
 	public BoundingBox getBBox() {

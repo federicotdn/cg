@@ -4,6 +4,7 @@ import cg.math.Vec3;
 import cg.render.Camera;
 import cg.render.Image;
 import cg.render.Scene;
+import cg.render.lights.PointLight;
 import cg.render.shapes.Sphere;
 
 import java.io.IOException;
@@ -11,8 +12,8 @@ import java.io.IOException;
 public class Start {
 
 	public static void main(String[] args) throws IOException {		
-		int width = 1920;
-		int height = 1080;
+		int width = 600;
+		int height = 600;
 		
 		Scene scene = new Scene();
 		Image img = new Image(width, height);
@@ -38,5 +39,7 @@ public class Start {
 				}
 			}
 		}
+		
+		s.addLight(new PointLight(new Vec3(5, 0, 0)));
 	}
 }

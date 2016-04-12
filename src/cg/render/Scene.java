@@ -3,12 +3,17 @@ package cg.render;
 import java.util.ArrayList;
 import java.util.List;
 
+import cg.math.Vec3;
+
 public class Scene {
 	List<Primitive> primitives;
 	List<Light> lights; //camera, action
 	
+	private final Color BACKGROUND_COLOR = Color.BLACK;
+	
 	public Scene() {
 		primitives = new ArrayList<Primitive>();
+		lights = new ArrayList<Light>();
 	}
 	
 	public void addPrimitive(Primitive p) {
@@ -16,7 +21,7 @@ public class Scene {
 	}
 	
 	public void addLight(Light l) {
-		
+		l.setScene(this);
 		lights.add(l);
 	}
 	
@@ -25,15 +30,31 @@ public class Scene {
 				int x = p % img.getWidth();
 				int y = p / img.getWidth();
 				Ray ray = cam.rayFor(img, x, y);
-				Color c = Color.BLACK; // black
+				Color c = BACKGROUND_COLOR;
 				
 				Collision col = collideRay(ray);
 				if (col != null) {
-					c = new Color(col.getT() / 10.0f);
+					c = getSurfaceColor(col);
 				}
 
 				img.setPixel(x, y, c);
 		}
+	}
+	
+	public Color getSurfaceColor(Collision col) {
+		Vec3 colPos = col.getPosition();
+		Vec3 colNormal = col.getNormal();
+		Color c = new Color(0.05f);
+		
+		for (Light light : lights) {
+			Collision lightCol = light.visibleFrom(colPos, colNormal);
+			if (lightCol != null) {
+				float cosAngle = lightCol.getCosAngle();
+				c = c.sum(new Color(cosAngle));	
+			}
+		}
+		
+		return c;
 	}
 	
 	public Collision collideRay(Ray ray) {
@@ -41,7 +62,11 @@ public class Scene {
 		
 		for (int k = 0; k < primitives.size(); k++) {
 			Collision col = primitives.get(k).collideWith(ray);
-			if (col != null && (last == null || col.getT() < last.getT())) {
+			if (col == null || col.getT() > ray.getMaxT()) {
+				continue;
+			}
+			
+			if (last == null || col.getT() < last.getT()) {
 				last = col;
 			}
 		}

@@ -20,11 +20,6 @@ public class Vec4 {
 	public final float z;
 	public final float w;
 	
-	private Vec4() {
-		/* float fields initialized to 0.0f by default */
-		this(0, 0, 0, 0);
-	}
-	
 	public Vec4(float x, float y, float z, float w) {
 		this.x = x;
 		this.y = y;
@@ -37,7 +32,7 @@ public class Vec4 {
 		return new Vec4(x/len, y/len, z/len, w/len);
 	}
 	
-	public Vec3 toVec3() {
+	public Vec3 asVec3() {
 		return new Vec3(x, y, z);
 	}
 	

@@ -18,7 +18,6 @@ public class Vec3 {
 	public final float z;
 	
 	public Vec3() {
-		/* float fields initialized to 0.0f by default */
 		this(0,0,0);
 	}
 	
@@ -38,6 +37,10 @@ public class Vec3 {
 	
 	public Vec3 sub(Vec3 v) {
 		return new Vec3(x - v.x, y - v.y, z - v.z);
+	}
+	
+	public float dot(Vec3 v) {
+		return x * v.x + y * v.y + z * v.z;
 	}
 	
 	public Vec4 asDirection() {

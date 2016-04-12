@@ -34,18 +34,19 @@ public class Sphere extends Primitive {
 		float t1 = (float) ((-B + Math.sqrt(det)) / (2 * A));
 		
 		float t = (t0 > t1 ? t1 : t0);
+		Vec3 normal = orig.sum(dir.mul(t));
 		
-		return new Collision(ray, t);
+		return new Collision(ray, t, normal);
 	}
 
 	@Override
 	protected BoundingBox calculateBBox(Matrix4 t, Matrix4 r, Matrix4 s) {
 		Vec3 pMin = new Vec3(-radius, -radius, -radius);
 		Vec3 pMax = pMin.mul(-1);
-		Matrix4 ts = t.mult(s);
+		Matrix4 ts = t.mul(s);
 
-		pMin = ts.mul(pMin.asPosition()).toVec3();
-		pMax = ts.mul(pMax.asPosition()).toVec3();
+		pMin = ts.mulVec(pMin.asPosition()).asVec3();
+		pMax = ts.mulVec(pMax.asPosition()).asVec3();
 
 		return  new BoundingBox(pMin, pMax);
 	}

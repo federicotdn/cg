@@ -199,7 +199,7 @@ public class Matrix4 {
 				m30, m31, m32, m33);
 	}
 
-	public Matrix4 mult(Matrix4 m) {
+	public Matrix4 mul(Matrix4 m) {
 		float t00 = m00 * m.m00 + m01 * m.m10 + m02 * m.m20 + m03 * m.m30;
 		float t01 = m00 * m.m01 + m01 * m.m11 + m02 * m.m21 + m03 * m.m31;
 		float t02 = m00 * m.m02 + m01 * m.m12 + m02 * m.m22 + m03 * m.m32;
@@ -235,7 +235,7 @@ public class Matrix4 {
 				m30, m31, m32, m33);
 	}
 
-	public Vec4 mul(Vec4 v) {
+	public Vec4 mulVec(Vec4 v) {
 		float n0 = v.x * m00 + v.y * m01 + v.z * m02 + v.w * m03;
 		float n1 = v.x * m10 + v.y * m11 + v.z * m12 + v.w * m13;
 		float n2 = v.x * m20 + v.y * m21 + v.z * m22 + v.w * m23;
