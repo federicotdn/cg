@@ -42,16 +42,10 @@ public class Scene {
 	}
 	
 	public Color getSurfaceColor(Collision col) {
-		Vec3 colPos = col.getPosition();
-		Vec3 colNormal = col.getNormal();
 		Color c = new Color(0.05f);
 		
 		for (Light light : lights) {
-			Collision lightCol = light.visibleFrom(colPos, colNormal);
-			if (lightCol != null) {
-				float cosAngle = lightCol.getCosAngle();
-				c = c.sum(new Color(cosAngle));	
-			}
+			c = c.sum(light.illuminateSurface(col));
 		}
 		
 		return c;

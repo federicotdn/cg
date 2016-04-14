@@ -40,6 +40,6 @@ public class Start {
 			}
 		}
 		
-		s.addLight(new PointLight(new Vec3(5, 0, 0)));
+		s.addLight(new PointLight(new Vec3(3, 2, 7)));
 	}
 }
