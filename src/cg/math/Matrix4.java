@@ -227,6 +227,15 @@ public class Matrix4 {
 				t30, t31, t32, t33);
 	}
 
+	public Matrix4 traspose() {
+		return new Matrix4(
+				m00, m10, m20, m30,
+				m01, m11, m21, m31,
+				m02, m12, m22, m32,
+				m03, m13, m23, m33
+		);
+	}
+
 	public Matrix4 clone() {
 		return new Matrix4(
 				m00, m01, m02, m03,

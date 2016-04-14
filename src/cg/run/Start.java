@@ -12,8 +12,8 @@ import java.io.IOException;
 public class Start {
 
 	public static void main(String[] args) throws IOException {		
-		int width = 600;
-		int height = 600;
+		int width = 1920;
+		int height = 1080;
 		
 		Scene scene = new Scene();
 		Image img = new Image(width, height);
@@ -40,6 +40,6 @@ public class Start {
 			}
 		}
 		
-		s.addLight(new PointLight(new Vec3(5, 0, 0)));
+		s.addLight(new PointLight(new Vec3(2, 4, 7)));
 	}
 }

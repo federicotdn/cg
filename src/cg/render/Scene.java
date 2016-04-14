@@ -3,8 +3,6 @@ package cg.render;
 import java.util.ArrayList;
 import java.util.List;
 
-import cg.math.Vec3;
-
 public class Scene {
 	List<Primitive> primitives;
 	List<Light> lights; //camera, action
@@ -24,36 +22,36 @@ public class Scene {
 		l.setScene(this);
 		lights.add(l);
 	}
-	
-	public void render(Camera cam, Image img) {
-		for (int p = 0; p < img.getHeight() * img.getWidth(); p++) {
-				int x = p % img.getWidth();
-				int y = p / img.getWidth();
-				Ray ray = cam.rayFor(img, x, y);
-				Color c = BACKGROUND_COLOR;
-				
-				Collision col = collideRay(ray);
-				if (col != null) {
-					c = getSurfaceColor(col);
-				}
 
-				img.setPixel(x, y, c);
+	public void render(Camera cam, Image img) {
+		long count = 0;
+		for (int p = 0; p < img.getHeight() * img.getWidth(); p++) {
+			int x = p % img.getWidth();
+			int y = p / img.getWidth();
+			Ray ray = cam.rayFor(img, x, y);
+			Color c = BACKGROUND_COLOR;
+
+			Collision col = collideRay(ray);
+			if (col != null) {
+				c = getSurfaceColor(col);
+			}
+
+			img.setPixel(x, y, c);
+			count++;
+
+			if (count % (img.getHeight() * img.getWidth() /20) == 0) {
+				System.out.println((int)((float)count / (img.getWidth() * img.getHeight()) * 100)  + " %");
+			}
 		}
 	}
 	
 	public Color getSurfaceColor(Collision col) {
-		Vec3 colPos = col.getPosition();
-		Vec3 colNormal = col.getNormal();
 		Color c = new Color(0.05f);
 		
 		for (Light light : lights) {
-			Collision lightCol = light.visibleFrom(colPos, colNormal);
-			if (lightCol != null) {
-				float cosAngle = lightCol.getCosAngle();
-				c = c.sum(new Color(cosAngle));	
-			}
+			c = c.sum(light.illuminateSurface(col));
 		}
-		
+
 		return c;
 	}
 	

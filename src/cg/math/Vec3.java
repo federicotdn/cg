@@ -40,7 +40,7 @@ public class Vec3 {
 	}
 	
 	public float dot(Vec3 v) {
-		return x * v.x + y * v.y + z * v.z;
+		return (x * v.x) + (y * v.y) + (z * v.z);
 	}
 	
 	public Vec4 asDirection() {

@@ -69,7 +69,7 @@ public abstract class Primitive {
 		float t = path.len();
 
 		Vec4 localNormal = localCol.getNormal().asDirection();
-		Vec3 worldNormal = invRotation.mulVec(localNormal).asVec3();
+		Vec3 worldNormal = invTransform.traspose().mulVec(localNormal).asVec3();
 		
 		return new Collision(ray, t, worldNormal);
 	}

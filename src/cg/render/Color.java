@@ -30,8 +30,12 @@ public class Color {
         this.green = green;
         this.blue = blue;
     }
-    
+
     public Color sum(Color other) {
+        if (other == null) {
+            return this;
+        }
+
     	float r = (red + other.red > 1 ? 1 : red + other.red);
     	float g = (green + other.green > 1 ? 1 : green + other.green);
     	float b = (blue + other.blue > 1 ? 1 : blue + other.blue);
@@ -52,5 +56,15 @@ public class Color {
     
     public float getBlue() {
         return blue;
+    }
+
+    @Override
+    public String toString() {
+        return "Color{" +
+                "alpha=" + alpha +
+                ", red=" + red +
+                ", green=" + green +
+                ", blue=" + blue +
+                '}';
     }
 }
