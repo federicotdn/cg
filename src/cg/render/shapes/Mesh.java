@@ -15,7 +15,7 @@ public class Mesh extends Primitive {
 	}
 
 	@Override
-	protected BoundingBox calculateBBox(Matrix4 t, Matrix4 r, Matrix4 s) {
+	protected BoundingBox calculateBBox(Matrix4 trs) {
 		return null;
 	}
 }

@@ -1,5 +1,6 @@
 package cg.render;
 
+import cg.math.Matrix4;
 import cg.math.Vec3;
 
 /**
@@ -20,5 +21,10 @@ public class BoundingBox {
                 "pMin=" + pMin +
                 ", pMax=" + pMax +
                 '}';
+    }
+
+    public BoundingBox calculateBBox(Matrix4 trs) {
+        return null;
+
     }
 }

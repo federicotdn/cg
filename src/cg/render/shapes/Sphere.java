@@ -40,14 +40,10 @@ public class Sphere extends Primitive {
 	}
 
 	@Override
-	protected BoundingBox calculateBBox(Matrix4 t, Matrix4 r, Matrix4 s) {
+	protected BoundingBox calculateBBox(Matrix4 trs) {
 		Vec3 pMin = new Vec3(-radius, -radius, -radius);
 		Vec3 pMax = pMin.mul(-1);
-		Matrix4 ts = t.mul(s);
 
-		pMin = ts.mulVec(pMin.asPosition()).asVec3();
-		pMax = ts.mulVec(pMax.asPosition()).asVec3();
-
-		return  new BoundingBox(pMin, pMax);
+		return  new BoundingBox(pMin, pMax).calculateBBox(trs);
 	}
 }

@@ -21,15 +21,15 @@ public class PointLight extends Light {
 
 	@Override
 	public Color illuminateSurface(Collision col) {
-		Vec3 path = position.sub(col.getPosition());
-		float cosAngle = col.getNormal().dot(path.normalize());
+		Vec3 surfaceToLight = position.sub(col.getPosition());
+		float cosAngle = col.getNormal().dot(surfaceToLight.normalize());
 		if (cosAngle < 0) {
 			return null;
 		}
 
-		float t = path.len();
-		Ray ray = new Ray(col.getPosition().sum(path.mul(0.1f)), path);
-		ray.setMaxT(t * 0.1f);
+		float t = surfaceToLight.len();
+		Ray ray = new Ray(col.getPosition().sum(surfaceToLight.normalize().mul(0.001f)), surfaceToLight);
+		ray.setMaxT(t);
 		if (scene.collideRay(ray) != null) {
 			return null;
 		}

@@ -9,7 +9,11 @@ public class Camera {
 	private Matrix4 transform;
 	
 	public Camera(Vec3 pos, Vec3 rotation, float fov) {
-		transform = Matrix4.transFromVec(pos);
+		Matrix4 rotX = Matrix4.rotationX(rotation.x);
+		Matrix4 rotY = Matrix4.rotationY(rotation.y);
+		Matrix4 rotZ = Matrix4.rotationZ(rotation.z);
+		Matrix4 rot = rotZ.mul(rotY).mul(rotX);
+		transform = Matrix4.transFromVec(pos).mul(rot);
 		//TODO: add rotation matrices
 		this.fovDegrees = fov;
 	}

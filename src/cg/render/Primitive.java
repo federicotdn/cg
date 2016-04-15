@@ -18,7 +18,7 @@ public abstract class Primitive {
 	protected Primitive parent;
 	private BoundingBox bbox;
 	
-	protected void setTransform(Vec3 t, Vec3 r, Vec3 s) {
+	public void setTransform(Vec3 t, Vec3 r, Vec3 s) {
 		if (t == null) {
 			t = new Vec3();
 		}
@@ -46,7 +46,7 @@ public abstract class Primitive {
 		
 		this.invRotation = rot.inverse();
 		
-		this.bbox = calculateBBox(translation, rot, scale);
+		this.bbox = calculateBBox(transform);
 	}
 	
 	public Collision collideWith(Ray ray) {
@@ -70,7 +70,7 @@ public abstract class Primitive {
 
 		Vec4 localNormal = localCol.getNormal().asDirection();
 		Vec3 worldNormal = invTransform.traspose().mulVec(localNormal).asVec3();
-		
+
 		return new Collision(ray, t, worldNormal);
 	}
 
@@ -79,5 +79,5 @@ public abstract class Primitive {
 	}
 	
 	protected abstract Collision calculateCollision(Ray ray);
-	protected abstract BoundingBox calculateBBox(Matrix4 t, Matrix4 r, Matrix4 s);
+	protected abstract BoundingBox calculateBBox(Matrix4 trs);
 }

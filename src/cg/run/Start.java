@@ -5,6 +5,7 @@ import cg.render.Camera;
 import cg.render.Image;
 import cg.render.Scene;
 import cg.render.lights.PointLight;
+import cg.render.shapes.InfinitePlane;
 import cg.render.shapes.Sphere;
 
 import java.io.IOException;
@@ -17,7 +18,7 @@ public class Start {
 		
 		Scene scene = new Scene();
 		Image img = new Image(width, height);
-		Camera cam = new Camera(new Vec3(3, 2, 7), new Vec3(10,0,0), 60);
+		Camera cam = new Camera(new Vec3(2.2f, 0.0f, 7), new Vec3(-5,0,0), 60);
 
 		testFillScene(scene);
 		
@@ -29,7 +30,7 @@ public class Start {
 	}
 	
 	private static void testFillScene(Scene s) {
-		int depth = 4;
+		int depth = 3;
 
 		for (int i = 0; i < depth; i++) {
 			for (int j = 0; j < depth; j++) {
@@ -39,7 +40,11 @@ public class Start {
 				}
 			}
 		}
+
+		InfinitePlane plane = new InfinitePlane();
+		plane.setTransform(new Vec3(0, -3, 0), null, null);
+		s.addPrimitive(plane);
 		
-		s.addLight(new PointLight(new Vec3(2, 4, 7)));
+		s.addLight(new PointLight(new Vec3(0, 2, 7)));
 	}
 }
