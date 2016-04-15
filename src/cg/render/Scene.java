@@ -49,7 +49,12 @@ public class Scene {
 		Color c = new Color(0.05f);
 		
 		for (Light light : lights) {
-			c = c.sum(light.illuminateSurface(col));
+			Color i = light.illuminateSurface(col);
+			if (i == null) {
+				continue;
+			}
+			
+			c = c.sum(i);
 		}
 
 		return c;

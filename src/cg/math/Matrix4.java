@@ -172,31 +172,31 @@ public class Matrix4 {
 		}
 		float idet = 1.0f / det;
 
-		float m00 = c00 * idet;
-		float m01 = -c10 * idet;
-		float m02 = c20 * idet;
-		float m03 = -c30 * idet;
+		float n00 = c00 * idet;
+		float n01 = -c10 * idet;
+		float n02 = c20 * idet;
+		float n03 = -c30 * idet;
 
-		float m10 = -c01 * idet;
-		float m11 = c11 * idet;
-		float m12 = -c21 * idet;
-		float m13 = c31 * idet;
+		float n10 = -c01 * idet;
+		float n11 = c11 * idet;
+		float n12 = -c21 * idet;
+		float n13 = c31 * idet;
 
-		float m20 = c02 * idet;
-		float m21 = -c12 * idet;
-		float m22 = c22 * idet;
-		float m23 = -c32 * idet;
+		float n20 = c02 * idet;
+		float n21 = -c12 * idet;
+		float n22 = c22 * idet;
+		float n23 = -c32 * idet;
 
-		float m30 = -c03 * idet;
-		float m31 = c13 * idet;
-		float m32 = -c23 * idet;
-		float m33 = c33 * idet;
+		float n30 = -c03 * idet;
+		float n31 = c13 * idet;
+		float n32 = -c23 * idet;
+		float n33 = c33 * idet;
 
 		return new Matrix4(
-				m00, m01, m02, m03,
-				m10, m11, m12, m13,
-				m20, m21, m22, m23,
-				m30, m31, m32, m33);
+				n00, n01, n02, n03,
+				n10, n11, n12, n13,
+				n20, n21, n22, n23,
+				n30, n31, n32, n33);
 	}
 
 	public Matrix4 mul(Matrix4 m) {

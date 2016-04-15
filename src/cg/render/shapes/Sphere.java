@@ -10,10 +10,13 @@ import cg.render.Ray;
 public class Sphere extends Primitive {
 
 	private float radius;
+	public int id;
+	private static int idgen = 0;
 	
 	public Sphere(Vec3 t, Vec3 r, Vec3 s, float radius) {
 		this.radius = radius;
 		setTransform(t, r, s);
+		id = idgen++;
 	}
 	
 	@Override
@@ -36,7 +39,7 @@ public class Sphere extends Primitive {
 		float t = (t0 > t1 ? t1 : t0);
 		Vec3 normal = orig.sum(dir.mul(t));
 		
-		return new Collision(ray, t, normal);
+		return new Collision(ray, t, normal).setName("sphere" + String.valueOf(id));
 	}
 
 	@Override

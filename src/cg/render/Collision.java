@@ -9,6 +9,12 @@ public class Collision {
 	private Vec3 position;
 	private float cosAngle;
 	
+	public String shapeName;
+	public Collision setName(String s) {
+		shapeName = s;
+		return this;
+	}
+	
 	public Collision(Ray ray, float t, Vec3 normal) {
 		this.ray = ray;
 		this.t = t;

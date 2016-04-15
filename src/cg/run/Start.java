@@ -13,12 +13,12 @@ import java.io.IOException;
 public class Start {
 
 	public static void main(String[] args) throws IOException {		
-		int width = 1920;
-		int height = 1080;
+		int width = 300;
+		int height = 300;
 		
 		Scene scene = new Scene();
 		Image img = new Image(width, height);
-		Camera cam = new Camera(new Vec3(2.2f, 0.0f, 7), new Vec3(-5,0,0), 60);
+		Camera cam = new Camera(new Vec3(2.2f, 5.0f, 10), new Vec3(-20,0,0), 60);
 
 		testFillScene(scene);
 		
@@ -30,7 +30,7 @@ public class Start {
 	}
 	
 	private static void testFillScene(Scene s) {
-		int depth = 3;
+		int depth = 4;
 
 		for (int i = 0; i < depth; i++) {
 			for (int j = 0; j < depth; j++) {
@@ -45,6 +45,6 @@ public class Start {
 		plane.setTransform(new Vec3(0, -3, 0), null, null);
 		s.addPrimitive(plane);
 		
-		s.addLight(new PointLight(new Vec3(0, 2, 7)));
+		s.addLight(new PointLight(new Vec3(0, 5, 7)));
 	}
 }

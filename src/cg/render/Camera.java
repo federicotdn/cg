@@ -13,8 +13,8 @@ public class Camera {
 		Matrix4 rotY = Matrix4.rotationY(rotation.y);
 		Matrix4 rotZ = Matrix4.rotationZ(rotation.z);
 		Matrix4 rot = rotZ.mul(rotY).mul(rotX);
-		transform = Matrix4.transFromVec(pos).mul(rot);
-		//TODO: add rotation matrices
+		
+		this.transform = Matrix4.transFromVec(pos).mul(rot);
 		this.fovDegrees = fov;
 	}
 	
@@ -36,6 +36,6 @@ public class Camera {
 		Vec4 direction = direction3.asDirection();
 		direction = transform.mulVec(direction);
 
-		return new Ray(origin.asVec3(), direction.asVec3());
+		return new Ray(origin.asVec3(), direction.asVec3(), null);
 	}
 }

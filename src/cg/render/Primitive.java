@@ -11,8 +11,6 @@ public abstract class Primitive {
 	
 	protected Matrix4 transform;
 	private Matrix4 invTransform;
-
-	private Matrix4 invRotation;
 	
 	protected List<Primitive> children = new ArrayList<Primitive>();
 	protected Primitive parent;
@@ -38,14 +36,8 @@ public abstract class Primitive {
 		Matrix4 rot = rotZ.mul(rotY).mul(rotX);
 		Matrix4 scale = Matrix4.scaleFromVec(s);
 		
-		Matrix4 transform = translation;
-		transform = transform.mul(rot).mul(scale);
-		
+		this.transform = translation.mul(rot).mul(scale);
 		this.invTransform = transform.inverse();
-		this.transform = transform;
-		
-		this.invRotation = rot.inverse();
-		
 		this.bbox = calculateBBox(transform);
 	}
 	
@@ -56,7 +48,14 @@ public abstract class Primitive {
 		Vec4 localDirection = ray.getDirection().asDirection();
 		localDirection = invTransform.mulVec(localDirection);
 		
-		Ray localRay = new Ray(localOrigin.asVec3(), localDirection.asVec3().normalize());
+		Float localMaxT = null;
+		if (ray.getMaxT() != Ray.DEFAULT_MAX_T) {
+			Vec4 localPath = ray.getDirection().mul(ray.getMaxT()).asDirection();
+			localPath = invTransform.mulVec(localPath);
+			localMaxT = localPath.asVec3().len();			
+		}
+		
+		Ray localRay = new Ray(localOrigin.asVec3(), localDirection.asVec3().normalize(), localMaxT);
 		Collision localCol = calculateCollision(localRay);
 		if (localCol == null) {
 			return null;
@@ -71,7 +70,7 @@ public abstract class Primitive {
 		Vec4 localNormal = localCol.getNormal().asDirection();
 		Vec3 worldNormal = invTransform.traspose().mulVec(localNormal).asVec3();
 
-		return new Collision(ray, t, worldNormal);
+		return new Collision(ray, t, worldNormal).setName(localCol.shapeName);
 	}
 
 	public BoundingBox getBBox() {
