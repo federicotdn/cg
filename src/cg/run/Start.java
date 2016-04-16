@@ -4,6 +4,7 @@ import cg.math.Vec3;
 import cg.render.Camera;
 import cg.render.Image;
 import cg.render.Scene;
+import cg.render.lights.DirectionalLight;
 import cg.render.lights.PointLight;
 import cg.render.shapes.InfinitePlane;
 import cg.render.shapes.Sphere;
@@ -18,7 +19,7 @@ public class Start {
 		
 		Scene scene = new Scene();
 		Image img = new Image(width, height);
-		Camera cam = new Camera(new Vec3(0, 2.0f, 5), new Vec3(-20,0,0), 60);
+		Camera cam = new Camera(new Vec3(3, 5.0f, 12), new Vec3(-20,0,0), 60);
 
 		testFillScene(scene);
 		
@@ -30,12 +31,12 @@ public class Start {
 	}
 	
 	private static void testFillScene(Scene s) {
-		int depth = 1;
+		int depth = 4;
 
 		for (int i = 0; i < depth; i++) {
 			for (int j = 0; j < depth; j++) {
 				for (int k = 0; k < depth; k++) {
-					Sphere p = new Sphere(new Vec3(i * 1.3f, j * 1.3f, k * 1.3f), null, null, 1);
+					Sphere p = new Sphere(new Vec3(i * 1.3f, j * 1.3f, k * 1.3f), null, null, 0.6f);
 					s.addPrimitive(p);
 				}
 			}
@@ -45,6 +46,12 @@ public class Start {
 		plane.setTransform(new Vec3(0, -3, 0), null, null);
 		s.addPrimitive(plane);
 		
-		s.addLight(new PointLight(new Vec3(0, 5, 0)));
+		//s.addLight(new PointLight(new Vec3(-2, 6, 9)));
+		
+		//Searle: Icarus, how close is this to full brightness?
+		//Icarus: At this distance of 36 million miles, you are observing the sun at two percent of full brightness.
+		//Searle: Two percent? Can you show me four percent?
+		//Icarus: Four percent would result in irreversible damage to your retinas.
+		s.addLight(new DirectionalLight(new Vec3(-1, -1, 0)));
 	}
 }

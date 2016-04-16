@@ -12,8 +12,6 @@ import cg.render.Ray;
  * 
  */
 public class PointLight extends Light {
-
-	private final float EPSILON = 0.0005f;
 	private Vec3 position;
 	
 	public PointLight(Vec3 position) {
@@ -29,10 +27,10 @@ public class PointLight extends Light {
 			return null;
 		}
 		
-		Vec3 displacedOrigin = col.getPosition().sum(col.getNormal().mul(EPSILON));
+		Vec3 displacedOrigin = col.getPosition().sum(col.getNormal().mul(Light.EPSILON));
 		Vec3 path = position.sub(displacedOrigin);
 		
-		Ray ray = new Ray(displacedOrigin, path, path.len() - EPSILON);
+		Ray ray = new Ray(displacedOrigin, path, path.len() - Light.EPSILON);
 		
 		Collision sceneCol = scene.collideRay(ray);
 		if (sceneCol != null) {
