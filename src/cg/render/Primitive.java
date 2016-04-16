@@ -70,7 +70,7 @@ public abstract class Primitive {
 		Vec4 localNormal = localCol.getNormal().asDirection();
 		Vec3 worldNormal = invTransform.traspose().mulVec(localNormal).asVec3();
 
-		return new Collision(ray, t, worldNormal).setName(localCol.shapeName);
+		return new Collision(ray, t, worldNormal);
 	}
 
 	public BoundingBox getBBox() {

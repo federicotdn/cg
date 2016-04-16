@@ -13,7 +13,7 @@ import cg.render.Ray;
  */
 public class PointLight extends Light {
 
-	private final float EPSILON = 0.05f;
+	private final float EPSILON = 0.0005f;
 	private Vec3 position;
 	
 	public PointLight(Vec3 position) {
@@ -24,10 +24,11 @@ public class PointLight extends Light {
 	public Color illuminateSurface(Collision col) {
 		Vec3 surfaceToLight = position.sub(col.getPosition());
 		float cosAngle = col.getNormal().dot(surfaceToLight.normalize());
+		
 		if (cosAngle < 0) {
 			return null;
 		}
-
+		
 		Vec3 displacedOrigin = col.getPosition().sum(col.getNormal().mul(EPSILON));
 		Vec3 path = position.sub(displacedOrigin);
 		
@@ -35,8 +36,7 @@ public class PointLight extends Light {
 		
 		Collision sceneCol = scene.collideRay(ray);
 		if (sceneCol != null) {
-			//if (!sceneCol.shapeName.equals(col.shapeName))
-				return null;
+			return null;
 		}
 
 		return new Color(cosAngle);

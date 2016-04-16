@@ -63,8 +63,8 @@ public class Scene {
 	public Collision collideRay(Ray ray) {
 		Collision last = null;
 		
-		for (int k = 0; k < primitives.size(); k++) {
-			Collision col = primitives.get(k).collideWith(ray);
+		for (Primitive p : primitives) {
+			Collision col = p.collideWith(ray);
 			if (col == null || col.getT() > ray.getMaxT()) {
 				continue;
 			}
