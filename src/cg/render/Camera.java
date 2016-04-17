@@ -7,6 +7,7 @@ import cg.math.Vec4;
 public class Camera {
 	private float fovDegrees;
 	private Matrix4 transform;
+	private Vec3 pos;
 	
 	public Camera(Vec3 pos, Vec3 rotation, float fov) {
 		Matrix4 rotX = Matrix4.rotationX(rotation.x);
@@ -14,8 +15,13 @@ public class Camera {
 		Matrix4 rotZ = Matrix4.rotationZ(rotation.z);
 		Matrix4 rot = rotZ.mul(rotY).mul(rotX);
 		
+		this.pos = pos;
 		this.transform = Matrix4.transFromVec(pos).mul(rot);
 		this.fovDegrees = fov;
+	}
+	
+	public Vec3 getPosition() {
+		return pos;
 	}
 	
 	public Ray rayFor(Image img, int pixelX, int pixelY) {

@@ -5,11 +5,17 @@ import cg.render.Collision;
 import cg.render.Color;
 import cg.render.Light;
 import cg.render.Ray;
+import cg.render.Scene;
 
 public class DirectionalLight extends Light {
 	private Vec3 negDirection;
 	
-	public DirectionalLight(Vec3 direction) {
+	public DirectionalLight(Scene scene, Vec3 direction) {
+		this(scene, Color.WHITE, 0.4f, direction);
+	}
+	
+	public DirectionalLight(Scene scene, Color color, float intensity, Vec3 direction) {
+		super(scene, color, intensity);
 		this.negDirection = direction.normalize().mul(-1);
 	}
 
@@ -27,6 +33,6 @@ public class DirectionalLight extends Light {
 			return null;
 		}
 		
-		return new Color(cosAngle);
+		return col.getPrimitive().getMaterial().surfaceColor(col, this, negDirection, scene.getCamera().getPosition());
 	}
 }

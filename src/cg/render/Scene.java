@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Scene {
-	List<Primitive> primitives;
-	List<Light> lights; //camera, action
+	private List<Primitive> primitives;
+	private List<Light> lights; //camera, action
+	private Camera cam;
 	
 	private final Color BACKGROUND_COLOR = Color.BLACK;
 	
-	public Scene() {
+	public Scene(Camera cam) {
+		this.cam = cam;
 		primitives = new ArrayList<Primitive>();
 		lights = new ArrayList<Light>();
 	}
@@ -19,11 +21,14 @@ public class Scene {
 	}
 	
 	public void addLight(Light l) {
-		l.setScene(this);
 		lights.add(l);
 	}
+	
+	public Camera getCamera() {
+		return cam;
+	}
 
-	public void render(Camera cam, Image img) {
+	public void render(Image img) {
 		long count = 0;
 		for (int p = 0; p < img.getHeight() * img.getWidth(); p++) {
 			int x = p % img.getWidth();
@@ -46,7 +51,7 @@ public class Scene {
 	}
 	
 	public Color getSurfaceColor(Collision col) {
-		Color c = new Color(0.05f);
+		Color c = Color.BLACK;
 		
 		for (Light light : lights) {
 			Color i = light.illuminateSurface(col);

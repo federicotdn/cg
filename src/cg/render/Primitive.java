@@ -3,6 +3,7 @@ package cg.render;
 import cg.math.Matrix4;
 import cg.math.Vec3;
 import cg.math.Vec4;
+import cg.render.materials.Lambert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,10 +12,15 @@ public abstract class Primitive {
 	
 	protected Matrix4 transform;
 	private Matrix4 invTransform;
+	private Material material;
 	
 	protected List<Primitive> children = new ArrayList<Primitive>();
 	protected Primitive parent;
 	private BoundingBox bbox;
+	
+	public Primitive() {
+		material = Lambert.LAMBERT_DEFAULT;
+	}
 	
 	public void setTransform(Vec3 t, Vec3 r, Vec3 s) {
 		if (t == null) {
@@ -70,11 +76,19 @@ public abstract class Primitive {
 		Vec4 localNormal = localCol.getNormal().asDirection();
 		Vec3 worldNormal = invTransform.traspose().mulVec(localNormal).asVec3();
 
-		return new Collision(ray, t, worldNormal);
+		return new Collision(localCol.getPrimitive(), ray, t, worldNormal, localCol.u, localCol.v);
 	}
 
 	public BoundingBox getBBox() {
 		return bbox;
+	}
+	
+	public Material getMaterial() {
+		return material;
+	}
+	
+	public void setMaterial(Material material) {
+		this.material = material;
 	}
 	
 	protected abstract Collision calculateCollision(Ray ray);

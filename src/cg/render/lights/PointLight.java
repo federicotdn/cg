@@ -5,6 +5,7 @@ import cg.render.Collision;
 import cg.render.Color;
 import cg.render.Light;
 import cg.render.Ray;
+import cg.render.Scene;
 
 /*
  * 
@@ -14,7 +15,12 @@ import cg.render.Ray;
 public class PointLight extends Light {
 	private Vec3 position;
 	
-	public PointLight(Vec3 position) {
+	public PointLight(Scene scene, Vec3 position) {
+		this(scene, Color.WHITE, 0.01f, position);
+	}
+	
+	public PointLight(Scene scene, Color color, float intensity, Vec3 position) {
+		super(scene, color, intensity);
 		this.position = position;
 	}
 
@@ -37,6 +43,6 @@ public class PointLight extends Light {
 			return null;
 		}
 
-		return new Color(cosAngle);
+		return col.getPrimitive().getMaterial().surfaceColor(col, this, surfaceToLight, scene.getCamera().getPosition());
 	}
 }

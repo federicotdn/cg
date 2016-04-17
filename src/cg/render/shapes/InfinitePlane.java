@@ -22,7 +22,7 @@ public class InfinitePlane extends Primitive {
         if (Math.abs(collide) > 0) {
             float t = -(rPos.dot(NORMAL)/rDir.dot(NORMAL));
             if (t > 0) {
-                return new Collision(ray, t, NORMAL);
+                return new Collision(this, ray, t, NORMAL, 0, 0);
             }
         }
 

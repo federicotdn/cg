@@ -40,7 +40,7 @@ public class Sphere extends Primitive {
 		float t = (t0 > t1 ? t1 : t0);
 		Vec3 normal = orig.sum(dir.mul(t));
 		
-		return new Collision(ray, t, normal);
+		return new Collision(this, ray, t, normal, 0, 0); //TODO: Fix UV
 	}
 
 	@Override

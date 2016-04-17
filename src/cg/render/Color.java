@@ -17,7 +17,6 @@ public class Color {
 
     public Color(float red, float green, float blue) {
         this(1.0f, red, green, blue);
-
     }
 
     public Color(float color) {
@@ -29,17 +28,38 @@ public class Color {
         this.red = red;
         this.green = green;
         this.blue = blue;
+        clamp();
     }
 
     public Color sum(Color other) {
         if (other == null) {
             return this;
         }
-
-    	float r = (red + other.red > 1 ? 1 : red + other.red);
-    	float g = (green + other.green > 1 ? 1 : green + other.green);
-    	float b = (blue + other.blue > 1 ? 1 : blue + other.blue);
-    	return new Color(r, g, b);
+    	return new Color(red + other.red, green + other.green, blue + other.blue);
+    }
+    
+    private void clamp() {
+    	if (red < 0) {
+    		red = 0;
+    	} else if (red > 1) {
+    		red = 1;
+    	}
+    	
+    	if (green < 0) {
+    		green = 0;
+    	} else if (green > 1) {
+    		green = 1;
+    	}
+    	
+    	if (blue < 0) {
+    		blue = 0;
+    	} else if (blue > 1) {
+    		blue = 1;
+    	}
+    }
+    
+    public Color mul(float v) {
+    	return new Color(red * v, green * v, blue * v);
     }
 
     public float getAlpha() {
