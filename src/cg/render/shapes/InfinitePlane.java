@@ -15,14 +15,19 @@ public class InfinitePlane extends Primitive {
 
     @Override
     protected Collision calculateCollision(Ray ray) {
+        Float t = planeT(ray, NORMAL, 0);
+        return t != null ? new Collision(this, ray, t, NORMAL, 0, 0) : null;
+    }
+
+    public static Float planeT(Ray ray, Vec3 normal, float d) {
         Vec3 rDir = ray.getDirection();
         Vec3 rPos = ray.getOrigin();
-        float collide = rDir.dot(NORMAL);
+        float collide = rDir.dot(normal);
 
         if (Math.abs(collide) > 0) {
-            float t = -(rPos.dot(NORMAL)/rDir.dot(NORMAL));
+            float t = -((rPos.dot(normal) + d)/rDir.dot(normal));
             if (t > 0) {
-                return new Collision(this, ray, t, NORMAL, 0, 0);
+                return t;
             }
         }
 

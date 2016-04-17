@@ -1,5 +1,7 @@
 package cg.render;
 
+import cg.math.MathUtils;
+
 /**
  * Created by Hobbit on 4/6/16.
  */
@@ -24,11 +26,10 @@ public class Color {
     }
 
     public Color(float alpha, float red, float green, float blue) {
-        this.alpha = alpha;
-        this.red = red;
-        this.green = green;
-        this.blue = blue;
-        clamp();
+        this.alpha = MathUtils.clamp(alpha);
+        this.red = MathUtils.clamp(red);
+        this.green = MathUtils.clamp(green);
+        this.blue = MathUtils.clamp(blue);
     }
 
     public Color sum(Color other) {
@@ -36,26 +37,6 @@ public class Color {
             return this;
         }
     	return new Color(red + other.red, green + other.green, blue + other.blue);
-    }
-    
-    private void clamp() {
-    	if (red < 0) {
-    		red = 0;
-    	} else if (red > 1) {
-    		red = 1;
-    	}
-    	
-    	if (green < 0) {
-    		green = 0;
-    	} else if (green > 1) {
-    		green = 1;
-    	}
-    	
-    	if (blue < 0) {
-    		blue = 0;
-    	} else if (blue > 1) {
-    		blue = 1;
-    	}
     }
     
     public Color mul(float v) {

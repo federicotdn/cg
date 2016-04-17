@@ -5,20 +5,19 @@ import cg.render.Camera;
 import cg.render.Color;
 import cg.render.Image;
 import cg.render.Scene;
-import cg.render.lights.DirectionalLight;
-import cg.render.lights.PointLight;
 import cg.render.lights.SpotLight;
 import cg.render.materials.Lambert;
 import cg.render.shapes.InfinitePlane;
 import cg.render.shapes.Sphere;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 public class Start {
 
 	public static void main(String[] args) throws IOException {		
-		int width = 600;
-		int height = 600;
+		int width = 1920;
+		int height = 1080;
 		
 		Image img = new Image(width, height);
 		Camera cam = new Camera(new Vec3(3, 3.0f, -16), new Vec3(20,0,0), 60);
@@ -27,8 +26,11 @@ public class Start {
 		testFillScene(scene);
 		
 		System.out.println("Begin.");
+		long initialTime = System.currentTimeMillis();
 		scene.render(img);
-		System.out.println("Done.");
+		long totalTime = System.currentTimeMillis() - initialTime;
+		System.out.println("Done. Duration: " + TimeUnit.MILLISECONDS.toMinutes(totalTime) + "m " +
+				TimeUnit.MILLISECONDS.toSeconds(totalTime) % 60 + "s");
 		
 		img.writeFile("img/test.png");
 	}
@@ -51,7 +53,7 @@ public class Start {
 
 		InfinitePlane plane = new InfinitePlane();
 		plane.setTransform(new Vec3(0, -3, 0), null, null);
-		s.addPrimitive(plane);
+//		s.addPrimitive(plane);
 		
 		//s.addLight(new PointLight(s, Color.WHITE, 0.4f, new Vec3(-2, 10, 9)));
 		

@@ -46,6 +46,32 @@ public class Vec3 {
 	public Vec4 asDirection() {
 		return new Vec4(x, y, z, 0);
 	}
+
+	public float getCoordByAxis(int axis) {
+		switch (axis) {
+			case 0:
+				return x;
+			case 1:
+				return y;
+			case 2:
+				return z;
+			default:
+				throw new IllegalArgumentException("Invalid axis");
+		}
+	}
+
+	public static Vec3 axisVec(int axis) {
+		switch (axis) {
+			case 0:
+				return new Vec3(1,0,0);
+			case 1:
+				return new Vec3(0,1,0);
+			case 2:
+				return new Vec3(0,0,1);
+			default:
+				throw new IllegalArgumentException("Invalid axis");
+		}
+	}
 	
 	public Vec4 asPosition() {
 		return new Vec4(x, y, z, 1);

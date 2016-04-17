@@ -48,6 +48,6 @@ public class Sphere extends Primitive {
 		Vec3 pMin = new Vec3(-radius, -radius, -radius);
 		Vec3 pMax = pMin.mul(-1);
 
-		return  new BoundingBox(pMin, pMax).calculateBBox(trs);
+		return new BoundingBox(pMin, pMax).calculateBBox(trs);
 	}
 }

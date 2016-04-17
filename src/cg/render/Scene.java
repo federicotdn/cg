@@ -1,5 +1,7 @@
 package cg.render;
 
+import cg.accelerator.KDTree;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +9,7 @@ public class Scene {
 	private List<Primitive> primitives;
 	private List<Light> lights; //camera, action
 	private Camera cam;
+	private KDTree kdTree;
 	
 	private final Color BACKGROUND_COLOR = Color.BLACK;
 	
@@ -30,6 +33,7 @@ public class Scene {
 
 	public void render(Image img) {
 		long count = 0;
+		kdTree = new KDTree(primitives, 5, 0);
 		for (int p = 0; p < img.getHeight() * img.getWidth(); p++) {
 			int x = p % img.getWidth();
 			int y = p / img.getWidth();
@@ -66,19 +70,6 @@ public class Scene {
 	}
 	
 	public Collision collideRay(Ray ray) {
-		Collision last = null;
-		
-		for (Primitive p : primitives) {
-			Collision col = p.collideWith(ray);
-			if (col == null || col.getT() > ray.getMaxT()) {
-				continue;
-			}
-			
-			if (last == null || col.getT() < last.getT()) {
-				last = col;
-			}
-		}
-		
-		return last;
+		return kdTree.hit(ray);
 	}
 }
