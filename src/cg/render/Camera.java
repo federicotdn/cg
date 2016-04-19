@@ -38,8 +38,8 @@ public class Camera {
 		Vec4 origin = origin3.asPosition();
 		origin = transform.mulVec(origin);
 		
-		Vec3 direction3 = new Vec3((float)px, (float)py, -1);
-		Vec4 direction = direction3.asDirection();
+		Vec3 direction3 = new Vec3((float)px, (float)py, 1);
+		Vec4 direction = direction3.normalize().asDirection();
 		direction = transform.mulVec(direction);
 
 		return new Ray(origin.asVec3(), direction.asVec3(), null);
