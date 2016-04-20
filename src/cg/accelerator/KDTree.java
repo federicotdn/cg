@@ -6,7 +6,6 @@ import cg.render.Primitive;
 import cg.render.Ray;
 import cg.render.shapes.InfinitePlane;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Predicate;
@@ -18,8 +17,8 @@ import java.util.stream.Collectors;
 public class KDTree {
     private KDTreeNode root;
 
-    public KDTree(List<Primitive> primitives, int threshold, int depth) {
-        this.root = generateTree(primitives, threshold, depth);
+    public KDTree(List<Primitive> primitives, int threshold) {
+        this.root = generateTree(primitives, threshold, 0);
     }
 
     public Collision hit(Ray ray) {
@@ -40,7 +39,7 @@ public class KDTree {
                 return col;
             }
 
-            Float t = InfinitePlane.planeT(ray, Vec3.axisVec(iNode.axis).mul(ray.getOrigin().getCoordByAxis(iNode.axis) - iNode.location > 0 ? 1 : -1), iNode.location);
+            Float t = InfinitePlane.planeT(ray, Vec3.axisVec(iNode.axis).mul(ray.getOrigin().getCoordByAxis(iNode.axis) - iNode.location < 0 ? -1 : 1), iNode.location);
             if (t != null) {
                return hit(ray, iNode.leftChild == sameSideNode ? iNode.rightChild : iNode.leftChild);
             }
@@ -50,24 +49,23 @@ public class KDTree {
     }
 
     private Collision checkCollision(Ray ray, List<Primitive> primitives) {
-        List<BBoxCollision> collisions = new ArrayList<>(primitives.size());
+        Collision closestCol = null;
         for (Primitive primitive : primitives) {
             Float t = primitive.getBBox().collide(ray);
             if (t != null) {
-                collisions.add(new BBoxCollision(primitive, t));
+                Collision col = primitive.collideWith(ray);
+
+                if (col == null || col.getT() > ray.getMaxT()) {
+                    continue;
+                }
+
+                if (closestCol == null || col.getT() < closestCol.getT()) {
+                    closestCol = col;
+                }
             }
         }
 
-        Collections.sort(collisions);
-
-        for (BBoxCollision c : collisions) {
-            Collision col = c.primitive.collideWith(ray);
-            if (col != null) {
-                return col;
-            }
-        }
-
-        return null;
+       return closestCol;
     }
 
     private KDTreeNode generateTree(List<Primitive> primitives, int threshold, int depth) {
@@ -151,20 +149,5 @@ public class KDTree {
 
     private interface KDTreeNode {
         boolean isLeaf();
-    }
-
-    private class BBoxCollision implements Comparable<BBoxCollision> {
-        public Primitive primitive;
-        public Float t;
-
-        public BBoxCollision(Primitive primitive, float t) {
-            this.primitive = primitive;
-            this.t = t;
-        }
-
-        @Override
-        public int compareTo(BBoxCollision o) {
-            return t.compareTo(o.t);
-        }
     }
 }

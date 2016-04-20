@@ -7,6 +7,8 @@ import java.util.List;
 
 public class Scene {
 	private List<Primitive> primitives;
+	private List<Primitive> unboundedPrimitives;
+
 	private List<Light> lights; //camera, action
 	private Camera cam;
 	private KDTree kdTree;
@@ -16,11 +18,16 @@ public class Scene {
 	public Scene(Camera cam) {
 		this.cam = cam;
 		primitives = new ArrayList<Primitive>();
+		unboundedPrimitives = new ArrayList<Primitive>();
 		lights = new ArrayList<Light>();
 	}
 	
 	public void addPrimitive(Primitive p) {
-		primitives.add(p);
+		if (p.getBBox() != null) {
+			primitives.add(p);
+		} else {
+			unboundedPrimitives.add(p);
+		}
 	}
 	
 	public void addLight(Light l) {
@@ -33,7 +40,7 @@ public class Scene {
 
 	public void render(Image img) {
 		long count = 0;
-		kdTree = new KDTree(primitives, 5, 0);
+		kdTree = new KDTree(primitives, 5);
 		for (int p = 0; p < img.getHeight() * img.getWidth(); p++) {
 			int x = p % img.getWidth();
 			int y = p / img.getWidth();
@@ -70,6 +77,17 @@ public class Scene {
 	}
 	
 	public Collision collideRay(Ray ray) {
-		return kdTree.hit(ray);
+		Collision closestCol = kdTree.hit(ray);
+		for (Primitive primitive : unboundedPrimitives) {
+			Collision col = primitive.collideWith(ray);
+			if (col == null || col.getT() > ray.getMaxT()) {
+				continue;
+			}
+
+			if (closestCol == null || col.getT() < closestCol.getT()) {
+				closestCol = col;
+			}
+		}
+		return closestCol;
 	}
 }

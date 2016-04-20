@@ -53,7 +53,7 @@ public class Start {
 
 		InfinitePlane plane = new InfinitePlane();
 		plane.setTransform(new Vec3(0, -3, 0), null, null);
-//		s.addPrimitive(plane);
+		s.addPrimitive(plane);
 		
 		//s.addLight(new PointLight(s, Color.WHITE, 0.4f, new Vec3(-2, 10, 9)));
 		
