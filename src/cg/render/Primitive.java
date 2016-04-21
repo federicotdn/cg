@@ -5,17 +5,8 @@ import cg.math.Vec3;
 import cg.math.Vec4;
 import cg.render.materials.Lambert;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public abstract class Primitive {
-	
-	protected Matrix4 transform;
-	private Matrix4 invTransform;
+public abstract class Primitive extends WorldObject {
 	private Material material;
-	
-	protected List<Primitive> children = new ArrayList<Primitive>();
-	protected Primitive parent;
 	private BoundingBox bbox;
 	
 	public Primitive() {

@@ -1,11 +1,8 @@
 package cg.render.lights;
 
 import cg.math.Vec3;
-import cg.render.Collision;
-import cg.render.Color;
-import cg.render.Light;
-import cg.render.Ray;
-import cg.render.Scene;
+import cg.math.Vec4;
+import cg.render.*;
 
 public class SpotLight extends Light {
 
@@ -13,10 +10,10 @@ public class SpotLight extends Light {
 	private Vec3 direction;
 	private float cosCutoff;
 	
-	public SpotLight(Scene scene, Color color, float intensity, Vec3 position, Vec3 direction, float cutoff) {
-		super(scene, color, intensity);
-		this.position = position;
-		this.direction = direction.normalize();
+	public SpotLight(Scene scene, Color color, float intensity, Vec3 t, Vec3 r, float cutoff) {
+		super(scene, color, intensity, t, r);
+		this.position = t;
+		this.direction = transform.mulVec(new Vec4(0, 0, 1, 0)).asVec3();
 
 		if (Math.abs(cutoff) > 90) {
 			cutoff = 90;

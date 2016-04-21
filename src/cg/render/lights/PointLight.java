@@ -20,7 +20,7 @@ public class PointLight extends Light {
 	}
 	
 	public PointLight(Scene scene, Color color, float intensity, Vec3 position) {
-		super(scene, color, intensity);
+		super(scene, color, intensity, position, null);
 		this.position = position;
 	}
 

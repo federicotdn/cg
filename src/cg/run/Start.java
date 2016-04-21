@@ -20,7 +20,7 @@ public class Start {
 		int height = 1080;
 		
 		Image img = new Image(width, height);
-		Camera cam = new Camera(new Vec3(3, 3.0f, -16), new Vec3(20,0,0), 60);
+		Camera cam = new Camera(new Vec3(0, 2, -10), new Vec3(0,0,0), 60);
 		Scene scene = new Scene(cam);
 
 		testFillScene(scene);
@@ -51,6 +51,7 @@ public class Start {
 			}
 		}
 
+		
 		InfinitePlane plane = new InfinitePlane();
 		plane.setTransform(new Vec3(0, -3, 0), null, null);
 		s.addPrimitive(plane);
@@ -63,7 +64,7 @@ public class Start {
 		//Icarus: Four percent would result in irreversible damage to your retinas.
 		//s.addLight(new DirectionalLight(s, new Vec3(-1, -1, -1)));
 		
-		SpotLight l = new SpotLight(s, Color.WHITE, 0.4f, new Vec3(-15,15,-15), new Vec3(1,-1,1), 20);
+		SpotLight l = new SpotLight(s, Color.WHITE, 0.4f, new Vec3(0,2,-10), new Vec3(0,20,0), 20);
 		s.addLight(l);
 	}
 }

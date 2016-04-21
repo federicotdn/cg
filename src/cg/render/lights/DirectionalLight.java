@@ -1,11 +1,8 @@
 package cg.render.lights;
 
 import cg.math.Vec3;
-import cg.render.Collision;
-import cg.render.Color;
-import cg.render.Light;
-import cg.render.Ray;
-import cg.render.Scene;
+import cg.math.Vec4;
+import cg.render.*;
 
 public class DirectionalLight extends Light {
 	private Vec3 negDirection;
@@ -14,8 +11,9 @@ public class DirectionalLight extends Light {
 		this(scene, Color.WHITE, 0.4f, direction);
 	}
 	
-	public DirectionalLight(Scene scene, Color color, float intensity, Vec3 direction) {
-		super(scene, color, intensity);
+	public DirectionalLight(Scene scene, Color color, float intensity, Vec3 r) {
+		super(scene, color, intensity, null, r);
+		Vec3 direction = transform.mulVec(new Vec4(0,0,1, 0)).asVec3();
 		this.negDirection = direction.normalize().mul(-1);
 	}
 
