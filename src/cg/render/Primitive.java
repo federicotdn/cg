@@ -13,31 +13,6 @@ public abstract class Primitive extends WorldObject {
 		material = Lambert.LAMBERT_DEFAULT;
 	}
 	
-	public void setTransform(Vec3 t, Vec3 r, Vec3 s) {
-		if (t == null) {
-			t = new Vec3();
-		}
-		
-		if (r == null) {
-			r = new Vec3();
-		}
-		
-		if (s == null) {
-			s = new Vec3(1, 1, 1);
-		}
-		
-		Matrix4 translation = Matrix4.transFromVec(t);
-		Matrix4 rotX = Matrix4.rotationX(r.x);
-		Matrix4 rotY = Matrix4.rotationY(r.y);
-		Matrix4 rotZ = Matrix4.rotationZ(r.z);
-		Matrix4 rot = rotZ.mul(rotY).mul(rotX);
-		Matrix4 scale = Matrix4.scaleFromVec(s);
-		
-		this.transform = translation.mul(rot).mul(scale);
-		this.invTransform = transform.inverse();
-		this.bbox = calculateBBox(transform);
-	}
-	
 	public Collision collideWith(Ray ray) {
 		Vec4 localOrigin = ray.getOrigin().asPosition();
 		localOrigin = invTransform.mulVec(localOrigin);
@@ -68,6 +43,12 @@ public abstract class Primitive extends WorldObject {
 		Vec3 worldNormal = invTransform.traspose().mulVec(localNormal).asVec3();
 
 		return new Collision(localCol.getPrimitive(), ray, t, worldNormal, localCol.u, localCol.v);
+	}
+
+	@Override
+	public void calculateTransform() {
+		super.calculateTransform();
+		this.bbox = calculateBBox(transform);
 	}
 
 	public BoundingBox getBBox() {

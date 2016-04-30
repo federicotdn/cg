@@ -1,7 +1,7 @@
 package cg.run;
 
 import cg.math.Vec3;
-import cg.render.Camera;
+import cg.parser.SceneParser;
 import cg.render.Color;
 import cg.render.Image;
 import cg.render.Scene;
@@ -15,23 +15,17 @@ import java.util.concurrent.TimeUnit;
 
 public class Start {
 
-	public static void main(String[] args) throws IOException {		
-		int width = 1920;
-		int height = 1080;
-		
-		Image img = new Image(width, height);
-		Camera cam = new Camera(new Vec3(0, 2, -10), new Vec3(0,0,0), 60);
-		Scene scene = new Scene(cam);
+	public static void main(String[] args) throws IOException {
+		SceneParser parser = new SceneParser("scenes/scene1.json");
+		Scene scene =  parser.parseScene();
 
-		testFillScene(scene);
-		
 		System.out.println("Begin.");
 		long initialTime = System.currentTimeMillis();
-		scene.render(img);
+		Image img = scene.render();
 		long totalTime = System.currentTimeMillis() - initialTime;
 		System.out.println("Done. Duration: " + TimeUnit.MILLISECONDS.toMinutes(totalTime) + "m " +
 				TimeUnit.MILLISECONDS.toSeconds(totalTime) % 60 + "s");
-		
+
 		img.writeFile("img/test.png");
 	}
 	
@@ -51,9 +45,9 @@ public class Start {
 			}
 		}
 
-		
+
 		InfinitePlane plane = new InfinitePlane();
-		plane.setTransform(new Vec3(0, -3, 0), null, null);
+//		plane.setTransform(new Vec3(0, -3, 0), null, null);
 		s.addPrimitive(plane);
 		
 		//s.addLight(new PointLight(s, Color.WHITE, 0.4f, new Vec3(-2, 10, 9)));

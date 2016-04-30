@@ -13,7 +13,7 @@ public class DirectionalLight extends Light {
 	
 	public DirectionalLight(Scene scene, Color color, float intensity, Vec3 r) {
 		super(scene, color, intensity, null, r);
-		Vec3 direction = transform.mulVec(new Vec4(0,0,1, 0)).asVec3();
+		Vec3 direction = getTransform().mulVec(new Vec4(0,0,1, 0)).asVec3();
 		this.negDirection = direction.normalize().mul(-1);
 	}
 
