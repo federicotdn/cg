@@ -29,22 +29,22 @@ public class KDTree {
         if (node.isLeaf()) {
             Leaf leaf = (Leaf)node;
             return checkCollision(ray, leaf.primitives);
-        } else {
-            INode iNode = (INode)node;
-            KDTreeNode sameSideNode = (ray.getOrigin().getCoordByAxis(iNode.axis) < iNode.location ? iNode.leftChild : iNode.rightChild);
-
-            Collision col = hit(ray,sameSideNode);
-
-            if (col != null) {
-                return col;
-            }
-
-            Float t = InfinitePlane.planeT(ray, Vec3.axisVec(iNode.axis).mul(ray.getOrigin().getCoordByAxis(iNode.axis) - iNode.location < 0 ? -1 : 1), iNode.location);
-            if (t != null) {
-               return hit(ray, iNode.leftChild == sameSideNode ? iNode.rightChild : iNode.leftChild);
-            }
         }
 
+        INode iNode = (INode)node;
+        KDTreeNode sameSideNode = (ray.getOrigin().getCoordByAxis(iNode.axis) < iNode.location ? iNode.leftChild : iNode.rightChild);
+
+        Collision col = hit(ray,sameSideNode);
+
+        if (col != null) {
+        	return col;
+        }
+
+        Float t = InfinitePlane.planeT(ray, Vec3.axisVec(iNode.axis).mul(ray.getOrigin().getCoordByAxis(iNode.axis) - iNode.location < 0 ? -1 : 1), iNode.location);
+        if (t != null) {
+        	return hit(ray, iNode.leftChild == sameSideNode ? iNode.rightChild : iNode.leftChild);
+        }
+        
         return null;
     }
 
@@ -75,22 +75,22 @@ public class KDTree {
 
         if (primitives.size() <= threshold) {
             return new Leaf(primitives);
-        } else {
-            float location = getMedian(primitives, axis);
-
-            Predicate<Primitive> isLeft = p -> p.getBBox().getCenter().getCoordByAxis(axis) < location ||
-                    (p.getBBox().pMin.getCoordByAxis(axis) >= location && p.getBBox().pMax.getCoordByAxis(axis) < location);
-            Predicate<Primitive> isRight = p -> p.getBBox().getCenter().getCoordByAxis(axis) >= location ||
-                    (p.getBBox().pMin.getCoordByAxis(axis) >= location && p.getBBox().pMax.getCoordByAxis(axis) < location);
-            List<Primitive> leftPrimitives = primitives.stream().filter(isLeft).collect(Collectors.toList());
-            List<Primitive> rightPrimitives = primitives.stream().filter(isRight).collect(Collectors.toList());
-
-            INode node = new INode(location, axis);
-            node.leftChild = generateTree(leftPrimitives, threshold, depth + 1);
-            node.rightChild = generateTree(rightPrimitives, threshold, depth + 1);
-
-            return node;
         }
+
+        float location = getMedian(primitives, axis);
+
+        Predicate<Primitive> isLeft = p -> p.getBBox().getCenter().getCoordByAxis(axis) < location ||
+        		(p.getBBox().pMin.getCoordByAxis(axis) >= location && p.getBBox().pMax.getCoordByAxis(axis) < location);
+        Predicate<Primitive> isRight = p -> p.getBBox().getCenter().getCoordByAxis(axis) >= location ||
+        		(p.getBBox().pMin.getCoordByAxis(axis) >= location && p.getBBox().pMax.getCoordByAxis(axis) < location);
+        List<Primitive> leftPrimitives = primitives.stream().filter(isLeft).collect(Collectors.toList());
+        List<Primitive> rightPrimitives = primitives.stream().filter(isRight).collect(Collectors.toList());
+
+        INode node = new INode(location, axis);
+        node.leftChild = generateTree(leftPrimitives, threshold, depth + 1);
+        node.rightChild = generateTree(rightPrimitives, threshold, depth + 1);
+
+        return node;
     }
 
     private void sortByAxis(List<Primitive> primitives, final int axis) {

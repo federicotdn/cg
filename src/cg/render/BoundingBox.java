@@ -30,7 +30,7 @@ public class BoundingBox {
     }
 
     public BoundingBox calculateBBox(Matrix4 trs) {
-    	//TODO: Fix this
+    	//TODO: Fix: BBox of transformed BBox not being calculated correctly
         return new BoundingBox(trs.mulVec(pMin.asPosition()).asVec3(), trs.mulVec(pMax.asPosition()).asVec3());
 
     }

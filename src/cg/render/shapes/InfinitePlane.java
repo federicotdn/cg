@@ -11,12 +11,16 @@ import cg.render.Ray;
  * Created by Hobbit on 4/14/16.
  */
 public class InfinitePlane extends Primitive {
-    private static final Vec3 NORMAL = new Vec3(0, 1, 0);
+    public static final Vec3 PLANE_NORMAL = new Vec3(0, 1, 0);
 
     @Override
     protected Collision calculateCollision(Ray ray) {
-        Float t = planeT(ray, NORMAL, 0);
-        return t != null ? new Collision(this, ray, t, NORMAL, 0, 0) : null;
+        Float t = planeT(ray, PLANE_NORMAL, 0);
+        if (t == null || t > ray.getMaxT()) {
+        	return null;
+        }
+        
+        return new Collision(this, ray, t, PLANE_NORMAL, 0, 0);
     }
 
     public static Float planeT(Ray ray, Vec3 normal, float d) {

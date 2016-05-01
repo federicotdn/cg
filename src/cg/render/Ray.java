@@ -28,4 +28,8 @@ public class Ray {
 	public Vec3 getDirection() {
 		return direction;
 	}
+	
+	public Vec3 runDistance(float t) {
+		return origin.sum(direction.mul(t));
+	}
 }

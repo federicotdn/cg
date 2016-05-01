@@ -27,7 +27,7 @@ public class Collision {
 	
 	public Vec3 getPosition() {
 		if (position == null) {
-			position = ray.getOrigin().sum(ray.getDirection().mul(t));
+			position = ray.runDistance(t);
 		}
 		
 		return position;

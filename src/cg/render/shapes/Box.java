@@ -8,8 +8,8 @@ import cg.render.Primitive;
 import cg.render.Ray;
 
 public class Box extends Primitive {
-	private Vec3 pMin;
-	private Vec3 pMax;
+	private final Vec3 pMin;
+	private final Vec3 pMax;
 	
 	public Box(float width, float height, float depth) {
 		pMax = new Vec3(width / 2, height / 2, depth / 2);
@@ -23,7 +23,7 @@ public class Box extends Primitive {
 			return null;
 		}
 		
-		Vec3 colPos = ray.getOrigin().sum(ray.getDirection().mul(t));
+		Vec3 colPos = ray.runDistance(t);
 		Vec3 normal = null;
 		float maxDist = 0;
 		float distance;

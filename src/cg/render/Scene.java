@@ -1,6 +1,7 @@
 package cg.render;
 
 import cg.accelerator.KDTree;
+import cg.math.Vec3;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +50,9 @@ public class Scene {
 
 			Collision col = collideRay(ray);
 			if (col != null) {
+//				Vec3 normal = col.getNormal();
+//				c = new Color(Math.abs(normal.x), Math.abs(normal.y), Math.abs(normal.z));
+//				
 				c = getSurfaceColor(col);
 			}
 
