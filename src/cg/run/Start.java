@@ -22,9 +22,13 @@ import java.util.concurrent.TimeUnit;
 public class Start {
 
 	public static void main(String[] args) throws IOException {
+		System.out.println("Loading scene...");
 		SceneParser parser = new SceneParser("scenes/simplescene.json");
+		System.out.println("Scene loaded.");
 		Scene scene =  parser.parseScene();
 
+		testModifyScene(scene); //TODO: Remove
+		
 		System.out.println("Begin.");
 		long initialTime = System.currentTimeMillis();
 		Image img = scene.render();
@@ -37,6 +41,10 @@ public class Start {
 
 		img.writeFile("img/test.png");
 		img.writeFile("img/" + df.format(date) + ".png");
+	}
+	
+	private static void testModifyScene(Scene s) {
+		
 	}
 	
 	private static void testFillScene(Scene s) {

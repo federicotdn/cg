@@ -87,6 +87,7 @@ public class SceneParser {
                 wo.calculateTransform();
             }
 
+            reader.close();
             return scene;
 
         } catch (FileNotFoundException e) {
@@ -161,7 +162,8 @@ public class SceneParser {
                                 }
                                 requiredMaterial.get(materialId).add(sphere);
                             }
-                        default:
+                        break;
+					default:
                             printWarning("Unsupported shape of type '" + shapeType + "'");
                     }
                     break;

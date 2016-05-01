@@ -29,7 +29,7 @@ public class BoundingBox {
         return pMin.sum(dir.mul(0.5f));
     }
 
-    public BoundingBox calculateBBox(Matrix4 trs) {
+    public BoundingBox transformBBox(Matrix4 trs) {
     	//TODO: Fix: BBox of transformed BBox not being calculated correctly
         return new BoundingBox(trs.mulVec(pMin.asPosition()).asVec3(), trs.mulVec(pMax.asPosition()).asVec3());
 

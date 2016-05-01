@@ -24,11 +24,6 @@ public class Scene {
 		lights = new ArrayList<Light>();
 	}
 
-	public Scene(Camera cam, int width, int height) {
-		this();
-		setSize(width, height);
-	}
-	
 	public void addPrimitive(Primitive p) {
 		if (p.getBBox() != null) {
 			primitives.add(p);

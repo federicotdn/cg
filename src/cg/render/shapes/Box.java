@@ -101,6 +101,6 @@ public class Box extends Primitive {
 
 	@Override
 	protected BoundingBox calculateBBox(Matrix4 trs) {
-		return (new BoundingBox(pMin, pMax)).calculateBBox(trs);
+		return (new BoundingBox(pMin, pMax)).transformBBox(trs);
 	}
 }
