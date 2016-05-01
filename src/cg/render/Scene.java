@@ -13,14 +13,20 @@ public class Scene {
 	private List<Light> lights; //camera, action
 	private Camera cam;
 	private KDTree kdTree;
+
+	private Image img;
 	
 	private final Color BACKGROUND_COLOR = Color.BLACK;
-	
-	public Scene(Camera cam) {
-		this.cam = cam;
+
+	public Scene() {
 		primitives = new ArrayList<Primitive>();
 		unboundedPrimitives = new ArrayList<Primitive>();
 		lights = new ArrayList<Light>();
+	}
+
+	public Scene(Camera cam, int width, int height) {
+		this();
+		setSize(width, height);
 	}
 	
 	public void addPrimitive(Primitive p) {
@@ -30,7 +36,15 @@ public class Scene {
 			unboundedPrimitives.add(p);
 		}
 	}
-	
+
+	public void setSize(int width, int height) {
+		img =  new Image(width, height);
+	}
+
+	public void setCam(Camera cam) {
+		this.cam = cam;
+	}
+
 	public void addLight(Light l) {
 		lights.add(l);
 	}
@@ -39,9 +53,14 @@ public class Scene {
 		return cam;
 	}
 
-	public void render(Image img) {
-		long count = 0;
+	public Image render() {
+		if (cam == null || img == null) {
+			throw new RuntimeException("Missing camera or height and width");
+		}
+		
 		kdTree = new KDTree(primitives, 5);
+		long count = 0;
+		
 		for (int p = 0; p < img.getHeight() * img.getWidth(); p++) {
 			int x = p % img.getWidth();
 			int y = p / img.getWidth();
@@ -63,6 +82,8 @@ public class Scene {
 				System.out.println((int)((float)count / (img.getWidth() * img.getHeight()) * 100)  + " %");
 			}
 		}
+
+		return img;
 	}
 	
 	public Color getSurfaceColor(Collision col) {

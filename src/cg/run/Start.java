@@ -1,7 +1,7 @@
 package cg.run;
 
 import cg.math.Vec3;
-import cg.render.Camera;
+import cg.parser.SceneParser;
 import cg.render.Color;
 import cg.render.Image;
 import cg.render.Scene;
@@ -21,26 +21,20 @@ import java.util.concurrent.TimeUnit;
 
 public class Start {
 
-	public static void main(String[] args) throws IOException {		
-		int width = 1920;
-		int height = 1080;
-		
-		Image img = new Image(width, height);
-		Camera cam = new Camera(new Vec3(0, 2, -14), new Vec3(0,0,0), 60);
-		Scene scene = new Scene(cam);
+	public static void main(String[] args) throws IOException {
+		SceneParser parser = new SceneParser("scenes/scene1.json");
+		Scene scene =  parser.parseScene();
 
-		testFillScene(scene);
-		
 		System.out.println("Begin.");
 		long initialTime = System.currentTimeMillis();
-		scene.render(img);
+		Image img = scene.render();
 		long totalTime = System.currentTimeMillis() - initialTime;
 		System.out.println("Done. Duration: " + TimeUnit.MILLISECONDS.toMinutes(totalTime) + "m " +
 				TimeUnit.MILLISECONDS.toSeconds(totalTime) % 60 + "s");
 		
 		Date date = new Date();
 		SimpleDateFormat df = new SimpleDateFormat("MM.dd_HH-mm-ss");
-		
+
 		img.writeFile("img/test.png");
 		img.writeFile("img/" + df.format(date) + ".png");
 	}
@@ -56,17 +50,17 @@ public class Start {
 				for (int k = 0; k < depth; k++) {
 					//Sphere p = new Sphere(new Vec3(i * distance, j * distance, k * distance), null, null, radius);
 					Box p = new Box(1,1,1);
-					p.setTransform(new Vec3(i * distance, j * distance, k * distance), null, null);
+					//p.setTransform(new Vec3(i * distance, j * distance, k * distance), null, null);
 					p.setMaterial(new Lambert(new Color(i * colorMult, j * colorMult, k * colorMult)));
 					s.addPrimitive(p);
 				}
 			}
 		}
-
 		
 		//InfinitePlane plane = new InfinitePlane();
 		FinitePlane plane = new FinitePlane(70, 100);
-		plane.setTransform(new Vec3(0, -5, 0), null, null);
+		//plane.setTransform(new Vec3(0, -5, 0), null, null);
+
 		s.addPrimitive(plane);
 		
 		//s.addLight(new PointLight(s, Color.WHITE, 0.4f, new Vec3(-2, 10, 9)));
