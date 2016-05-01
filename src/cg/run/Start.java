@@ -22,7 +22,7 @@ import java.util.concurrent.TimeUnit;
 public class Start {
 
 	public static void main(String[] args) throws IOException {
-		SceneParser parser = new SceneParser("scenes/scene1.json");
+		SceneParser parser = new SceneParser("scenes/simplescene.json");
 		Scene scene =  parser.parseScene();
 
 		System.out.println("Begin.");
