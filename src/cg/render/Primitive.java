@@ -3,15 +3,11 @@ package cg.render;
 import cg.math.Matrix4;
 import cg.math.Vec3;
 import cg.math.Vec4;
-import cg.render.materials.Lambert;
 
 public abstract class Primitive extends WorldObject {
 	private Material material;
 	private BoundingBox bbox;
-	
-	public Primitive() {
-		material = Lambert.LAMBERT_DEFAULT;
-	}
+	private String name;
 	
 	public Collision collideWith(Ray ray) {
 		Vec4 localOrigin = ray.getOrigin().asPosition();
@@ -61,6 +57,14 @@ public abstract class Primitive extends WorldObject {
 	
 	public void setMaterial(Material material) {
 		this.material = material;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	protected abstract Collision calculateCollision(Ray ray);

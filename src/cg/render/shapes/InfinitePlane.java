@@ -13,6 +13,10 @@ import cg.render.Ray;
 public class InfinitePlane extends Primitive {
     public static final Vec3 PLANE_NORMAL = new Vec3(0, 1, 0);
 
+    public InfinitePlane(Vec3 t, Vec3 r, Vec3 s) {
+    	setTransform(t, r, s);
+    }
+    
     @Override
     protected Collision calculateCollision(Ray ray) {
         Float t = planeT(ray, PLANE_NORMAL, 0);

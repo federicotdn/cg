@@ -6,7 +6,7 @@ import cg.render.Color;
 import cg.render.Light;
 import cg.render.Material;
 
-public class BlinnPhong extends Material {
+public class Phong extends Material {
 
 	@Override
 	public Color surfaceColor(Collision col, Light l, Vec3 surfaceToLight, Vec3 camPos) {

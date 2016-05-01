@@ -8,14 +8,15 @@ import cg.render.Primitive;
 import cg.render.Ray;
 
 public class FinitePlane extends Primitive {
-	private static final float EPSILON = 0.000001f;
+//	private static final float EPSILON = 0.000001f;
 		
 	private final float halfWidth;
 	private final float halfDepth;
 	
-	public FinitePlane(float width, float depth) {
+	public FinitePlane(float width, float depth, Vec3 t, Vec3 r, Vec3 s) {
 		this.halfWidth = width / 2;
 		this.halfDepth = depth / 2;
+		setTransform(t, r, s);
 	}
 	
 	@Override

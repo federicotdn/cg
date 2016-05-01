@@ -6,12 +6,12 @@ import cg.render.Color;
 import cg.render.Light;
 import cg.render.Material;
 
-public class Lambert extends Material {
-	public static final Lambert LAMBERT_DEFAULT = new Lambert(Color.WHITE);
+public class Diffuse extends Material {
+	public static final Diffuse DIFFUSE_DEFAULT = new Diffuse(Color.WHITE);
 	
 	private Color color;
 	
-	public Lambert(Color color) {
+	public Diffuse(Color color) {
 		this.color = color;
 	}
 	
