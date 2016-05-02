@@ -8,7 +8,7 @@ import cg.render.Primitive;
 import cg.render.Ray;
 
 public class FinitePlane extends Primitive {
-//	private static final float EPSILON = 0.000001f;
+	private static final float EPSILON = 0.000001f;
 		
 	private final float halfWidth;
 	private final float halfDepth;
@@ -37,12 +37,9 @@ public class FinitePlane extends Primitive {
 	@Override
 	protected BoundingBox calculateBBox(Matrix4 trs) {
 		//TODO: Is EPSILON necessary?
-//		Vec3 pMax = new Vec3(halfWidth, EPSILON, halfDepth);
-//		Vec3 pMin = new Vec3(-halfWidth, -EPSILON, -halfDepth);
-//		return (new BoundingBox(pMin, pMax)).calculateBBox(trs);
-		
-		//TODO: Make this primitive bounded again when KDTree is fixed
-		return null;
+		Vec3 pMax = new Vec3(halfWidth, EPSILON, halfDepth);
+		Vec3 pMin = new Vec3(-halfWidth, -EPSILON, -halfDepth);
+		return (new BoundingBox(pMin, pMax)).transformBBox(trs);
 	}
 
 }

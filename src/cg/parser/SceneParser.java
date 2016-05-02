@@ -7,7 +7,6 @@ import cg.render.lights.DirectionalLight;
 import cg.render.lights.PointLight;
 import cg.render.lights.SpotLight;
 import cg.render.materials.ColorMaterial;
-import cg.render.materials.DebugMaterial;
 import cg.render.materials.Diffuse;
 import cg.render.shapes.Box;
 import cg.render.shapes.FinitePlane;
@@ -22,11 +21,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Base64;
+import java.util.*;
 
 /**
  * Created by Hobbit on 4/22/16.
@@ -234,7 +229,7 @@ public class SceneParser {
                         	
                         	if (finite) {
                             	float width = o.getFloat("width", 1);
-                            	float depth = o.getFloat("depth", 1);
+                            	float depth = o.getFloat("height", 1);
                             	primitive = new FinitePlane(width, depth, getPosition(o), getRotation(o), getScale(o));
                         	} else {
                         		primitive = new InfinitePlane(getPosition(o), getRotation(o), getScale(o));
