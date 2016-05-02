@@ -3,9 +3,9 @@ package cg.render.shapes;
 import cg.math.Matrix4;
 import cg.render.BoundingBox;
 import cg.render.Collision;
-import cg.render.Mesh;
 import cg.render.Primitive;
 import cg.render.Ray;
+import cg.render.assets.Mesh;
 
 public class MeshInstance extends Primitive {
 

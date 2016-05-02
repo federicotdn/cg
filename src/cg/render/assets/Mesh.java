@@ -1,4 +1,8 @@
-package cg.render;
+package cg.render.assets;
+
+import cg.render.BoundingBox;
+import cg.render.Collision;
+import cg.render.Ray;
 
 public class Mesh {
 	

@@ -2,11 +2,14 @@ package cg.parser;
 
 import cg.math.Vec3;
 import cg.render.*;
+import cg.render.lights.AmbientLight;
 import cg.render.lights.DirectionalLight;
 import cg.render.lights.PointLight;
 import cg.render.lights.SpotLight;
 import cg.render.materials.ColorMaterial;
+import cg.render.materials.DebugMaterial;
 import cg.render.materials.Diffuse;
+import cg.render.shapes.Box;
 import cg.render.shapes.FinitePlane;
 import cg.render.shapes.InfinitePlane;
 import cg.render.shapes.Sphere;
@@ -23,12 +26,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Base64;
 
 /**
  * Created by Hobbit on 4/22/16.
  */
 public class SceneParser {
 	private static final Material DEFAULT_MATERIAL = Diffuse.DIFFUSE_DEFAULT;
+	private static final float HIGH_INTENSITY = 0.6f;
 	
     private String filename;
     private WorldObject rootObject;
@@ -79,6 +84,8 @@ public class SceneParser {
 			switch (assetType) {
 			case "Material":
 				String materialType = o.getString("materialType", "");
+				int colorTextureId = o.getInt("colorTextureId", -1);
+				
 				Material material;
 
 				switch (materialType) {
@@ -97,6 +104,12 @@ public class SceneParser {
 				if (material != null) {
 					int id = o.getInt("id", -1);
 					if (id != -1) {
+						if (colorTextureId != -1) {
+							//TODO: Handle adding Textures to materials
+							//Print a warning for now
+							printWarning("Material ID: " + String.valueOf(id) + " references a Texture (TODO).");
+						}
+						
 						materials.put(id, material);
 					} else {
 						printWarning("Found material with invalid ID.");
@@ -170,7 +183,7 @@ public class SceneParser {
                     Light light;
 
                     float intensity =  o.getFloat("intensity", 0);
-                    if (intensity > 0.7f) {
+                    if (intensity > HIGH_INTENSITY) {
                     	printWarning("Light ID: " + String.valueOf(id) + " has very high intensity.");
                     }
 
@@ -188,8 +201,7 @@ public class SceneParser {
                             light = new PointLight(scene, color, intensity, getPosition(o));
                             break;
                         case "Ambient":
-                        	light = null;
-                        	printWarning("Not implemented: Ambient light");
+                        	light = new AmbientLight(scene, color, intensity);
                         	break;
                             
                         default:
@@ -219,22 +231,22 @@ public class SceneParser {
 
                         case "Plane":
                         	boolean finite = o.getBoolean("finite", false);
-                        	Primitive plane;
                         	
                         	if (finite) {
                             	float width = o.getFloat("width", 1);
                             	float depth = o.getFloat("depth", 1);
-                        		plane = new FinitePlane(width, depth, getPosition(o), getRotation(o), getScale(o));
+                            	primitive = new FinitePlane(width, depth, getPosition(o), getRotation(o), getScale(o));
                         	} else {
-                        		plane = new InfinitePlane(getPosition(o), getRotation(o), getScale(o));
+                        		primitive = new InfinitePlane(getPosition(o), getRotation(o), getScale(o));
                         	}
-                        	
-                        	primitive = plane;
                         break;
                         
                         case "Cube":
-                        	primitive = null;
-                        	printWarning("Not implemented: Cube");
+                        	float width = o.getFloat("width", 1);
+                        	float depth = o.getFloat("depth", 1);
+                        	float height = o.getFloat("height", 1);
+                        	
+                        	primitive = new Box(width, height, depth, getPosition(o), getRotation(o), getScale(o));
                         	break;
                         	
                         case "Mesh":
@@ -284,6 +296,10 @@ public class SceneParser {
                 }
             }
         }
+    }
+    
+    private byte[] parseBase64(String s) {
+    	return Base64.getDecoder().decode(s.getBytes());
     }
 
     private Vec3 valueToVec3(JsonValue jsonValue, int defaultVal) {

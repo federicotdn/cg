@@ -11,9 +11,10 @@ public class Box extends Primitive {
 	private final Vec3 pMin;
 	private final Vec3 pMax;
 	
-	public Box(float width, float height, float depth) {
+	public Box(float width, float height, float depth, Vec3 t, Vec3 r, Vec3 s) {
 		pMax = new Vec3(width / 2, height / 2, depth / 2);
 		pMin = new Vec3(-width / 2, -height / 2, -depth / 2);
+		setTransform(t, r, s);
 	}
 	
 	@Override
@@ -23,6 +24,7 @@ public class Box extends Primitive {
 			return null;
 		}
 		
+		//TODO: Fix normal when width, depth or height != 1
 		Vec3 colPos = ray.runDistance(t);
 		Vec3 normal = null;
 		float maxDist = 0;
