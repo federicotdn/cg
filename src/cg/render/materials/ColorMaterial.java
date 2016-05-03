@@ -7,15 +7,12 @@ import cg.render.Light;
 import cg.render.Material;
 
 public class ColorMaterial extends Material {
-
-	private final Color color;
-	
-	public ColorMaterial(Color color) {
-		this.color = color;
+	public ColorMaterial(Color color, float offsetU, float offsetV, float scaleU, float scaleV) {
+		super(color, offsetU, offsetV, scaleU, scaleV);
 	}
 	
 	@Override
-	public cg.render.Color surfaceColor(Collision col, Light l, Vec3 surfaceToLight, Vec3 camPos) {
+	public cg.render.Color calculateSurfaceColor(Collision col, Light l, Vec3 surfaceToLight, Vec3 camPos) {
 		return color.sum(l.getColor().mul(l.getIntensity()));
 	}
 }

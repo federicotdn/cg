@@ -46,8 +46,8 @@ public class Texture {
 	}
 
 	public Color getSample(float u, float v) {
-		int x = (int)(width * u * 4);
-		int y = (int) (height * v * 4);
+		int x = (int)(width * u);
+		int y = (int) (height * v);
 		int index =( (y * width) + x) * 4;
 
 		return new Color(pixels[index], pixels[index + 1], pixels[index + 2], pixels[index + 3]);

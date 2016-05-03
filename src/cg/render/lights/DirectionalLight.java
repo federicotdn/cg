@@ -31,6 +31,6 @@ public class DirectionalLight extends Light {
 			return null;
 		}
 		
-		return col.getPrimitive().getMaterial().surfaceColor(col, this, negDirection, scene.getCamera().getPosition());
+		return col.getPrimitive().getMaterial().getSurfaceColor(col, this, negDirection, scene.getCamera().getPosition());
 	}
 }

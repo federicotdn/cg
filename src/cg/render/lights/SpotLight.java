@@ -43,6 +43,6 @@ public class SpotLight extends Light {
 			return null;
 		}
 		
-		return col.getPrimitive().getMaterial().surfaceColor(col, this, surfaceToLight, scene.getCamera().getPosition());
+		return col.getPrimitive().getMaterial().getSurfaceColor(col, this, surfaceToLight, scene.getCamera().getPosition());
 	}
 }

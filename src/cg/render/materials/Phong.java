@@ -8,8 +8,12 @@ import cg.render.Material;
 
 public class Phong extends Material {
 
+	public Phong(Color color, float offsetU, float offsetV, float scaleU, float scaleV) {
+		super(color, offsetU, offsetV, scaleU, scaleV);
+	}
+
 	@Override
-	public Color surfaceColor(Collision col, Light l, Vec3 surfaceToLight, Vec3 camPos) {
+	public Color calculateSurfaceColor(Collision col, Light l, Vec3 surfaceToLight, Vec3 camPos) {
 		// TODO Auto-generated method stub
 		return null;
 	}

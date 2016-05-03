@@ -8,8 +8,12 @@ import cg.render.Material;
 
 public class DebugMaterial extends Material {
 
+	public DebugMaterial() {
+		super(null, 0, 0, 1, 1);
+	}
+
 	@Override
-	public Color surfaceColor(Collision col, Light l, Vec3 surfaceToLight, Vec3 camPos) {
+	public Color calculateSurfaceColor(Collision col, Light l, Vec3 surfaceToLight, Vec3 camPos) {
 		Vec3 n = col.getNormal();
 		return new Color(Math.abs(n.x), Math.abs(n.y), Math.abs(n.z));
 	}

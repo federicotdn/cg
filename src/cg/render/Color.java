@@ -38,7 +38,11 @@ public class Color {
         }
     	return new Color(red + other.red, green + other.green, blue + other.blue);
     }
-    
+
+    public Color mul(Color color) {
+        return new Color(color.alpha * alpha, color.red * red, color.green * green, color.blue * blue);
+    }
+
     public Color mul(float v) {
     	return new Color(red * v, green * v, blue * v);
     }

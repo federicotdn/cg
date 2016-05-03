@@ -2,6 +2,7 @@ package cg.parser;
 
 import cg.math.Vec3;
 import cg.render.*;
+import cg.render.assets.Texture;
 import cg.render.lights.AmbientLight;
 import cg.render.lights.DirectionalLight;
 import cg.render.lights.PointLight;
@@ -72,46 +73,79 @@ public class SceneParser {
     }
     
     public void addAssets(JsonArray assets) {
+        Map<Integer, Texture> textures = new HashMap<>();
+        Map<Integer, List<Material>> requiredTextures = new HashMap<>();
+
     	for (JsonValue value : assets) {
 			JsonObject o = value.asObject();
 
-			String assetType = o.getString("assetType", "");
-			switch (assetType) {
-			case "Material":
-				String materialType = o.getString("materialType", "");
-				int colorTextureId = o.getInt("colorTextureId", -1);
-				
-				Material material;
+            String assetType = o.getString("assetType", "");
+            int id = o.getInt("id", -1);
+            if (id == -1) {
+                printWarning("Asset of type '" + assetType + "' does not have an id. Skipping.");
+                continue;
+            }
 
-				switch (materialType) {
-				case "Diffuse":
-					material = new Diffuse(parseColor(o, "color"));
-					break;
-				case "Color":
-					Color c = parseColor(o, "color");
-					material = new ColorMaterial(c);
-					break;
-				default:
-					material = null;
-					printWarning("Unsupported material of type '" + materialType + "'");
-				}
+            switch (assetType) {
+                case "Material":
+                    String materialType = o.getString("materialType", "");
+                    int colorTextureId = o.getInt("colorTextureId", -1);
 
-				if (material != null) {
-					int id = o.getInt("id", -1);
-					if (id != -1) {
-						if (colorTextureId != -1) {
-							//TODO: Handle adding Textures to materials
-							//Print a warning for now
-							printWarning("Material ID: " + String.valueOf(id) + " references a Texture (TODO).");
-						}
-						
-						materials.put(id, material);
-					} else {
-						printWarning("Found material with invalid ID.");
-					}
-				}
-				break;
-			default:
+                    float offsetU = 0 , offsetV = 0, scaleU = 1, scaleV = 1;
+                    if (colorTextureId != -1) {
+                        JsonObject colorOffset = o.get("colorOffset").asObject();
+                        offsetU = colorOffset.getFloat("x", 0);
+                        offsetV = colorOffset.getFloat("y", 0);
+
+                        JsonObject scaleOffset = o.get("colorScale").asObject();
+                        scaleU = scaleOffset.getFloat("x", 0);
+                        scaleV = scaleOffset.getFloat("y", 0);
+                    }
+
+                    Material material;
+                    switch (materialType) {
+                        case "Diffuse":
+                            material = new Diffuse(parseColor(o, "color"), offsetU, offsetV, scaleU, scaleV);
+                            break;
+                        case "Color":
+                            Color c = parseColor(o, "color");
+                            material = new ColorMaterial(c, offsetU, offsetV, scaleU, scaleV);
+                            break;
+                        default:
+                            material = null;
+                            printWarning("Unsupported material of type '" + materialType + "'");
+                    }
+
+                    if (material != null) {
+                        if (colorTextureId != -1) {
+                            if (textures.containsKey(colorTextureId)) {
+                                material.setColorTex(textures.get(colorTextureId));
+                            } else {
+                                if (!requiredTextures.containsKey(colorTextureId)) {
+                                    requiredTextures.put(colorTextureId, new ArrayList<>());
+                                }
+                                requiredTextures.get(colorTextureId).add(material);
+                            }
+                        } else {
+                            printWarning("Material of id " + id + " does not has a texture");
+                        }
+
+                        materials.put(id, material);
+                    }
+                    break;
+                case "Texture":
+                    byte[] bytes = parseBase64(o.getString("base64PNG", ""));
+                    Texture texture = new Texture(bytes);
+                    textures.put(id, texture);
+                    if (requiredTextures.containsKey(id)) {
+                        List<Material> materials = requiredTextures.remove(id);
+                        for (Material mat : materials) {
+                            mat.setColorTex(texture);
+                        }
+                    }
+
+                    break;
+                default:
 				printWarning("Unsupported asset of type '" + assetType + "'");
 			}
 
