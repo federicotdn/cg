@@ -23,8 +23,8 @@ public class InfinitePlane extends Primitive {
         if (t == null || t > ray.getMaxT()) {
         	return null;
         }
-        
-        return new Collision(this, ray, t, PLANE_NORMAL, 0, 0);
+        Vec3 colPos = ray.runDistance(t);
+        return new Collision(this, ray, t, PLANE_NORMAL, Math.abs(colPos.x -10 ), Math.abs(colPos.z -10));
     }
 
     public static Float planeT(Ray ray, Vec3 normal, float d) {

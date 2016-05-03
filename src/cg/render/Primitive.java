@@ -39,8 +39,8 @@ public abstract class Primitive extends WorldObject {
 		Vec3 worldNormal = invTransform.traspose().mulVec(localNormal).asVec3();
 
 		Material mat = localCol.getPrimitive().getMaterial();
-		float u = (localCol.u % mat.getScaleU()) / mat.getScaleU();
-		float v = (localCol.v % mat.getScaleV()) / mat.getScaleV();
+		float u = ((localCol.u * mat.getScaleU()) + mat.getOffsetU()) % 1;
+		float v = ((localCol.v * mat.getScaleV()) + mat.getOffsetV()) % 1;
 		return new Collision(localCol.getPrimitive(), ray, t, worldNormal, u, v);
 	}
 

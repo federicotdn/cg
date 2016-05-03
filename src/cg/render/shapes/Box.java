@@ -10,10 +10,16 @@ import cg.render.Ray;
 public class Box extends Primitive {
 	private final Vec3 pMin;
 	private final Vec3 pMax;
+	private float width;
+	private float height;
+	private float depth;
 	
 	public Box(float width, float height, float depth, Vec3 t, Vec3 r, Vec3 s) {
 		pMax = new Vec3(width / 2, height / 2, depth / 2);
 		pMin = new Vec3(-width / 2, -height / 2, -depth / 2);
+		this.width = width;
+		this.height = height;
+		this.depth = depth;
 		setTransform(t, r, s);
 	}
 	
@@ -29,12 +35,15 @@ public class Box extends Primitive {
 		Vec3 normal = null;
 		float maxDist = 0;
 		float distance;
+		float u = 0, v = 0;
 		
 		//X
 		distance = Math.abs(colPos.x);
 		if (distance > maxDist) {
 			maxDist = distance;
 			normal = new Vec3(Math.signum(colPos.x), 0, 0);
+			u = Math.abs(colPos.y - height/2);
+			v = Math.abs(colPos.z - depth/2);
 		}
 		
 		//Y
@@ -42,6 +51,8 @@ public class Box extends Primitive {
 		if (distance > maxDist) {
 			maxDist = distance;
 			normal = new Vec3(0, Math.signum(colPos.y), 0);
+			u = Math.abs(colPos.x - width/2);
+			v = Math.abs(colPos.z - depth/2);
 		}		
 		
 		//Z
@@ -49,9 +60,11 @@ public class Box extends Primitive {
 		if (distance > maxDist) {
 			maxDist = distance;
 			normal = new Vec3(0, 0, Math.signum(colPos.z));
+			u = Math.abs(colPos.x - width/2);
+			v = Math.abs(colPos.y - height/2);
 		}
 
-		return new Collision(this, ray, t, normal, 0.0f, 0.0f);
+		return new Collision(this, ray, t, normal, u, v);
 	}
 	
     public static Float collisionForBox(Vec3 pMin, Vec3 pMax, Ray ray) {
