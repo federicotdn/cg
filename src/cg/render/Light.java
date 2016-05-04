@@ -32,10 +32,7 @@ public abstract class Light extends WorldObject {
 		}
 
 		Matrix4 translation = Matrix4.transFromVec(t);
-		Matrix4 rotX = Matrix4.rotationX(r.x);
-		Matrix4 rotY = Matrix4.rotationY(r.y);
-		Matrix4 rotZ = Matrix4.rotationZ(r.z);
-		Matrix4 rot = rotZ.mul(rotY).mul(rotX);
+		Matrix4 rot = getRotationMatrix(r);
 
 		this.transform = translation.mul(rot);
 		this.invTransform = transform.inverse();

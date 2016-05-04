@@ -13,6 +13,6 @@ public class ColorMaterial extends Material {
 	
 	@Override
 	public cg.render.Color calculateSurfaceColor(Collision col, Light l, Vec3 surfaceToLight, Vec3 camPos) {
-		return color.sum(l.getColor().mul(l.getIntensity()));
+		return color;
 	}
 }

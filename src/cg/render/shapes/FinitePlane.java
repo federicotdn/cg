@@ -31,7 +31,7 @@ public class FinitePlane extends Primitive {
         	return null;
         }
         
-        return new Collision(this, ray, t, InfinitePlane.PLANE_NORMAL, Math.abs(colPos.x - halfWidth), Math.abs(colPos.z - halfDepth));
+        return new Collision(this, ray, t, InfinitePlane.PLANE_NORMAL, Math.abs(colPos.x - halfWidth)/(halfWidth*2), Math.abs(colPos.z - halfDepth)/(halfDepth * 2));
 	}
 
 	@Override

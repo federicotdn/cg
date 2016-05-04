@@ -32,36 +32,35 @@ public class Box extends Primitive {
 		
 		//TODO: Fix normal when width, depth or height != 1
 		Vec3 colPos = ray.runDistance(t);
-		Vec3 normal = null;
-		float maxDist = 0;
+		Vec3 normal;
+		float maxDist;
 		float distance;
-		float u = 0, v = 0;
+		float u, v;
 		
 		//X
-		distance = Math.abs(colPos.x);
-		if (distance > maxDist) {
-			maxDist = distance;
-			normal = new Vec3(Math.signum(colPos.x), 0, 0);
-			u = Math.abs(colPos.y - height/2);
-			v = Math.abs(colPos.z - depth/2);
-		}
+		distance = Math.abs(colPos.x)/(width/2);
+		maxDist = distance;
+		normal = new Vec3(Math.signum(colPos.x), 0, 0);
+		v = Math.abs(colPos.y - height / 2) / height;
+		u = Math.abs(colPos.z - depth / 2) / depth;
+
 		
 		//Y
-		distance = Math.abs(colPos.y);
+		distance = Math.abs(colPos.y)/(height/2);
 		if (distance > maxDist) {
 			maxDist = distance;
 			normal = new Vec3(0, Math.signum(colPos.y), 0);
-			u = Math.abs(colPos.x - width/2);
-			v = Math.abs(colPos.z - depth/2);
+			u = Math.abs(colPos.x - width/2)/width;
+			v = Math.abs(colPos.z - depth/2)/depth;
 		}		
 		
 		//Z
-		distance = Math.abs(colPos.z);
+		distance = Math.abs(colPos.z)/(depth/2);
 		if (distance > maxDist) {
 			maxDist = distance;
 			normal = new Vec3(0, 0, Math.signum(colPos.z));
-			u = Math.abs(colPos.x - width/2);
-			v = Math.abs(colPos.y - height/2);
+			u = Math.abs(colPos.x - width/2)/width;
+			v = Math.abs(colPos.y - height/2)/height;
 		}
 
 		return new Collision(this, ray, t, normal, u, v);

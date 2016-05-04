@@ -339,7 +339,7 @@ public class SceneParser {
 
     private Color parseColor(JsonObject object, String key) {
         JsonObject co = object.get(key).asObject();
-        return new Color(co.getFloat("a", 0), co.getFloat("r", 0), co.getFloat("g", 0), co.getFloat("b", 0));
+        return new Color(co.getFloat("a", 1), co.getFloat("r", 1), co.getFloat("g", 1), co.getFloat("b", 1));
     }
 
     private Vec3 getPosition(JsonObject object) {

@@ -9,6 +9,7 @@ import cg.render.Material;
 public class Diffuse extends Material {
 	public static final Diffuse DIFFUSE_DEFAULT = new Diffuse(Color.WHITE, 0, 0, 1, 1);
 
+
 	public Diffuse(Color color, float offsetU, float offsetV, float scaleU, float scaleV) {
 		super(color, offsetU, offsetV, scaleU, scaleV);
 	}
@@ -17,8 +18,8 @@ public class Diffuse extends Material {
 		@Override
 	public Color calculateSurfaceColor(Collision col, Light l, Vec3 surfaceToLight, Vec3 camPos) {
 		float cosAngle = surfaceToLight.normalize().dot(col.getNormal());
-		Color c = color.sum(l.getColor().mul(l.getIntensity()));
-		return c.mul(cosAngle);
+		Color c = color;
+		return c.mul(cosAngle).mul(l.getColor().mul(l.getIntensity()));
 	}
 
 }

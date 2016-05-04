@@ -24,7 +24,7 @@ public class InfinitePlane extends Primitive {
         	return null;
         }
         Vec3 colPos = ray.runDistance(t);
-        return new Collision(this, ray, t, PLANE_NORMAL, Math.abs(colPos.x -10 ), Math.abs(colPos.z -10));
+        return new Collision(this, ray, t, PLANE_NORMAL, colPos.x/10, colPos.z/10);
     }
 
     public static Float planeT(Ray ray, Vec3 normal, float d) {

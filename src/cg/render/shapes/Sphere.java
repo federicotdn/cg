@@ -38,12 +38,10 @@ public class Sphere extends Primitive {
 		}
 		
 		float t = (t0 > t1 ? t1 : t0);
-		Vec3 normal = orig.sum(dir.mul(t));
+		Vec3 normal = orig.sum(dir.mul(t)).mul(1/radius);
 
-		Vec3 colPos = ray.runDistance(t);
-
-		float u = 0.5f + (float)((Math.atan2(colPos.z, colPos.x))/(2*Math.PI));
-		float v = 0.5f - (float)(Math.asin(colPos.y)/Math.PI);
+		float u = 0.5f + (float)((Math.atan2(normal.z, normal.x))/(2*Math.PI));
+		float v = 0.5f - (float)(Math.asin(normal.y)/Math.PI);
 		return new Collision(this, ray, t, normal, Math.abs(u), Math.abs(v));
 	}
 

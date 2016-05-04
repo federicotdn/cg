@@ -4,16 +4,13 @@ import cg.math.Matrix4;
 import cg.math.Vec3;
 import cg.math.Vec4;
 
-public class Camera {
+public class Camera extends WorldObject {
 	private float fovDegrees;
 	private Matrix4 transform;
 	private Vec3 pos;
 	
 	public Camera(Vec3 pos, Vec3 rotation, float fov) {
-		Matrix4 rotX = Matrix4.rotationX(rotation.x);
-		Matrix4 rotY = Matrix4.rotationY(rotation.y);
-		Matrix4 rotZ = Matrix4.rotationZ(rotation.z);
-		Matrix4 rot = rotZ.mul(rotY).mul(rotX);
+		Matrix4 rot = getRotationMatrix(rotation);
 		
 		this.pos = pos;
 		this.transform = Matrix4.transFromVec(pos).mul(rot);
