@@ -19,6 +19,10 @@ public class MultiJitteredSampler {
 		yCoords = new float[size * size];
 	}
 	
+	public int getSize() {
+		return size;
+	}
+	
 	public void generateSamples() {
 		for (int j = 0; j < size; j++) {
 			for (int i = 0; i < size; i++) {
@@ -42,13 +46,6 @@ public class MultiJitteredSampler {
 				float tmp = yCoords[j * size + i];
 				yCoords[j * size + i] = yCoords[j * size + k];
 				yCoords[j * size + k] = tmp;
-			}
-		}
-		
-		for (int j = 0; j < size; j++) {
-			for (int i = 0; i < size; i++) {
-				System.out.println(xCoords[j * size + i]);
-				System.out.println(yCoords[j * size + i]);
 			}
 		}
 	}

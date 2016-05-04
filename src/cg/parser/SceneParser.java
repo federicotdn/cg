@@ -41,7 +41,7 @@ import cg.render.shapes.Sphere;
  */
 public class SceneParser {
 	private static final Material DEFAULT_MATERIAL = Diffuse.DIFFUSE_DEFAULT;
-	private static final int DEFAULT_SAMPLES = 4;
+	private static final int DEFAULT_SAMPLES = 2;
 	
     private String filename;
     private WorldObject rootObject;
@@ -82,7 +82,7 @@ public class SceneParser {
 			printWarning("Invalid antialiasing sample count.  Defaulting to: " + String.valueOf(DEFAULT_SAMPLES));
 			samples = DEFAULT_SAMPLES;
 		}
-		scene.setSamples(samples);
+		scene.setSamples((int)Math.pow(2, samples));
 		
 		for (WorldObject wo : worldObjects) {
 			wo.calculateTransform();

@@ -1,6 +1,7 @@
 package cg.render;
 
 import cg.accelerator.KDTree;
+import cg.rand.MultiJitteredSampler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,23 +60,36 @@ public class Scene {
 		
 		kdTree = new KDTree(primitives, 5);
 		long count = 0;
+		Ray[] rays = new Ray[samples];
+		MultiJitteredSampler sampler = new MultiJitteredSampler(samples);
 		
 		for (int p = 0; p < img.getHeight() * img.getWidth(); p++) {
 			int x = p % img.getWidth();
 			int y = p / img.getWidth();
-			Ray ray = cam.rayFor(img, x, y);
-			Color c = BACKGROUND_COLOR;
-
-			Collision col = collideRay(ray);
-			if (col != null) {
-				// Debug: normals as colors
-				//Vec3 normal = col.getNormal();
-				//c = new Color(Math.abs(normal.x), Math.abs(normal.y), Math.abs(normal.z));	
+			
+			sampler.generateSamples();
+			cam.raysFor(rays, sampler, img, x, y);
+			
+			float r = 0, g = 0, b = 0;
+			
+			for (int i = 0; i < samples; i++) {
+				Color c = BACKGROUND_COLOR;
 				
-				c = getSurfaceColor(col);
+				Collision col = collideRay(rays[i]);
+				if (col != null) {
+					c = getSurfaceColor(col);
+				}
+				
+				r += c.getRed();
+				g += c.getGreen();
+				b += c.getBlue();
 			}
+			
+			r /= samples;
+			g /= samples;
+			b /= samples;
 
-			img.setPixel(x, y, c);
+			img.setPixel(x, y, new Color(r, g, b));
 			count++;
 
 			if (count % (img.getHeight() * img.getWidth() /20) == 0) {
