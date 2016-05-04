@@ -14,6 +14,7 @@ public class Scene {
 	private KDTree kdTree;
 
 	private Image img;
+	private int samples;
 	
 	private final Color BACKGROUND_COLOR = Color.BLACK;
 
@@ -32,7 +33,11 @@ public class Scene {
 	}
 
 	public void setSize(int width, int height) {
-		img =  new Image(width, height);
+		img = new Image(width, height);
+	}
+	
+	public void setSamples(int samples) {
+		this.samples = samples;
 	}
 
 	public void setCam(Camera cam) {

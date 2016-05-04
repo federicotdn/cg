@@ -1,7 +1,29 @@
 package cg.parser;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.eclipsesource.json.Json;
+import com.eclipsesource.json.JsonArray;
+import com.eclipsesource.json.JsonObject;
+import com.eclipsesource.json.JsonValue;
+
 import cg.math.Vec3;
-import cg.render.*;
+import cg.render.Camera;
+import cg.render.Color;
+import cg.render.EmptyObject;
+import cg.render.Light;
+import cg.render.Material;
+import cg.render.Primitive;
+import cg.render.Scene;
+import cg.render.WorldObject;
 import cg.render.assets.Texture;
 import cg.render.lights.AmbientLight;
 import cg.render.lights.DirectionalLight;
@@ -13,23 +35,13 @@ import cg.render.shapes.Box;
 import cg.render.shapes.FinitePlane;
 import cg.render.shapes.InfinitePlane;
 import cg.render.shapes.Sphere;
-import com.eclipsesource.json.Json;
-import com.eclipsesource.json.JsonArray;
-import com.eclipsesource.json.JsonObject;
-import com.eclipsesource.json.JsonValue;
-
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.Reader;
-import java.util.*;
 
 /**
  * Created by Hobbit on 4/22/16.
  */
 public class SceneParser {
 	private static final Material DEFAULT_MATERIAL = Diffuse.DIFFUSE_DEFAULT;
-	private static final float HIGH_INTENSITY = 0.6f;
+	private static final int DEFAULT_SAMPLES = 4;
 	
     private String filename;
     private WorldObject rootObject;
@@ -64,7 +76,14 @@ public class SceneParser {
 
 		JsonObject renderOptions = object.get("renderOptions").asObject();
 		scene.setSize(renderOptions.getInt("width", 1920), renderOptions.getInt("height", 1080));
-
+		
+		int samples = renderOptions.getInt("antialiasing", -1);
+		if (samples == -1 || samples < 2 || samples % 2 == 1) {
+			printWarning("Invalid antialiasing sample count.  Defaulting to: " + String.valueOf(DEFAULT_SAMPLES));
+			samples = DEFAULT_SAMPLES;
+		}
+		scene.setSamples(samples);
+		
 		for (WorldObject wo : worldObjects) {
 			wo.calculateTransform();
 		}
@@ -212,10 +231,6 @@ public class SceneParser {
                     Light light;
 
                     float intensity =  o.getFloat("intensity", 0);
-                    if (intensity > HIGH_INTENSITY) {
-                    	printWarning("Light ID: " + String.valueOf(id) + " has very high intensity.");
-                    }
-
                     Color color = parseColor(o, "color");
 
                     switch (lightType) {
