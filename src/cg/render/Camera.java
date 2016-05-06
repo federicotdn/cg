@@ -22,32 +22,41 @@ public class Camera extends WorldObject {
 		return pos;
 	}
 	
-	public void raysFor(Ray[] rays, MultiJitteredSampler sampler, Image img, int pixelX, int pixelY) {
-		float aspectRatio = img.aspectRatio();
-		double halfImagePlane = Math.tan(Math.toRadians(fovDegrees / 2));
+	public void raysFor(Ray[] rays, MultiJitteredSampler sampler, Image img, int pixelX, int pixelY) {		
+		if (sampler == null) {
+			rays[0] = rayFor(img, pixelX, pixelY, 0.5f, 0.5f);
+			return;
+		}
 		
 		final int size = sampler.getSize();
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
 				float offsetX = sampler.xCoords[size * j + i];
 				float offsetY = sampler.yCoords[size * j + i];
-				
-				double ndcx = ((double)pixelX + offsetX) / img.getWidth();
-				double ndcy = ((double)pixelY + offsetY) / img.getHeight();
-				
-				double px = ((2 * ndcx) - 1) * aspectRatio * halfImagePlane;
-				double py = (1 - (2 * ndcy)) * halfImagePlane;
-				
-				Vec3 origin3 = new Vec3();
-				Vec4 origin = origin3.asPosition();
-				origin = transform.mulVec(origin);
-				
-				Vec3 direction3 = new Vec3((float)px, (float)py, 1);
-				Vec4 direction = direction3.normalize().asDirection();
-				direction = transform.mulVec(direction);
-				
-				rays[size * j + i] = new Ray(origin.asVec3(), direction.asVec3(), null);				
+
+				rays[size * j + i] = rayFor(img, pixelX, pixelY, offsetX, offsetY);
 			}
 		}
+	}
+	
+	private Ray rayFor(Image img, int pixelX, int pixelY, float offsetX, float offsetY) {
+		float aspectRatio = img.aspectRatio();
+		double halfImagePlane = Math.tan(Math.toRadians(fovDegrees / 2));
+		
+		double ndcx = ((double)pixelX + offsetX) / img.getWidth();
+		double ndcy = ((double)pixelY + offsetY) / img.getHeight();
+		
+		double px = ((2 * ndcx) - 1) * aspectRatio * halfImagePlane;
+		double py = (1 - (2 * ndcy)) * halfImagePlane;
+		
+		Vec3 origin3 = new Vec3();
+		Vec4 origin = origin3.asPosition();
+		origin = transform.mulVec(origin);
+		
+		Vec3 direction3 = new Vec3((float)px, (float)py, 1);
+		Vec4 direction = direction3.normalize().asDirection();
+		direction = transform.mulVec(direction);
+		
+		return new Ray(origin.asVec3(), direction.asVec3(), null);
 	}
 }

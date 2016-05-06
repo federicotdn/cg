@@ -67,10 +67,14 @@ public class SceneParser {
 		scene.setSize(renderOptions.getInt("width", 1920), renderOptions.getInt("height", 1080));
 		
 		int samples = renderOptions.getInt("antialiasing", -1);
-		if (samples == -1 || samples < 2 || samples % 2 == 1) {
-			printWarning("Invalid antialiasing sample count.  Defaulting to: " + String.valueOf(DEFAULT_SAMPLES));
+		if (samples == -1) {
+			printWarning("Missing antialiasing sample count.  Defaulting to: " + String.valueOf(DEFAULT_SAMPLES));
 			samples = DEFAULT_SAMPLES;
+		} else if (samples % 2 == 1) {
+			printWarning("Odd antialiasing sample count, increasing by one.");
+			samples++;
 		}
+		
 		scene.setSamples((int)Math.pow(2, samples));
 		
 		for (WorldObject wo : worldObjects) {

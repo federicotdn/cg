@@ -18,7 +18,7 @@
             "meshId": 1241,
             "id": 1239,
             "children": [
-                
+
             ],
             "localPosition": {
                 "y": 0.718999981880188,
@@ -58,7 +58,7 @@
                     "id": 1238,
                     "intensity": 0.699999988079071,
                     "children": [
-                        
+
                     ],
                     "localPosition": {
                         "y": -0.120999999344349,
@@ -90,7 +90,7 @@
                     "id": 1248,
                     "intensity": 0.300000011920929,
                     "children": [
-                        
+
                     ],
                     "localPosition": {
                         "y": 1.86000001430511,
@@ -121,7 +121,7 @@
                     "id": 1243,
                     "intensity": 0.200000002980232,
                     "children": [
-                        
+
                     ],
                     "localPosition": {
                         "y": -0.120999999344349,
@@ -152,7 +152,7 @@
                     "id": 1247,
                     "intensity": 0.400000005960464,
                     "children": [
-                        
+
                     ],
                     "localPosition": {
                         "y": -0.121000051498413,
@@ -190,7 +190,7 @@
             "fieldOfView": 47,
             "id": 1237,
             "children": [
-                
+
             ],
             "localPosition": {
                 "y": 1.40895533561707,
@@ -217,7 +217,7 @@
             "finite": true,
             "id": 1245,
             "children": [
-                
+
             ],
             "height": 10,
             "localPosition": {
@@ -244,7 +244,7 @@
             },
             "id": 1234,
             "children": [
-                
+
             ],
             "localPosition": {
                 "y": 0.5,
@@ -339,7 +339,7 @@
     ],
     "renderOptions": {
         "refractionTraceDepth": 5,
-        "antialiasing": 2,
+        "antialiasing": 0,
         "threads": 14,
         "width": 1280,
         "reflectionTraceDepth": 3,

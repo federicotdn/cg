@@ -61,13 +61,22 @@ public class Scene {
 		kdTree = new KDTree(primitives, 5);
 		long count = 0;
 		Ray[] rays = new Ray[samples];
-		MultiJitteredSampler sampler = new MultiJitteredSampler(samples);
+		
+		MultiJitteredSampler sampler;
+		if (samples == 1) {
+			sampler = null;
+			System.out.println("Antialiasing is disabled.");
+		} else {
+			sampler = new MultiJitteredSampler(samples);
+		}
 		
 		for (int p = 0; p < img.getHeight() * img.getWidth(); p++) {
 			int x = p % img.getWidth();
 			int y = p / img.getWidth();
 			
-			sampler.generateSamples();
+			if (sampler != null) {				
+				sampler.generateSamples();
+			}
 			cam.raysFor(rays, sampler, img, x, y);
 			
 			float r = 0, g = 0, b = 0;
