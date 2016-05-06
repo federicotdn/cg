@@ -52,7 +52,7 @@ public abstract class Material {
 		Color color = calculateSurfaceColor(col, l, surfaceToLight, camPos);
 		if (colorTex != null) {
 			Color texColor = colorTex.getSample(col.u, col.v);
-			color = color.mul(texColor);
+//			color = color.mul(texColor);
 		}
 
 		return color;

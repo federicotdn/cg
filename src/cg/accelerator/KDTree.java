@@ -4,7 +4,6 @@ import cg.math.Vec3;
 import cg.render.Collision;
 import cg.render.Primitive;
 import cg.render.Ray;
-import cg.render.shapes.InfinitePlane;
 
 import java.util.Collections;
 import java.util.List;
@@ -32,17 +31,25 @@ public class KDTree {
         }
 
         INode iNode = (INode)node;
-        KDTreeNode sameSideNode = (ray.getOrigin().getCoordByAxis(iNode.axis) < iNode.location ? iNode.leftChild : iNode.rightChild);
 
-        Collision col = hit(ray,sameSideNode);
+        KDTreeNode first, second;
 
+        if (ray.getOrigin().getCoordByAxis(iNode.axis) < iNode.location) {
+            first = iNode.leftChild;
+            second = iNode.rightChild;
+        } else {
+            first = iNode.rightChild;
+            second = iNode.leftChild;
+        }
+
+        Collision col = hit(ray, first);
         if (col != null) {
         	return col;
         }
 
-        Float t = InfinitePlane.planeT(ray, Vec3.axisVec(iNode.axis).mul(ray.getOrigin().getCoordByAxis(iNode.axis) - iNode.location < 0 ? -1 : 1), iNode.location);
-        if (t != null) {
-        	return hit(ray, iNode.leftChild == sameSideNode ? iNode.rightChild : iNode.leftChild);
+        float t = (iNode.location - ray.getOrigin().getCoordByAxis(iNode.axis))/ray.getDirection().getCoordByAxis(iNode.axis);
+        if (t> 0 && t <= ray.getMaxT()) {
+            return hit(ray, second);
         }
         
         return null;

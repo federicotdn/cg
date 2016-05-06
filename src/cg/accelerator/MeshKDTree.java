@@ -1,10 +1,8 @@
 package cg.accelerator;
 
-import cg.math.Vec3;
 import cg.render.Collision;
 import cg.render.Ray;
 import cg.render.assets.Mesh;
-import cg.render.shapes.InfinitePlane;
 import cg.render.shapes.MeshInstance;
 
 import java.util.ArrayList;
@@ -26,7 +24,7 @@ public class MeshKDTree {
             indexes.add(i);
         }
 
-        this.root = generateTree(indexes, 30, 0);
+        this.root = generateTree(indexes, 50, 0);
     }
 
     private KDTreeNode generateTree(List<Integer> indexes, int threshold, int depth) {
@@ -72,17 +70,27 @@ public class MeshKDTree {
         }
 
         INode iNode = (INode)node;
-        KDTreeNode sameSideNode = (ray.getOrigin().getCoordByAxis(iNode.axis) < iNode.location ? iNode.leftChild : iNode.rightChild);
 
-        Collision col = hit(ray,sameSideNode, mesh);
+        KDTreeNode first;
+        KDTreeNode second;
+
+        if (ray.getOrigin().getCoordByAxis(iNode.axis) <= iNode.location) {
+            first = iNode.leftChild;
+            second = iNode.rightChild;
+        } else {
+            first = iNode.rightChild;
+            second = iNode.leftChild;
+        }
+
+        Collision col = hit(ray,first, mesh);
 
         if (col != null) {
             return col;
         }
 
-        Float t = InfinitePlane.planeT(ray, Vec3.axisVec(iNode.axis), iNode.location);
-        if (t != null) {
-            return hit(ray, iNode.leftChild == sameSideNode ? iNode.rightChild : iNode.leftChild, mesh);
+        float t = (iNode.location - ray.getOrigin().getCoordByAxis(iNode.axis))/ray.getDirection().getCoordByAxis(iNode.axis);
+        if (t> 0 && t <= ray.getMaxT()) {
+            return hit(ray, second, mesh);
         }
 
         return null;
@@ -117,7 +125,7 @@ public class MeshKDTree {
         if (avg.length % 2 == 1) {
             return avg[avg.length/2];
         } else {
-            return (avg[(avg.length - 1)/2] + avg[avg.length/2])/2;
+            return (avg[(avg.length)/2 - 1] + avg[avg.length/2])/2;
         }
     }
 

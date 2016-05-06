@@ -85,13 +85,19 @@ public class Scene {
 				Color c = BACKGROUND_COLOR;
 				
 				Collision col = collideRay(rays[i]);
+//				if (col != null) {
+//					c = getSurfaceColor(col);
+//				}
+//
+//				r += c.getRed();
+//				g += c.getGreen();
+//				b += c.getBlue();
+
 				if (col != null) {
-					c = getSurfaceColor(col);
+					r += Math.abs(col.getNormal().x);
+					g += Math.abs(col.getNormal().y);
+					b += Math.abs(col.getNormal().z);
 				}
-				
-				r += c.getRed();
-				g += c.getGreen();
-				b += c.getBlue();
 			}
 			
 			r /= samples;
