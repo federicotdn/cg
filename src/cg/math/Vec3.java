@@ -42,6 +42,10 @@ public class Vec3 {
 	public float dot(Vec3 v) {
 		return (x * v.x) + (y * v.y) + (z * v.z);
 	}
+
+	public Vec3 cross(Vec3 v) {
+		return new Vec3((y * v.z) - (z * v.y),(z * v.x) - (x * v.z), (x * v.y) - (y * v.x));
+	}
 	
 	public Vec4 asDirection() {
 		return new Vec4(x, y, z, 0);

@@ -1,6 +1,7 @@
 package cg.render.shapes;
 
 import cg.math.Matrix4;
+import cg.math.Vec3;
 import cg.render.BoundingBox;
 import cg.render.Collision;
 import cg.render.Primitive;
@@ -16,17 +17,22 @@ public class MeshInstance extends Primitive {
 	
 	private final Mesh meshData;
 	
-	public MeshInstance(Mesh meshData) {
+	public MeshInstance(Mesh meshData, Vec3 t, Vec3 r, Vec3 s) {
 		this.meshData = meshData;
+		setTransform(t,r,s);
 	}
 	
 	@Override
 	protected Collision calculateCollision(Ray ray) {
-		return meshData.calculateCollision(ray);
+		return meshData.calculateCollision(ray, this);
 	}
 
 	@Override
 	protected BoundingBox calculateBBox(Matrix4 trs) {
 		return meshData.getBBox().transformBBox(trs);
+	}
+
+	public Mesh getMeshData() {
+		return meshData;
 	}
 }

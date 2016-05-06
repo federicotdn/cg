@@ -116,24 +116,6 @@ public class KDTree {
         return medianLoc.getCoordByAxis(axis);
     }
 
-
-    private class INode implements KDTreeNode {
-        public int axis;
-        public float location;
-        public KDTreeNode leftChild;
-        public KDTreeNode rightChild;
-
-        public INode(float location, int axis) {
-            this.location = location;
-            this.axis = axis;
-        }
-
-        @Override
-        public boolean isLeaf() {
-            return false;
-        }
-    }
-
     private class Leaf implements KDTreeNode {
         public List<Primitive> primitives;
 
@@ -145,9 +127,5 @@ public class KDTree {
         public Leaf(List<Primitive> primitives) {
             this.primitives = primitives;
         }
-    }
-
-    private interface KDTreeNode {
-        boolean isLeaf();
     }
 }

@@ -50,11 +50,15 @@ public class BoundingBox {
                 minX = v[i].x;
             } else if (v[i].x > maxX) {
                 maxX = v[i].x;
-            } else if (v[i].y < minY) {
+            }
+
+            if (v[i].y < minY) {
                 minY = v[i].y;
             } else if (v[i].y > maxY) {
                 maxY = v[i].y;
-            } else if (v[i].z < minZ) {
+            }
+
+            if (v[i].z < minZ) {
                 minZ = v[i].z;
             } else if (v[i].z > maxZ) {
                 maxZ = v[i].z;

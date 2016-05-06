@@ -1,29 +1,8 @@
 package cg.parser;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.Reader;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import com.eclipsesource.json.Json;
-import com.eclipsesource.json.JsonArray;
-import com.eclipsesource.json.JsonObject;
-import com.eclipsesource.json.JsonValue;
-
 import cg.math.Vec3;
-import cg.render.Camera;
-import cg.render.Color;
-import cg.render.EmptyObject;
-import cg.render.Light;
-import cg.render.Material;
-import cg.render.Primitive;
-import cg.render.Scene;
-import cg.render.WorldObject;
+import cg.render.*;
+import cg.render.assets.Mesh;
 import cg.render.assets.Texture;
 import cg.render.lights.AmbientLight;
 import cg.render.lights.DirectionalLight;
@@ -31,10 +10,18 @@ import cg.render.lights.PointLight;
 import cg.render.lights.SpotLight;
 import cg.render.materials.ColorMaterial;
 import cg.render.materials.Diffuse;
-import cg.render.shapes.Box;
-import cg.render.shapes.FinitePlane;
-import cg.render.shapes.InfinitePlane;
-import cg.render.shapes.Sphere;
+import cg.render.shapes.*;
+import com.eclipsesource.json.Json;
+import com.eclipsesource.json.JsonArray;
+import com.eclipsesource.json.JsonObject;
+import com.eclipsesource.json.JsonValue;
+import com.sun.xml.internal.messaging.saaj.util.ByteInputStream;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
+import java.util.*;
 
 /**
  * Created by Hobbit on 4/22/16.
@@ -48,6 +35,7 @@ public class SceneParser {
     private List<WorldObject> worldObjects;
     private List<Primitive> primitives;
     private Map<Integer, Material> materials;
+    private Map<Integer, Mesh> meshes;
     private Scene scene;
 
     public SceneParser(String filename) {
@@ -56,6 +44,7 @@ public class SceneParser {
         worldObjects = new ArrayList<>();
         primitives = new ArrayList<>();
         materials = new HashMap<>();
+        meshes = new HashMap<>();
         scene = new Scene();
     }
 
@@ -163,6 +152,57 @@ public class SceneParser {
                         }
                     }
 
+                    break;
+                case "Mesh":
+                    byte[] data = parseBase64(o.getString("base64OBJ", ""));
+                    Scanner scanner = new Scanner(new ByteInputStream(data, data.length));
+                    List<Float> v = new ArrayList<>();
+                    List<Float> normals = new ArrayList<>();
+                    List<Float> uv = new ArrayList<>();
+                    List<Integer> faces = new ArrayList<>();
+                    while (scanner.hasNext()) {
+                        String s = scanner.next();
+                        switch (s) {
+                            case "v":
+                                v.add(scanner.nextFloat());
+                                v.add(scanner.nextFloat());
+                                v.add(scanner.nextFloat());
+                                break;
+                            case "vn":
+                                normals.add(scanner.nextFloat());
+                                normals.add(scanner.nextFloat());
+                                normals.add(scanner.nextFloat());
+                                break;
+                            case "vt":
+                                uv.add(scanner.nextFloat());
+                                uv.add(scanner.nextFloat());
+                                break;
+                            case "f":
+                                String[] f = scanner.next().split("/");
+                                faces.add(Integer.parseInt(f[0]) - 1);
+                                faces.add(Integer.parseInt(f[1]) - 1);
+                                faces.add(Integer.parseInt(f[2]) - 1);
+
+                                f = scanner.next().split("/");
+                                faces.add(Integer.parseInt(f[0]) - 1);
+                                faces.add(Integer.parseInt(f[1]) - 1);
+                                faces.add(Integer.parseInt(f[2]) - 1);
+
+                                f = scanner.next().split("/");
+                                faces.add(Integer.parseInt(f[0]) - 1);
+                                faces.add(Integer.parseInt(f[1]) - 1);
+                                faces.add(Integer.parseInt(f[2]) - 1);
+                                break;
+                            default:
+                                printWarning("Invalid character found in mesh '" + s + "'");
+                        }
+                    }
+                    if (normals.size() != v.size()) {
+                        printWarning("Invalid vertex or normals count in mesh. Skipping");
+                    } else {
+                        Mesh mesh = new Mesh(v, normals, uv, faces);
+                        meshes.put(id, mesh);
+                    }
                     break;
                 default:
 				printWarning("Unsupported asset of type '" + assetType + "'");
@@ -294,8 +334,13 @@ public class SceneParser {
                         	break;
                         	
                         case "Mesh":
-                        	primitive = null;
-                        	printWarning("Not implemented: Mesh");
+                            int meshId = o.getInt("meshId", -1);
+                            if (!meshes.containsKey(meshId)) {
+                                printWarning("Referenced mesh id " + meshId +  " does not exist");
+                                primitive = null;
+                            } else {
+                                primitive = new MeshInstance(meshes.get(meshId), getPosition(o), getRotation(o), getScale(o));
+                            }
                         	break;
 
 					default:
@@ -374,6 +419,6 @@ public class SceneParser {
     }
     
     private void printError(String s) {
-        System.out.println("ERROR: " + s);
+        System.err.println("ERROR: " + s);
     }
 }

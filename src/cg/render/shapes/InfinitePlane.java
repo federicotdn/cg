@@ -34,7 +34,7 @@ public class InfinitePlane extends Primitive {
 
         if (Math.abs(collide) > 0) {
             float t = -((rPos.dot(normal) + d)/rDir.dot(normal));
-            if (t > 0) {
+            if (t > 0 && t <= ray.getMaxT()) {
                 return t;
             }
         }
