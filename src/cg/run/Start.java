@@ -13,7 +13,7 @@ public class Start {
 
 	public static void main(String[] args) throws IOException {
 		System.out.println("Loading scene...");
-		SceneParser parser = new SceneParser("scenes/simplescene4.json");
+		SceneParser parser = new SceneParser("scenes/simpleMeshScene.json");
 		System.out.println("Scene loaded.");
 		Scene scene = parser.parseScene();
 

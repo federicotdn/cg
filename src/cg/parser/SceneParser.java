@@ -15,8 +15,8 @@ import com.eclipsesource.json.Json;
 import com.eclipsesource.json.JsonArray;
 import com.eclipsesource.json.JsonObject;
 import com.eclipsesource.json.JsonValue;
-import com.sun.xml.internal.messaging.saaj.util.ByteInputStream;
 
+import java.io.ByteArrayInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -155,7 +155,7 @@ public class SceneParser {
                     break;
                 case "Mesh":
                     byte[] data = parseBase64(o.getString("base64OBJ", ""));
-                    Scanner scanner = new Scanner(new ByteInputStream(data, data.length));
+                    Scanner scanner = new Scanner(new ByteArrayInputStream(data));
                     List<Float> v = new ArrayList<>();
                     List<Float> normals = new ArrayList<>();
                     List<Float> uv = new ArrayList<>();
