@@ -132,9 +132,9 @@ public class Mesh {
 		float pMinY = Float.MAX_VALUE;
 		float pMinZ = Float.MAX_VALUE;
 
-		float pMaxX = Float.MIN_VALUE;
-		float pMaxY = Float.MIN_VALUE;
-		float pMaxZ = Float.MIN_VALUE;
+		float pMaxX = -Float.MAX_VALUE;
+		float pMaxY = -Float.MAX_VALUE;
+		float pMaxZ = -Float.MAX_VALUE;
 
 		float x, y, z;
 		for (int i =0; i < v.length; i+=3) {

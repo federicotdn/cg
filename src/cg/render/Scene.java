@@ -132,6 +132,7 @@ public class Scene {
 				closestCol = col;
 			}
 		}
+
 		return closestCol;
 	}
 }

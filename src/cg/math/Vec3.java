@@ -76,6 +76,14 @@ public class Vec3 {
 				throw new IllegalArgumentException("Invalid axis");
 		}
 	}
+
+	public Vec3 max(Vec3 v) {
+		return new Vec3(Math.max(x, v.x), Math.max(y, v.y), Math.max(z, v.z));
+	}
+
+	public Vec3 min(Vec3 v) {
+		return new Vec3(Math.min(x, v.x), Math.min(y, v.y), Math.min(z, v.z));
+	}
 	
 	public Vec4 asPosition() {
 		return new Vec4(x, y, z, 1);

@@ -25,8 +25,8 @@ public class Box extends Primitive {
 	
 	@Override
 	protected Collision calculateCollision(Ray ray) {
-		Float t = collisionForBox(pMin, pMax, ray);
-		if (t == null) {
+		float t = collisionForBox(pMin, pMax, ray);
+		if (t < 0) {
 			return null;
 		}
 		
@@ -66,7 +66,7 @@ public class Box extends Primitive {
 		return new Collision(this, ray, t, normal, u, v);
 	}
 	
-    public static Float collisionForBox(Vec3 pMin, Vec3 pMax, Ray ray) {
+    public static float collisionForBox(Vec3 pMin, Vec3 pMax, Ray ray) {
         float t0 = 0f, t1 = ray.getMaxT();
         float invRayDir = 1.f / ray.getDirection().x;
         float tNear = (pMin.x  - ray.getOrigin().x) * invRayDir;
@@ -80,7 +80,7 @@ public class Box extends Primitive {
 
         t0 = tNear > t0 ? tNear : t0;
         t1 = tFar  < t1 ? tFar  : t1;
-        if (t0 > t1) return null;
+        if (t0 > t1) return -1;
 
         invRayDir = 1.f / ray.getDirection().y;
         tNear = (pMin.y  - ray.getOrigin().y) * invRayDir;
@@ -94,7 +94,7 @@ public class Box extends Primitive {
 
         t0 = tNear > t0 ? tNear : t0;
         t1 = tFar  < t1 ? tFar  : t1;
-        if (t0 > t1) return null;
+        if (t0 > t1) return -1;
 
         invRayDir = 1.f / ray.getDirection().z;
         tNear = (pMin.z  - ray.getOrigin().z) * invRayDir;
@@ -108,7 +108,7 @@ public class Box extends Primitive {
 
         t0 = tNear > t0 ? tNear : t0;
         t1 = tFar  < t1 ? tFar  : t1;
-        if (t0 > t1) return null;
+        if (t0 > t1) return -1;
 
         return t0;
     }

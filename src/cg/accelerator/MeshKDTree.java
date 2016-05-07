@@ -1,5 +1,6 @@
 package cg.accelerator;
 
+import cg.render.BoundingBox;
 import cg.render.Collision;
 import cg.render.Ray;
 import cg.render.assets.Mesh;
@@ -13,6 +14,7 @@ import java.util.*;
 public class MeshKDTree {
     private KDTreeNode root;
     private Mesh meshData;
+    private BoundingBox worldBounds;
 
     public MeshKDTree(Mesh meshData, int triangleCount) {
         this.meshData = meshData;
@@ -113,8 +115,6 @@ public class MeshKDTree {
             this.tMin = tMin;
         }
     }
-
-
 
     private Collision checkCollision(Ray ray, int[] indexes, MeshInstance mesh) {
         Collision closestCol = null;

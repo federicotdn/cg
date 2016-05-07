@@ -1,11 +1,14 @@
 package cg.accelerator;
 
 import cg.math.Vec3;
+import cg.render.BoundingBox;
 import cg.render.Collision;
 import cg.render.Primitive;
 import cg.render.Ray;
 
 import java.util.Collections;
+import java.util.Deque;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -15,54 +18,90 @@ import java.util.stream.Collectors;
  */
 public class KDTree {
     private KDTreeNode root;
+    private BoundingBox worldBounds;
 
     public KDTree(List<Primitive> primitives, int threshold) {
-        this.root = generateTree(primitives, threshold, 0);
+        Vec3 pMin = primitives.get(0).getBBox().pMin, pMax =  primitives.get(0).getBBox().pMax;
+
+        for (Primitive primitive: primitives) {
+            BoundingBox bbox = primitive.getBBox();
+            pMin = pMin.min(bbox.pMin);
+            pMax = pMax.max(bbox.pMax);
+        }
+
+        worldBounds = new BoundingBox(pMin, pMax);
+        this.root = generateTree(primitives, threshold, 0, 16);
     }
 
     public Collision hit(Ray ray) {
-        return hit(ray, root);
+        if (worldBounds.collide(ray) < 0) {
+            return null;
+        }
+
+        Deque<StackNode> stack = new LinkedList<>();
+        float tMax = ray.getMaxT();
+        float tMin = 0;
+        stack.push(new StackNode(root, 0, tMax));
+        Collision col = null;
+        KDTreeNode first, second;
+        while (!stack.isEmpty() && col == null) {
+            StackNode sNode = stack.pop();
+            KDTreeNode node = sNode.node;
+            tMax = sNode.tMax;
+            tMin = sNode.tMin;
+            while (!node.isLeaf()) {
+                INode iNode = (INode)node;
+                float t = (iNode.location - ray.getOrigin().getCoordByAxis(iNode.axis))/ray.getDirection().getCoordByAxis(iNode.axis);
+                if (ray.getOrigin().getCoordByAxis(iNode.axis) < iNode.location ||
+                        (Math.abs(ray.getOrigin().getCoordByAxis(iNode.axis) - iNode.location) < 0.000001f
+                                && ray.getDirection().getCoordByAxis(iNode.axis) < 0)) {
+                    first = iNode.leftChild;
+                    second = iNode.rightChild;
+                } else {
+                    first = iNode.rightChild;
+                    second = iNode.leftChild;
+                }
+                if (t >= tMax || t <= 0)
+                    node = first;
+                else if (t < tMin)
+                    node = second;
+                else {
+                    stack.push(new StackNode(second, t, tMax));
+                    node = first;
+                    tMax = t;
+                }
+            }
+
+            Leaf leaf = (Leaf)node;
+            col = checkCollision(ray, leaf.primitives);
+            if (col != null && col.getT() > tMax) {
+                col = null;
+            }
+        }
+
+        return col;
     }
 
-    private Collision hit(Ray ray, KDTreeNode node) {
-        if (node.isLeaf()) {
-            Leaf leaf = (Leaf)node;
-            return checkCollision(ray, leaf.primitives);
+    private class StackNode {
+        public KDTreeNode node;
+        public float tMin;
+        public float tMax;
+
+        public StackNode(KDTreeNode node, float tMin, float tMax) {
+            this.node = node;
+            this.tMax = tMax;
+            this.tMin = tMin;
         }
-
-        INode iNode = (INode)node;
-
-        KDTreeNode first, second;
-
-        if (ray.getOrigin().getCoordByAxis(iNode.axis) < iNode.location) {
-            first = iNode.leftChild;
-            second = iNode.rightChild;
-        } else {
-            first = iNode.rightChild;
-            second = iNode.leftChild;
-        }
-
-        Collision col = hit(ray, first);
-        if (col != null) {
-        	return col;
-        }
-
-        float t = (iNode.location - ray.getOrigin().getCoordByAxis(iNode.axis))/ray.getDirection().getCoordByAxis(iNode.axis);
-        if (t> 0 && t <= ray.getMaxT()) {
-            return hit(ray, second);
-        }
-        
-        return null;
     }
 
     private Collision checkCollision(Ray ray, List<Primitive> primitives) {
         Collision closestCol = null;
         for (Primitive primitive : primitives) {
-            Float t = primitive.getBBox().collide(ray);
-            if (t != null) {
+            float t = primitive.getBBox().collide(ray);
+            if (t >= 0) {
                 Collision col = primitive.collideWith(ray);
 
-                if (col == null || col.getT() > ray.getMaxT()) {
+                if (col == null) {
                     continue;
                 }
 
@@ -75,27 +114,24 @@ public class KDTree {
        return closestCol;
     }
 
-    private KDTreeNode generateTree(List<Primitive> primitives, int threshold, int depth) {
+    private KDTreeNode generateTree(List<Primitive> primitives, int threshold, int depth, int maxDepth) {
         int axis = depth % 3;
-        sortByAxis(primitives, axis);
-
-
-        if (primitives.size() <= threshold) {
-            return new Leaf(primitives);
+        if (primitives.size() <= threshold || depth == maxDepth) {
+             return new Leaf(primitives);
         }
+
+        sortByAxis(primitives, axis);
 
         float location = getMedian(primitives, axis);
 
-        Predicate<Primitive> isLeft = p -> p.getBBox().getCenter().getCoordByAxis(axis) < location ||
-        		(p.getBBox().pMin.getCoordByAxis(axis) >= location && p.getBBox().pMax.getCoordByAxis(axis) < location);
-        Predicate<Primitive> isRight = p -> p.getBBox().getCenter().getCoordByAxis(axis) >= location ||
-        		(p.getBBox().pMin.getCoordByAxis(axis) >= location && p.getBBox().pMax.getCoordByAxis(axis) < location);
+        Predicate<Primitive> isLeft = p -> p.getBBox().pMin.getCoordByAxis(axis) <= location;
+        Predicate<Primitive> isRight = p -> p.getBBox().pMax.getCoordByAxis(axis) > location;
         List<Primitive> leftPrimitives = primitives.stream().filter(isLeft).collect(Collectors.toList());
         List<Primitive> rightPrimitives = primitives.stream().filter(isRight).collect(Collectors.toList());
 
         INode node = new INode(location, axis);
-        node.leftChild = generateTree(leftPrimitives, threshold, depth + 1);
-        node.rightChild = generateTree(rightPrimitives, threshold, depth + 1);
+        node.leftChild = generateTree(leftPrimitives, threshold, depth + 1, maxDepth);
+        node.rightChild = generateTree(rightPrimitives, threshold, depth + 1, maxDepth);
 
         return node;
     }

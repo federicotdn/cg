@@ -83,6 +83,10 @@ public class SceneParser {
 			wo.calculateTransform();
 		}
 
+        for (Primitive primitive: primitives) {
+            scene.addPrimitive(primitive);
+        }
+
 		return scene;
     }
     
@@ -369,7 +373,6 @@ public class SceneParser {
                     wo = primitive;
                     if (primitive != null) {
                     	primitive.setName(name);
-                    	scene.addPrimitive(primitive);
                     	primitives.add(primitive);
                     	
                     	if (materialId == -1 || !materials.containsKey(materialId)) {

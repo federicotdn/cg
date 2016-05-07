@@ -30,8 +30,6 @@ public class BoundingBox {
     }
 
     public BoundingBox transformBBox(Matrix4 trs) {
-    	//TODO: Fix: BBox of transformed BBox not being calculated correctly
-
         Vec3[] v = new Vec3[8];
         v[0] = pMin;
         v[1] = pMax;
@@ -42,26 +40,32 @@ public class BoundingBox {
         v[6] = new Vec3(v[0].x, v[1].y, v[1].z);
         v[7] = new Vec3(v[1].x, v[1].y, v[0].z);
 
-        float minX = v[0].x, minY = v[0].y, minZ = v[0].z;
-        float maxX = v[1].x, maxY = v[1].y, maxZ = v[0].z;
+        float minX = Float.MAX_VALUE, minY = Float.MAX_VALUE, minZ = Float.MAX_VALUE;
+        float maxX = -Float.MAX_VALUE, maxY = -Float.MAX_VALUE, maxZ = -Float.MAX_VALUE;
         for (int i = 0; i < v.length; i++) {
-            v[i] = trs.mulVec(v[i].asPosition()).asVec3();
-            if (v[i].x < minX) {
-                minX = v[i].x;
-            } else if (v[i].x > maxX) {
-                maxX = v[i].x;
+            Vec3 transformedPoint = trs.mulVec(v[i].asPosition()).asVec3();
+            if (transformedPoint.x < minX) {
+                minX = transformedPoint.x;
             }
 
-            if (v[i].y < minY) {
-                minY = v[i].y;
-            } else if (v[i].y > maxY) {
-                maxY = v[i].y;
+            if (transformedPoint.x > maxX) {
+                maxX = transformedPoint.x;
             }
 
-            if (v[i].z < minZ) {
-                minZ = v[i].z;
-            } else if (v[i].z > maxZ) {
-                maxZ = v[i].z;
+            if (transformedPoint.y < minY) {
+                minY = transformedPoint.y;
+            }
+
+            if (transformedPoint.y > maxY) {
+                maxY = transformedPoint.y;
+            }
+
+            if (transformedPoint.z < minZ) {
+                minZ = transformedPoint.z;
+            }
+
+            if (transformedPoint.z > maxZ) {
+                maxZ = transformedPoint.z;
             }
         }
 
