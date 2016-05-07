@@ -10,6 +10,7 @@ import cg.render.lights.PointLight;
 import cg.render.lights.SpotLight;
 import cg.render.materials.ColorMaterial;
 import cg.render.materials.Diffuse;
+import cg.render.materials.Phong;
 import cg.render.shapes.*;
 import com.eclipsesource.json.Json;
 import com.eclipsesource.json.JsonArray;
@@ -29,6 +30,7 @@ import java.util.*;
 public class SceneParser {
 	private static final Material DEFAULT_MATERIAL = Diffuse.DIFFUSE_DEFAULT;
 	private static final int DEFAULT_SAMPLES = 2;
+	private static final int DEFAULT_EXPONENT = 2;
 	
     private String filename;
     private WorldObject rootObject;
@@ -123,6 +125,20 @@ public class SceneParser {
                             Color c = parseColor(o, "color");
                             material = new ColorMaterial(c, offsetU, offsetV, scaleU, scaleV);
                             break;
+                        case "Phong":
+                        	c = parseColor(o, "color");
+                        	Color specular = parseColor(o, "specularColor");
+                        	float exponent = o.getFloat("exponent", -1);
+                        	if (exponent < 0) {
+                        		printWarning("Phong material ID " + String.valueOf(id) + " does not have an exponent, using default value.");
+                        		exponent = DEFAULT_EXPONENT;
+                        	}
+                        	
+                        	Phong p = new Phong(c, offsetU, offsetV, scaleU, scaleV);
+                        	p.setPhongProperties(specular, exponent);
+                        	material = p;
+
+                        	break;
                         default:
                             material = null;
                             printWarning("Unsupported material of type '" + materialType + "'");
@@ -201,12 +217,10 @@ public class SceneParser {
                                 printWarning("Invalid character found in mesh '" + s + "'");
                         }
                     }
-                    if (normals.size() != v.size()) {
-                        printWarning("Invalid vertex or normals count in mesh. Skipping");
-                    } else {
-                        Mesh mesh = new Mesh(v, normals, uv, faces);
-                        meshes.put(id, mesh);
-                    }
+
+                    Mesh mesh = new Mesh(v, normals, uv, faces);
+                    meshes.put(id, mesh);
+
                     break;
                 default:
 				printWarning("Unsupported asset of type '" + assetType + "'");

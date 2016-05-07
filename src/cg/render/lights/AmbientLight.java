@@ -13,9 +13,12 @@ public class AmbientLight extends Light {
 	}
 
 	@Override
-	public Color illuminateSurface(Collision col) {
-		Vec3 normal = col.getNormal();
-		return col.getPrimitive().getMaterial().getSurfaceColor(col, this, normal, scene.getCamera().getPosition());
+	public boolean visibleFrom(Collision col) {
+		return true;
 	}
 
+	@Override
+	public Vec3 vectorFromCollision(Collision col) {
+		return col.getNormal();
+	}
 }

@@ -4,12 +4,12 @@ import cg.math.Vec3;
 
 public class Collision {
 	private float t;
-	private Ray ray;
-	private Vec3 normal;
+	private final Ray ray;
+	private final Vec3 normal;
 	private Vec3 position;
-	private float cosAngle;
+	private final float cosAngle;
 	
-	private Primitive primitive;
+	private final Primitive primitive;
 	public final float u;
 	public final float v;
 	

@@ -195,7 +195,7 @@
     ],
     "renderOptions": {
         "refractionTraceDepth": 5,
-        "antialiasing": 0,
+        "antialiasing": 2,
         "threads": 14,
         "width": 1280,
         "reflectionTraceDepth": 5,

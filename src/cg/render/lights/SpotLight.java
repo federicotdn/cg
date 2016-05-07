@@ -22,17 +22,17 @@ public class SpotLight extends Light {
 	}
 
 	@Override
-	public Color illuminateSurface(Collision col) {
-		Vec3 surfaceToLight = position.sub(col.getPosition());
+	public boolean visibleFrom(Collision col) {
+		Vec3 surfaceToLight = vectorFromCollision(col);
 		float cosAngle = col.getNormal().dot(surfaceToLight.normalize());
 		
 		if (cosAngle < 0) {
-			return null;
+			return false;
 		}
 		
 		Vec3 lightToSurface = surfaceToLight.mul(-1).normalize();
 		if (lightToSurface.dot(direction) < cosCutoff) {
-			return null;
+			return false;
 		}
 		
 		Vec3 displacedOrigin = col.getPosition().sum(col.getNormal().mul(Light.EPSILON));
@@ -40,9 +40,14 @@ public class SpotLight extends Light {
 		
 		Ray ray = new Ray(displacedOrigin, path, path.len() - Light.EPSILON);
 		if (scene.collideRay(ray) != null) {
-			return null;
+			return false;
 		}
 		
-		return col.getPrimitive().getMaterial().getSurfaceColor(col, this, surfaceToLight, scene.getCamera().getPosition());
+		return true;
+	}
+
+	@Override
+	public Vec3 vectorFromCollision(Collision col) {
+		return position.sub(col.getPosition());
 	}
 }

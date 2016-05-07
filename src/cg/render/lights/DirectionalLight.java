@@ -18,19 +18,24 @@ public class DirectionalLight extends Light {
 	}
 
 	@Override
-	public Color illuminateSurface(Collision col) {
+	public boolean visibleFrom(Collision col) {
 		float cosAngle = col.getNormal().dot(negDirection);
 		if (cosAngle < 0) {
-			return null;
+			return false;
 		}
 		
 		Vec3 displacedOrigin = col.getPosition().sum(col.getNormal().mul(Light.EPSILON));
 		Ray ray = new Ray(displacedOrigin, negDirection, null);
 		
 		if (scene.collideRay(ray) != null) {
-			return null;
+			return false;
 		}
 		
-		return col.getPrimitive().getMaterial().getSurfaceColor(col, this, negDirection, scene.getCamera().getPosition());
+		return true;
+	}
+
+	@Override
+	public Vec3 vectorFromCollision(Collision col) {
+		return negDirection;
 	}
 }
