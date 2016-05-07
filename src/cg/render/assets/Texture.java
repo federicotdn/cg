@@ -1,5 +1,6 @@
 package cg.render.assets;
 
+import cg.math.MathUtils;
 import cg.render.Color;
 
 import javax.imageio.ImageIO;
@@ -46,6 +47,8 @@ public class Texture {
 	}
 
 	public Color getSample(float u, float v) {
+		u = MathUtils.clamp(u);
+		v = MathUtils.clamp(v);
 		int x = (int)(width * u);
 		int y = (int) (height * v);
 		int index =( (y * width) + x) * 4;
