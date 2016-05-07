@@ -5,6 +5,7 @@ import cg.math.Vec3;
 import cg.render.BoundingBox;
 import cg.render.Collision;
 import cg.render.Primitive;
+import cg.render.QuickCollision;
 import cg.render.Ray;
 
 public class Box extends Primitive {
@@ -24,46 +25,44 @@ public class Box extends Primitive {
 	}
 	
 	@Override
-	protected Collision calculateCollision(Ray ray) {
+	protected QuickCollision calculateCollision(Ray ray) {
 		Float t = collisionForBox(pMin, pMax, ray);
 		if (t == null) {
 			return null;
 		}
-		
-		//TODO: Fix normal when width, depth or height != 1
-		Vec3 colPos = ray.runDistance(t);
-		Vec3 normal;
-		float maxDist;
-		float distance;
-		float u, v;
-		
-		//X
-		distance = Math.abs(colPos.x)/(width/2);
-		maxDist = distance;
-		normal = new Vec3(Math.signum(colPos.x), 0, 0);
-		v = Math.abs(colPos.y - height / 2) / height;
-		u = Math.abs(colPos.z - depth / 2) / depth;
 
-		
-		//Y
-		distance = Math.abs(colPos.y)/(height/2);
-		if (distance > maxDist) {
-			maxDist = distance;
-			normal = new Vec3(0, Math.signum(colPos.y), 0);
-			u = Math.abs(colPos.x - width/2)/width;
-			v = Math.abs(colPos.z - depth/2)/depth;
-		}		
-		
-		//Z
-		distance = Math.abs(colPos.z)/(depth/2);
-		if (distance > maxDist) {
-			maxDist = distance;
-			normal = new Vec3(0, 0, Math.signum(colPos.z));
-			u = Math.abs(colPos.x - width/2)/width;
-			v = Math.abs(colPos.y - height/2)/height;
-		}
-
-		return new Collision(this, ray, t, normal, u, v);
+		return new QuickCollision(this, ray, t, -1);
+//		Vec3 colPos = ray.runDistance(t);
+//		Vec3 normal;
+//		float maxDist;
+//		float distance;
+//		float u, v;
+//		
+//		//X
+//		distance = Math.abs(colPos.x)/(width/2);
+//		maxDist = distance;
+//		normal = new Vec3(Math.signum(colPos.x), 0, 0);
+//		v = Math.abs(colPos.y - height / 2) / height;
+//		u = Math.abs(colPos.z - depth / 2) / depth;
+//
+//		
+//		//Y
+//		distance = Math.abs(colPos.y)/(height/2);
+//		if (distance > maxDist) {
+//			maxDist = distance;
+//			normal = new Vec3(0, Math.signum(colPos.y), 0);
+//			u = Math.abs(colPos.x - width/2)/width;
+//			v = Math.abs(colPos.z - depth/2)/depth;
+//		}		
+//		
+//		//Z
+//		distance = Math.abs(colPos.z)/(depth/2);
+//		if (distance > maxDist) {
+//			maxDist = distance;
+//			normal = new Vec3(0, 0, Math.signum(colPos.z));
+//			u = Math.abs(colPos.x - width/2)/width;
+//			v = Math.abs(colPos.y - height/2)/height;
+//		}
 	}
 	
     public static Float collisionForBox(Vec3 pMin, Vec3 pMax, Ray ray) {
@@ -116,5 +115,11 @@ public class Box extends Primitive {
 	@Override
 	protected BoundingBox calculateBBox(Matrix4 trs) {
 		return (new BoundingBox(pMin, pMax)).transformBBox(trs);
+	}
+
+	@Override
+	public Collision completeCollision(QuickCollision qc) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

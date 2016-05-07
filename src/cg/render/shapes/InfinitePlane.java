@@ -5,6 +5,7 @@ import cg.math.Vec3;
 import cg.render.BoundingBox;
 import cg.render.Collision;
 import cg.render.Primitive;
+import cg.render.QuickCollision;
 import cg.render.Ray;
 
 /**
@@ -18,13 +19,14 @@ public class InfinitePlane extends Primitive {
     }
     
     @Override
-    protected Collision calculateCollision(Ray ray) {
+    protected QuickCollision calculateCollision(Ray ray) {
         Float t = planeT(ray, PLANE_NORMAL, 0);
         if (t == null || t > ray.getMaxT()) {
         	return null;
         }
-        Vec3 colPos = ray.runDistance(t);
-        return new Collision(this, ray, t, PLANE_NORMAL, colPos.x/10, colPos.z/10);
+        //Vec3 colPos = ray.runDistance(t);
+        //return new Collision(this, ray, t, PLANE_NORMAL, colPos.x/10, colPos.z/10);
+        return new QuickCollision(this, ray, t, -1);
     }
 
     public static Float planeT(Ray ray, Vec3 normal, float d) {
@@ -46,4 +48,10 @@ public class InfinitePlane extends Primitive {
     protected BoundingBox calculateBBox(Matrix4 trs) {
         return null;
     }
+
+	@Override
+	public Collision completeCollision(QuickCollision qc) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

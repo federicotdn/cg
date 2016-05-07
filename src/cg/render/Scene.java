@@ -123,12 +123,12 @@ public class Scene {
 	public Collision collideRay(Ray ray) {
 		Collision closestCol = kdTree.hit(ray);
 		for (Primitive primitive : unboundedPrimitives) {
-			Collision col = primitive.collideWith(ray);
-			if (col == null || col.getT() > ray.getMaxT()) {
+			QuickCollision col = primitive.collideWith(ray);
+			if (col == null || col.getWorldT() > ray.getMaxT()) {
 				continue;
 			}
 
-			if (closestCol == null || col.getT() < closestCol.getT()) {
+			if (closestCol == null || col.getWorldT() < closestCol.getWorldT()) {
 				closestCol = col;
 			}
 		}

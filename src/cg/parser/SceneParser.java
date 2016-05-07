@@ -155,7 +155,7 @@ public class SceneParser {
                                 requiredTextures.get(colorTextureId).add(material);
                             }
                         } else {
-                            printWarning("Material of id " + id + " does not has a texture");
+                            printWarning("Material of ID: " + id + " does not have a texture.");
                         }
 
                         materials.put(id, material);

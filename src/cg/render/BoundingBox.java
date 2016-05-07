@@ -30,8 +30,6 @@ public class BoundingBox {
     }
 
     public BoundingBox transformBBox(Matrix4 trs) {
-    	//TODO: Fix: BBox of transformed BBox not being calculated correctly
-
         Vec3[] v = new Vec3[8];
         v[0] = pMin;
         v[1] = pMax;
