@@ -180,6 +180,46 @@
             "name": "TestDiffuseMaterial"
         },
         {
+            "colorScale": {
+                "y": 3,
+                "x": 5
+            },
+            "materialType": "Color",
+            "colorOffset": {
+                "y": 0,
+                "x": 0
+            },
+            "id": 44,
+            "assetType": "Material",
+            "color": {
+                "a": 1,
+                "r": 0.5,
+                "g": 0.5,
+                "b": 0.5
+            },
+            "name": "TestDiffuseMaterial"
+        },
+                {
+            "colorScale": {
+                "y": 3,
+                "x": 5
+            },
+            "materialType": "Color",
+            "colorOffset": {
+                "y": 0,
+                "x": 0
+            },
+            "id": 45,
+            "assetType": "Material",
+            "color": {
+                "a": 1,
+                "r": 0.9,
+                "g": 0.1,
+                "b": 0.1
+            },
+            "name": "TestDiffuseMaterial"
+        },
+        {
             "id": 1236,
             "name": "LightChecker",
             "base64PNG": "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",

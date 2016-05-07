@@ -37,7 +37,7 @@ public class FinitePlane extends Primitive {
         	return null;
         }
         
-        return new QuickCollision(this, ray, t, -1);
+        return new QuickCollision(this, ray, null, t, -1);
         //return new Collision(this, ray, t, InfinitePlane.PLANE_NORMAL, Math.abs(colPos.x - halfWidth)/(halfWidth*2), Math.abs(colPos.z - halfDepth)/(halfDepth * 2));
 	}
 
@@ -50,9 +50,11 @@ public class FinitePlane extends Primitive {
 	}
 
 	@Override
-	public Collision completeCollision(QuickCollision qc) {
-		// TODO Auto-generated method stub
-		return null;
+	public Collision getFullCollision(QuickCollision qc) {
+		Ray ray = qc.getLocalRay();
+		float t = qc.getLocalT();
+		Vec3 colPos = ray.runDistance(t);
+		return new Collision(this, ray, t, InfinitePlane.PLANE_NORMAL, Math.abs(colPos.x - halfWidth)/(halfWidth*2), Math.abs(colPos.z - halfDepth)/(halfDepth * 2));
 	}
 
 }

@@ -4,6 +4,7 @@ import cg.math.Vec3;
 import cg.render.Collision;
 import cg.render.Color;
 import cg.render.Light;
+import cg.render.QuickCollision;
 import cg.render.Ray;
 import cg.render.Scene;
 
@@ -38,7 +39,7 @@ public class PointLight extends Light {
 		
 		Ray ray = new Ray(displacedOrigin, path, path.len() - Light.EPSILON);
 		
-		Collision sceneCol = scene.collideRay(ray);
+		QuickCollision sceneCol = scene.collideRay(ray);
 		if (sceneCol != null) {
 			return false;
 		}

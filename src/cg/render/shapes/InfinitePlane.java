@@ -33,9 +33,8 @@ public class InfinitePlane extends Primitive {
         if (t < 0 || t > ray.getMaxT()) {
         	return null;
         }
-        //Vec3 colPos = ray.runDistance(t);
-        //return new Collision(this, ray, t, PLANE_NORMAL, colPos.x/10, colPos.z/10);
-        return new QuickCollision(this, ray, t, -1);
+
+        return new QuickCollision(this, ray, null, t, -1);
     }
 
     public static float planeT(Ray ray, Vec3 normal, float d) {
@@ -59,8 +58,10 @@ public class InfinitePlane extends Primitive {
     }
 
 	@Override
-	public Collision completeCollision(QuickCollision qc) {
-		// TODO Auto-generated method stub
-		return null;
+	public Collision getFullCollision(QuickCollision qc) {
+		Ray ray = qc.getLocalRay();
+		float t = qc.getLocalT();
+		Vec3 colPos = ray.runDistance(t);
+		return new Collision(this, ray, t, PLANE_NORMAL, colPos.x / 10, colPos.z / 10);
 	}
 }

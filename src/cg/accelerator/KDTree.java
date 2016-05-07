@@ -4,6 +4,7 @@ import cg.math.Vec3;
 import cg.render.BoundingBox;
 import cg.render.Collision;
 import cg.render.Primitive;
+import cg.render.QuickCollision;
 import cg.render.Ray;
 
 import java.util.Collections;
@@ -33,7 +34,7 @@ public class KDTree {
         this.root = generateTree(primitives, threshold, 0, 16);
     }
 
-    public Collision hit(Ray ray) {
+    public QuickCollision hit(Ray ray) {
         if (worldBounds.collide(ray) < 0) {
             return null;
         }
@@ -42,7 +43,7 @@ public class KDTree {
         float tMax = ray.getMaxT();
         float tMin = 0;
         stack.push(new StackNode(root, 0, tMax));
-        Collision col = null;
+        QuickCollision col = null;
         KDTreeNode first, second;
         while (!stack.isEmpty() && col == null) {
             StackNode sNode = stack.pop();
@@ -74,7 +75,7 @@ public class KDTree {
 
             Leaf leaf = (Leaf)node;
             col = checkCollision(ray, leaf.primitives);
-            if (col != null && col.getT() > tMax) {
+            if (col != null && col.getWorldT() > tMax) {
                 col = null;
             }
         }
@@ -94,18 +95,18 @@ public class KDTree {
         }
     }
 
-    private Collision checkCollision(Ray ray, List<Primitive> primitives) {
-        Collision closestCol = null;
+    private QuickCollision checkCollision(Ray ray, List<Primitive> primitives) {
+        QuickCollision closestCol = null;
         for (Primitive primitive : primitives) {
             float t = primitive.getBBox().collide(ray);
             if (t >= 0) {
-                Collision col = primitive.collideWith(ray);
+                QuickCollision col = primitive.collideWith(ray);
 
                 if (col == null) {
                     continue;
                 }
 
-                if (closestCol == null || col.getT() < closestCol.getT()) {
+                if (closestCol == null || col.getWorldT() < closestCol.getWorldT()) {
                     closestCol = col;
                 }
             }

@@ -88,9 +88,10 @@ public class Scene {
 			for (int i = 0; i < samples; i++) {
 				Color c = BACKGROUND_COLOR;
 				
-				Collision col = collideRay(rays[i]);
+				QuickCollision col = collideRay(rays[i]);
 				if (col != null) {
-					c = col.getPrimitive().getMaterial().getSurfaceColor(col, this);
+					Collision fullCollision = col.completeCollision();
+					c = fullCollision.getPrimitive().getMaterial().getSurfaceColor(fullCollision, this);
 				}
 
 				r += c.getRed();
@@ -120,8 +121,8 @@ public class Scene {
 		return img;
 	}
 	
-	public Collision collideRay(Ray ray) {
-		Collision closestCol = kdTree.hit(ray);
+	public QuickCollision collideRay(Ray ray) {
+		QuickCollision closestCol = kdTree.hit(ray);
 		for (Primitive primitive : unboundedPrimitives) {
 			QuickCollision col = primitive.collideWith(ray);
 			if (col == null || col.getWorldT() > ray.getMaxT()) {

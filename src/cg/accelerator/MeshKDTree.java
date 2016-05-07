@@ -2,6 +2,7 @@ package cg.accelerator;
 
 import cg.render.BoundingBox;
 import cg.render.Collision;
+import cg.render.QuickCollision;
 import cg.render.Ray;
 import cg.render.assets.Mesh;
 import cg.render.shapes.MeshInstance;
@@ -59,12 +60,12 @@ public class MeshKDTree {
         return node;
     }
 
-    public Collision hit(Ray ray, MeshInstance mesh) {
+    public QuickCollision hit(Ray ray, MeshInstance mesh) {
         Deque<StackNode> stack = new LinkedList<>();
         float tMax = ray.getMaxT();
         float tMin = 0;
         stack.push(new StackNode(root, 0, tMax));
-        Collision col = null;
+        QuickCollision col = null;
         KDTreeNode first, second;
         while (!stack.isEmpty() && col == null) {
             StackNode sNode = stack.pop();
@@ -96,7 +97,7 @@ public class MeshKDTree {
 
             Leaf leaf = (Leaf)node;
             col = checkCollision(ray, leaf.indexes, mesh);
-            if (col != null && col.getT() > tMax) {
+            if (col != null && col.getLocalT() > tMax) {
                 col = null;
             }
         }
@@ -116,16 +117,16 @@ public class MeshKDTree {
         }
     }
 
-    private Collision checkCollision(Ray ray, int[] indexes, MeshInstance mesh) {
-        Collision closestCol = null;
+    private QuickCollision checkCollision(Ray ray, int[] indexes, MeshInstance mesh) {
+        QuickCollision closestCol = null;
         for (int index : indexes) {
-            Collision col = meshData.checkCollision(ray, index, mesh);
+            QuickCollision col = meshData.checkCollision(ray, index, mesh);
 
             if (col == null) {
                 continue;
             }
 
-            if (closestCol == null || col.getT() < closestCol.getT()) {
+            if (closestCol == null || col.getLocalT() < closestCol.getLocalT()) {
                 closestCol = col;
             }
         }

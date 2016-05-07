@@ -40,12 +40,7 @@ public class Sphere extends Primitive {
 		
 		float t = (t0 > t1 ? t1 : t0);
 		
-		return new QuickCollision(this, ray, t, -1);
-//		Vec3 normal = orig.sum(dir.mul(t)).mul(1/radius);
-//
-//		float u = 0.5f + (float)((Math.atan2(normal.z, normal.x))/(2*Math.PI));
-//		float v = 0.5f - (float)(Math.asin(normal.y)/Math.PI);
-//		return new Collision(this, ray, t, normal, Math.abs(u), Math.abs(v));
+		return new QuickCollision(this, ray, null, t, -1);
 	}
 
 	@Override
@@ -57,8 +52,15 @@ public class Sphere extends Primitive {
 	}
 
 	@Override
-	public Collision completeCollision(QuickCollision qc) {
-		// TODO Auto-generated method stub
-		return null;
+	public Collision getFullCollision(QuickCollision qc) {
+		float t = qc.getLocalT();
+		Ray ray = qc.getLocalRay();
+		Vec3 dir = ray.getDirection();
+		Vec3 orig = ray.getOrigin();
+		Vec3 normal = orig.sum(dir.mul(t)).mul(1 / radius);
+
+		float u = 0.5f + (float)((Math.atan2(normal.z, normal.x)) / (2*Math.PI));
+		float v = 0.5f - (float)(Math.asin(normal.y) / Math.PI);
+		return new Collision(this, ray, t, normal, Math.abs(u), Math.abs(v));
 	}
 }

@@ -25,8 +25,7 @@ public class MeshInstance extends Primitive {
 	
 	@Override
 	protected QuickCollision calculateCollision(Ray ray) {
-		//return meshData.calculateCollision(ray, this);
-		return null;
+		return meshData.calculateCollision(ray, this);
 	}
 
 	@Override
@@ -39,8 +38,8 @@ public class MeshInstance extends Primitive {
 	}
 
 	@Override
-	public Collision completeCollision(QuickCollision qc) {
-		// TODO Auto-generated method stub
-		return null;
+	public Collision getFullCollision(QuickCollision qc) {
+		
+		return new Collision(this, qc.getLocalRay(), qc.getWorldT(), new Vec3(), 0, 0);
 	}
 }

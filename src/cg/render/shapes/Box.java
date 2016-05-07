@@ -36,7 +36,7 @@ public class Box extends Primitive {
 			return null;
 		}
 
-		return new QuickCollision(this, ray, t, -1);
+		return new QuickCollision(this, ray, null, t, -1);
 //		Vec3 colPos = ray.runDistance(t);
 //		Vec3 normal;
 //		float maxDist;
@@ -123,8 +123,7 @@ public class Box extends Primitive {
 	}
 
 	@Override
-	public Collision completeCollision(QuickCollision qc) {
-		// TODO Auto-generated method stub
-		return null;
+	public Collision getFullCollision(QuickCollision qc) {
+		return new Collision(this, qc.getLocalRay(), qc.getWorldT(), new Vec3(), 0, 0);
 	}
 }

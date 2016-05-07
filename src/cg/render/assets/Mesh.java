@@ -4,6 +4,7 @@ import cg.accelerator.MeshKDTree;
 import cg.math.Vec3;
 import cg.render.BoundingBox;
 import cg.render.Collision;
+import cg.render.QuickCollision;
 import cg.render.Ray;
 import cg.render.shapes.MeshInstance;
 
@@ -29,11 +30,11 @@ public class Mesh {
 		this.kdTree = new MeshKDTree(this, triangleCount());
 	}
 
-	public Collision calculateCollision(Ray ray, MeshInstance mesh) {
+	public QuickCollision calculateCollision(Ray ray, MeshInstance mesh) {
 		return kdTree.hit(ray, mesh);
 	}
 
-	public Collision checkCollision(Ray ray, int index, MeshInstance mesh) {
+	public QuickCollision checkCollision(Ray ray, int index, MeshInstance mesh) {
 		int faceIndex = index * 9;
 		Vec3 p1 = vertexForIndex(faceIndex);
 		Vec3 p2 = vertexForIndex(faceIndex + 3);
@@ -65,23 +66,27 @@ public class Mesh {
 		if (t < 0 || t > ray.getMaxT()) {
 			return null;
 		}
+		
+		QuickCollision col = new QuickCollision(mesh, ray, null, t, -1);
+		col.setMeshData(faceIndex, b1, b2);
+		return col;
+		
+//		Vec3 n1 = normalForIndex(faceIndex);
+//		Vec3 n2 = normalForIndex(faceIndex + 3);
+//		Vec3 n3 = normalForIndex(faceIndex + 6);
+//
+//		Vec3 normal = interpolate(b1, b2, n1, n2, n3);
+//		float u1 = uv[faces[faceIndex + 1] * 2];
+//		float u2 = uv[faces[faceIndex + 4] * 2];
+//		float u3 = uv[faces[faceIndex + 7] * 2];
+//		float u = ((1 - b2 - b1)*u1) + (u2 * b1) + (u3 * b2);
+//
+//		float v1 = uv[(faces[faceIndex + 1] * 2) + 1];
+//		float v2 = uv[(faces[faceIndex + 4] * 2) + 1];
+//		float v3 = uv[(faces[faceIndex + 7] * 2) + 1];
+//		float v = ((1 - b2 - b1)*v1) + (v2 * b1) + (v3 * b2);
 
-		Vec3 n1 = normalForIndex(faceIndex);
-		Vec3 n2 = normalForIndex(faceIndex + 3);
-		Vec3 n3 = normalForIndex(faceIndex + 6);
-
-		Vec3 normal = interpolate(b1, b2, n1, n2, n3);
-		float u1 = uv[faces[faceIndex + 1] * 2];
-		float u2 = uv[faces[faceIndex + 4] * 2];
-		float u3 = uv[faces[faceIndex + 7] * 2];
-		float u = ((1 - b2 - b1)*u1) + (u2 * b1) + (u3 * b2);
-
-		float v1 = uv[(faces[faceIndex + 1] * 2) + 1];
-		float v2 = uv[(faces[faceIndex + 4] * 2) + 1];
-		float v3 = uv[(faces[faceIndex + 7] * 2) + 1];
-		float v = ((1 - b2 - b1)*v1) + (v2 * b1) + (v3 * b2);
-
-		return new Collision(mesh, ray, t, normal, u, v);
+//		return new Collision(mesh, ray, t, normal, u, v);
 	}
 
 	private Vec3 interpolate(float b1, float b2, Vec3  v1, Vec3 v2, Vec3 v3) {

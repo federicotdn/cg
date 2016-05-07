@@ -39,7 +39,8 @@ public class SpotLight extends Light {
 		Vec3 path = position.sub(displacedOrigin);
 		
 		Ray ray = new Ray(displacedOrigin, path, path.len() - Light.EPSILON);
-		if (scene.collideRay(ray) != null) {
+		QuickCollision sceneCol = scene.collideRay(ray);
+		if (sceneCol != null) {
 			return false;
 		}
 		

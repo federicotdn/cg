@@ -49,7 +49,25 @@ public abstract class Primitive extends WorldObject {
 		Vec3 path = collisionPos.sub(ray.getOrigin());
 		
 		//return new Collision(localCol.getPrimitive(), ray, t, worldNormal, u, v);
-		return new QuickCollision(this, ray, localCol.getLocalT(), path.len());
+		return new QuickCollision(this, localRay, ray, localCol.getLocalT(), path.len());
+	}
+	
+	public Collision completeCollision(QuickCollision qc) {
+		if (qc.getPrimitive() != this) {
+			throw new RuntimeException("Error: attempted to complete a QuickCollision with a different Primitive.");
+		}
+
+		Collision localCol = getFullCollision(qc);
+		Vec4 localNormal = localCol.getNormal().asDirection();
+		Vec3 worldNormal = invTransform.traspose().mulVec(localNormal).asVec3();
+
+		float u = ((localCol.u * material.getScaleU()) + material.getOffsetU());
+		float v = ((localCol.v * material.getScaleV()) + material.getOffsetV());
+		u = repeatUV(u);
+		v = repeatUV(v);
+		
+		Ray ray = qc.getWorldRay();
+		return new Collision(this, ray, qc.getWorldT(), worldNormal, u, v);
 	}
 
 	private float repeatUV(float coord) {
@@ -87,6 +105,6 @@ public abstract class Primitive extends WorldObject {
 	}
 	
 	protected abstract QuickCollision calculateCollision(Ray ray);
-	public abstract Collision completeCollision(QuickCollision qc);
+	protected abstract Collision getFullCollision(QuickCollision qc);
 	protected abstract BoundingBox calculateBBox(Matrix4 trs);
 }
