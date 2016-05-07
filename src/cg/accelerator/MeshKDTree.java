@@ -5,9 +5,7 @@ import cg.render.Ray;
 import cg.render.assets.Mesh;
 import cg.render.shapes.MeshInstance;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Hobbit on 5/4/16.
@@ -24,14 +22,14 @@ public class MeshKDTree {
             indexes.add(i);
         }
 
-        this.root = generateTree(indexes, 50, 0);
+        this.root = generateTree(indexes, 50, 0, 20);
     }
 
-    private KDTreeNode generateTree(List<Integer> indexes, int threshold, int depth) {
+    private KDTreeNode generateTree(List<Integer> indexes, int threshold, int depth, int maxDepth) {
         int axis = depth % 3;
 
 
-        if (indexes.size() <= threshold) {
+        if (indexes.size() <= threshold || depth >= maxDepth) {
             return new Leaf(indexes);
         }
 
@@ -53,55 +51,77 @@ public class MeshKDTree {
         }
 
         INode node = new INode(location, axis);
-        node.leftChild = generateTree(left, threshold, depth + 1);
-        node.rightChild = generateTree(right, threshold, depth + 1);
+        node.leftChild = generateTree(left, threshold, depth + 1, maxDepth);
+        node.rightChild = generateTree(right, threshold, depth + 1, maxDepth);
 
         return node;
     }
 
     public Collision hit(Ray ray, MeshInstance mesh) {
-        return hit(ray, root, mesh);
-    }
+        Deque<StackNode> stack = new LinkedList<>();
+        float tMax = ray.getMaxT();
+        float tMin = 0;
+        stack.push(new StackNode(root, 0, tMax));
+        Collision col = null;
+        KDTreeNode first, second;
+        while (!stack.isEmpty() && col == null) {
+            StackNode sNode = stack.pop();
+            KDTreeNode node = sNode.node;
+            tMax = sNode.tMax;
+            tMin = sNode.tMin;
+            while (!node.isLeaf()) {
+                INode iNode = (INode)node;
+                float t = (iNode.location - ray.getOrigin().getCoordByAxis(iNode.axis))/ray.getDirection().getCoordByAxis(iNode.axis);
+                if (ray.getOrigin().getCoordByAxis(iNode.axis) < iNode.location ||
+                        (Math.abs(ray.getOrigin().getCoordByAxis(iNode.axis) - iNode.location) < 0.000001f
+                                && ray.getDirection().getCoordByAxis(iNode.axis) < 0)) {
+                    first = iNode.leftChild;
+                    second = iNode.rightChild;
+                } else {
+                    first = iNode.rightChild;
+                    second = iNode.leftChild;
+                }
+                if (t >= tMax || t <= 0)
+                    node = first;
+                else if (t < tMin)
+                    node = second;
+                else {
+                    stack.push(new StackNode(second, t, tMax));
+                    node = first;
+                    tMax = t;
+                }
+            }
 
-    private Collision hit(Ray ray, KDTreeNode node, MeshInstance mesh) {
-        if (node.isLeaf()) {
             Leaf leaf = (Leaf)node;
-            return checkCollision(ray, leaf.indexes, mesh);
+            col = checkCollision(ray, leaf.indexes, mesh);
+            if (col != null && col.getT() > tMax) {
+                col = null;
+            }
         }
 
-        INode iNode = (INode)node;
-
-        KDTreeNode first;
-        KDTreeNode second;
-
-        if (ray.getOrigin().getCoordByAxis(iNode.axis) <= iNode.location) {
-            first = iNode.leftChild;
-            second = iNode.rightChild;
-        } else {
-            first = iNode.rightChild;
-            second = iNode.leftChild;
-        }
-
-        Collision col = hit(ray,first, mesh);
-
-        if (col != null) {
-            return col;
-        }
-
-        float t = (iNode.location - ray.getOrigin().getCoordByAxis(iNode.axis))/ray.getDirection().getCoordByAxis(iNode.axis);
-        if (t> 0 && t <= ray.getMaxT()) {
-            return hit(ray, second, mesh);
-        }
-
-        return null;
+        return col;
     }
+
+    private class StackNode {
+        public KDTreeNode node;
+        public float tMin;
+        public float tMax;
+
+        public StackNode(KDTreeNode node, float tMin, float tMax) {
+            this.node = node;
+            this.tMax = tMax;
+            this.tMin = tMin;
+        }
+    }
+
+
 
     private Collision checkCollision(Ray ray, int[] indexes, MeshInstance mesh) {
         Collision closestCol = null;
         for (int index : indexes) {
             Collision col = meshData.checkCollision(ray, index, mesh);
 
-            if (col == null || col.getT() > ray.getMaxT()) {
+            if (col == null) {
                 continue;
             }
 
@@ -125,7 +145,7 @@ public class MeshKDTree {
         if (avg.length % 2 == 1) {
             return avg[avg.length/2];
         } else {
-            return (avg[(avg.length)/2 - 1] + avg[avg.length/2])/2;
+            return (avg[(avg.length)/2 - 1] + avg[avg.length/2])/2.0f;
         }
     }
 

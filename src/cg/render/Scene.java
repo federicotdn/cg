@@ -85,19 +85,19 @@ public class Scene {
 				Color c = BACKGROUND_COLOR;
 				
 				Collision col = collideRay(rays[i]);
-//				if (col != null) {
-//					c = getSurfaceColor(col);
-//				}
-//
-//				r += c.getRed();
-//				g += c.getGreen();
-//				b += c.getBlue();
-
 				if (col != null) {
-					r += Math.abs(col.getNormal().x);
-					g += Math.abs(col.getNormal().y);
-					b += Math.abs(col.getNormal().z);
+					c = getSurfaceColor(col);
 				}
+
+				r += c.getRed();
+				g += c.getGreen();
+				b += c.getBlue();
+
+//				if (col != null) {
+//					r += Math.abs(col.getNormal().x);
+//					g += Math.abs(col.getNormal().y);
+//					b += Math.abs(col.getNormal().z);
+//				}
 			}
 			
 			r /= samples;
@@ -107,7 +107,7 @@ public class Scene {
 			img.setPixel(x, y, new Color(r, g, b));
 			count++;
 
-			if (count % (img.getHeight() * img.getWidth() /20) == 0) {
+			if (count % (img.getHeight() * img.getWidth() /100) == 0) {
 				System.out.println((int)((float)count / (img.getWidth() * img.getHeight()) * 100)  + " %");
 			}
 		}
