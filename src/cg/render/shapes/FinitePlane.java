@@ -5,6 +5,7 @@ import cg.math.Vec3;
 import cg.render.BoundingBox;
 import cg.render.Collision;
 import cg.render.Primitive;
+import cg.render.QuickCollision;
 import cg.render.Ray;
 
 public class FinitePlane extends Primitive {
@@ -20,7 +21,12 @@ public class FinitePlane extends Primitive {
 	}
 	
 	@Override
-	protected Collision calculateCollision(Ray ray) {
+//<<<<<<< ffb6a8f7bb8a60ac6ae617e2953add56f0e3c9d3
+//	protected Collision calculateCollision(Ray ray) {
+//        float t = InfinitePlane.planeT(ray, InfinitePlane.PLANE_NORMAL, 0);
+//        if (t < 0 || t > ray.getMaxT()) {
+//=======
+	protected QuickCollision calculateCollision(Ray ray) {
         float t = InfinitePlane.planeT(ray, InfinitePlane.PLANE_NORMAL, 0);
         if (t < 0 || t > ray.getMaxT()) {
         	return null;
@@ -31,7 +37,8 @@ public class FinitePlane extends Primitive {
         	return null;
         }
         
-        return new Collision(this, ray, t, InfinitePlane.PLANE_NORMAL, Math.abs(colPos.x - halfWidth)/(halfWidth*2), Math.abs(colPos.z - halfDepth)/(halfDepth * 2));
+        return new QuickCollision(this, ray, t, -1);
+        //return new Collision(this, ray, t, InfinitePlane.PLANE_NORMAL, Math.abs(colPos.x - halfWidth)/(halfWidth*2), Math.abs(colPos.z - halfDepth)/(halfDepth * 2));
 	}
 
 	@Override
@@ -40,6 +47,12 @@ public class FinitePlane extends Primitive {
 		Vec3 pMax = new Vec3(halfWidth, EPSILON, halfDepth);
 		Vec3 pMin = new Vec3(-halfWidth, -EPSILON, -halfDepth);
 		return (new BoundingBox(pMin, pMax)).transformBBox(trs);
+	}
+
+	@Override
+	public Collision completeCollision(QuickCollision qc) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

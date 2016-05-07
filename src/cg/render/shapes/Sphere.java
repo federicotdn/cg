@@ -5,6 +5,7 @@ import cg.math.Vec3;
 import cg.render.BoundingBox;
 import cg.render.Collision;
 import cg.render.Primitive;
+import cg.render.QuickCollision;
 import cg.render.Ray;
 
 public class Sphere extends Primitive {
@@ -17,7 +18,7 @@ public class Sphere extends Primitive {
 	}
 	
 	@Override
-	protected Collision calculateCollision(Ray ray) {
+	protected QuickCollision calculateCollision(Ray ray) {
 		Vec3 orig = ray.getOrigin();
 		Vec3 dir = ray.getDirection();
 		
@@ -38,11 +39,13 @@ public class Sphere extends Primitive {
 		}
 		
 		float t = (t0 > t1 ? t1 : t0);
-		Vec3 normal = orig.sum(dir.mul(t)).mul(1/radius);
-
-		float u = 0.5f + (float)((Math.atan2(normal.z, normal.x))/(2*Math.PI));
-		float v = 0.5f - (float)(Math.asin(normal.y)/Math.PI);
-		return new Collision(this, ray, t, normal, Math.abs(u), Math.abs(v));
+		
+		return new QuickCollision(this, ray, t, -1);
+//		Vec3 normal = orig.sum(dir.mul(t)).mul(1/radius);
+//
+//		float u = 0.5f + (float)((Math.atan2(normal.z, normal.x))/(2*Math.PI));
+//		float v = 0.5f - (float)(Math.asin(normal.y)/Math.PI);
+//		return new Collision(this, ray, t, normal, Math.abs(u), Math.abs(v));
 	}
 
 	@Override
@@ -51,5 +54,11 @@ public class Sphere extends Primitive {
 		Vec3 pMax = pMin.mul(-1);
 
 		return new BoundingBox(pMin, pMax).transformBBox(trs);
+	}
+
+	@Override
+	public Collision completeCollision(QuickCollision qc) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
