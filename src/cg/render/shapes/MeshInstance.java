@@ -39,7 +39,7 @@ public class MeshInstance extends Primitive {
 
 	@Override
 	public Collision getFullCollision(QuickCollision qc) {
-		
+		//TODO: Implement
 		return new Collision(this, qc.getLocalRay(), qc.getWorldT(), new Vec3(), 0, 0);
 	}
 }

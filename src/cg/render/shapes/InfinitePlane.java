@@ -19,15 +19,6 @@ public class InfinitePlane extends Primitive {
     }
     
     @Override
-//<<<<<<< ffb6a8f7bb8a60ac6ae617e2953add56f0e3c9d3
-//    protected Collision calculateCollision(Ray ray) {
-//        float t = planeT(ray, PLANE_NORMAL, 0);
-//        if (t < 0 || t > ray.getMaxT()) {
-//        	return null;
-//        }
-//        Vec3 colPos = ray.runDistance(t);
-//        return new Collision(this, ray, t, PLANE_NORMAL, colPos.x / 10, colPos.z / 10);
-//=======
     protected QuickCollision calculateCollision(Ray ray) {
         float t = planeT(ray, PLANE_NORMAL, 0);
         if (t < 0 || t > ray.getMaxT()) {

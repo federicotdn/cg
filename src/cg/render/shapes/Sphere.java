@@ -39,7 +39,6 @@ public class Sphere extends Primitive {
 		}
 		
 		float t = (t0 > t1 ? t1 : t0);
-		
 		return new QuickCollision(this, ray, null, t, -1);
 	}
 

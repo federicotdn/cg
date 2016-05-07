@@ -49,6 +49,7 @@ public abstract class Primitive extends WorldObject {
 		Vec3 path = collisionPos.sub(ray.getOrigin());
 		
 		//return new Collision(localCol.getPrimitive(), ray, t, worldNormal, u, v);
+
 		return new QuickCollision(this, localRay, ray, localCol.getLocalT(), path.len());
 	}
 	
@@ -66,8 +67,7 @@ public abstract class Primitive extends WorldObject {
 		u = repeatUV(u);
 		v = repeatUV(v);
 		
-		Ray ray = qc.getWorldRay();
-		return new Collision(this, ray, qc.getWorldT(), worldNormal, u, v);
+		return new Collision(this, qc.getWorldRay(), qc.getWorldT(), worldNormal, u , v);
 	}
 
 	private float repeatUV(float coord) {

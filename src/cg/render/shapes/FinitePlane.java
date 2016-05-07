@@ -21,11 +21,6 @@ public class FinitePlane extends Primitive {
 	}
 	
 	@Override
-//<<<<<<< ffb6a8f7bb8a60ac6ae617e2953add56f0e3c9d3
-//	protected Collision calculateCollision(Ray ray) {
-//        float t = InfinitePlane.planeT(ray, InfinitePlane.PLANE_NORMAL, 0);
-//        if (t < 0 || t > ray.getMaxT()) {
-//=======
 	protected QuickCollision calculateCollision(Ray ray) {
         float t = InfinitePlane.planeT(ray, InfinitePlane.PLANE_NORMAL, 0);
         if (t < 0 || t > ray.getMaxT()) {
@@ -38,7 +33,6 @@ public class FinitePlane extends Primitive {
         }
         
         return new QuickCollision(this, ray, null, t, -1);
-        //return new Collision(this, ray, t, InfinitePlane.PLANE_NORMAL, Math.abs(colPos.x - halfWidth)/(halfWidth*2), Math.abs(colPos.z - halfDepth)/(halfDepth * 2));
 	}
 
 	@Override

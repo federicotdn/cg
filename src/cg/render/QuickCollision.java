@@ -11,7 +11,7 @@ public class QuickCollision {
 	int faceIndex;
 	float b1;
 	float b2;
-	
+
 	public QuickCollision(Primitive primitive, Ray localRay, Ray worldRay, float localT, float worldT) {
 		this.localT = localT;
 		this.localRay = localRay;
