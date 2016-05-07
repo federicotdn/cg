@@ -1,10 +1,9 @@
 package cg.render;
 
-import cg.math.Vec3;
 import cg.render.assets.Texture;
 
 public abstract class Material {
-	private Texture colorTex;
+	protected Texture colorTex;
 	protected final Color color;
 	private float offsetU;
 	private float offsetV;
@@ -17,6 +16,7 @@ public abstract class Material {
 		this.scaleU = scaleU;
 		this.scaleV = scaleV;
 		this.color = color;
+		this.colorTex = null;
 	}
 
 	public Color getColor() {
@@ -42,21 +42,14 @@ public abstract class Material {
 	public void setColorTex(Texture tex) {
 		colorTex = tex;
 	}
-
-	private Texture getColorTex() {
-		return colorTex;
-	}
-
-
-	public Color getSurfaceColor(Collision col, Light l, Vec3 surfaceToLight, Vec3 camPos) {
-		Color color = calculateSurfaceColor(col, l, surfaceToLight, camPos);
-		if (colorTex != null) {
-			Color texColor = colorTex.getSample(col.u, col.v);
-			color = color.mul(texColor);
+	
+	protected Color getTextureColorMix(float u, float v) {
+		if (colorTex == null) {
+			return color;
 		}
-
-		return color;
+		
+		return colorTex.getSample(u, v).mul(color);
 	}
 
-	protected abstract Color calculateSurfaceColor(Collision col, Light l, Vec3 surfaceToLight, Vec3 camPos);
+	public abstract Color getSurfaceColor(Collision col, Scene scene);
 }

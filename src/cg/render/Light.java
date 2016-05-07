@@ -9,7 +9,7 @@ public abstract class Light extends WorldObject {
 	protected Color color;
 	protected float intensity;
 	
-	public abstract Color illuminateSurface(Collision col);
+	public abstract boolean visibleFrom(Collision col);
 	
 	protected Light(Scene scene, Color color, float intensity, Vec3 t, Vec3 r) {
 		this.scene = scene;
@@ -41,6 +41,8 @@ public abstract class Light extends WorldObject {
 	public Color getColor() {
 		return color;
 	}
+	
+	public abstract Vec3 vectorFromCollision(Collision col);
 	
 	public float getIntensity() {
 		return intensity;

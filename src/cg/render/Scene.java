@@ -49,6 +49,10 @@ public class Scene {
 		lights.add(l);
 	}
 	
+	public List<Light> getLights() {
+		return lights;
+	}
+	
 	public Camera getCamera() {
 		return cam;
 	}
@@ -86,7 +90,7 @@ public class Scene {
 				
 				Collision col = collideRay(rays[i]);
 				if (col != null) {
-					c = getSurfaceColor(col);
+					c = col.getPrimitive().getMaterial().getSurfaceColor(col, this);
 				}
 
 				r += c.getRed();
@@ -99,7 +103,8 @@ public class Scene {
 //					b += Math.abs(col.getNormal().z);
 //				}
 			}
-			
+
+			//TODO: Change average function for Monte Carlo estimator?
 			r /= samples;
 			g /= samples;
 			b /= samples;
@@ -107,27 +112,12 @@ public class Scene {
 			img.setPixel(x, y, new Color(r, g, b));
 			count++;
 
-			if (count % (img.getHeight() * img.getWidth() /100) == 0) {
+			if (count % (img.getHeight() * img.getWidth() / 100) == 0) {
 				System.out.println((int)((float)count / (img.getWidth() * img.getHeight()) * 100)  + " %");
 			}
 		}
 
 		return img;
-	}
-	
-	public Color getSurfaceColor(Collision col) {
-		Color c = Color.BLACK;
-		
-		for (Light light : lights) {
-			Color i = light.illuminateSurface(col);
-			if (i == null) {
-				continue;
-			}
-			
-			c = c.sum(i);
-		}
-
-		return c;
 	}
 	
 	public Collision collideRay(Ray ray) {
