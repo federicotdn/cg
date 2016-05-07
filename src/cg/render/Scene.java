@@ -103,7 +103,7 @@ public class Scene {
 //					b += Math.abs(col.getNormal().z);
 //				}
 			}
-
+			
 			//TODO: Change average function for Monte Carlo estimator?
 			r /= samples;
 			g /= samples;
