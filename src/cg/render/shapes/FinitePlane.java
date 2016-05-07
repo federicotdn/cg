@@ -21,8 +21,8 @@ public class FinitePlane extends Primitive {
 	
 	@Override
 	protected Collision calculateCollision(Ray ray) {
-        Float t = InfinitePlane.planeT(ray, InfinitePlane.PLANE_NORMAL, 0);
-        if (t == null || t > ray.getMaxT()) {
+        float t = InfinitePlane.planeT(ray, InfinitePlane.PLANE_NORMAL, 0);
+        if (t < 0 || t > ray.getMaxT()) {
         	return null;
         }
         
