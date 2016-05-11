@@ -9,6 +9,7 @@ import cg.render.lights.DirectionalLight;
 import cg.render.lights.PointLight;
 import cg.render.lights.SpotLight;
 import cg.render.materials.ColorMaterial;
+import cg.render.materials.DebugMaterial;
 import cg.render.materials.Diffuse;
 import cg.render.materials.Phong;
 import cg.render.shapes.*;
@@ -142,6 +143,9 @@ public class SceneParser {
                         	p.setPhongProperties(specular, exponent);
                         	material = p;
 
+                        	break;
+                        case "Debug":
+                        	material = new DebugMaterial();
                         	break;
                         default:
                             material = null;

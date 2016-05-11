@@ -4,9 +4,9 @@ import cg.math.Vec3;
 
 public class Ray {
 	public final static float DEFAULT_MAX_T = Float.POSITIVE_INFINITY;
-	private Vec3 origin;
-	private Vec3 direction;
-	private float maxT = DEFAULT_MAX_T;
+	private final Vec3 origin;
+	private final Vec3 direction;
+	private final float maxT;
 	
 	public Ray(Vec3 origin, Vec3 direction, Float maxT) {
 		this.origin = origin;
@@ -14,6 +14,8 @@ public class Ray {
 		
 		if (maxT != null) {
 			this.maxT = maxT;
+		} else {
+			this.maxT = DEFAULT_MAX_T;
 		}
 	}
 	

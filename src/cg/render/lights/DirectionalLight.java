@@ -27,7 +27,8 @@ public class DirectionalLight extends Light {
 		Vec3 displacedOrigin = col.getPosition().sum(col.getNormal().mul(Light.EPSILON));
 		Ray ray = new Ray(displacedOrigin, negDirection, null);
 		
-		if (scene.collideRay(ray) != null) {
+		QuickCollision quickCol = scene.collideRay(ray);
+		if (quickCol != null) {
 			return false;
 		}
 		

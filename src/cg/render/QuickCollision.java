@@ -45,8 +45,4 @@ public class QuickCollision {
 	public Primitive getPrimitive() {
 		return primitive;
 	}
-	
-	public Collision completeCollision() {
-		return primitive.getFullCollision(this);
-	}
 }

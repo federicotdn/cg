@@ -90,7 +90,7 @@ public class Scene {
 				
 				QuickCollision col = collideRay(rays[i]);
 				if (col != null) {
-					Collision fullCollision = col.completeCollision();
+					Collision fullCollision = col.getPrimitive().completeCollision(col);
 					c = fullCollision.getPrimitive().getMaterial().getSurfaceColor(fullCollision, this);
 				}
 

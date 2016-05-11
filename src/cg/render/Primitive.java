@@ -47,7 +47,7 @@ public abstract class Primitive extends WorldObject {
 		Vec3 localCollisionPos = ray.runDistance(localCol.getLocalT());
 		Vec3 collisionPos = transform.mulVec(localCollisionPos.asPosition()).asVec3();
 		Vec3 path = collisionPos.sub(ray.getOrigin());
-		
+				
 		//return new Collision(localCol.getPrimitive(), ray, t, worldNormal, u, v);
 
 		return new QuickCollision(this, localRay, ray, localCol.getLocalT(), path.len());
