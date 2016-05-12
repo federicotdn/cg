@@ -16,8 +16,11 @@ public class Scene {
 
 	private Image img;
 	private int samples;
+
+	private int reflectionTraceDepth;
+	private int refractionTraceDepth;
 	
-	private final Color BACKGROUND_COLOR = Color.BLACK;
+	public final Color BACKGROUND_COLOR = Color.BLACK;
 
 	public Scene() {
 		primitives = new ArrayList<Primitive>();
@@ -134,5 +137,21 @@ public class Scene {
 		}
 
 		return closestCol;
+	}
+
+	public int getReflectionTraceDepth() {
+		return reflectionTraceDepth;
+	}
+
+	public void setReflectionTraceDepth(int reflectionTraceDepth) {
+		this.reflectionTraceDepth = reflectionTraceDepth;
+	}
+
+	public int getRefractionTraceDepth() {
+		return refractionTraceDepth;
+	}
+
+	public void setRefractionTraceDepth(int refractionTraceDepth) {
+		this.refractionTraceDepth = refractionTraceDepth;
 	}
 }

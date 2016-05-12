@@ -8,9 +8,7 @@ import cg.render.lights.AmbientLight;
 import cg.render.lights.DirectionalLight;
 import cg.render.lights.PointLight;
 import cg.render.lights.SpotLight;
-import cg.render.materials.ColorMaterial;
-import cg.render.materials.Diffuse;
-import cg.render.materials.Phong;
+import cg.render.materials.*;
 import cg.render.shapes.*;
 import com.eclipsesource.json.Json;
 import com.eclipsesource.json.JsonArray;
@@ -67,8 +65,10 @@ public class SceneParser {
 
 		JsonObject renderOptions = object.get("renderOptions").asObject();
 		scene.setSize(renderOptions.getInt("width", 1920), renderOptions.getInt("height", 1080));
-		
-		int samples = renderOptions.getInt("antialiasing", -1);
+        scene.setReflectionTraceDepth(renderOptions.getInt("reflectionTraceDepth", 2));
+        scene.setRefractionTraceDepth(renderOptions.getInt("refractionTraceDepth", 2));
+
+        int samples = renderOptions.getInt("antialiasing", -1);
 		if (samples == -1) {
 			printWarning("Missing antialiasing sample count.  Defaulting to: " + String.valueOf(DEFAULT_SAMPLES));
 			samples = DEFAULT_SAMPLES;
@@ -138,11 +138,16 @@ public class SceneParser {
                         		exponent = DEFAULT_EXPONENT;
                         	}
                         	
-                        	Phong p = new Phong(c, offsetU, offsetV, scaleU, scaleV);
-                        	p.setPhongProperties(specular, exponent);
+                        	Phong p = new Phong(c, offsetU, offsetV, scaleU, scaleV, specular, exponent);
                         	material = p;
-
                         	break;
+                        case "Reflective":
+                            material = new ReflectiveMaterial(parseColor(o, "reflectivityColor"), offsetU, offsetV, scaleU, scaleV);
+                            break;
+                        case "Refractive":
+                            material = new RefractiveMaterial(parseColor(o, "reflectivityColor"), offsetU, offsetV,
+                                    scaleU, scaleV, parseColor(o, "refractionColor"), o.getFloat("ior", 1));
+                            break;
                         default:
                             material = null;
                             printWarning("Unsupported material of type '" + materialType + "'");

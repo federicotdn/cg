@@ -12,13 +12,18 @@ public class SpotLight extends Light {
 	
 	public SpotLight(Scene scene, Color color, float intensity, Vec3 t, Vec3 r, float cutoff) {
 		super(scene, color, intensity, t, r);
-		this.position = t;
-		this.direction = getTransform().mulVec(new Vec4(0, 0, 1, 0)).asVec3();
 
 		if (Math.abs(cutoff) > 90) {
 			cutoff = 90;
 		}
 		this.cosCutoff = (float) Math.cos(Math.toRadians(Math.abs(cutoff)));
+	}
+
+	@Override
+	public void calculateTransform() {
+		super.calculateTransform();
+		this.position = transform.mulVec(new Vec4(0, 0, 0, 0)).asVec3();
+		this.direction = transform.mulVec(new Vec4(0, 0, 1, 0)).asVec3();
 	}
 
 	@Override

@@ -1,11 +1,8 @@
 package cg.render.lights;
 
 import cg.math.Vec3;
-import cg.render.Collision;
-import cg.render.Color;
-import cg.render.Light;
-import cg.render.Ray;
-import cg.render.Scene;
+import cg.math.Vec4;
+import cg.render.*;
 
 /*
  * 
@@ -21,7 +18,12 @@ public class PointLight extends Light {
 	
 	public PointLight(Scene scene, Color color, float intensity, Vec3 position) {
 		super(scene, color, intensity, position, null);
-		this.position = position;
+	}
+
+	@Override
+	public void calculateTransform() {
+		super.calculateTransform();
+		this.position = transform.mulVec(new Vec4(0,0,0,1)).asVec3();
 	}
 
 	@Override

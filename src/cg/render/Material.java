@@ -44,11 +44,15 @@ public abstract class Material {
 	}
 	
 	protected Color getTextureColorMix(float u, float v) {
-		if (colorTex == null) {
-			return color;
+		return getTextureColorMix(u, v, colorTex);
+	}
+
+	protected Color getTextureColorMix(float u, float v, Texture tex) {
+		if (tex == null) {
+			return Color.WHITE;
 		}
-		
-		return colorTex.getSample(u, v).mul(color);
+
+		return tex.getSample(u, v).mul(color);
 	}
 
 	public abstract Color getSurfaceColor(Collision col, Scene scene);

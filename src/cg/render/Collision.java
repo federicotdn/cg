@@ -32,6 +32,10 @@ public class Collision {
 		
 		return position;
 	}
+
+	public Ray getRay() {
+		return ray;
+	}
 	
 	public Primitive getPrimitive() {
 		return primitive;

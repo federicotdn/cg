@@ -24,7 +24,7 @@ public class Diffuse extends Material {
 				Vec3 surfaceToLight = light.vectorFromCollision(col).normalize();
 				float cosAngle = surfaceToLight.dot(col.getNormal());
 				Color result = myColor.mul(cosAngle).mul(light.getColor().mul(light.getIntensity()));
-				c = c.sum(result);				
+				c = c.sum(result);
 			}
 		}
 		

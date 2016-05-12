@@ -71,15 +71,20 @@ public class Mesh {
 		Vec3 n3 = normalForIndex(faceIndex + 6);
 
 		Vec3 normal = interpolate(b1, b2, n1, n2, n3);
-		float u1 = uv[faces[faceIndex + 1] * 2];
-		float u2 = uv[faces[faceIndex + 4] * 2];
-		float u3 = uv[faces[faceIndex + 7] * 2];
-		float u = ((1 - b2 - b1)*u1) + (u2 * b1) + (u3 * b2);
 
-		float v1 = uv[(faces[faceIndex + 1] * 2) + 1];
-		float v2 = uv[(faces[faceIndex + 4] * 2) + 1];
-		float v3 = uv[(faces[faceIndex + 7] * 2) + 1];
-		float v = ((1 - b2 - b1)*v1) + (v2 * b1) + (v3 * b2);
+		float u =0, v = 0;
+
+		if (uv != null) {
+			float u1 = uv[faces[faceIndex + 1] * 2];
+			float u2 = uv[faces[faceIndex + 4] * 2];
+			float u3 = uv[faces[faceIndex + 7] * 2];
+			u = ((1 - b2 - b1)*u1) + (u2 * b1) + (u3 * b2);
+
+			float v1 = uv[(faces[faceIndex + 1] * 2) + 1];
+			float v2 = uv[(faces[faceIndex + 4] * 2) + 1];
+			float v3 = uv[(faces[faceIndex + 7] * 2) + 1];
+			v = ((1 - b2 - b1)*v1) + (v2 * b1) + (v3 * b2);
+		}
 
 		return new Collision(mesh, ray, t, normal, u, v);
 	}
@@ -166,6 +171,10 @@ public class Mesh {
 	}
 
 	private float[] toFloatArray(List<Float> f) {
+		if (f.size() == 0) {
+			return null;
+		}
+
 		float[] a = new float[f.size()];
 		for (int i = 0; i < a.length; i++) {
 			a[i] = f.get(i);

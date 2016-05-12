@@ -58,7 +58,7 @@ public class Color {
     public float getGreen() {
         return green;
     }
-    
+
     public float getBlue() {
         return blue;
     }

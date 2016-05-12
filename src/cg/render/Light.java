@@ -4,7 +4,7 @@ import cg.math.Matrix4;
 import cg.math.Vec3;
 
 public abstract class Light extends WorldObject {
-	public static final float EPSILON = 0.0005f;
+	public static final float EPSILON = 0.005f;
 	protected Scene scene;
 	protected Color color;
 	protected float intensity;

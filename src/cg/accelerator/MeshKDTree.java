@@ -74,8 +74,8 @@ public class MeshKDTree {
             while (!node.isLeaf()) {
                 INode iNode = (INode)node;
                 float t = (iNode.location - ray.getOrigin().getCoordByAxis(iNode.axis))/ray.getDirection().getCoordByAxis(iNode.axis);
-                if (ray.getOrigin().getCoordByAxis(iNode.axis) < iNode.location ||
-                        (Math.abs(ray.getOrigin().getCoordByAxis(iNode.axis) - iNode.location) < 0.000001f
+                if (ray.getOrigin().getCoordByAxis(iNode.axis) <= iNode.location ||
+                        (Math.abs(ray.getOrigin().getCoordByAxis(iNode.axis) - iNode.location) < 0.00001f
                                 && ray.getDirection().getCoordByAxis(iNode.axis) < 0)) {
                     first = iNode.leftChild;
                     second = iNode.rightChild;

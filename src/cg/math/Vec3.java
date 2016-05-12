@@ -77,6 +77,15 @@ public class Vec3 {
 		}
 	}
 
+	public Vec3 pow(float pow) {
+		return new Vec3((float) Math.pow(x, pow), (float) Math.pow(y, pow), (float) Math.pow(z, pow));
+	}
+
+	public Vec3 max(float value) {
+		return new Vec3((float) Math.max(x, value), (float) Math.max(y, value), (float) Math.max(z, value));
+
+	}
+
 	public Vec3 max(Vec3 v) {
 		return new Vec3(Math.max(x, v.x), Math.max(y, v.y), Math.max(z, v.z));
 	}
@@ -92,6 +101,10 @@ public class Vec3 {
 	public Vec3 normalize() {
 		float len = len();
 		return new Vec3(x/len, y/len, z/len);
+	}
+
+	public Vec3 reflect(Vec3 normal) {
+		return normal.mul(2 * normal.dot(this)).sub(this);
 	}
 	
 	public float len() {

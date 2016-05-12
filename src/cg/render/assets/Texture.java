@@ -48,10 +48,11 @@ public class Texture {
 
 	public Color getSample(float u, float v) {
 		u = MathUtils.clamp(u);
-		v = MathUtils.clamp(v);
+		v = 1 - MathUtils.clamp(v);
 		int x = (int)(width * u);
 		int y = (int) (height * v);
 		int index =( (y * width) + x) * 4;
+		index = (int) MathUtils.clamp(index, 0, pixels.length - 4);
 
 		return new Color(pixels[index], pixels[index + 1], pixels[index + 2], pixels[index + 3]);
 	}
