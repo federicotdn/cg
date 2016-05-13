@@ -6,7 +6,7 @@ import cg.render.Material;
 import cg.render.Scene;
 
 public class ColorMaterial extends Material {
-	public ColorMaterial(Color color, float offsetU, float offsetV, float scaleU, float scaleV) {
+	public ColorMaterial(Color color, double offsetU, double offsetV, double scaleU, double scaleV) {
 		super(color, offsetU, offsetV, scaleU, scaleV);
 	}
 

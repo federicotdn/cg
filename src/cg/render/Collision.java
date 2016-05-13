@@ -3,17 +3,17 @@ package cg.render;
 import cg.math.Vec3;
 
 public class Collision {
-	private float t;
+	private double t;
 	private final Ray ray;
 	private final Vec3 normal;
 	private Vec3 position;
-	private final float cosAngle;
+	private final double cosAngle;
 	
 	private final Primitive primitive;
-	public final float u;
-	public final float v;
+	public final double u;
+	public final double v;
 	
-	public Collision(Primitive primitive, Ray ray, float t, Vec3 normal, float u, float v) {
+	public Collision(Primitive primitive, Ray ray, double t, Vec3 normal, double u, double v) {
 		this.ray = ray;
 		this.t = t;
 		this.normal = normal.normalize();
@@ -41,7 +41,7 @@ public class Collision {
 		return primitive;
 	}
 	
-	public float getCosAngle() {
+	public double getCosAngle() {
 		return cosAngle;
 	}
 	
@@ -49,7 +49,7 @@ public class Collision {
 		return normal;
 	}
 	
-	public float getT() {
+	public double getT() {
 		return t;
 	}
 }

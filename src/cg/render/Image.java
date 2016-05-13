@@ -10,14 +10,14 @@ public class Image {
 	
 	private int width;
 	private int height;
-	private float[] pixels;
+	private double[] pixels;
 	private BufferedImage buffer;
 	
 	public Image(int width, int height) {
 		buffer = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 		this.width = width;
 		this.height = height;
-		this.pixels = new float[4 * width * height];
+		this.pixels = new double[4 * width * height];
 	}
 	
 	public void setPixel(int x, int y, Color color) {
@@ -41,7 +41,7 @@ public class Image {
 		int[] data = new int[pixels.length / 4];
 		int j = 0;
 		for (int i = 0; i < data.length; i++) {
-			data[i] = ((floatToInt(pixels[j]) << 24) | floatToInt(pixels[j + 1]) << 16) | (floatToInt(pixels[j + 2]) << 8) | (floatToInt(pixels[j + 3]));
+			data[i] = ((doubleToInt(pixels[j]) << 24) | doubleToInt(pixels[j + 1]) << 16) | (doubleToInt(pixels[j + 2]) << 8) | (doubleToInt(pixels[j + 3]));
 			j += 4;
 		}
 
@@ -52,7 +52,7 @@ public class Image {
 		return buffer;
 	}
 
-	private int floatToInt(float pixel) {
+	private int doubleToInt(double pixel) {
 		byte ans = (byte) Math.round((pixel * 255));
 		return byteToUnsigned(ans);
 	}
@@ -61,8 +61,8 @@ public class Image {
 		return b & 0xFF;
 	}
 	
-	public float aspectRatio() {
-		return ((float)width) / height;
+	public double aspectRatio() {
+		return ((double)width) / height;
 	}
 	
 	public int getWidth() {

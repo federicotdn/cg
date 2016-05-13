@@ -8,7 +8,7 @@ import cg.render.Scene;
 
 public class AmbientLight extends Light {
 
-	public AmbientLight(Scene scene, Color color, float intensity) {
+	public AmbientLight(Scene scene, Color color, double intensity) {
 		super(scene, color, intensity, null, null);
 	}
 

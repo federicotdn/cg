@@ -10,11 +10,11 @@ import cg.render.Ray;
 public class Box extends Primitive {
 	private final Vec3 pMin;
 	private final Vec3 pMax;
-	private float width;
-	private float height;
-	private float depth;
+	private double width;
+	private double height;
+	private double depth;
 	
-	public Box(float width, float height, float depth, Vec3 t, Vec3 r, Vec3 s) {
+	public Box(double width, double height, double depth, Vec3 t, Vec3 r, Vec3 s) {
 		pMax = new Vec3(width / 2, height / 2, depth / 2);
 		pMin = new Vec3(-width / 2, -height / 2, -depth / 2);
 		this.width = width;
@@ -25,7 +25,7 @@ public class Box extends Primitive {
 	
 	@Override
 	protected Collision calculateCollision(Ray ray) {
-		float t = collisionForBox(pMin, pMax, ray);
+		double t = collisionForBox(pMin, pMax, ray);
 		if (t < 0) {
 			return null;
 		}
@@ -33,9 +33,9 @@ public class Box extends Primitive {
 		//TODO: Fix normal when width, depth or height != 1
 		Vec3 colPos = ray.runDistance(t);
 		Vec3 normal;
-		float maxDist;
-		float distance;
-		float u, v;
+		double maxDist;
+		double distance;
+		double u, v;
 		
 		//X
 		distance = Math.abs(colPos.x)/(width/2);
@@ -66,14 +66,14 @@ public class Box extends Primitive {
 		return new Collision(this, ray, t, normal, u, v);
 	}
 	
-    public static float collisionForBox(Vec3 pMin, Vec3 pMax, Ray ray) {
-        float t0 = 0f, t1 = ray.getMaxT();
-        float invRayDir = 1.f / ray.getDirection().x;
-        float tNear = (pMin.x  - ray.getOrigin().x) * invRayDir;
-        float tFar =  (pMax.x  - ray.getOrigin().x) * invRayDir;
+    public static double collisionForBox(Vec3 pMin, Vec3 pMax, Ray ray) {
+        double t0 = 0f, t1 = ray.getMaxT();
+        double invRayDir = 1.f / ray.getDirection().x;
+        double tNear = (pMin.x  - ray.getOrigin().x) * invRayDir;
+        double tFar =  (pMax.x  - ray.getOrigin().x) * invRayDir;
 
         if (tNear > tFar) {
-            float aux = tNear;
+            double aux = tNear;
             tNear = tFar;
             tFar = aux;
         }
@@ -87,7 +87,7 @@ public class Box extends Primitive {
         tFar =  (pMax.y  - ray.getOrigin().y) * invRayDir;
 
         if (tNear > tFar) {
-            float aux = tNear;
+            double aux = tNear;
             tNear = tFar;
             tFar = aux;
         }
@@ -101,7 +101,7 @@ public class Box extends Primitive {
         tFar =  (pMax.z  - ray.getOrigin().z) * invRayDir;
 
         if (tNear > tFar) {
-            float aux = tNear;
+            double aux = tNear;
             tNear = tFar;
             tFar = aux;
         }

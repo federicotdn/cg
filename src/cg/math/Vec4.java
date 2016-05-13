@@ -15,12 +15,12 @@ public class Vec4 {
 	 * -----
 	 */	
 
-	public final float x;
-	public final float y;
-	public final float z;
-	public final float w;
+	public final double x;
+	public final double y;
+	public final double z;
+	public final double w;
 	
-	public Vec4(float x, float y, float z, float w) {
+	public Vec4(double x, double y, double z, double w) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
@@ -28,7 +28,7 @@ public class Vec4 {
 	}
 	
 	public Vec4 normalize() {
-		float len = (float) Math.sqrt(x * x + y * y + z * z + w * w);
+		double len = (double) Math.sqrt(x * x + y * y + z * z + w * w);
 		return new Vec4(x/len, y/len, z/len, w/len);
 	}
 	

@@ -16,7 +16,7 @@ public class PointLight extends Light {
 		this(scene, Color.WHITE, 0.01f, position);
 	}
 	
-	public PointLight(Scene scene, Color color, float intensity, Vec3 position) {
+	public PointLight(Scene scene, Color color, double intensity, Vec3 position) {
 		super(scene, color, intensity, position, null);
 	}
 
@@ -29,7 +29,7 @@ public class PointLight extends Light {
 	@Override
 	public boolean visibleFrom(Collision col) {
 		Vec3 surfaceToLight = vectorFromCollision(col);
-		float cosAngle = col.getNormal().dot(surfaceToLight.normalize());
+		double cosAngle = col.getNormal().dot(surfaceToLight.normalize());
 		
 		if (cosAngle < 0) {
 			return false;

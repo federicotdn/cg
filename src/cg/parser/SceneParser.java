@@ -109,15 +109,15 @@ public class SceneParser {
                     String materialType = o.getString("materialType", "");
                     int colorTextureId = o.getInt("colorTextureId", -1);
 
-                    float offsetU = 0 , offsetV = 0, scaleU = 1, scaleV = 1;
+                    double offsetU = 0 , offsetV = 0, scaleU = 1, scaleV = 1;
                     if (colorTextureId != -1) {
                         JsonObject colorOffset = o.get("colorOffset").asObject();
-                        offsetU = colorOffset.getFloat("x", 0);
-                        offsetV = colorOffset.getFloat("y", 0);
+                        offsetU = colorOffset.getDouble("x", 0);
+                        offsetV = colorOffset.getDouble("y", 0);
 
                         JsonObject scaleOffset = o.get("colorScale").asObject();
-                        scaleU = scaleOffset.getFloat("x", 0);
-                        scaleV = scaleOffset.getFloat("y", 0);
+                        scaleU = scaleOffset.getDouble("x", 0);
+                        scaleV = scaleOffset.getDouble("y", 0);
                     }
 
                     Material material;
@@ -132,7 +132,7 @@ public class SceneParser {
                         case "Phong":
                         	c = parseColor(o, "color");
                         	Color specular = parseColor(o, "specularColor");
-                        	float exponent = o.getFloat("exponent", -1);
+                        	double exponent = o.getDouble("exponent", -1);
                         	if (exponent < 0) {
                         		printWarning("Phong material ID " + String.valueOf(id) + " does not have an exponent, using default value.");
                         		exponent = DEFAULT_EXPONENT;
@@ -146,7 +146,7 @@ public class SceneParser {
                             break;
                         case "Refractive":
                             material = new RefractiveMaterial(parseColor(o, "reflectivityColor"), offsetU, offsetV,
-                                    scaleU, scaleV, parseColor(o, "refractionColor"), o.getFloat("ior", 1));
+                                    scaleU, scaleV, parseColor(o, "refractionColor"), o.getDouble("ior", 1));
                             break;
                         default:
                             material = null;
@@ -185,26 +185,26 @@ public class SceneParser {
                 case "Mesh":
                     byte[] data = parseBase64(o.getString("base64OBJ", ""));
                     Scanner scanner = new Scanner(new ByteArrayInputStream(data));
-                    List<Float> v = new ArrayList<>();
-                    List<Float> normals = new ArrayList<>();
-                    List<Float> uv = new ArrayList<>();
+                    List<Double> v = new ArrayList<>();
+                    List<Double> normals = new ArrayList<>();
+                    List<Double> uv = new ArrayList<>();
                     List<Integer> faces = new ArrayList<>();
                     while (scanner.hasNext()) {
                         String s = scanner.next();
                         switch (s) {
                             case "v":
-                                v.add(scanner.nextFloat());
-                                v.add(scanner.nextFloat());
-                                v.add(scanner.nextFloat());
+                                v.add(scanner.nextDouble());
+                                v.add(scanner.nextDouble());
+                                v.add(scanner.nextDouble());
                                 break;
                             case "vn":
-                                normals.add(scanner.nextFloat());
-                                normals.add(scanner.nextFloat());
-                                normals.add(scanner.nextFloat());
+                                normals.add(scanner.nextDouble());
+                                normals.add(scanner.nextDouble());
+                                normals.add(scanner.nextDouble());
                                 break;
                             case "vt":
-                                uv.add(scanner.nextFloat());
-                                uv.add(scanner.nextFloat());
+                                uv.add(scanner.nextDouble());
+                                uv.add(scanner.nextDouble());
                                 break;
                             case "f":
                                 String[] f = scanner.next().split("/");
@@ -287,7 +287,7 @@ public class SceneParser {
                     if (id == cameraId) {
                         Camera cam = new Camera(getPosition(o),
                                 getRotation(o),
-                                o.getFloat("fieldOfView", 60));
+                                o.getDouble("fieldOfView", 60));
                         scene.setCam(cam);
                     } else {
                     	printWarning("Ignored camera with ID: " + String.valueOf(id));
@@ -297,7 +297,7 @@ public class SceneParser {
                     String lightType = o.getString("lightType", "");
                     Light light;
 
-                    float intensity =  o.getFloat("intensity", 0);
+                    double intensity =  o.getDouble("intensity", 0);
                     Color color = parseColor(o, "color");
 
                     switch (lightType) {
@@ -306,7 +306,7 @@ public class SceneParser {
                         break;
                         case "Spot":
                             light = new SpotLight(scene, color, intensity, getPosition(o),
-                                    getRotation(o), o.getFloat("spotAngle", 60));
+                                    getRotation(o), o.getDouble("spotAngle", 60));
                             break;
                         case "Point":
                             light = new PointLight(scene, color, intensity, getPosition(o));
@@ -336,7 +336,7 @@ public class SceneParser {
                     
                     switch (shapeType) {
                         case "Sphere":
-                            Sphere sphere = new Sphere(getPosition(o), getRotation(o), getScale(o), o.getFloat("radius", 1));
+                            Sphere sphere = new Sphere(getPosition(o), getRotation(o), getScale(o), o.getDouble("radius", 1));
                             primitive = sphere;
                         break;
 
@@ -344,8 +344,8 @@ public class SceneParser {
                         	boolean finite = o.getBoolean("finite", false);
                         	
                         	if (finite) {
-                            	float width = o.getFloat("width", 1);
-                            	float depth = o.getFloat("height", 1);
+                            	double width = o.getDouble("width", 1);
+                            	double depth = o.getDouble("height", 1);
                             	primitive = new FinitePlane(width, depth, getPosition(o), getRotation(o), getScale(o));
                         	} else {
                         		primitive = new InfinitePlane(getPosition(o), getRotation(o), getScale(o));
@@ -353,9 +353,9 @@ public class SceneParser {
                         break;
                         
                         case "Cube":
-                        	float width = o.getFloat("width", 1);
-                        	float depth = o.getFloat("depth", 1);
-                        	float height = o.getFloat("height", 1);
+                        	double width = o.getDouble("width", 1);
+                        	double depth = o.getDouble("depth", 1);
+                        	double height = o.getDouble("height", 1);
                         	
                         	primitive = new Box(width, height, depth, getPosition(o), getRotation(o), getScale(o));
                         	break;
@@ -419,13 +419,13 @@ public class SceneParser {
 
     private Vec3 valueToVec3(JsonValue jsonValue, int defaultVal) {
         JsonObject object = jsonValue.asObject();
-        return new Vec3(object.getFloat("x", defaultVal), object.getFloat("y", defaultVal), object.getFloat("z", defaultVal));
+        return new Vec3(object.getDouble("x", defaultVal), object.getDouble("y", defaultVal), object.getDouble("z", defaultVal));
 
     }
 
     private Color parseColor(JsonObject object, String key) {
         JsonObject co = object.get(key).asObject();
-        return new Color(co.getFloat("a", 1), co.getFloat("r", 1), co.getFloat("g", 1), co.getFloat("b", 1));
+        return new Color(co.getDouble("a", 1), co.getDouble("r", 1), co.getDouble("g", 1), co.getDouble("b", 1));
     }
 
     private Vec3 getPosition(JsonObject object) {

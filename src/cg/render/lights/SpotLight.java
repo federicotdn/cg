@@ -8,15 +8,15 @@ public class SpotLight extends Light {
 
 	private Vec3 position;
 	private Vec3 direction;
-	private float cosCutoff;
+	private double cosCutoff;
 	
-	public SpotLight(Scene scene, Color color, float intensity, Vec3 t, Vec3 r, float cutoff) {
+	public SpotLight(Scene scene, Color color, double intensity, Vec3 t, Vec3 r, double cutoff) {
 		super(scene, color, intensity, t, r);
 
 		if (Math.abs(cutoff) > 90) {
 			cutoff = 90;
 		}
-		this.cosCutoff = (float) Math.cos(Math.toRadians(Math.abs(cutoff)));
+		this.cosCutoff = (double) Math.cos(Math.toRadians(Math.abs(cutoff)));
 	}
 
 	@Override
@@ -29,7 +29,7 @@ public class SpotLight extends Light {
 	@Override
 	public boolean visibleFrom(Collision col) {
 		Vec3 surfaceToLight = vectorFromCollision(col);
-		float cosAngle = col.getNormal().dot(surfaceToLight.normalize());
+		double cosAngle = col.getNormal().dot(surfaceToLight.normalize());
 		
 		if (cosAngle < 0) {
 			return false;

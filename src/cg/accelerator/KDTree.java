@@ -39,8 +39,8 @@ public class KDTree {
         }
 
         Deque<StackNode> stack = new LinkedList<>();
-        float tMax = ray.getMaxT();
-        float tMin = 0;
+        double tMax = ray.getMaxT();
+        double tMin = 0;
         stack.push(new StackNode(root, 0, tMax));
         Collision col = null;
         KDTreeNode first, second;
@@ -51,7 +51,7 @@ public class KDTree {
             tMin = sNode.tMin;
             while (!node.isLeaf()) {
                 INode iNode = (INode)node;
-                float t = (iNode.location - ray.getOrigin().getCoordByAxis(iNode.axis))/ray.getDirection().getCoordByAxis(iNode.axis);
+                double t = (iNode.location - ray.getOrigin().getCoordByAxis(iNode.axis))/ray.getDirection().getCoordByAxis(iNode.axis);
                 if (ray.getOrigin().getCoordByAxis(iNode.axis) <= iNode.location ||
                         (Math.abs(ray.getOrigin().getCoordByAxis(iNode.axis) - iNode.location) < 0.0001f
                                 && ray.getDirection().getCoordByAxis(iNode.axis) < 0)) {
@@ -84,10 +84,10 @@ public class KDTree {
 
     private class StackNode {
         public KDTreeNode node;
-        public float tMin;
-        public float tMax;
+        public double tMin;
+        public double tMax;
 
-        public StackNode(KDTreeNode node, float tMin, float tMax) {
+        public StackNode(KDTreeNode node, double tMin, double tMax) {
             this.node = node;
             this.tMax = tMax;
             this.tMin = tMin;
@@ -97,7 +97,7 @@ public class KDTree {
     private Collision checkCollision(Ray ray, List<Primitive> primitives) {
         Collision closestCol = null;
         for (Primitive primitive : primitives) {
-            float t = primitive.getBBox().collide(ray);
+            double t = primitive.getBBox().collide(ray);
             if (t >= 0) {
                 Collision col = primitive.collideWith(ray);
 
@@ -122,7 +122,7 @@ public class KDTree {
 
         sortByAxis(primitives, axis);
 
-        float location = getMedian(primitives, axis);
+        double location = getMedian(primitives, axis);
 
         Predicate<Primitive> isLeft = p -> p.getBBox().pMin.getCoordByAxis(axis) <= location;
         Predicate<Primitive> isRight = p -> p.getBBox().pMax.getCoordByAxis(axis) > location;
@@ -140,12 +140,12 @@ public class KDTree {
         Collections.sort(primitives, (p1, p2) -> {
                     Vec3 c1 = p1.getBBox().getCenter();
                     Vec3 c2 = p2.getBBox().getCenter();
-                    return new Float(c1.getCoordByAxis(axis)).compareTo(c2.getCoordByAxis(axis));
+                    return new Double(c1.getCoordByAxis(axis)).compareTo(c2.getCoordByAxis(axis));
                 }
         );
     }
 
-    private float getMedian(List<Primitive> primitives, int axis) {
+    private double getMedian(List<Primitive> primitives, int axis) {
         Vec3 medianLoc;
 
         if (primitives.size() % 2 == 1) {

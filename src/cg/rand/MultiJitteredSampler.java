@@ -4,8 +4,8 @@ public class MultiJitteredSampler {
 	
 	/* Correlated Multi-Jittered Sampler */
 	
-	public float[] xCoords;
-	public float[] yCoords;
+	public double[] xCoords;
+	public double[] yCoords;
 	private int size;
 	
 	public MultiJitteredSampler(int samples) {
@@ -15,8 +15,8 @@ public class MultiJitteredSampler {
 		}
 		
 		size = sqrt;
-		xCoords = new float[size * size];
-		yCoords = new float[size * size];
+		xCoords = new double[size * size];
+		yCoords = new double[size * size];
 	}
 	
 	public int getSize() {
@@ -26,15 +26,15 @@ public class MultiJitteredSampler {
 	public void generateSamples() {
 		for (int j = 0; j < size; j++) {
 			for (int i = 0; i < size; i++) {
-				xCoords[j * size + i] = (float)((i + (j + Math.random()) / size) / size);
-				yCoords[j * size + i] = (float)((j + (i + Math.random()) / size) / size);
+				xCoords[j * size + i] = (double)((i + (j + Math.random()) / size) / size);
+				yCoords[j * size + i] = (double)((j + (i + Math.random()) / size) / size);
 			}
 		}
 		
 		for (int j = 0; j < size; j++) {
 			int k = (int)(j + Math.random() * (size - j));
 			for (int i = 0; i < size; i++) {
-				float tmp = xCoords[j * size + i];
+				double tmp = xCoords[j * size + i];
 				xCoords[j * size + i] = xCoords[k * size + i];
 				xCoords[k * size + i] = tmp;
 			}
@@ -43,7 +43,7 @@ public class MultiJitteredSampler {
 		for (int i = 0; i < size; i++) {
 			int k = (int)(i + Math.random() * (size - i));
 			for (int j = 0; j < size; j++) {
-				float tmp = yCoords[j * size + i];
+				double tmp = yCoords[j * size + i];
 				yCoords[j * size + i] = yCoords[j * size + k];
 				yCoords[j * size + k] = tmp;
 			}

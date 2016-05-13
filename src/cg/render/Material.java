@@ -5,12 +5,12 @@ import cg.render.assets.Texture;
 public abstract class Material {
 	protected Texture colorTex;
 	protected final Color color;
-	private float offsetU;
-	private float offsetV;
-	private float scaleU;
-	private float scaleV;
+	private double offsetU;
+	private double offsetV;
+	private double scaleU;
+	private double scaleV;
 
-	public Material(Color color, float offsetU, float offsetV, float scaleU, float scaleV) {
+	public Material(Color color, double offsetU, double offsetV, double scaleU, double scaleV) {
 		this.offsetU = offsetU;
 		this.offsetV = offsetV;
 		this.scaleU = scaleU;
@@ -23,19 +23,19 @@ public abstract class Material {
 		return color;
 	}
 
-	public float getOffsetU() {
+	public double getOffsetU() {
 		return offsetU;
 	}
 
-	public float getOffsetV() {
+	public double getOffsetV() {
 		return offsetV;
 	}
 
-	public float getScaleU() {
+	public double getScaleU() {
 		return scaleU;
 	}
 
-	public float getScaleV() {
+	public double getScaleV() {
 		return scaleV;
 	}
 
@@ -43,11 +43,11 @@ public abstract class Material {
 		colorTex = tex;
 	}
 	
-	protected Color getTextureColorMix(float u, float v) {
+	protected Color getTextureColorMix(double u, double v) {
 		return getTextureColorMix(u, v, colorTex);
 	}
 
-	protected Color getTextureColorMix(float u, float v, Texture tex) {
+	protected Color getTextureColorMix(double u, double v, Texture tex) {
 		if (tex == null) {
 			return Color.WHITE;
 		}

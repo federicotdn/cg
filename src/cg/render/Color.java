@@ -6,10 +6,10 @@ import cg.math.MathUtils;
  * Created by Hobbit on 4/6/16.
  */
 public class Color {
-    private float alpha;
-    private float red;
-    private float green;
-    private float blue;
+    private double alpha;
+    private double red;
+    private double green;
+    private double blue;
 
     public static final Color RED = new Color(1,0,0);
     public static final Color GREEN = new Color(0,1,0);
@@ -17,15 +17,15 @@ public class Color {
     public static final Color BLACK = new Color(0);
     public static final Color WHITE = new Color(1);
 
-    public Color(float red, float green, float blue) {
+    public Color(double red, double green, double blue) {
         this(1.0f, red, green, blue);
     }
 
-    public Color(float color) {
+    public Color(double color) {
         this(1.0f, color, color, color);
     }
 
-    public Color(float alpha, float red, float green, float blue) {
+    public Color(double alpha, double red, double green, double blue) {
         this.alpha = MathUtils.clamp(alpha);
         this.red = MathUtils.clamp(red);
         this.green = MathUtils.clamp(green);
@@ -43,23 +43,23 @@ public class Color {
         return new Color(color.alpha * alpha, color.red * red, color.green * green, color.blue * blue);
     }
 
-    public Color mul(float v) {
+    public Color mul(double v) {
     	return new Color(red * v, green * v, blue * v);
     }
 
-    public float getAlpha() {
+    public double getAlpha() {
         return alpha;
     }
 
-    public float getRed() {
+    public double getRed() {
         return red;
     }
 
-    public float getGreen() {
+    public double getGreen() {
         return green;
     }
 
-    public float getBlue() {
+    public double getBlue() {
         return blue;
     }
 

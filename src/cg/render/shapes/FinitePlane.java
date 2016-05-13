@@ -8,12 +8,12 @@ import cg.render.Primitive;
 import cg.render.Ray;
 
 public class FinitePlane extends Primitive {
-	private static final float EPSILON = 0.000001f;
+	private static final double EPSILON = 0.000001f;
 		
-	private final float halfWidth;
-	private final float halfDepth;
+	private final double halfWidth;
+	private final double halfDepth;
 	
-	public FinitePlane(float width, float depth, Vec3 t, Vec3 r, Vec3 s) {
+	public FinitePlane(double width, double depth, Vec3 t, Vec3 r, Vec3 s) {
 		this.halfWidth = width / 2;
 		this.halfDepth = depth / 2;
 		setTransform(t, r, s);
@@ -21,7 +21,7 @@ public class FinitePlane extends Primitive {
 	
 	@Override
 	protected Collision calculateCollision(Ray ray) {
-        Float t = InfinitePlane.planeT(ray, InfinitePlane.PLANE_NORMAL, 0);
+        Double t = InfinitePlane.planeT(ray, InfinitePlane.PLANE_NORMAL, 0);
         if (t == null || t > ray.getMaxT()) {
         	return null;
         }

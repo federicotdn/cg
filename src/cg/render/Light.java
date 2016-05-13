@@ -4,14 +4,14 @@ import cg.math.Matrix4;
 import cg.math.Vec3;
 
 public abstract class Light extends WorldObject {
-	public static final float EPSILON = 0.005f;
+	public static final double EPSILON = 0.01;
 	protected Scene scene;
 	protected Color color;
-	protected float intensity;
+	protected double intensity;
 	
 	public abstract boolean visibleFrom(Collision col);
 	
-	protected Light(Scene scene, Color color, float intensity, Vec3 t, Vec3 r) {
+	protected Light(Scene scene, Color color, double intensity, Vec3 t, Vec3 r) {
 		this.scene = scene;
 		this.intensity = intensity;
 		this.color = color;
@@ -27,10 +27,6 @@ public abstract class Light extends WorldObject {
 			r = new Vec3();
 		}
 
-		if (s == null) {
-			s = new Vec3(1, 1, 1);
-		}
-
 		Matrix4 translation = Matrix4.transFromVec(t);
 		Matrix4 rot = getRotationMatrix(r);
 
@@ -44,7 +40,7 @@ public abstract class Light extends WorldObject {
 	
 	public abstract Vec3 vectorFromCollision(Collision col);
 	
-	public float getIntensity() {
+	public double getIntensity() {
 		return intensity;
 	}
 }

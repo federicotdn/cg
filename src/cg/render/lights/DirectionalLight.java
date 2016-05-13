@@ -11,7 +11,7 @@ public class DirectionalLight extends Light {
 		this(scene, Color.WHITE, 0.4f, direction);
 	}
 	
-	public DirectionalLight(Scene scene, Color color, float intensity, Vec3 r) {
+	public DirectionalLight(Scene scene, Color color, double intensity, Vec3 r) {
 		super(scene, color, intensity, null, r);
 	}
 
@@ -24,7 +24,7 @@ public class DirectionalLight extends Light {
 
 	@Override
 	public boolean visibleFrom(Collision col) {
-		float cosAngle = col.getNormal().dot(negDirection);
+		double cosAngle = col.getNormal().dot(negDirection);
 		if (cosAngle < 0) {
 			return false;
 		}

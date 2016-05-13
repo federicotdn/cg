@@ -15,22 +15,22 @@ public class Matrix4 {
 	 * ---                ---
 	 */
 
-	public final float m00;
-	public final float m01;
-	public final float m02;
-	public final float m03;
-	public final float m10;
-	public final float m11;
-	public final float m12;
-	public final float m13;
-	public final float m20;
-	public final float m21;
-	public final float m22;
-	public final float m23;
-	public final float m30;
-	public final float m31;
-	public final float m32;
-	public final float m33;
+	public final double m00;
+	public final double m01;
+	public final double m02;
+	public final double m03;
+	public final double m10;
+	public final double m11;
+	public final double m12;
+	public final double m13;
+	public final double m20;
+	public final double m21;
+	public final double m22;
+	public final double m23;
+	public final double m30;
+	public final double m31;
+	public final double m32;
+	public final double m33;
 
 	public Matrix4() {
 		this(
@@ -41,7 +41,7 @@ public class Matrix4 {
 		);
 	}
 
-	public Matrix4(float m00, float m01, float m02, float m03, float m10, float m11, float m12, float m13, float m20, float m21, float m22, float m23, float m30, float m31, float m32, float m33) {
+	public Matrix4(double m00, double m01, double m02, double m03, double m10, double m11, double m12, double m13, double m20, double m21, double m22, double m23, double m30, double m31, double m32, double m33) {
 		this.m00 = m00;
 		this.m01 = m01;
 		this.m02 = m02;
@@ -60,7 +60,7 @@ public class Matrix4 {
 		this.m33 = m33;
 	}
 
-	public Matrix4(float[] vals) {
+	public Matrix4(double[] vals) {
 		if (vals.length != 16) {
 			throw new RuntimeException("Matrix4 array initializer must contain 16 values.");
 		}
@@ -104,11 +104,11 @@ public class Matrix4 {
 		);
 	}
 
-	public static Matrix4 rotationX(float deg) {
-		float rad = (float) Math.toRadians(deg);
+	public static Matrix4 rotationX(double deg) {
+		double rad = (double) Math.toRadians(deg);
 
-		float cosAngle = (float) Math.cos(rad);
-		float sinAngle = (float) Math.sin(rad);
+		double cosAngle = (double) Math.cos(rad);
+		double sinAngle = (double) Math.sin(rad);
 
 		return new Matrix4(
 				1, 0, 0, 0,
@@ -118,11 +118,11 @@ public class Matrix4 {
 		);
 	}
 
-	public static Matrix4 rotationY(float deg) {
-		float rad = (float) Math.toRadians(deg);
+	public static Matrix4 rotationY(double deg) {
+		double rad = (double) Math.toRadians(deg);
 
-		float cosAngle = (float) Math.cos(rad);
-		float sinAngle = (float) Math.sin(rad);
+		double cosAngle = (double) Math.cos(rad);
+		double sinAngle = (double) Math.sin(rad);
 
 		return new Matrix4(
 				cosAngle, 0, sinAngle, 0,
@@ -132,11 +132,11 @@ public class Matrix4 {
 		);
 	}
 
-	public static Matrix4 rotationZ(float deg) {
-		float rad = (float) Math.toRadians(deg);
+	public static Matrix4 rotationZ(double deg) {
+		double rad = (double) Math.toRadians(deg);
 
-		float cosAngle = (float) Math.cos(rad);
-		float sinAngle = (float) Math.sin(rad);
+		double cosAngle = (double) Math.cos(rad);
+		double sinAngle = (double) Math.sin(rad);
 
 		return new Matrix4(
 				cosAngle, -sinAngle, 0, 0,
@@ -148,49 +148,49 @@ public class Matrix4 {
 
 	public Matrix4 inverse() {
 		/* Generated with autojava.py */
-		float c00 = m11 * m22 * m33 + m12 * m23 * m31 + m13 * m21 * m32 - m31 * m22 * m13 - m32 * m23 * m11 - m21 * m12 * m33;
-		float c01 = m10 * m22 * m33 + m12 * m23 * m30 + m13 * m20 * m32 - m30 * m22 * m13 - m32 * m23 * m10 - m20 * m12 * m33;
-		float c02 = m10 * m21 * m33 + m11 * m23 * m30 + m13 * m20 * m31 - m30 * m21 * m13 - m31 * m23 * m10 - m20 * m11 * m33;
-		float c03 = m10 * m21 * m32 + m11 * m22 * m30 + m12 * m20 * m31 - m30 * m21 * m12 - m31 * m22 * m10 - m20 * m11 * m32;
-		float c10 = m01 * m22 * m33 + m02 * m23 * m31 + m03 * m21 * m32 - m31 * m22 * m03 - m32 * m23 * m01 - m21 * m02 * m33;
-		float c11 = m00 * m22 * m33 + m02 * m23 * m30 + m03 * m20 * m32 - m30 * m22 * m03 - m32 * m23 * m00 - m20 * m02 * m33;
-		float c12 = m00 * m21 * m33 + m01 * m23 * m30 + m03 * m20 * m31 - m30 * m21 * m03 - m31 * m23 * m00 - m20 * m01 * m33;
-		float c13 = m00 * m21 * m32 + m01 * m22 * m30 + m02 * m20 * m31 - m30 * m21 * m02 - m31 * m22 * m00 - m20 * m01 * m32;
-		float c20 = m01 * m12 * m33 + m02 * m13 * m31 + m03 * m11 * m32 - m31 * m12 * m03 - m32 * m13 * m01 - m11 * m02 * m33;
-		float c21 = m00 * m12 * m33 + m02 * m13 * m30 + m03 * m10 * m32 - m30 * m12 * m03 - m32 * m13 * m00 - m10 * m02 * m33;
-		float c22 = m00 * m11 * m33 + m01 * m13 * m30 + m03 * m10 * m31 - m30 * m11 * m03 - m31 * m13 * m00 - m10 * m01 * m33;
-		float c23 = m00 * m11 * m32 + m01 * m12 * m30 + m02 * m10 * m31 - m30 * m11 * m02 - m31 * m12 * m00 - m10 * m01 * m32;
-		float c30 = m01 * m12 * m23 + m02 * m13 * m21 + m03 * m11 * m22 - m21 * m12 * m03 - m22 * m13 * m01 - m11 * m02 * m23;
-		float c31 = m00 * m12 * m23 + m02 * m13 * m20 + m03 * m10 * m22 - m20 * m12 * m03 - m22 * m13 * m00 - m10 * m02 * m23;
-		float c32 = m00 * m11 * m23 + m01 * m13 * m20 + m03 * m10 * m21 - m20 * m11 * m03 - m21 * m13 * m00 - m10 * m01 * m23;
-		float c33 = m00 * m11 * m22 + m01 * m12 * m20 + m02 * m10 * m21 - m20 * m11 * m02 - m21 * m12 * m00 - m10 * m01 * m22;
+		double c00 = m11 * m22 * m33 + m12 * m23 * m31 + m13 * m21 * m32 - m31 * m22 * m13 - m32 * m23 * m11 - m21 * m12 * m33;
+		double c01 = m10 * m22 * m33 + m12 * m23 * m30 + m13 * m20 * m32 - m30 * m22 * m13 - m32 * m23 * m10 - m20 * m12 * m33;
+		double c02 = m10 * m21 * m33 + m11 * m23 * m30 + m13 * m20 * m31 - m30 * m21 * m13 - m31 * m23 * m10 - m20 * m11 * m33;
+		double c03 = m10 * m21 * m32 + m11 * m22 * m30 + m12 * m20 * m31 - m30 * m21 * m12 - m31 * m22 * m10 - m20 * m11 * m32;
+		double c10 = m01 * m22 * m33 + m02 * m23 * m31 + m03 * m21 * m32 - m31 * m22 * m03 - m32 * m23 * m01 - m21 * m02 * m33;
+		double c11 = m00 * m22 * m33 + m02 * m23 * m30 + m03 * m20 * m32 - m30 * m22 * m03 - m32 * m23 * m00 - m20 * m02 * m33;
+		double c12 = m00 * m21 * m33 + m01 * m23 * m30 + m03 * m20 * m31 - m30 * m21 * m03 - m31 * m23 * m00 - m20 * m01 * m33;
+		double c13 = m00 * m21 * m32 + m01 * m22 * m30 + m02 * m20 * m31 - m30 * m21 * m02 - m31 * m22 * m00 - m20 * m01 * m32;
+		double c20 = m01 * m12 * m33 + m02 * m13 * m31 + m03 * m11 * m32 - m31 * m12 * m03 - m32 * m13 * m01 - m11 * m02 * m33;
+		double c21 = m00 * m12 * m33 + m02 * m13 * m30 + m03 * m10 * m32 - m30 * m12 * m03 - m32 * m13 * m00 - m10 * m02 * m33;
+		double c22 = m00 * m11 * m33 + m01 * m13 * m30 + m03 * m10 * m31 - m30 * m11 * m03 - m31 * m13 * m00 - m10 * m01 * m33;
+		double c23 = m00 * m11 * m32 + m01 * m12 * m30 + m02 * m10 * m31 - m30 * m11 * m02 - m31 * m12 * m00 - m10 * m01 * m32;
+		double c30 = m01 * m12 * m23 + m02 * m13 * m21 + m03 * m11 * m22 - m21 * m12 * m03 - m22 * m13 * m01 - m11 * m02 * m23;
+		double c31 = m00 * m12 * m23 + m02 * m13 * m20 + m03 * m10 * m22 - m20 * m12 * m03 - m22 * m13 * m00 - m10 * m02 * m23;
+		double c32 = m00 * m11 * m23 + m01 * m13 * m20 + m03 * m10 * m21 - m20 * m11 * m03 - m21 * m13 * m00 - m10 * m01 * m23;
+		double c33 = m00 * m11 * m22 + m01 * m12 * m20 + m02 * m10 * m21 - m20 * m11 * m02 - m21 * m12 * m00 - m10 * m01 * m22;
 		/* Generated with autojava.py - end */
 
-		float det = m00 * c00 - m01 * c01 + m02 * c02 - m03 * c03;
+		double det = m00 * c00 - m01 * c01 + m02 * c02 - m03 * c03;
 		if (det == 0.0f) {
 			throw new RuntimeException("Matrix does not have inverse");
 		}
-		float idet = 1.0f / det;
+		double idet = 1.0f / det;
 
-		float n00 = c00 * idet;
-		float n01 = -c10 * idet;
-		float n02 = c20 * idet;
-		float n03 = -c30 * idet;
+		double n00 = c00 * idet;
+		double n01 = -c10 * idet;
+		double n02 = c20 * idet;
+		double n03 = -c30 * idet;
 
-		float n10 = -c01 * idet;
-		float n11 = c11 * idet;
-		float n12 = -c21 * idet;
-		float n13 = c31 * idet;
+		double n10 = -c01 * idet;
+		double n11 = c11 * idet;
+		double n12 = -c21 * idet;
+		double n13 = c31 * idet;
 
-		float n20 = c02 * idet;
-		float n21 = -c12 * idet;
-		float n22 = c22 * idet;
-		float n23 = -c32 * idet;
+		double n20 = c02 * idet;
+		double n21 = -c12 * idet;
+		double n22 = c22 * idet;
+		double n23 = -c32 * idet;
 
-		float n30 = -c03 * idet;
-		float n31 = c13 * idet;
-		float n32 = -c23 * idet;
-		float n33 = c33 * idet;
+		double n30 = -c03 * idet;
+		double n31 = c13 * idet;
+		double n32 = -c23 * idet;
+		double n33 = c33 * idet;
 
 		return new Matrix4(
 				n00, n01, n02, n03,
@@ -200,25 +200,25 @@ public class Matrix4 {
 	}
 
 	public Matrix4 mul(Matrix4 m) {
-		float t00 = m00 * m.m00 + m01 * m.m10 + m02 * m.m20 + m03 * m.m30;
-		float t01 = m00 * m.m01 + m01 * m.m11 + m02 * m.m21 + m03 * m.m31;
-		float t02 = m00 * m.m02 + m01 * m.m12 + m02 * m.m22 + m03 * m.m32;
-		float t03 = m00 * m.m03 + m01 * m.m13 + m02 * m.m23 + m03 * m.m33;
+		double t00 = m00 * m.m00 + m01 * m.m10 + m02 * m.m20 + m03 * m.m30;
+		double t01 = m00 * m.m01 + m01 * m.m11 + m02 * m.m21 + m03 * m.m31;
+		double t02 = m00 * m.m02 + m01 * m.m12 + m02 * m.m22 + m03 * m.m32;
+		double t03 = m00 * m.m03 + m01 * m.m13 + m02 * m.m23 + m03 * m.m33;
 
-		float t10 = m10 * m.m00 + m11 * m.m10 + m12 * m.m20 + m13 * m.m30;
-		float t11 = m10 * m.m01 + m11 * m.m11 + m12 * m.m21 + m13 * m.m31;
-		float t12 = m10 * m.m02 + m11 * m.m12 + m12 * m.m22 + m13 * m.m32;
-		float t13 = m10 * m.m03 + m11 * m.m13 + m12 * m.m23 + m13 * m.m33;
+		double t10 = m10 * m.m00 + m11 * m.m10 + m12 * m.m20 + m13 * m.m30;
+		double t11 = m10 * m.m01 + m11 * m.m11 + m12 * m.m21 + m13 * m.m31;
+		double t12 = m10 * m.m02 + m11 * m.m12 + m12 * m.m22 + m13 * m.m32;
+		double t13 = m10 * m.m03 + m11 * m.m13 + m12 * m.m23 + m13 * m.m33;
 
-		float t20 = m20 * m.m00 + m21 * m.m10 + m22 * m.m20 + m23 * m.m30;
-		float t21 = m20 * m.m01 + m21 * m.m11 + m22 * m.m21 + m23 * m.m31;
-		float t22 = m20 * m.m02 + m21 * m.m12 + m22 * m.m22 + m23 * m.m32;
-		float t23 = m20 * m.m03 + m21 * m.m13 + m22 * m.m23 + m23 * m.m33;
+		double t20 = m20 * m.m00 + m21 * m.m10 + m22 * m.m20 + m23 * m.m30;
+		double t21 = m20 * m.m01 + m21 * m.m11 + m22 * m.m21 + m23 * m.m31;
+		double t22 = m20 * m.m02 + m21 * m.m12 + m22 * m.m22 + m23 * m.m32;
+		double t23 = m20 * m.m03 + m21 * m.m13 + m22 * m.m23 + m23 * m.m33;
 
-		float t30 = m30 * m.m00 + m31 * m.m10 + m32 * m.m20 + m33 * m.m30;
-		float t31 = m30 * m.m01 + m31 * m.m11 + m32 * m.m21 + m33 * m.m31;
-		float t32 = m30 * m.m02 + m31 * m.m12 + m32 * m.m22 + m33 * m.m32;
-		float t33 = m30 * m.m03 + m31 * m.m13 + m32 * m.m23 + m33 * m.m33;
+		double t30 = m30 * m.m00 + m31 * m.m10 + m32 * m.m20 + m33 * m.m30;
+		double t31 = m30 * m.m01 + m31 * m.m11 + m32 * m.m21 + m33 * m.m31;
+		double t32 = m30 * m.m02 + m31 * m.m12 + m32 * m.m22 + m33 * m.m32;
+		double t33 = m30 * m.m03 + m31 * m.m13 + m32 * m.m23 + m33 * m.m33;
 
 		return new Matrix4(
 				t00, t01, t02, t03,
@@ -245,10 +245,10 @@ public class Matrix4 {
 	}
 
 	public Vec4 mulVec(Vec4 v) {
-		float n0 = v.x * m00 + v.y * m01 + v.z * m02 + v.w * m03;
-		float n1 = v.x * m10 + v.y * m11 + v.z * m12 + v.w * m13;
-		float n2 = v.x * m20 + v.y * m21 + v.z * m22 + v.w * m23;
-		float n3 = v.x * m30 + v.y * m31 + v.z * m32 + v.w * m33;
+		double n0 = v.x * m00 + v.y * m01 + v.z * m02 + v.w * m03;
+		double n1 = v.x * m10 + v.y * m11 + v.z * m12 + v.w * m13;
+		double n2 = v.x * m20 + v.y * m21 + v.z * m22 + v.w * m23;
+		double n3 = v.x * m30 + v.y * m31 + v.z * m32 + v.w * m33;
 
 		return new Vec4(n0, n1, n2, n3);
 	}

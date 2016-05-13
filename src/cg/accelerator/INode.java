@@ -5,11 +5,11 @@ package cg.accelerator;
  */
 public class INode implements KDTreeNode {
     public int axis;
-    public float location;
+    public double location;
     public KDTreeNode leftChild;
     public KDTreeNode rightChild;
 
-    public INode(float location, int axis) {
+    public INode(double location, int axis) {
         this.location = location;
         this.axis = axis;
     }

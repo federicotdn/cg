@@ -4,7 +4,7 @@ package cg.math;
  * Created by Hobbit on 4/17/16.
  */
 public class MathUtils {
-    public static float clamp(float x, float min, float max) {
+    public static double clamp(double x, double min, double max) {
         if (x < min) {
             return min;
         }
@@ -16,7 +16,7 @@ public class MathUtils {
         return x;
     }
 
-    public static float clamp(float x) {
+    public static double clamp(double x) {
         return clamp(x, 0, 1);
     }
 }

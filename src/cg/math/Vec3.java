@@ -13,21 +13,21 @@ public class Vec3 {
 	 * -----
 	 */	
 
-	public final float x;
-	public final float y;
-	public final float z;
+	public final double x;
+	public final double y;
+	public final double z;
 	
 	public Vec3() {
 		this(0,0,0);
 	}
 	
-	public Vec3(float x, float y, float z) {
+	public Vec3(double x, double y, double z) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
 	}
 
-	public Vec3 mul(float scalar) {
+	public Vec3 mul(double scalar) {
 		return new Vec3(x * scalar, y * scalar, z * scalar);
 	}
 	
@@ -39,7 +39,7 @@ public class Vec3 {
 		return new Vec3(x - v.x, y - v.y, z - v.z);
 	}
 	
-	public float dot(Vec3 v) {
+	public double dot(Vec3 v) {
 		return (x * v.x) + (y * v.y) + (z * v.z);
 	}
 
@@ -51,7 +51,7 @@ public class Vec3 {
 		return new Vec4(x, y, z, 0);
 	}
 
-	public float getCoordByAxis(int axis) {
+	public double getCoordByAxis(int axis) {
 		switch (axis) {
 			case 0:
 				return x;
@@ -77,12 +77,12 @@ public class Vec3 {
 		}
 	}
 
-	public Vec3 pow(float pow) {
-		return new Vec3((float) Math.pow(x, pow), (float) Math.pow(y, pow), (float) Math.pow(z, pow));
+	public Vec3 pow(double pow) {
+		return new Vec3((double) Math.pow(x, pow), (double) Math.pow(y, pow), (double) Math.pow(z, pow));
 	}
 
-	public Vec3 max(float value) {
-		return new Vec3((float) Math.max(x, value), (float) Math.max(y, value), (float) Math.max(z, value));
+	public Vec3 max(double value) {
+		return new Vec3((double) Math.max(x, value), (double) Math.max(y, value), (double) Math.max(z, value));
 
 	}
 
@@ -99,7 +99,7 @@ public class Vec3 {
 	}
 	
 	public Vec3 normalize() {
-		float len = len();
+		double len = len();
 		return new Vec3(x/len, y/len, z/len);
 	}
 
@@ -107,8 +107,8 @@ public class Vec3 {
 		return normal.mul(2 * normal.dot(this)).sub(this);
 	}
 	
-	public float len() {
-		return (float) Math.sqrt(x * x + y * y + z * z);
+	public double len() {
+		return (double) Math.sqrt(x * x + y * y + z * z);
 	}
 
 	@Override

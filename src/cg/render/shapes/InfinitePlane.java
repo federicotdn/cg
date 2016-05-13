@@ -19,7 +19,7 @@ public class InfinitePlane extends Primitive {
     
     @Override
     protected Collision calculateCollision(Ray ray) {
-        Float t = planeT(ray, PLANE_NORMAL, 0);
+        Double t = planeT(ray, PLANE_NORMAL, 0);
         if (t == null || t > ray.getMaxT()) {
         	return null;
         }
@@ -27,13 +27,13 @@ public class InfinitePlane extends Primitive {
         return new Collision(this, ray, t, PLANE_NORMAL, colPos.x/10, colPos.z/10);
     }
 
-    public static Float planeT(Ray ray, Vec3 normal, float d) {
+    public static Double planeT(Ray ray, Vec3 normal, double d) {
         Vec3 rDir = ray.getDirection();
         Vec3 rPos = ray.getOrigin();
-        float collide = rDir.dot(normal);
+        double collide = rDir.dot(normal);
 
         if (Math.abs(collide) > 0) {
-            float t = -((rPos.dot(normal) + d)/rDir.dot(normal));
+            double t = -((rPos.dot(normal) + d)/rDir.dot(normal));
             if (t > 0 && t <= ray.getMaxT()) {
                 return t;
             }

@@ -40,8 +40,8 @@ public class BoundingBox {
         v[6] = new Vec3(v[0].x, v[1].y, v[1].z);
         v[7] = new Vec3(v[1].x, v[1].y, v[0].z);
 
-        float minX = Float.MAX_VALUE, minY = Float.MAX_VALUE, minZ = Float.MAX_VALUE;
-        float maxX = -Float.MAX_VALUE, maxY = -Float.MAX_VALUE, maxZ = -Float.MAX_VALUE;
+        double minX = Double.MAX_VALUE, minY = Double.MAX_VALUE, minZ = Double.MAX_VALUE;
+        double maxX = -Double.MAX_VALUE, maxY = -Double.MAX_VALUE, maxZ = -Double.MAX_VALUE;
         for (int i = 0; i < v.length; i++) {
             Vec3 transformedPoint = trs.mulVec(v[i].asPosition()).asVec3();
             if (transformedPoint.x < minX) {
@@ -73,7 +73,7 @@ public class BoundingBox {
 
     }
 
-    public Float collide(Ray ray) {
+    public Double collide(Ray ray) {
         return Box.collisionForBox(pMin, pMax, ray);
     }
 }

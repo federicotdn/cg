@@ -11,14 +11,14 @@ import java.io.IOException;
 public class Texture {
 	private int width;
 	private int height;
-	private float[] pixels;
+	private double[] pixels;
 
 	public Texture(byte[] data) {
 		try {
 			BufferedImage img = ImageIO.read(new ByteArrayInputStream(data));
 			this.width = img.getWidth();
 			this.height = img.getHeight();
-			pixels = new float[width * height * 4];
+			pixels = new double[width * height * 4];
 			if (img.getType() != BufferedImage.TYPE_4BYTE_ABGR) {
 				throw new IllegalArgumentException("Invalid image format");
 			}
@@ -33,20 +33,20 @@ public class Texture {
 
 		int j = 0;
 		for (int i = 0; i < data.length; i += 4) {
-			pixels[j] = intToFloat(data[i]);
-			pixels[j + 1] = intToFloat(data[i + 3]);
-			pixels[j + 2] = intToFloat(data[i + 2]);
-			pixels[j + 3] = intToFloat(data[i + 1]);
+			pixels[j] = intToDouble(data[i]);
+			pixels[j + 1] = intToDouble(data[i + 3]);
+			pixels[j + 2] = intToDouble(data[i + 2]);
+			pixels[j + 3] = intToDouble(data[i + 1]);
 
 			j += 4;
 		}
 	}
 
-	private float intToFloat(int i) {
+	private double intToDouble(int i) {
 		return (i & 0xff)/255.0f;
 	}
 
-	public Color getSample(float u, float v) {
+	public Color getSample(double u, double v) {
 		u = MathUtils.clamp(u);
 		v = 1 - MathUtils.clamp(v);
 		int x = (int)(width * u);
@@ -65,7 +65,7 @@ public class Texture {
 		int[] data = new int[pixels.length / 4];
 		int j = 0;
 		for (int i = 0; i < data.length; i++) {
-			data[i] = ((floatToInt(pixels[j]) << 24) | floatToInt(pixels[j + 1]) << 16) | (floatToInt(pixels[j + 2]) << 8) | (floatToInt(pixels[j + 3]));
+			data[i] = ((doubleToInt(pixels[j]) << 24) | doubleToInt(pixels[j + 1]) << 16) | (doubleToInt(pixels[j + 2]) << 8) | (doubleToInt(pixels[j + 3]));
 			j += 4;
 		}
 
@@ -76,7 +76,7 @@ public class Texture {
 		return buffer;
 	}
 
-	private int floatToInt(float pixel) {
+	private int doubleToInt(double pixel) {
 		byte ans = (byte) Math.round((pixel * 255));
 		return byteToUnsigned(ans);
 	}

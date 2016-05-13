@@ -10,7 +10,7 @@ import cg.render.Scene;
 public class Diffuse extends Material {
 	public static final Diffuse DIFFUSE_DEFAULT = new Diffuse(Color.WHITE, 0, 0, 1, 1);
 
-	public Diffuse(Color color, float offsetU, float offsetV, float scaleU, float scaleV) {
+	public Diffuse(Color color, double offsetU, double offsetV, double scaleU, double scaleV) {
 		super(color, offsetU, offsetV, scaleU, scaleV);
 	}
 
@@ -22,7 +22,7 @@ public class Diffuse extends Material {
 		for (Light light : scene.getLights()) {
 			if (light.visibleFrom(col)) {
 				Vec3 surfaceToLight = light.vectorFromCollision(col).normalize();
-				float cosAngle = surfaceToLight.dot(col.getNormal());
+				double cosAngle = surfaceToLight.dot(col.getNormal());
 				Color result = myColor.mul(cosAngle).mul(light.getColor().mul(light.getIntensity()));
 				c = c.sum(result);
 			}

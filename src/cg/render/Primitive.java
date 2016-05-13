@@ -16,7 +16,7 @@ public abstract class Primitive extends WorldObject {
 		Vec4 localDirection = ray.getDirection().asDirection();
 		localDirection = invTransform.mulVec(localDirection);
 		
-		Float localMaxT = null;
+		Double localMaxT = null;
 		if (ray.getMaxT() != Ray.DEFAULT_MAX_T) {
 			Vec4 localPath = ray.getDirection().mul(ray.getMaxT()).asDirection();
 			localPath = invTransform.mulVec(localPath);
@@ -33,21 +33,21 @@ public abstract class Primitive extends WorldObject {
 		Vec3 collisionPos = transform.mulVec(localCollisionPos.asPosition()).asVec3();
 		
 		Vec3 path = collisionPos.sub(ray.getOrigin());
-		float t = path.len();
+		double t = path.len();
 
 		Vec4 localNormal = localCol.getNormal().asDirection();
 		Vec3 worldNormal = invTransform.traspose().mulVec(localNormal).asVec3();
 
 		Material mat = localCol.getPrimitive().getMaterial();
-		float u = ((localCol.u * mat.getScaleU()) + mat.getOffsetU());
-		float v = ((localCol.v * mat.getScaleV()) + mat.getOffsetV());
+		double u = ((localCol.u * mat.getScaleU()) + mat.getOffsetU());
+		double v = ((localCol.v * mat.getScaleV()) + mat.getOffsetV());
 		u = repeatUV(u);
 		v = repeatUV(v);
 
 		return new Collision(localCol.getPrimitive(), ray, t, worldNormal, u, v);
 	}
 
-	private float repeatUV(float coord) {
+	private double repeatUV(double coord) {
 		if (coord >= 0) {
 			return coord % 1;
 		} else {

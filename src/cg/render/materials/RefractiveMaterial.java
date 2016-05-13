@@ -7,11 +7,11 @@ import cg.render.*;
  * Created by Hobbit on 5/12/16.
  */
 public class RefractiveMaterial extends Material {
-    private float ior;
+    private double ior;
     private Color refractiveColor;
 
-    public RefractiveMaterial(Color color, float offsetU, float offsetV, float scaleU,
-                              float scaleV, Color refractiveColor, float ior) {
+    public RefractiveMaterial(Color color, double offsetU, double offsetV, double scaleU,
+                              double scaleV, Color refractiveColor, double ior) {
         super(color, offsetU, offsetV, scaleU, scaleV);
         this.refractiveColor = refractiveColor;
         this.ior = ior;
@@ -27,20 +27,20 @@ public class RefractiveMaterial extends Material {
         Vec3 dir = ray.getDirection();
 
         Vec3 normal = col.getNormal();
-        float n1 = 1;
-        float n2 = 1;
+        double n1 = 1;
+        double n2 = 1;
         if (ray.isInsidePrimitive()) {
             normal = normal.mul(-1);
             n1 = ior;
             n2 = 1;
         }
 
-        float n = n1/n2;
-        float cosI = - normal.dot(dir);
-        float sen2t = (n * n) * (1 - (cosI * cosI));
-        Vec3 refraction = dir.mul(n).sub(normal.mul((n * cosI) + (float)Math.sqrt(1 - sen2t)));
+        double n = n1/n2;
+        double cosI = - normal.dot(dir);
+        double sen2t = (n * n) * (1 - (cosI * cosI));
+        Vec3 refraction = dir.mul(n).sub(normal.mul((n * cosI) + (double)Math.sqrt(1 - sen2t)));
         Color refractedColor = Color.BLACK;
-        Ray refractionRay = new Ray(col.getPosition().sum(normal.mul(-0.05f)), refraction, Float.POSITIVE_INFINITY, ray.getHops() + 1, !ray.isInsidePrimitive());
+        Ray refractionRay = new Ray(col.getPosition().sum(normal.mul(-0.05f)), refraction, Double.POSITIVE_INFINITY, ray.getHops() + 1, !ray.isInsidePrimitive());
         Collision refractionCol = scene.collideRay(refractionRay);
         if (refractionCol != null) {
             refractedColor = refractionCol.getPrimitive().getMaterial().getSurfaceColor(refractionCol, scene).mul(refractiveColor);

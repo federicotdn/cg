@@ -86,7 +86,7 @@ public class Scene {
 			}
 			cam.raysFor(rays, sampler, img, x, y);
 			
-			float r = 0, g = 0, b = 0;
+			double r = 0, g = 0, b = 0;
 			
 			for (int i = 0; i < samples; i++) {
 				Color c = BACKGROUND_COLOR;
@@ -116,7 +116,7 @@ public class Scene {
 			count++;
 
 			if (count % (img.getHeight() * img.getWidth() / 100) == 0) {
-				System.out.println((int)((float)count / (img.getWidth() * img.getHeight()) * 100)  + " %");
+				System.out.println((int)((double)count / (img.getWidth() * img.getHeight()) * 100)  + " %");
 			}
 		}
 

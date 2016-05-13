@@ -3,22 +3,22 @@ package cg.render;
 import cg.math.Vec3;
 
 public class Ray {
-	public final static float DEFAULT_MAX_T = Float.POSITIVE_INFINITY;
+	public final static double DEFAULT_MAX_T = Double.POSITIVE_INFINITY;
 	private Vec3 origin;
 	private Vec3 direction;
 	private int hops;
-	private float maxT = DEFAULT_MAX_T;
+	private double maxT = DEFAULT_MAX_T;
 	private boolean insidePrimitive;
 	
-	public Ray(Vec3 origin, Vec3 direction, Float maxT) {
+	public Ray(Vec3 origin, Vec3 direction, Double maxT) {
 		this(origin, direction, maxT, 1);
 	}
 
-	public Ray(Vec3 origin, Vec3 direction, Float maxT, int hops) {
+	public Ray(Vec3 origin, Vec3 direction, Double maxT, int hops) {
 		this(origin, direction, maxT, hops, false);
 	}
 
-	public Ray(Vec3 origin, Vec3 direction, Float maxT, int hops, boolean insidePrimitive) {
+	public Ray(Vec3 origin, Vec3 direction, Double maxT, int hops, boolean insidePrimitive) {
 		this.origin = origin;
 		this.direction = direction.normalize();
 		this.hops = hops;
@@ -29,7 +29,7 @@ public class Ray {
 		}
 	}
 
-	public float getMaxT() {
+	public double getMaxT() {
 		return maxT;
 	}
 
@@ -49,7 +49,7 @@ public class Ray {
 		return direction;
 	}
 	
-	public Vec3 runDistance(float t) {
+	public Vec3 runDistance(double t) {
 		return origin.sum(direction.mul(t));
 	}
 }

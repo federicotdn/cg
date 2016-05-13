@@ -10,9 +10,9 @@ import cg.render.shapes.MeshInstance;
 import java.util.List;
 
 public class Mesh {
-	private float[] v;
-	private float[] n;
-	private float[] uv;
+	private double[] v;
+	private double[] n;
+	private double[] uv;
 	private int[] faces;
 	private MeshKDTree kdTree;
 
@@ -21,10 +21,10 @@ public class Mesh {
 	 * Mesh is NOT a Primitive.
 	 */
 
-	public Mesh(List<Float> v, List<Float> n, List<Float> uv, List<Integer> faces) {
-		this.v = toFloatArray(v);
-		this.n = toFloatArray(n);
-		this.uv = toFloatArray(uv);
+	public Mesh(List<Double> v, List<Double> n, List<Double> uv, List<Integer> faces) {
+		this.v = toDoubleArray(v);
+		this.n = toDoubleArray(n);
+		this.uv = toDoubleArray(uv);
 		this.faces = toIntArray(faces);
 		this.kdTree = new MeshKDTree(this, triangleCount());
 	}
@@ -43,25 +43,25 @@ public class Mesh {
 		Vec3 e2 = p3.sub(p1);
 
 		Vec3 s1 = ray.getDirection().cross(e2); // pvec
-		float divisor = s1.dot(e1); // det
+		double divisor = s1.dot(e1); // det
 		if (divisor == 0) {
 			return null;
 		}
-		float invDivisor = 1.0f/divisor;
+		double invDivisor = 1.0f/divisor;
 
 		Vec3 d = ray.getOrigin().sub(p1); //tvec
-		float b1 = d.dot(s1) * invDivisor; // u
+		double b1 = d.dot(s1) * invDivisor; // u
 		if (b1 < 0 || b1 > 1) {
 			return null;
 		}
 
 		Vec3 s2 = d.cross(e1); // qvec
-		float b2 = ray.getDirection().dot(s2) * invDivisor;
+		double b2 = ray.getDirection().dot(s2) * invDivisor;
 		if (b2 < 0 || b1 + b2 > 1) {
 			return null;
 		}
 
-		float t = e2.dot(s2) * invDivisor;
+		double t = e2.dot(s2) * invDivisor;
 		if (t < 0 || t > ray.getMaxT()) {
 			return null;
 		}
@@ -72,25 +72,25 @@ public class Mesh {
 
 		Vec3 normal = interpolate(b1, b2, n1, n2, n3);
 
-		float u =0, v = 0;
+		double u =0, v = 0;
 
 		if (uv != null) {
-			float u1 = uv[faces[faceIndex + 1] * 2];
-			float u2 = uv[faces[faceIndex + 4] * 2];
-			float u3 = uv[faces[faceIndex + 7] * 2];
+			double u1 = uv[faces[faceIndex + 1] * 2];
+			double u2 = uv[faces[faceIndex + 4] * 2];
+			double u3 = uv[faces[faceIndex + 7] * 2];
 			u = ((1 - b2 - b1)*u1) + (u2 * b1) + (u3 * b2);
 
-			float v1 = uv[(faces[faceIndex + 1] * 2) + 1];
-			float v2 = uv[(faces[faceIndex + 4] * 2) + 1];
-			float v3 = uv[(faces[faceIndex + 7] * 2) + 1];
+			double v1 = uv[(faces[faceIndex + 1] * 2) + 1];
+			double v2 = uv[(faces[faceIndex + 4] * 2) + 1];
+			double v3 = uv[(faces[faceIndex + 7] * 2) + 1];
 			v = ((1 - b2 - b1)*v1) + (v2 * b1) + (v3 * b2);
 		}
 
 		return new Collision(mesh, ray, t, normal, u, v);
 	}
 
-	private Vec3 interpolate(float b1, float b2, Vec3  v1, Vec3 v2, Vec3 v3) {
-		return v1.mul(1 - b2 - b1).sum(v2.mul(b1)).sum(v3.mul(b2));
+	private Vec3 interpolate(double b1, double b2, Vec3  v1, Vec3 v2, Vec3 v3) {
+		return v1.mul(1 - b2 - b1).sum(v2.mul(b1)).sum(v3.mul(b2)).normalize();
 	}
 
 	private Vec3 normalForIndex(int faceIndex) {
@@ -103,26 +103,26 @@ public class Mesh {
 		return new Vec3( v[(index * 3)],  v[(index * 3) + 1],  v[(index * 3) + 2]);
 	}
 
-	public float getAvg(int index, int axis) {
+	public double getAvg(int index, int axis) {
 		int v1Index = faces[index * 9];
 		int v2Index = faces[(index * 9) + 3];
 		int v3Index = faces[(index * 9) + 6];
 
-		float p1 = v[(v1Index * 3) + axis];
-		float p2 = v[(v2Index * 3) + axis];
-		float p3 = v[(v3Index * 3) + axis];
+		double p1 = v[(v1Index * 3) + axis];
+		double p2 = v[(v2Index * 3) + axis];
+		double p3 = v[(v3Index * 3) + axis];
 
 		return (p1 + p2 + p3)/3;
 	}
 
-	public void calculateMinAndMax(int index, int axis, float[] ans) {
+	public void calculateMinAndMax(int index, int axis, double[] ans) {
 		int v1Index = faces[index * 9];
 		int v2Index = faces[(index * 9) + 3];
 		int v3Index = faces[(index * 9) + 6];
 
-		float p1 = v[(v1Index * 3) + axis];
-		float p2 = v[(v2Index * 3) + axis];
-		float p3 = v[(v3Index * 3) + axis];
+		double p1 = v[(v1Index * 3) + axis];
+		double p2 = v[(v2Index * 3) + axis];
+		double p3 = v[(v3Index * 3) + axis];
 
 		ans[0] = Math.min(p1, Math.min(p2, p3));
 		ans[1] = Math.max(p1, Math.max(p2, p3));
@@ -133,15 +133,15 @@ public class Mesh {
 	}
 
 	public BoundingBox getBBox() {
-		float pMinX = Float.MAX_VALUE;
-		float pMinY = Float.MAX_VALUE;
-		float pMinZ = Float.MAX_VALUE;
+		double pMinX = Double.MAX_VALUE;
+		double pMinY = Double.MAX_VALUE;
+		double pMinZ = Double.MAX_VALUE;
 
-		float pMaxX = -Float.MAX_VALUE;
-		float pMaxY = -Float.MAX_VALUE;
-		float pMaxZ = -Float.MAX_VALUE;
+		double pMaxX = -Double.MAX_VALUE;
+		double pMaxY = -Double.MAX_VALUE;
+		double pMaxZ = -Double.MAX_VALUE;
 
-		float x, y, z;
+		double x, y, z;
 		for (int i =0; i < v.length; i+=3) {
 			x = v[i];
 			y = v[i + 1];
@@ -170,12 +170,12 @@ public class Mesh {
 		return new BoundingBox(new Vec3(pMinX, pMinY, pMinZ), new Vec3(pMaxX, pMaxY, pMaxZ));
 	}
 
-	private float[] toFloatArray(List<Float> f) {
+	private double[] toDoubleArray(List<Double> f) {
 		if (f.size() == 0) {
 			return null;
 		}
 
-		float[] a = new float[f.size()];
+		double[] a = new double[f.size()];
 		for (int i = 0; i < a.length; i++) {
 			a[i] = f.get(i);
 		}

@@ -35,12 +35,12 @@ public class MeshKDTree {
             return new Leaf(indexes);
         }
 
-        float location = getMedian(indexes, meshData, axis);
+        double location = getMedian(indexes, meshData, axis);
 
         List<Integer> left = new ArrayList<>();
         List<Integer> right = new ArrayList<>();
 
-        float[] minMax = new float[2];
+        double[] minMax = new double[2];
         for (int index : indexes) {
             meshData.calculateMinAndMax(index, axis, minMax);
             if (minMax[0] <= location) {
@@ -61,8 +61,8 @@ public class MeshKDTree {
 
     public Collision hit(Ray ray, MeshInstance mesh) {
         Deque<StackNode> stack = new LinkedList<>();
-        float tMax = ray.getMaxT();
-        float tMin = 0;
+        double tMax = ray.getMaxT();
+        double tMin = 0;
         stack.push(new StackNode(root, 0, tMax));
         Collision col = null;
         KDTreeNode first, second;
@@ -73,9 +73,9 @@ public class MeshKDTree {
             tMin = sNode.tMin;
             while (!node.isLeaf()) {
                 INode iNode = (INode)node;
-                float t = (iNode.location - ray.getOrigin().getCoordByAxis(iNode.axis))/ray.getDirection().getCoordByAxis(iNode.axis);
+                double t = (iNode.location - ray.getOrigin().getCoordByAxis(iNode.axis))/ray.getDirection().getCoordByAxis(iNode.axis);
                 if (ray.getOrigin().getCoordByAxis(iNode.axis) <= iNode.location ||
-                        (Math.abs(ray.getOrigin().getCoordByAxis(iNode.axis) - iNode.location) < 0.00001f
+                        (Math.abs(ray.getOrigin().getCoordByAxis(iNode.axis) - iNode.location) < 0.00001
                                 && ray.getDirection().getCoordByAxis(iNode.axis) < 0)) {
                     first = iNode.leftChild;
                     second = iNode.rightChild;
@@ -106,10 +106,10 @@ public class MeshKDTree {
 
     private class StackNode {
         public KDTreeNode node;
-        public float tMin;
-        public float tMax;
+        public double tMin;
+        public double tMax;
 
-        public StackNode(KDTreeNode node, float tMin, float tMax) {
+        public StackNode(KDTreeNode node, double tMin, double tMax) {
             this.node = node;
             this.tMax = tMax;
             this.tMin = tMin;
@@ -133,8 +133,8 @@ public class MeshKDTree {
         return closestCol;
     }
 
-    private float getMedian(List<Integer> triangleIndexes, Mesh mesh, int axis) {
-        float[] avg = new float[triangleIndexes.size()];
+    private double getMedian(List<Integer> triangleIndexes, Mesh mesh, int axis) {
+        double[] avg = new double[triangleIndexes.size()];
 
         for (int i = 0; i < avg.length; i++) {
             avg[i] = mesh.getAvg(triangleIndexes.get(i), axis);
@@ -145,7 +145,7 @@ public class MeshKDTree {
         if (avg.length % 2 == 1) {
             return avg[avg.length/2];
         } else {
-            return (avg[(avg.length)/2 - 1] + avg[avg.length/2])/2.0f;
+            return (avg[(avg.length)/2 - 1] + avg[avg.length/2])/2.0;
         }
     }
 

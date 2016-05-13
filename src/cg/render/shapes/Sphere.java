@@ -9,9 +9,9 @@ import cg.render.Ray;
 
 public class Sphere extends Primitive {
 
-	private float radius;
+	private double radius;
 	
-	public Sphere(Vec3 t, Vec3 r, Vec3 s, float radius) {
+	public Sphere(Vec3 t, Vec3 r, Vec3 s, double radius) {
 		this.radius = radius;
 		setTransform(t, r, s);
 	}
@@ -21,27 +21,27 @@ public class Sphere extends Primitive {
 		Vec3 orig = ray.getOrigin();
 		Vec3 dir = ray.getDirection();
 		
-		float A = (dir.x * dir.x) + (dir.y * dir.y) + (dir.z * dir.z);
-		float B = 2 * (dir.x * orig.x + dir.y * orig.y + dir.z * orig.z);
-		float C = (orig.x * orig.x) + (orig.y * orig.y) + (orig.z * orig.z) - (radius * radius);
+		double A = (dir.x * dir.x) + (dir.y * dir.y) + (dir.z * dir.z);
+		double B = 2 * (dir.x * orig.x + dir.y * orig.y + dir.z * orig.z);
+		double C = (orig.x * orig.x) + (orig.y * orig.y) + (orig.z * orig.z) - (radius * radius);
 		
-		float det = (B * B) - (4 * A * C);
+		double det = (B * B) - (4 * A * C);
 		if (det < 0) {
 			return null;
 		}
 		
-		float t0 = (float) ((-B - Math.sqrt(det)) / (2 * A));
-		float t1 = (float) ((-B + Math.sqrt(det)) / (2 * A));
+		double t0 = (double) ((-B - Math.sqrt(det)) / (2 * A));
+		double t1 = (double) ((-B + Math.sqrt(det)) / (2 * A));
 		
 		if (t0 > ray.getMaxT() || t1 < 0) {
 			return null;
 		}
 		
-		float t = (t0 > t1 ? t1 : t0);
+		double t = (t0 > t1 ? t1 : t0);
 		Vec3 normal = orig.sum(dir.mul(t)).mul(1/radius);
 
-		float u = 0.5f + (float)((Math.atan2(normal.z, normal.x))/(2*Math.PI));
-		float v = 0.5f - (float)(Math.asin(normal.y)/Math.PI);
+		double u = 0.5f + (double)((Math.atan2(normal.z, normal.x))/(2*Math.PI));
+		double v = 0.5f - (double)(Math.asin(normal.y)/Math.PI);
 		return new Collision(this, ray, t, normal, Math.abs(u), Math.abs(v));
 	}
 
