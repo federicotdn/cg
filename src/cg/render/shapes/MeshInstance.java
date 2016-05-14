@@ -22,11 +22,6 @@ public class MeshInstance extends Primitive {
 		this.meshData = meshData;
 		setTransform(t,r,s);
 	}
-	
-	@Override
-	protected Collision calculateCollision(Ray ray) {
-		return meshData.calculateCollision(ray, this);
-	}
 
 	@Override
 	protected BoundingBox calculateBBox(Matrix4 trs) {
@@ -39,13 +34,11 @@ public class MeshInstance extends Primitive {
 
 	@Override
 	protected QuickCollision internalQuickCollideWith(Ray ray) {
-		// TODO Auto-generated method stub
-		return null;
+		return meshData.calculateCollision(ray, this);
 	}
 
 	@Override
 	protected Collision internalCompleteCollision(QuickCollision qc) {
-		// TODO Auto-generated method stub
-		return null;
+		return meshData.completeCollision(this, qc);
 	}
 }

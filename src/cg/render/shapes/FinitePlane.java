@@ -19,21 +19,6 @@ public class FinitePlane extends Primitive {
 		this.halfDepth = depth / 2;
 		setTransform(t, r, s);
 	}
-	
-	@Override
-	protected Collision calculateCollision(Ray ray) {
-        Double t = InfinitePlane.planeT(ray, InfinitePlane.PLANE_NORMAL, 0);
-        if (t == null || t > ray.getMaxT()) {
-        	return null;
-        }
-        
-        Vec3 colPos = ray.runDistance(t);
-        if ((Math.abs(colPos.x) > halfWidth) || (Math.abs(colPos.z) > halfDepth)) {
-        	return null;
-        }
-        
-        return new Collision(this, ray, t, InfinitePlane.PLANE_NORMAL, Math.abs(colPos.x - halfWidth)/(halfWidth*2), Math.abs(colPos.z - halfDepth)/(halfDepth * 2));
-	}
 
 	@Override
 	protected BoundingBox calculateBBox(Matrix4 trs) {

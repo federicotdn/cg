@@ -17,16 +17,6 @@ public class InfinitePlane extends Primitive {
     public InfinitePlane(Vec3 t, Vec3 r, Vec3 s) {
     	setTransform(t, r, s);
     }
-    
-    @Override
-    protected Collision calculateCollision(Ray ray) {
-        Double t = planeT(ray, PLANE_NORMAL, 0);
-        if (t == null || t > ray.getMaxT()) {
-        	return null;
-        }
-        Vec3 colPos = ray.runDistance(t);
-        return new Collision(this, ray, t, PLANE_NORMAL, colPos.x/10, colPos.z/10);
-    }
 
     //TODO: Change Double to double
     public static Double planeT(Ray ray, Vec3 normal, double d) {
@@ -55,8 +45,6 @@ public class InfinitePlane extends Primitive {
         if (t == null || t > ray.getMaxT()) {
         	return null;
         }
-        Vec3 colPos = ray.runDistance(t);
-        //return new Collision(this, ray, t, PLANE_NORMAL, colPos.x/10, colPos.z/10);
         return new QuickCollision(this, ray, null, t, -1);
 	}
 

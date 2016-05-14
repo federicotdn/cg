@@ -16,35 +16,6 @@ public class Sphere extends Primitive {
 		this.radius = radius;
 		setTransform(t, r, s);
 	}
-	
-	@Override
-	protected Collision calculateCollision(Ray ray) {
-		Vec3 orig = ray.getOrigin();
-		Vec3 dir = ray.getDirection();
-		
-		double A = (dir.x * dir.x) + (dir.y * dir.y) + (dir.z * dir.z);
-		double B = 2 * (dir.x * orig.x + dir.y * orig.y + dir.z * orig.z);
-		double C = (orig.x * orig.x) + (orig.y * orig.y) + (orig.z * orig.z) - (radius * radius);
-		
-		double det = (B * B) - (4 * A * C);
-		if (det < 0) {
-			return null;
-		}
-		
-		double t0 = (double) ((-B - Math.sqrt(det)) / (2 * A));
-		double t1 = (double) ((-B + Math.sqrt(det)) / (2 * A));
-		
-		if (t0 > ray.getMaxT() || t1 < 0) {
-			return null;
-		}
-		
-		double t = (t0 > t1 ? t1 : t0);
-		Vec3 normal = orig.sum(dir.mul(t)).mul(1/radius);
-
-		double u = 0.5f + (double)((Math.atan2(normal.z, normal.x))/(2*Math.PI));
-		double v = 0.5f - (double)(Math.asin(normal.y)/Math.PI);
-		return new Collision(this, ray, t, normal, Math.abs(u), Math.abs(v));
-	}
 
 	@Override
 	protected BoundingBox calculateBBox(Matrix4 trs) {

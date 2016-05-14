@@ -35,7 +35,9 @@ public abstract class Primitive extends WorldObject {
 		Vec3 path = collisionPos.sub(ray.getOrigin());
 		double worldT = path.len();
 		
-		return new QuickCollision(this, localRay, ray, qc.getLocalT(), worldT);
+		QuickCollision worldQc = new QuickCollision(this, localRay, ray, qc.getLocalT(), worldT);
+		worldQc.copyMeshData(qc);
+		return worldQc;
 	}
 	
 
@@ -55,45 +57,6 @@ public abstract class Primitive extends WorldObject {
 		v = repeatUV(v);
 		
 		return new Collision(this, qc.getWorldRay(), qc.getWorldT(), worldNormal, u, v);
-	}
-	
-	//TODO: Remove
-	public Collision collideWith(Ray ray) {
-		Vec4 localOrigin = ray.getOrigin().asPosition();
-		localOrigin = invTransform.mulVec(localOrigin);
-		
-		Vec4 localDirection = ray.getDirection().asDirection();
-		localDirection = invTransform.mulVec(localDirection);
-		
-		Double localMaxT = null;
-		if (ray.getMaxT() != Ray.DEFAULT_MAX_T) {
-			Vec4 localPath = ray.getDirection().mul(ray.getMaxT()).asDirection();
-			localPath = invTransform.mulVec(localPath);
-			localMaxT = localPath.asVec3().len();			
-		}
-		
-		Ray localRay = new Ray(localOrigin.asVec3(), localDirection.asVec3().normalize(), localMaxT);
-		Collision localCol = calculateCollision(localRay);
-		if (localCol == null) {
-			return null;
-		}
-		
-		Vec3 localCollisionPos = localCol.getPosition();
-		Vec3 collisionPos = transform.mulVec(localCollisionPos.asPosition()).asVec3();
-		
-		Vec3 path = collisionPos.sub(ray.getOrigin());
-		double t = path.len();
-
-		Vec4 localNormal = localCol.getNormal().asDirection();
-		Vec3 worldNormal = invTransform.traspose().mulVec(localNormal).asVec3();
-
-		Material mat = localCol.getPrimitive().getMaterial();
-		double u = ((localCol.u * mat.getScaleU()) + mat.getOffsetU());
-		double v = ((localCol.v * mat.getScaleV()) + mat.getOffsetV());
-		u = repeatUV(u);
-		v = repeatUV(v);
-
-		return new Collision(localCol.getPrimitive(), ray, t, worldNormal, u, v);
 	}
 	
 	private double repeatUV(double coord) {
@@ -129,9 +92,6 @@ public abstract class Primitive extends WorldObject {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	//TODO: Remove
-	protected abstract Collision calculateCollision(Ray ray);
 	
 	protected abstract QuickCollision internalQuickCollideWith(Ray ray);
 	protected abstract Collision internalCompleteCollision(QuickCollision qc);
