@@ -41,7 +41,7 @@
                 "x": 0
             },
             "width": 10,
-            "finite": true,
+            "finite": false,
             "id": 1237,
             "children": [
 
@@ -88,7 +88,7 @@
         {
             "radius": 1,
             "type": "Shape",
-            "materialID": 33,
+            "materialID": 1239,
             "localScale": {
                 "y": 1,
                 "z": 1,
@@ -127,34 +127,6 @@
                         "x": 2.25
                     },
                     "shapeType": "Sphere"
-                },
-                {
-                    "width": 1,
-                    "height": 1,
-                    "depth": 1,
-                    "type": "Shape",
-                    "materialID": 33,
-                    "localScale": {
-                        "y": 1,
-                        "z": 1,
-                        "x": 1
-                    },
-                    "name": "cube3",
-                    "localRotation": {
-                        "y": 0,
-                        "z": 0,
-                        "x": 30
-                    },
-                    "id": 1238,
-                    "children": [
-
-                    ],
-                    "localPosition": {
-                        "y": 0,
-                        "z": 0,
-                        "x": -2.25
-                    },
-                    "shapeType": "Cube"
                 }
             ],
             "localPosition": {

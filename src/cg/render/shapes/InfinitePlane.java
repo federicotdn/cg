@@ -28,6 +28,7 @@ public class InfinitePlane extends Primitive {
         return new Collision(this, ray, t, PLANE_NORMAL, colPos.x/10, colPos.z/10);
     }
 
+    //TODO: Change Double to double
     public static Double planeT(Ray ray, Vec3 normal, double d) {
         Vec3 rDir = ray.getDirection();
         Vec3 rPos = ray.getOrigin();
@@ -50,13 +51,18 @@ public class InfinitePlane extends Primitive {
 
 	@Override
 	protected QuickCollision internalQuickCollideWith(Ray ray) {
-		// TODO Auto-generated method stub
-		return null;
+        Double t = planeT(ray, PLANE_NORMAL, 0);
+        if (t == null || t > ray.getMaxT()) {
+        	return null;
+        }
+        Vec3 colPos = ray.runDistance(t);
+        //return new Collision(this, ray, t, PLANE_NORMAL, colPos.x/10, colPos.z/10);
+        return new QuickCollision(this, ray, null, t, -1);
 	}
 
 	@Override
 	protected Collision internalCompleteCollision(QuickCollision qc) {
-		// TODO Auto-generated method stub
-		return null;
+		Vec3 colPos = qc.getLocalPosition();
+		return new Collision(this, qc.getLocalRay(), qc.getLocalT(), PLANE_NORMAL, colPos.x / 10, colPos.z / 10);
 	}
 }

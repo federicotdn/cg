@@ -56,13 +56,40 @@ public class Sphere extends Primitive {
 
 	@Override
 	protected QuickCollision internalQuickCollideWith(Ray ray) {
-		// TODO Auto-generated method stub
-		return null;
+		Vec3 orig = ray.getOrigin();
+		Vec3 dir = ray.getDirection();
+		
+		double A = (dir.x * dir.x) + (dir.y * dir.y) + (dir.z * dir.z);
+		double B = 2 * (dir.x * orig.x + dir.y * orig.y + dir.z * orig.z);
+		double C = (orig.x * orig.x) + (orig.y * orig.y) + (orig.z * orig.z) - (radius * radius);
+		
+		double det = (B * B) - (4 * A * C);
+		if (det < 0) {
+			return null;
+		}
+		
+		double t0 = (double) ((-B - Math.sqrt(det)) / (2 * A));
+		double t1 = (double) ((-B + Math.sqrt(det)) / (2 * A));
+		
+		if (t0 > ray.getMaxT() || t1 < 0) {
+			return null;
+		}
+		
+		double t = (t0 > t1 ? t1 : t0);
+		return new QuickCollision(this, ray, null, t, -1);
 	}
 
 	@Override
 	protected Collision internalCompleteCollision(QuickCollision qc) {
-		// TODO Auto-generated method stub
-		return null;
+		Ray ray = qc.getLocalRay();
+		Vec3 orig = ray.getOrigin();
+		Vec3 dir = ray.getDirection();
+		double t = qc.getLocalT();
+		
+		Vec3 normal = orig.sum(dir.mul(t)).mul(1/radius);
+
+		double u = 0.5f + (double)((Math.atan2(normal.z, normal.x))/(2*Math.PI));
+		double v = 0.5f - (double)(Math.asin(normal.y)/Math.PI);
+		return new Collision(this, ray, t, normal, u, v);
 	}
 }

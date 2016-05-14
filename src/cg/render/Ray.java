@@ -10,14 +10,17 @@ public class Ray {
 	private double maxT = DEFAULT_MAX_T;
 	private boolean insidePrimitive;
 	
+	//TODO: Change Double to double
 	public Ray(Vec3 origin, Vec3 direction, Double maxT) {
 		this(origin, direction, maxT, 1);
 	}
 
+	//TODO: Change Double to double
 	public Ray(Vec3 origin, Vec3 direction, Double maxT, int hops) {
 		this(origin, direction, maxT, hops, false);
 	}
 
+	//TODO: Change Double to double
 	public Ray(Vec3 origin, Vec3 direction, Double maxT, int hops, boolean insidePrimitive) {
 		this.origin = origin;
 		this.direction = direction.normalize();

@@ -41,7 +41,7 @@ public class RefractiveMaterial extends Material {
         Vec3 refraction = dir.mul(n).sub(normal.mul((n * cosI) + (double)Math.sqrt(1 - sen2t)));
         Color refractedColor = Color.BLACK;
         Ray refractionRay = new Ray(col.getPosition().sum(normal.mul(-0.05f)), refraction, Double.POSITIVE_INFINITY, ray.getHops() + 1, !ray.isInsidePrimitive());
-        Collision refractionCol = scene.collideRay(refractionRay);
+        Collision refractionCol = null;//scene.collideRay(refractionRay);
         if (refractionCol != null) {
             refractedColor = refractionCol.getPrimitive().getMaterial().getSurfaceColor(refractionCol, scene).mul(refractiveColor);
         }

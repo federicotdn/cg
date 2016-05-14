@@ -27,11 +27,27 @@ public class QuickCollision {
 		return localPosition;
 	}
 	
+	public Ray getLocalRay() {
+		return localRay;
+	}
+	
+	public Ray getWorldRay() {
+		return worldRay;
+	}
+	
 	public Collision completeCollision() {
 		return primitive.completeCollision(this);
 	}
 	
 	public double getLocalT() {
 		return localT;
+	}
+	
+	public double getWorldT() {
+		return worldT;
+	}
+	
+	public Primitive getPrimitive() {
+		return primitive;
 	}
 }

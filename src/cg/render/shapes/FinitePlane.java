@@ -37,7 +37,6 @@ public class FinitePlane extends Primitive {
 
 	@Override
 	protected BoundingBox calculateBBox(Matrix4 trs) {
-		//TODO: Is EPSILON necessary?
 		Vec3 pMax = new Vec3(halfWidth, EPSILON, halfDepth);
 		Vec3 pMin = new Vec3(-halfWidth, -EPSILON, -halfDepth);
 		return (new BoundingBox(pMin, pMax)).transformBBox(trs);
@@ -45,14 +44,25 @@ public class FinitePlane extends Primitive {
 
 	@Override
 	protected QuickCollision internalQuickCollideWith(Ray ray) {
-		// TODO Auto-generated method stub
-		return null;
+        Double t = InfinitePlane.planeT(ray, InfinitePlane.PLANE_NORMAL, 0);
+        if (t == null || t > ray.getMaxT()) {
+        	return null;
+        }
+        
+        Vec3 colPos = ray.runDistance(t);
+        if ((Math.abs(colPos.x) > halfWidth) || (Math.abs(colPos.z) > halfDepth)) {
+        	return null;
+        }
+        
+        return new QuickCollision(this, ray, null, t, -1);
 	}
 
 	@Override
 	protected Collision internalCompleteCollision(QuickCollision qc) {
-		// TODO Auto-generated method stub
-		return null;
+		Vec3 colPos = qc.getLocalPosition();
+		double u = Math.abs(colPos.x - halfWidth) / (halfWidth*2);
+		double v = Math.abs(colPos.z - halfDepth) / (halfDepth * 2);
+		return new Collision(this, qc.getLocalRay(), qc.getLocalT(), InfinitePlane.PLANE_NORMAL, u, v);
 	}
 
 }

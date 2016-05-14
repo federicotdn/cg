@@ -29,13 +29,32 @@ public abstract class Primitive extends WorldObject {
 			return null;
 		}
 		
-		Vec3 localCollisionPos = localRay.runDistance(qc.getLocalT());
+		Vec3 localCollisionPos = qc.getLocalPosition();
 		Vec3 collisionPos = transform.mulVec(localCollisionPos.asPosition()).asVec3();
 		
 		Vec3 path = collisionPos.sub(ray.getOrigin());
 		double worldT = path.len();
 		
 		return new QuickCollision(this, localRay, ray, qc.getLocalT(), worldT);
+	}
+	
+
+	public Collision completeCollision(QuickCollision qc) {
+		if (qc.getPrimitive() != this) {
+			throw new RuntimeException("Error: tried to complete a collision from another primitive.");
+		}
+		Collision collision = internalCompleteCollision(qc);
+		
+		Vec4 localNormal = collision.getNormal().asDirection();
+		Vec3 worldNormal = invTransform.traspose().mulVec(localNormal).asVec3();
+		
+		Material mat = getMaterial();
+		double u = ((collision.u * mat.getScaleU()) + mat.getOffsetU());
+		double v = ((collision.v * mat.getScaleV()) + mat.getOffsetV());
+		u = repeatUV(u);
+		v = repeatUV(v);
+		
+		return new Collision(this, qc.getWorldRay(), qc.getWorldT(), worldNormal, u, v);
 	}
 	
 	//TODO: Remove
@@ -75,10 +94,6 @@ public abstract class Primitive extends WorldObject {
 		v = repeatUV(v);
 
 		return new Collision(localCol.getPrimitive(), ray, t, worldNormal, u, v);
-	}
-
-	public Collision completeCollision(QuickCollision qc) {
-		return internalCompleteCollision(qc);
 	}
 	
 	private double repeatUV(double coord) {
