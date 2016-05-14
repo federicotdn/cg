@@ -9,6 +9,36 @@ public abstract class Primitive extends WorldObject {
 	private BoundingBox bbox;
 	private String name;
 	
+	public QuickCollision quickCollideWith(Ray ray) {
+		Vec4 localOrigin = ray.getOrigin().asPosition();
+		localOrigin = invTransform.mulVec(localOrigin);
+		
+		Vec4 localDirection = ray.getDirection().asDirection();
+		localDirection = invTransform.mulVec(localDirection);
+		
+		Double localMaxT = null;
+		if (ray.getMaxT() != Ray.DEFAULT_MAX_T) {
+			Vec4 localPath = ray.getDirection().mul(ray.getMaxT()).asDirection();
+			localPath = invTransform.mulVec(localPath);
+			localMaxT = localPath.asVec3().len();			
+		}
+		
+		Ray localRay = new Ray(localOrigin.asVec3(), localDirection.asVec3().normalize(), localMaxT);
+		QuickCollision qc = internalQuickCollideWith(localRay);
+		if (qc == null) {
+			return null;
+		}
+		
+		Vec3 localCollisionPos = localRay.runDistance(qc.getLocalT());
+		Vec3 collisionPos = transform.mulVec(localCollisionPos.asPosition()).asVec3();
+		
+		Vec3 path = collisionPos.sub(ray.getOrigin());
+		double worldT = path.len();
+		
+		return new QuickCollision(this, localRay, ray, qc.getLocalT(), worldT);
+	}
+	
+	//TODO: Remove
 	public Collision collideWith(Ray ray) {
 		Vec4 localOrigin = ray.getOrigin().asPosition();
 		localOrigin = invTransform.mulVec(localOrigin);
@@ -47,6 +77,10 @@ public abstract class Primitive extends WorldObject {
 		return new Collision(localCol.getPrimitive(), ray, t, worldNormal, u, v);
 	}
 
+	public Collision completeCollision(QuickCollision qc) {
+		return internalCompleteCollision(qc);
+	}
+	
 	private double repeatUV(double coord) {
 		if (coord >= 0) {
 			return coord % 1;
@@ -81,6 +115,10 @@ public abstract class Primitive extends WorldObject {
 		this.name = name;
 	}
 	
+	//TODO: Remove
 	protected abstract Collision calculateCollision(Ray ray);
+	
+	protected abstract QuickCollision internalQuickCollideWith(Ray ray);
+	protected abstract Collision internalCompleteCollision(QuickCollision qc);
 	protected abstract BoundingBox calculateBBox(Matrix4 trs);
 }

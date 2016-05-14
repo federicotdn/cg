@@ -88,7 +88,7 @@
         {
             "radius": 1,
             "type": "Shape",
-            "materialID": 1235,
+            "materialID": 33,
             "localScale": {
                 "y": 1,
                 "z": 1,
@@ -127,6 +127,34 @@
                         "x": 2.25
                     },
                     "shapeType": "Sphere"
+                },
+                {
+                    "width": 1,
+                    "height": 1,
+                    "depth": 1,
+                    "type": "Shape",
+                    "materialID": 33,
+                    "localScale": {
+                        "y": 1,
+                        "z": 1,
+                        "x": 1
+                    },
+                    "name": "cube3",
+                    "localRotation": {
+                        "y": 0,
+                        "z": 0,
+                        "x": 30
+                    },
+                    "id": 1238,
+                    "children": [
+
+                    ],
+                    "localPosition": {
+                        "y": 0,
+                        "z": 0,
+                        "x": -2.25
+                    },
+                    "shapeType": "Cube"
                 }
             ],
             "localPosition": {
@@ -183,6 +211,55 @@
                 "r": 0.0374675504863262,
                 "g": 0.642227232456207,
                 "b": 0.727941155433655
+            },
+            "name": "TestColorMaterial"
+        },
+        {
+            "colorScale": {
+                "y": 3,
+                "x": 3
+            },
+            "materialType": "Reflective",
+            "colorTextureId": 1240,
+            "colorOffset": {
+                "y": 0,
+                "x": 0
+            },
+            "id": 33,
+            "assetType": "Material",
+            "reflectivityColor": {
+                "a": 1,
+                "r": 1,
+                "g": 1,
+                "b": 1
+            },
+            "name": "TestColorMaterial"
+        },
+        {
+            "colorScale": {
+                "y": 3,
+                "x": 3
+            },
+            "materialType": "Refractive",
+            "ior": 1.2,
+            "colorTextureId": 1240,
+            "colorOffset": {
+                "y": 0,
+                "x": 0
+            },
+            "id": 44,
+            "assetType": "Material",
+            "reflectivityColor": {
+                "a": 1,
+                "r": 1,
+                "g": 1,
+                "b": 1
+            },
+            "refractionColor": {
+                "a": 1,
+                "r": 1,
+                "g": 1,
+                "b": 1
             },
             "name": "TestColorMaterial"
         },

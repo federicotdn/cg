@@ -5,6 +5,7 @@ import cg.math.Vec3;
 import cg.render.BoundingBox;
 import cg.render.Collision;
 import cg.render.Primitive;
+import cg.render.QuickCollision;
 import cg.render.Ray;
 
 public class Sphere extends Primitive {
@@ -51,5 +52,17 @@ public class Sphere extends Primitive {
 		Vec3 pMax = pMin.mul(-1);
 
 		return new BoundingBox(pMin, pMax).transformBBox(trs);
+	}
+
+	@Override
+	protected QuickCollision internalQuickCollideWith(Ray ray) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected Collision internalCompleteCollision(QuickCollision qc) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
