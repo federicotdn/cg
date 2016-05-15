@@ -9,7 +9,9 @@ public class Ray {
 	private int hops;
 	private double maxT = DEFAULT_MAX_T;
 	private boolean insidePrimitive;
-	
+	private boolean ignoreShadows;
+
+
 	//TODO: Change Double to double
 	public Ray(Vec3 origin, Vec3 direction, Double maxT) {
 		this(origin, direction, maxT, 1);
@@ -17,15 +19,16 @@ public class Ray {
 
 	//TODO: Change Double to double
 	public Ray(Vec3 origin, Vec3 direction, Double maxT, int hops) {
-		this(origin, direction, maxT, hops, false);
+		this(origin, direction, maxT, hops, false, false);
 	}
 
 	//TODO: Change Double to double
-	public Ray(Vec3 origin, Vec3 direction, Double maxT, int hops, boolean insidePrimitive) {
+	public Ray(Vec3 origin, Vec3 direction, Double maxT, int hops, boolean insidePrimitive, boolean ignoreShadows) {
 		this.origin = origin;
 		this.direction = direction.normalize();
 		this.hops = hops;
 		this.insidePrimitive = insidePrimitive;
+		this.ignoreShadows = ignoreShadows;
 
 		if (maxT != null) {
 			this.maxT = maxT;
@@ -51,7 +54,11 @@ public class Ray {
 	public Vec3 getDirection() {
 		return direction;
 	}
-	
+
+	public boolean shouldIgnoreShadows() {
+		return ignoreShadows;
+	}
+
 	public Vec3 runDistance(double t) {
 		return origin.sum(direction.mul(t));
 	}

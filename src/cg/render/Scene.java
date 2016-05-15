@@ -2,6 +2,7 @@ package cg.render;
 
 import cg.accelerator.KDTree;
 import cg.rand.MultiJitteredSampler;
+import cg.render.materials.RefractiveMaterial;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -116,11 +117,17 @@ public class Scene {
 		pool.shutdown();
 		try {
 			pool.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+			for (Primitive primitive: primitives) {
+				Material material = primitive.getMaterial();
+				if (material instanceof RefractiveMaterial) {
+					System.out.println("TIR: " + ((RefractiveMaterial) material).tir);
+					System.out.println("Ray count: " + ((RefractiveMaterial) material).rayCount);
+				}
+			}
 			return img;
 		} catch (InterruptedException e) {
 
 		}
-
 
 		return img;
 	}

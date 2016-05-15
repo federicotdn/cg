@@ -92,6 +92,10 @@ public class Box extends Primitive {
 		double maxDist;
 		double distance;
 		double u, v;
+
+		if (qc.getLocalRay().isInsidePrimitive()) {
+			u = 0;
+		}
 		
 		//X
 		distance = Math.abs(colPos.x)/(width/2);

@@ -24,6 +24,10 @@ public class DirectionalLight extends Light {
 
 	@Override
 	public boolean visibleFrom(Collision col) {
+		if (col.getRay().shouldIgnoreShadows()) {
+			return true;
+		}
+
 		double cosAngle = col.getNormal().dot(negDirection);
 		if (cosAngle < 0) {
 			return false;

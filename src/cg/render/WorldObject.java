@@ -37,21 +37,22 @@ public abstract class WorldObject {
         this.invTransform = transform.inverse();
     }
 
-    public Matrix4 getTransform() {
-        if (parent == null) {
-            return transform;
-        }
-
-        return parent.getTransform().mul(transform);
-    }
-
     public void setParent(WorldObject parent) {
         this.parent = parent;
     }
 
     public void calculateTransform() {
-        transform = getTransform();
+        if (children != null) {
+            for (WorldObject wo: children) {
+                wo.calculateTransform(transform);
+            }
+        }
+    }
+
+    private void calculateTransform(Matrix4 parentTransform) {
+        transform = parentTransform.mul(transform);
         invTransform = transform.inverse();
+        calculateTransform();
     }
 
     public void addChild(WorldObject child) {

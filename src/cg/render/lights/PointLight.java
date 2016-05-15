@@ -28,6 +28,10 @@ public class PointLight extends Light {
 
 	@Override
 	public boolean visibleFrom(Collision col) {
+		if (col.getRay().shouldIgnoreShadows()) {
+			return true;
+		}
+
 		Vec3 surfaceToLight = vectorFromCollision(col);
 		double cosAngle = col.getNormal().dot(surfaceToLight.normalize());
 		

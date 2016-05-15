@@ -26,7 +26,7 @@ public class Diffuse extends Material {
 				c = c.sum(result);
 			}
 		}
-		
+
 		return c.mul(getTextureColorMix(col.u, col.v));
 	}
 }

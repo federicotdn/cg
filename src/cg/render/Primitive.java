@@ -23,7 +23,7 @@ public abstract class Primitive extends WorldObject {
 			localMaxT = localPath.asVec3().len();			
 		}
 
-		Ray localRay = new Ray(localOrigin.asVec3(), localDirection.asVec3().normalize(), localMaxT, ray.getHops(), ray.isInsidePrimitive());
+		Ray localRay = new Ray(localOrigin.asVec3(), localDirection.asVec3().normalize(), localMaxT, ray.getHops(), ray.isInsidePrimitive(), ray.shouldIgnoreShadows());
 		QuickCollision qc = internalQuickCollideWith(localRay);
 		if (qc == null) {
 			return null;

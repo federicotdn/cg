@@ -22,12 +22,16 @@ public class SpotLight extends Light {
 	@Override
 	public void calculateTransform() {
 		super.calculateTransform();
-		this.position = transform.mulVec(new Vec4(0, 0, 0, 0)).asVec3();
+		this.position = transform.mulVec(new Vec4(0, 0, 0, 1)).asVec3();
 		this.direction = transform.mulVec(new Vec4(0, 0, 1, 0)).asVec3();
 	}
 
 	@Override
 	public boolean visibleFrom(Collision col) {
+		if (col.getRay().shouldIgnoreShadows()) {
+			return true;
+		}
+
 		Vec3 surfaceToLight = vectorFromCollision(col);
 		double cosAngle = col.getNormal().dot(surfaceToLight.normalize());
 		

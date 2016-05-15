@@ -81,9 +81,7 @@ public class SceneParser {
 		
 		scene.setSamples((int)Math.pow(2, samples));
 		
-		for (WorldObject wo : worldObjects) {
-			wo.calculateTransform();
-		}
+		rootObject.calculateTransform();
 
         for (Primitive primitive: primitives) {
             scene.addPrimitive(primitive);
