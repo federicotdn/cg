@@ -10,8 +10,6 @@ import cg.render.*;
 public class RefractiveMaterial extends Material {
     private double ior;
     private Color refractiveColor;
-    public int tir = 0;
-    public int rayCount = 0;
 
     public RefractiveMaterial(Color color, double offsetU, double offsetV, double scaleU,
                               double scaleV, Color refractiveColor, double ior) {
@@ -65,9 +63,6 @@ public class RefractiveMaterial extends Material {
                     refractedColor = refractionCol.getPrimitive().getMaterial().getSurfaceColor(refractionCol, scene).mul(refractiveColor);
                 }
             }
-        } else {
-            tir++;
-            refractedColor = Color.BLACK;
         }
 
         Color reflectedColor = scene.BACKGROUND_COLOR;
@@ -83,11 +78,6 @@ public class RefractiveMaterial extends Material {
                 reflectedColor = color.mul(reflectionColor);
             }
         }
-
-        if (col.getRay().getHops() == 1) {
-            rayCount++;
-        }
-
 
         return refractedColor.mul(1-r).sum(reflectedColor.mul(r));
     }
