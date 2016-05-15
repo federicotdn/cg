@@ -184,7 +184,7 @@ public class SceneParser {
                     break;
                 case "Mesh":
                     byte[] data = parseBase64(o.getString("base64OBJ", ""));
-                    Scanner scanner = new Scanner(new ByteArrayInputStream(data));
+                    Scanner scanner = new Scanner(new ByteArrayInputStream(data)).useLocale(Locale.US);
                     List<Double> v = new ArrayList<>();
                     List<Double> normals = new ArrayList<>();
                     List<Double> uv = new ArrayList<>();
