@@ -5,6 +5,11 @@ import cg.rand.MultiJitteredSampler;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 public class Scene {
 	private List<Primitive> primitives;
@@ -19,6 +24,9 @@ public class Scene {
 
 	private int reflectionTraceDepth;
 	private int refractionTraceDepth;
+
+	private int threads;
+	private int bucketSize;
 	
 	public final Color BACKGROUND_COLOR = Color.BLACK;
 
@@ -42,6 +50,10 @@ public class Scene {
 	
 	public void setSamples(int samples) {
 		this.samples = samples;
+	}
+
+	public int getSamples() {
+		return this.samples;
 	}
 
 	public void setCam(Camera cam) {
@@ -72,55 +84,112 @@ public class Scene {
 		MultiJitteredSampler sampler;
 		if (samples == 1) {
 			sampler = null;
-			System.out.println("Antialiasing is disabled.");
 		} else {
 			sampler = new MultiJitteredSampler(samples);
 		}
-		
-		for (int p = 0; p < img.getHeight() * img.getWidth(); p++) {
-			int x = p % img.getWidth();
-			int y = p / img.getWidth();
-			
-			if (sampler != null) {				
+
+		Queue<Bucket> buckets = generateBuckets();
+		Queue<Ray[]> rayQ = new ConcurrentLinkedQueue<>();
+		Queue<MultiJitteredSampler> samplerQ = new ConcurrentLinkedQueue<>();
+
+		for (int i = 0; i < threads; i++) {
+			rayQ.offer(new Ray[samples]);
+			samplerQ.offer(new MultiJitteredSampler(samples));
+		}
+
+		ExecutorService pool = Executors.newFixedThreadPool(threads);
+
+		while (!buckets.isEmpty()) {
+			Bucket bucket = buckets.poll();
+			pool.execute(new Runnable() {
+				@Override
+				public void run() {
+					Ray rays[] = rayQ.poll();
+					MultiJitteredSampler sampler = samplerQ.poll();
+					renderBucket(bucket, rays, sampler);
+					rayQ.offer(rays);
+					samplerQ.offer(sampler);
+				}
+			});
+		}
+
+		pool.shutdown();
+		try {
+			pool.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
+			return img;
+		} catch (InterruptedException e) {
+
+		}
+
+//		pool.submit();
+//		ForkJoinPool pool = new ForkJoinPool(threads);
+//		pool.execute();
+//		pool.execute(new RecursiveAction() {
+//			@Override
+//			protected void compute() {
+//
+//			}
+//		});
+
+
+		return img;
+	}
+
+		private void renderBucket(Bucket bucket, Ray[] rays, MultiJitteredSampler sampler) {
+			for (int p = 0; p < bucket.getHeight() * bucket.getWidth(); p++) {
+				int x = (p % bucket.getWidth()) + bucket.getX();
+				int y = (p / bucket.getWidth()) + bucket.getY();
+
 				sampler.generateSamples();
-			}
-			cam.raysFor(rays, sampler, img, x, y);
-			
-			double r = 0, g = 0, b = 0;
-			
-			for (int i = 0; i < samples; i++) {
-				Color c = BACKGROUND_COLOR;
-				
-				Collision col = collideRay(rays[i]);
-				if (col != null) {
-					c = col.getPrimitive().getMaterial().getSurfaceColor(col, this);
+
+				cam.raysFor(rays, sampler, img, x, y);
+
+				double r = 0, g = 0, b = 0;
+
+				for (int i = 0; i < samples; i++) {
+					Color c = BACKGROUND_COLOR;
+
+					Collision col = collideRay(rays[i]);
+					if (col != null) {
+						c = col.getPrimitive().getMaterial().getSurfaceColor(col, this);
+					}
+
+					r += c.getRed();
+					g += c.getGreen();
+					b += c.getBlue();
+
 				}
 
-				r += c.getRed();
-				g += c.getGreen();
-				b += c.getBlue();
+				r /= samples;
+				g /= samples;
+				b /= samples;
 
-//				if (col != null) {
-//					r += Math.abs(col.getNormal().x);
-//					g += Math.abs(col.getNormal().y);
-//					b += Math.abs(col.getNormal().z);
-//				}
-			}
-			
-			//TODO: Change average function for Monte Carlo estimator?
-			r /= samples;
-			g /= samples;
-			b /= samples;
+				img.setPixel(x, y, new Color(r, g, b));
+//			count++;
+//
+//			if (count % (img.getHeight() * img.getWidth() / 100) == 0) {
+//				System.out.println((int)((double)count / (img.getWidth() * img.getHeight()) * 100)  + " %");
+//			}
+		}
+	}
 
-			img.setPixel(x, y, new Color(r, g, b));
-			count++;
+	private Queue<Bucket> generateBuckets() {
+		Queue<Bucket> bucketQueue = new ConcurrentLinkedQueue<>();
 
-			if (count % (img.getHeight() * img.getWidth() / 100) == 0) {
-				System.out.println((int)((double)count / (img.getWidth() * img.getHeight()) * 100)  + " %");
+		if (threads == 1) {
+			Bucket bucket = new Bucket(img.getWidth(), img.getHeight(), 0, 0);
+			bucketQueue.offer(bucket);
+		} else {
+			for (int i = 0; i < img.getHeight(); i+= bucketSize) {
+				for (int j = 0; j < img.getWidth(); j+=bucketSize) {
+					Bucket bucket = new Bucket(Math.min(bucketSize, img.getWidth() - j),
+							Math.min(bucketSize, img.getHeight() - i), j, i);
+					bucketQueue.offer(bucket);
+				}
 			}
 		}
 
-		return img;
+		return bucketQueue;
 	}
 	
 	public Collision collideRay(Ray ray) {
@@ -137,6 +206,34 @@ public class Scene {
 		}
 
 		return closestCol;
+	}
+
+	public void setBucketSize(int bucketSize) {
+		this.bucketSize = Math.min(bucketSize, Math.min(img.getHeight(), img.getWidth()));
+	}
+
+	public void setThreads(int threads) {
+		if (threads == 0) {
+			threads = Runtime.getRuntime().availableProcessors();
+		}
+
+		this.threads = threads;
+	}
+
+	public int getThreads() {
+		return this.threads;
+	}
+
+	public int getBucketSize() {
+		return this.bucketSize;
+	}
+
+	public int getHeight() {
+		return img.getHeight();
+	}
+
+	public int getWidth() {
+		return img.getWidth();
 	}
 
 	public int getReflectionTraceDepth() {

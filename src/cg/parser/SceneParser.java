@@ -67,6 +67,8 @@ public class SceneParser {
 		scene.setSize(renderOptions.getInt("width", 1920), renderOptions.getInt("height", 1080));
         scene.setReflectionTraceDepth(renderOptions.getInt("reflectionTraceDepth", 2));
         scene.setRefractionTraceDepth(renderOptions.getInt("refractionTraceDepth", 2));
+        scene.setBucketSize(renderOptions.getInt("bucketSize", 32));
+        scene.setThreads(renderOptions.getInt("threads", 1));
 
         int samples = renderOptions.getInt("antialiasing", -1);
 		if (samples == -1) {
@@ -243,14 +245,14 @@ public class SceneParser {
 		try {
 			reader = new FileReader(filename);
 		} catch (FileNotFoundException e) {
-			printError("Unable to read scene file.");
+			printError("File not found.");
 			return null;
 		}
     	
 		JsonObject object;
 		try {
 			object = Json.parse(reader).asObject();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			printError("Scene file does contain valid JSON data.");
 			try {
 				reader.close();

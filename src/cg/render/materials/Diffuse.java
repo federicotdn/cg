@@ -17,17 +17,16 @@ public class Diffuse extends Material {
 	@Override
 	public Color getSurfaceColor(Collision col, Scene scene) {
 		Color c = new Color(1, 0, 0, 0);
-		Color myColor = getTextureColorMix(col.u, col.v);
-		
+
 		for (Light light : scene.getLights()) {
 			if (light.visibleFrom(col)) {
 				Vec3 surfaceToLight = light.vectorFromCollision(col).normalize();
 				double cosAngle = surfaceToLight.dot(col.getNormal());
-				Color result = myColor.mul(cosAngle).mul(light.getColor().mul(light.getIntensity()));
+				Color result = (light.getColor().mul(light.getIntensity())).mul(cosAngle);
 				c = c.sum(result);
 			}
 		}
 		
-		return c;
+		return c.mul(getTextureColorMix(col.u, col.v));
 	}
 }

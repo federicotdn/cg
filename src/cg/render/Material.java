@@ -49,7 +49,7 @@ public abstract class Material {
 
 	protected Color getTextureColorMix(double u, double v, Texture tex) {
 		if (tex == null) {
-			return Color.WHITE;
+			return color;
 		}
 
 		return tex.getSample(u, v).mul(color);

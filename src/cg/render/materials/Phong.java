@@ -30,7 +30,7 @@ public class Phong extends Material {
 				diffuse = diffuse.sum(result);
 
 				Vec3 r = surfaceToLight.reflect(col.getNormal());
-				double spec = (double)Math.pow(Math.max(0, - r.dot(col.getRay().getDirection())), 20);
+				double spec = Math.pow(Math.max(0, - r.dot(col.getRay().getDirection())), 20);
 				result = (new Color(spec).mul(light.getColor().mul(light.getIntensity())));
 				specular = specular.sum(result);
 			}

@@ -22,12 +22,7 @@ public class Camera extends WorldObject {
 		return pos;
 	}
 	
-	public void raysFor(Ray[] rays, MultiJitteredSampler sampler, Image img, int pixelX, int pixelY) {		
-		if (sampler == null) {
-			rays[0] = rayFor(img, pixelX, pixelY, 0.5f, 0.5f);
-			return;
-		}
-		
+	public void raysFor(Ray[] rays, MultiJitteredSampler sampler, Image img, int pixelX, int pixelY) {
 		final int size = sampler.getSize();
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {

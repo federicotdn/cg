@@ -9,6 +9,14 @@ public class MultiJitteredSampler {
 	private int size;
 	
 	public MultiJitteredSampler(int samples) {
+		if (samples == 1) {
+			size = 1;
+			xCoords = new double[size * size];
+			yCoords = new double[size * size];
+			xCoords[0] = 0.5;
+			yCoords[0] = 0.5;
+			return;
+		}
 		int sqrt = (int)Math.sqrt(samples);
 		if (sqrt * sqrt != samples || samples < 4) {
 			throw new RuntimeException("Samples must be a perfect square larger than 4.");
@@ -24,10 +32,14 @@ public class MultiJitteredSampler {
 	}
 	
 	public void generateSamples() {
+		if (size == 1) {
+			return;
+		}
+
 		for (int j = 0; j < size; j++) {
 			for (int i = 0; i < size; i++) {
-				xCoords[j * size + i] = (double)((i + (j + Math.random()) / size) / size);
-				yCoords[j * size + i] = (double)((j + (i + Math.random()) / size) / size);
+				xCoords[j * size + i] = ((i + (j + Math.random()) / size) / size);
+				yCoords[j * size + i] = ((j + (i + Math.random()) / size) / size);
 			}
 		}
 		

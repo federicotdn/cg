@@ -30,8 +30,8 @@ public class Sphere extends Primitive {
 			return null;
 		}
 		
-		double t0 = (double) ((-B - Math.sqrt(det)) / (2 * A));
-		double t1 = (double) ((-B + Math.sqrt(det)) / (2 * A));
+		double t0 = ((-B - Math.sqrt(det)) / (2 * A));
+		double t1 = ((-B + Math.sqrt(det)) / (2 * A));
 		
 		if (t0 > ray.getMaxT() || t1 < 0) {
 			return null;
@@ -40,8 +40,8 @@ public class Sphere extends Primitive {
 		double t = (t0 > t1 ? t1 : t0);
 		Vec3 normal = orig.sum(dir.mul(t)).mul(1/radius);
 
-		double u = 0.5f + (double)((Math.atan2(normal.z, normal.x))/(2*Math.PI));
-		double v = 0.5f - (double)(Math.asin(normal.y)/Math.PI);
+		double u = 0.5 + ((Math.atan2(normal.z, normal.x))/(2*Math.PI));
+		double v = 0.5 - (Math.asin(normal.y)/Math.PI);
 		return new Collision(this, ray, t, normal, Math.abs(u), Math.abs(v));
 	}
 
