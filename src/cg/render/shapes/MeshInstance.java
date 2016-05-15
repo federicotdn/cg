@@ -5,6 +5,7 @@ import cg.math.Vec3;
 import cg.render.BoundingBox;
 import cg.render.Collision;
 import cg.render.Primitive;
+import cg.render.QuickCollision;
 import cg.render.Ray;
 import cg.render.assets.Mesh;
 
@@ -21,11 +22,6 @@ public class MeshInstance extends Primitive {
 		this.meshData = meshData;
 		setTransform(t,r,s);
 	}
-	
-	@Override
-	protected Collision calculateCollision(Ray ray) {
-		return meshData.calculateCollision(ray, this);
-	}
 
 	@Override
 	protected BoundingBox calculateBBox(Matrix4 trs) {
@@ -34,5 +30,15 @@ public class MeshInstance extends Primitive {
 
 	public Mesh getMeshData() {
 		return meshData;
+	}
+
+	@Override
+	protected QuickCollision internalQuickCollideWith(Ray ray) {
+		return meshData.calculateCollision(ray, this);
+	}
+
+	@Override
+	protected Collision internalCompleteCollision(QuickCollision qc) {
+		return meshData.completeCollision(this, qc);
 	}
 }

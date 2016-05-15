@@ -4,6 +4,7 @@ import cg.accelerator.MeshKDTree;
 import cg.math.Vec3;
 import cg.render.BoundingBox;
 import cg.render.Collision;
+import cg.render.QuickCollision;
 import cg.render.Ray;
 import cg.render.shapes.MeshInstance;
 
@@ -29,11 +30,11 @@ public class Mesh {
 		this.kdTree = new MeshKDTree(this, triangleCount());
 	}
 
-	public Collision calculateCollision(Ray ray, MeshInstance mesh) {
+	public QuickCollision calculateCollision(Ray ray, MeshInstance mesh) {
 		return kdTree.hit(ray, mesh);
 	}
 
-	public Collision checkCollision(Ray ray, int index, MeshInstance mesh) {
+	public QuickCollision checkCollision(Ray ray, int index, MeshInstance mesh) {
 		int faceIndex = index * 9;
 		Vec3 p1 = vertexForIndex(faceIndex);
 		Vec3 p2 = vertexForIndex(faceIndex + 3);
@@ -66,13 +67,23 @@ public class Mesh {
 			return null;
 		}
 
+		QuickCollision qc = new QuickCollision(mesh, ray, null, t, -1);
+		qc.setMeshData(faceIndex, b1, b2);
+		return qc;
+	}
+	
+	public Collision completeCollision(MeshInstance instance, QuickCollision qc) {
+		int faceIndex = qc.getFaceIndex();
+		double b1 = qc.getB1();
+		double b2 = qc.getB2();
+		
 		Vec3 n1 = normalForIndex(faceIndex);
 		Vec3 n2 = normalForIndex(faceIndex + 3);
 		Vec3 n3 = normalForIndex(faceIndex + 6);
 
 		Vec3 normal = interpolate(b1, b2, n1, n2, n3);
 
-		double u =0, v = 0;
+		double u = 0, v = 0;
 
 		if (uv != null) {
 			double u1 = uv[faces[faceIndex + 1] * 2];
@@ -85,8 +96,8 @@ public class Mesh {
 			double v3 = uv[(faces[faceIndex + 7] * 2) + 1];
 			v = ((1 - b2 - b1)*v1) + (v2 * b1) + (v3 * b2);
 		}
-
-		return new Collision(mesh, ray, t, normal, u, v);
+		
+		return new Collision(instance, qc.getLocalRay(), qc.getLocalT(), normal, u, v);
 	}
 
 	private Vec3 interpolate(double b1, double b2, Vec3  v1, Vec3 v2, Vec3 v3) {

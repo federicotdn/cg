@@ -5,6 +5,7 @@ import cg.math.Vec3;
 import cg.render.BoundingBox;
 import cg.render.Collision;
 import cg.render.Primitive;
+import cg.render.QuickCollision;
 import cg.render.Ray;
 
 /**
@@ -16,17 +17,8 @@ public class InfinitePlane extends Primitive {
     public InfinitePlane(Vec3 t, Vec3 r, Vec3 s) {
     	setTransform(t, r, s);
     }
-    
-    @Override
-    protected Collision calculateCollision(Ray ray) {
-        Double t = planeT(ray, PLANE_NORMAL, 0);
-        if (t == null || t > ray.getMaxT()) {
-        	return null;
-        }
-        Vec3 colPos = ray.runDistance(t);
-        return new Collision(this, ray, t, PLANE_NORMAL, colPos.x/10, colPos.z/10);
-    }
 
+    //TODO: Change Double to double
     public static Double planeT(Ray ray, Vec3 normal, double d) {
         Vec3 rDir = ray.getDirection();
         Vec3 rPos = ray.getOrigin();
@@ -46,4 +38,19 @@ public class InfinitePlane extends Primitive {
     protected BoundingBox calculateBBox(Matrix4 trs) {
         return null;
     }
+
+	@Override
+	protected QuickCollision internalQuickCollideWith(Ray ray) {
+        Double t = planeT(ray, PLANE_NORMAL, 0);
+        if (t == null || t > ray.getMaxT()) {
+        	return null;
+        }
+        return new QuickCollision(this, ray, null, t, -1);
+	}
+
+	@Override
+	protected Collision internalCompleteCollision(QuickCollision qc) {
+		Vec3 colPos = qc.getLocalPosition();
+		return new Collision(this, qc.getLocalRay(), qc.getLocalT(), PLANE_NORMAL, colPos.x / 10, colPos.z / 10);
+	}
 }

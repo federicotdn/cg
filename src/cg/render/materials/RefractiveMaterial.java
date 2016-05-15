@@ -42,8 +42,9 @@ public class RefractiveMaterial extends Material {
         Color refractedColor = Color.BLACK;
         if (sen2t <= 1) {
             Ray refractionRay = new Ray(col.getPosition().sum(normal.mul(-0.01)), refraction, Double.POSITIVE_INFINITY, ray.getHops() + 1, !ray.isInsidePrimitive());
-            Collision refractionCol = scene.collideRay(refractionRay);
-            if (refractionCol != null) {
+            QuickCollision qc = scene.collideRay(refractionRay);
+            if (qc != null) {
+                Collision refractionCol = qc.completeCollision();
                 refractedColor = refractionCol.getPrimitive().getMaterial().getSurfaceColor(refractionCol, scene).mul(refractiveColor);
             }
         }

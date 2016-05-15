@@ -22,8 +22,9 @@ public class ReflectiveMaterial extends Material {
         Vec3 reflection = d.reflect(col.getNormal());
 
         Ray reflectionRay = new Ray(col.getPosition().sum(col.getNormal().mul(0.001)), reflection, Double.POSITIVE_INFINITY, col.getRay().getHops() + 1);
-        Collision reflectionCol =  scene.collideRay(reflectionRay);
-        if (reflectionCol != null) {
+        QuickCollision qc =  scene.collideRay(reflectionRay);
+        if (qc != null) {
+            Collision reflectionCol = qc.completeCollision();
             Color reflectionColor = reflectionCol.getPrimitive().getMaterial().getSurfaceColor(reflectionCol, scene);
             return color.mul(reflectionColor);
         }

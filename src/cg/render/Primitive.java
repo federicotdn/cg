@@ -9,7 +9,7 @@ public abstract class Primitive extends WorldObject {
 	private BoundingBox bbox;
 	private String name;
 	
-	public Collision collideWith(Ray ray) {
+	public QuickCollision quickCollideWith(Ray ray) {
 		Vec4 localOrigin = ray.getOrigin().asPosition();
 		localOrigin = invTransform.mulVec(localOrigin);
 		
@@ -22,31 +22,43 @@ public abstract class Primitive extends WorldObject {
 			localPath = invTransform.mulVec(localPath);
 			localMaxT = localPath.asVec3().len();			
 		}
-		
+
 		Ray localRay = new Ray(localOrigin.asVec3(), localDirection.asVec3().normalize(), localMaxT, ray.getHops(), ray.isInsidePrimitive());
-		Collision localCol = calculateCollision(localRay);
-		if (localCol == null) {
+		QuickCollision qc = internalQuickCollideWith(localRay);
+		if (qc == null) {
 			return null;
 		}
 		
-		Vec3 localCollisionPos = localCol.getPosition();
+		Vec3 localCollisionPos = qc.getLocalPosition();
 		Vec3 collisionPos = transform.mulVec(localCollisionPos.asPosition()).asVec3();
 		
 		Vec3 path = collisionPos.sub(ray.getOrigin());
-		double t = path.len();
+		double worldT = path.len();
+		
+		QuickCollision worldQc = new QuickCollision(this, localRay, ray, qc.getLocalT(), worldT);
+		worldQc.copyMeshData(qc);
+		return worldQc;
+	}
+	
 
-		Vec4 localNormal = localCol.getNormal().asDirection();
+	public Collision completeCollision(QuickCollision qc) {
+		if (qc.getPrimitive() != this) {
+			throw new RuntimeException("Error: tried to complete a collision from another primitive.");
+		}
+		Collision collision = internalCompleteCollision(qc);
+		
+		Vec4 localNormal = collision.getNormal().asDirection();
 		Vec3 worldNormal = invTransform.traspose().mulVec(localNormal).asVec3();
-
-		Material mat = localCol.getPrimitive().getMaterial();
-		double u = ((localCol.u * mat.getScaleU()) + mat.getOffsetU());
-		double v = ((localCol.v * mat.getScaleV()) + mat.getOffsetV());
+		
+		Material mat = getMaterial();
+		double u = ((collision.u * mat.getScaleU()) + mat.getOffsetU());
+		double v = ((collision.v * mat.getScaleV()) + mat.getOffsetV());
 		u = repeatUV(u);
 		v = repeatUV(v);
-
-		return new Collision(localCol.getPrimitive(), ray, t, worldNormal, u, v);
+		
+		return new Collision(this, qc.getWorldRay(), qc.getWorldT(), worldNormal, u, v);
 	}
-
+	
 	private double repeatUV(double coord) {
 		if (coord >= 0) {
 			return coord % 1;
@@ -81,6 +93,7 @@ public abstract class Primitive extends WorldObject {
 		this.name = name;
 	}
 	
-	protected abstract Collision calculateCollision(Ray ray);
+	protected abstract QuickCollision internalQuickCollideWith(Ray ray);
+	protected abstract Collision internalCompleteCollision(QuickCollision qc);
 	protected abstract BoundingBox calculateBBox(Matrix4 trs);
 }
