@@ -14,7 +14,7 @@ public class Start {
 
 	public static void main(String[] args) throws IOException {
 		System.out.println("Loading scene...");
-		SceneParser parser = new SceneParser("/Users/Hobbit/git/edutracing/Assets/bunny.json");
+		SceneParser parser = new SceneParser("C:/Users/Fede/Workspace/unity/edutracing/Assets\\simplescene4.json");
 		System.out.println("Scene loaded.");
 		Scene scene = parser.parseScene();
 

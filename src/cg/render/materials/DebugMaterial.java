@@ -8,10 +8,6 @@ import cg.render.Scene;
 
 public class DebugMaterial extends Material {
 
-	public DebugMaterial() {
-		super(null, 0, 0, 1, 1);
-	}
-
 	@Override
 	public Color getSurfaceColor(Collision col, Scene scene) {
 		Vec3 n = col.getNormal();

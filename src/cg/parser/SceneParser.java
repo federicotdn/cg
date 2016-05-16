@@ -26,26 +26,25 @@ import java.util.*;
  * Created by Hobbit on 4/22/16.
  */
 public class SceneParser {
-	private static final Material DEFAULT_MATERIAL = Diffuse.DIFFUSE_DEFAULT;
+	private static final Material DEFAULT_MATERIAL = Diffuse.DEFAULT_DIFFUSE;
 	private static final int DEFAULT_SAMPLES = 2;
-	private static final int DEFAULT_EXPONENT = 2;
 	
     private String filename;
     private WorldObject rootObject;
     private List<WorldObject> worldObjects;
     private List<Primitive> primitives;
-    private Map<Integer, Material> materials;
     private Map<Integer, Mesh> meshes;
     private Scene scene;
+    private MaterialFactory materialFactory;
 
     public SceneParser(String filename) {
         this.filename = filename;
         rootObject = new EmptyObject(null, null, null);
         worldObjects = new ArrayList<>();
         primitives = new ArrayList<>();
-        materials = new HashMap<>();
         meshes = new HashMap<>();
         scene = new Scene();
+        materialFactory = new MaterialFactory();
     }
 
     public Scene parseScene() {
@@ -61,6 +60,12 @@ public class SceneParser {
 		}
 		
 		addAssets(object.get("assets").asArray());
+		
+		Warnings w = materialFactory.buildMaterials();
+		for (String s : w) {
+			printWarning(s);
+		}
+		
 		addWorldObjects(object.get("objects").asArray(), rootObject, cameraId);
 
 		JsonObject renderOptions = object.get("renderOptions").asObject();
@@ -91,9 +96,6 @@ public class SceneParser {
     }
     
     public void addAssets(JsonArray assets) {
-        Map<Integer, Texture> textures = new HashMap<>();
-        Map<Integer, List<Material>> requiredTextures = new HashMap<>();
-
     	for (JsonValue value : assets) {
 			JsonObject o = value.asObject();
 
@@ -107,79 +109,36 @@ public class SceneParser {
             switch (assetType) {
                 case "Material":
                     String materialType = o.getString("materialType", "");
-                    int colorTextureId = o.getInt("colorTextureId", -1);
-
-                    double offsetU = 0 , offsetV = 0, scaleU = 1, scaleV = 1;
-                    if (colorTextureId != -1) {
-                        JsonObject colorOffset = o.get("colorOffset").asObject();
-                        offsetU = colorOffset.getDouble("x", 0);
-                        offsetV = colorOffset.getDouble("y", 0);
-
-                        JsonObject scaleOffset = o.get("colorScale").asObject();
-                        scaleU = scaleOffset.getDouble("x", 0);
-                        scaleV = scaleOffset.getDouble("y", 0);
-                    }
-
-                    Material material;
+                    
                     switch (materialType) {
                         case "Diffuse":
-                            material = new Diffuse(parseColor(o, "color"), offsetU, offsetV, scaleU, scaleV);
-                            break;
+                            materialFactory.registerDiffuse(id, o);
+                        	break;
                         case "Color":
-                            Color c = parseColor(o, "color");
-                            material = new ColorMaterial(c, offsetU, offsetV, scaleU, scaleV);
+                        	materialFactory.registerColorMaterial(id, o);
                             break;
                         case "Phong":
-                        	c = parseColor(o, "color");
-                        	Color specular = parseColor(o, "specularColor");
-                        	double exponent = o.getDouble("exponent", -1);
-                        	if (exponent < 0) {
-                        		printWarning("Phong material ID " + String.valueOf(id) + " does not have an exponent, using default value.");
-                        		exponent = DEFAULT_EXPONENT;
-                        	}
-                        	
-                        	Phong p = new Phong(c, offsetU, offsetV, scaleU, scaleV, specular, exponent);
-                        	material = p;
+                        	materialFactory.registerPhong(id, o);
                         	break;
                         case "Reflective":
-                            material = new ReflectiveMaterial(parseColor(o, "reflectivityColor"), offsetU, offsetV, scaleU, scaleV);
+                        	materialFactory.registerReflective(id, o);
                             break;
                         case "Refractive":
-                            material = new RefractiveMaterial(parseColor(o, "reflectivityColor"), offsetU, offsetV,
-                                    scaleU, scaleV, parseColor(o, "refractionColor"), o.getDouble("ior", 1));
+                        	materialFactory.registerRefractive(id, o);
                             break;
+                        case "None":
+                        	printWarning("Material of type None found.");
+                        	materialFactory.registerAsNone(id);
+                        	break;
                         default:
-                            material = null;
                             printWarning("Unsupported material of type '" + materialType + "'");
                     }
 
-                    if (material != null) {
-                        if (colorTextureId != -1) {
-                            if (textures.containsKey(colorTextureId)) {
-                                material.setColorTex(textures.get(colorTextureId));
-                            } else {
-                                if (!requiredTextures.containsKey(colorTextureId)) {
-                                    requiredTextures.put(colorTextureId, new ArrayList<>());
-                                }
-                                requiredTextures.get(colorTextureId).add(material);
-                            }
-                        } else {
-                            printWarning("Material of id " + id + " does not has a texture");
-                        }
-
-                        materials.put(id, material);
-                    }
                     break;
                 case "Texture":
                     byte[] bytes = parseBase64(o.getString("base64PNG", ""));
                     Texture texture = new Texture(bytes);
-                    textures.put(id, texture);
-                    if (requiredTextures.containsKey(id)) {
-                        List<Material> materials = requiredTextures.remove(id);
-                        for (Material mat : materials) {
-                            mat.setColorTex(texture);
-                        }
-                    }
+                    materialFactory.addTexture(id, texture);
 
                     break;
                 case "Mesh":
@@ -251,7 +210,7 @@ public class SceneParser {
 		try {
 			object = Json.parse(reader).asObject();
 		} catch (Exception e) {
-			printError("Scene file does contain valid JSON data.");
+			printError("Scene file does not contain valid JSON data.");
 			try {
 				reader.close();
 			} catch (IOException e1) {
@@ -380,11 +339,11 @@ public class SceneParser {
                     	primitive.setName(name);
                     	primitives.add(primitive);
                     	
-                    	if (materialId == -1 || !materials.containsKey(materialId)) {
+                    	if (materialId == -1 || !materialFactory.containsMaterial(materialId)) {
                     		printWarning("Shape ID: " + String.valueOf(id) + " does not specify a valid material, using default.");
                     		primitive.setMaterial(DEFAULT_MATERIAL);
                     	} else {
-                    		primitive.setMaterial(materials.get(materialId));
+                    		primitive.setMaterial(materialFactory.getMaterial(materialId));
                     	}
                     }
                     
