@@ -82,8 +82,7 @@ public class Phong extends Material {
 		double exponentTex = exponent;
 		if (exponentTexture != null) {
 			Color texColor = exponentTexture.getOffsetScaledSample(exponentTextureOffset, exponentTextureScale, col.u, col.v);
-			double val = (texColor.getRed() + texColor.getBlue() + texColor.getGreen());
-			exponentTex *= (val / 3); // Assuming image is grayscale
+			exponentTex *= texColor.getRed(); // Assuming image is grayscale
 		}
 
 		for (Light light : scene.getLights()) {

@@ -81,7 +81,7 @@ public class RefractiveMaterial extends Material {
         
         //Refractive:
         Color refractiveTexColor = refractionColor;
-        if (reflectivityColorTexture != null) {
+        if (refractionColorTexture != null) {
         	Color texCol = refractionColorTexture.getOffsetScaledSample(refractionColorTextureOffset, refractionColorTextureScale, col.u, col.v);
         	refractiveTexColor = refractiveTexColor.mul(texCol);
         }
@@ -90,8 +90,8 @@ public class RefractiveMaterial extends Material {
 		double iorTex = ior;
 		if (iorTexture != null) {
 			Color texColor = iorTexture.getOffsetScaledSample(iorTextureOffset, iorTextureScale, col.u, col.v);
-			double val = (texColor.getRed() + texColor.getBlue() + texColor.getGreen());
-			iorTex *= (val / 3); // Assuming image is grayscale
+			iorTex *= texColor.getRed(); // Assuming image is grayscale
+            iorTex = MathUtils.clamp(iorTex, 1, iorTex);
 		}
 		
         Color refractedColor = Color.BLACK;
