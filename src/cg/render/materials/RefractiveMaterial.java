@@ -137,9 +137,6 @@ public class RefractiveMaterial extends Material {
                     refractedColor = refractionCol.getPrimitive().getMaterial().getSurfaceColor(refractionCol, scene).mul(refractiveTexColor);
                 }
             }
-        } else {
-            tir++;
-            refractedColor = Color.BLACK;
         }
 
         Color reflectedColor = scene.BACKGROUND_COLOR;
@@ -155,11 +152,6 @@ public class RefractiveMaterial extends Material {
                 reflectedColor = reflectiveTexColor.mul(reflectionColor);
             }
         }
-
-        if (col.getRay().getHops() == 1) {
-            rayCount++;
-        }
-
 
         return refractedColor.mul(1-r).sum(reflectedColor.mul(r));
     }
