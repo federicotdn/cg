@@ -32,6 +32,20 @@ public class Mesh {
 
 	public QuickCollision calculateCollision(Ray ray, MeshInstance mesh) {
 		return kdTree.hit(ray, mesh);
+//		QuickCollision closestCol = null;
+//		for (int i =0; i< faces.length/9 ; i++) {
+//			QuickCollision col = checkCollision(ray, i, mesh);
+//
+//			if (col == null) {
+//				continue;
+//			}
+//
+//			if (closestCol == null || col.getLocalT() < closestCol.getLocalT()) {
+//				closestCol = col;
+//			}
+//		}
+//
+//		return closestCol;
 	}
 
 	public QuickCollision checkCollision(Ray ray, int index, MeshInstance mesh) {
@@ -45,7 +59,7 @@ public class Mesh {
 
 		Vec3 s1 = ray.getDirection().cross(e2); // pvec
 		double divisor = s1.dot(e1); // det
-		if (divisor == 0) {
+		if (divisor < 0.00001) {
 			return null;
 		}
 		double invDivisor = 1.0f/divisor;

@@ -25,7 +25,7 @@ public class Box extends Primitive {
 	}
 	
     public static double collisionForBox(Vec3 pMin, Vec3 pMax, Ray ray) {
-        double t0 = 0f, t1 = ray.getMaxT();
+        double t0 = 0, t1 = ray.getMaxT();
         double invRayDir = 1.f / ray.getDirection().x;
         double tNear = (pMin.x  - ray.getOrigin().x) * invRayDir;
         double tFar =  (pMax.x  - ray.getOrigin().x) * invRayDir;
@@ -68,7 +68,7 @@ public class Box extends Primitive {
         t1 = tFar  < t1 ? tFar  : t1;
         if (t0 > t1) return -1;
 
-        return t0;
+		return t0;
     }
 
 	@Override
@@ -89,40 +89,36 @@ public class Box extends Primitive {
 	protected Collision internalCompleteCollision(QuickCollision qc) {
 		Vec3 colPos = qc.getLocalPosition();
 		Vec3 normal;
-		double maxDist;
+		double maxDistance;
 		double distance;
 		double u, v;
 
-		if (qc.getLocalRay().isInsidePrimitive()) {
-			u = 0;
-		}
-		
 		//X
 		distance = Math.abs(colPos.x)/(width/2);
-		maxDist = distance;
+		maxDistance = distance;
 		normal = new Vec3(Math.signum(colPos.x), 0, 0);
 		v = Math.abs(colPos.y - height / 2) / height;
 		u = Math.abs(colPos.z - depth / 2) / depth;
 
-		
+
 		//Y
 		distance = Math.abs(colPos.y)/(height/2);
-		if (distance > maxDist) {
-			maxDist = distance;
+		if (distance > maxDistance) {
+			maxDistance = distance;
 			normal = new Vec3(0, Math.signum(colPos.y), 0);
 			u = Math.abs(colPos.x - width/2)/width;
 			v = Math.abs(colPos.z - depth/2)/depth;
-		}		
-		
+		}
+
 		//Z
 		distance = Math.abs(colPos.z)/(depth/2);
-		if (distance > maxDist) {
-			maxDist = distance;
+		if (distance > maxDistance) {
+			maxDistance = distance;
 			normal = new Vec3(0, 0, Math.signum(colPos.z));
 			u = Math.abs(colPos.x - width/2)/width;
 			v = Math.abs(colPos.y - height/2)/height;
 		}
-		
+
 		return new Collision(this, qc.getLocalRay(), qc.getLocalT(), normal, u, v);
 	}
 }

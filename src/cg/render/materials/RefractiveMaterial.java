@@ -56,7 +56,7 @@ public class RefractiveMaterial extends Material {
         r = MathUtils.clamp(r);
         if (ray.getHops() <= scene.getRefractionTraceDepth()) {
             if (sen2t <= 1) {
-                Ray refractionRay = new Ray(col.getPosition().sum(normal.mul(-0.005)), refraction, Double.POSITIVE_INFINITY, ray.getHops() + 1, !ray.isInsidePrimitive(), true);
+                Ray refractionRay = new Ray(col.getPosition().sum(normal.mul(-0.00001)), refraction, Double.POSITIVE_INFINITY, ray.getHops() + 1, !ray.isInsidePrimitive(), true);
                 QuickCollision qc = scene.collideRay(refractionRay);
                 if (qc != null) {
                     Collision refractionCol = qc.completeCollision();
@@ -70,7 +70,7 @@ public class RefractiveMaterial extends Material {
             Vec3 d = col.getRay().getDirection().mul(-1);
             Vec3 reflection = d.reflect(col.getNormal());
 
-            Ray reflectionRay = new Ray(col.getPosition().sum(col.getNormal().mul(0.001)), reflection, Double.POSITIVE_INFINITY, col.getRay().getHops() + 1);
+            Ray reflectionRay = new Ray(col.getPosition().sum(col.getNormal().mul(0.00001)), reflection, Double.POSITIVE_INFINITY, col.getRay().getHops() + 1);
             QuickCollision qc =  scene.collideRay(reflectionRay);
             if (qc != null) {
                 Collision reflectionCol = qc.completeCollision();

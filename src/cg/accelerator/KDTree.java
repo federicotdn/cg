@@ -41,7 +41,7 @@ public class KDTree {
         Deque<StackNode> stack = new LinkedList<>();
         double tMax = ray.getMaxT();
         double tMin = 0;
-        stack.push(new StackNode(root, 0, tMax));
+        stack.push(new StackNode(root, tMin, tMax));
         QuickCollision col = null;
         KDTreeNode first, second;
         while (!stack.isEmpty() && col == null) {
@@ -52,16 +52,16 @@ public class KDTree {
             while (!node.isLeaf()) {
                 INode iNode = (INode)node;
                 double t = (iNode.location - ray.getOrigin().getCoordByAxis(iNode.axis))/ray.getDirection().getCoordByAxis(iNode.axis);
-                if (ray.getOrigin().getCoordByAxis(iNode.axis) <= iNode.location ||
+                if (ray.getOrigin().getCoordByAxis(iNode.axis) < iNode.location ||
                         (Math.abs(ray.getOrigin().getCoordByAxis(iNode.axis) - iNode.location) < 0.0001f
-                                && ray.getDirection().getCoordByAxis(iNode.axis) < 0)) {
+                                && ray.getDirection().getCoordByAxis(iNode.axis) <= 0)) {
                     first = iNode.leftChild;
                     second = iNode.rightChild;
                 } else {
                     first = iNode.rightChild;
                     second = iNode.leftChild;
                 }
-                if (t >= tMax || t <= 0)
+                if (t > tMax || t <= 0)
                     node = first;
                 else if (t < tMin)
                     node = second;
@@ -124,8 +124,8 @@ public class KDTree {
 
         double location = getMedian(primitives, axis);
 
-        Predicate<Primitive> isLeft = p -> p.getBBox().pMin.getCoordByAxis(axis) <= location;
-        Predicate<Primitive> isRight = p -> p.getBBox().pMax.getCoordByAxis(axis) > location;
+        Predicate<Primitive> isLeft = p -> p.getBBox().pMin.getCoordByAxis(axis) < location;
+        Predicate<Primitive> isRight = p -> p.getBBox().pMax.getCoordByAxis(axis) >= location;
         List<Primitive> leftPrimitives = primitives.stream().filter(isLeft).collect(Collectors.toList());
         List<Primitive> rightPrimitives = primitives.stream().filter(isRight).collect(Collectors.toList());
 
@@ -153,7 +153,7 @@ public class KDTree {
         } else {
             Vec3 c1 = primitives.get(primitives.size() / 2 - 1).getBBox().getCenter();
             Vec3 c2 = primitives.get(primitives.size() / 2).getBBox().getCenter();
-            medianLoc = c1.sum(c2).mul(0.5f);
+            medianLoc = c1.sum(c2).mul(0.5);
         }
 
         return medianLoc.getCoordByAxis(axis);

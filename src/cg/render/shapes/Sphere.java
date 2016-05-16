@@ -34,19 +34,32 @@ public class Sphere extends Primitive {
 		double B = 2 * (dir.x * orig.x + dir.y * orig.y + dir.z * orig.z);
 		double C = (orig.x * orig.x) + (orig.y * orig.y) + (orig.z * orig.z) - (radius * radius);
 		
-		double det = (B * B) - (4 * A * C);
-		if (det < 0) {
+		double disc = (B * B) - (4 * A * C);
+		if (disc <= 0) {
 			return null;
 		}
-		
-		double t0 = ((-B - Math.sqrt(det)) / (2 * A));
-		double t1 = ((-B + Math.sqrt(det)) / (2 * A));
-		
+
+		double rootDisc = Math.sqrt(disc);
+		double q;
+		if (B < 0) {
+			q = -0.5 *(B - rootDisc);
+		} else {
+			q = -0.5 *(B + rootDisc);
+		}
+
+		double t0 = q/A;
+		double t1 = C/q;
+
+		double t = (t0 > t1 ? t1 : t0);
+
 		if (t0 > ray.getMaxT() || t1 < 0) {
 			return null;
 		}
-		
-		double t = (t0 > t1 ? t1 : t0);
+
+		if (t0 < 0 && t1 > ray.getMaxT()) {
+			return null;
+		}
+
 
 		return new QuickCollision(this, ray, null, t, -1);
 	}
@@ -58,10 +71,10 @@ public class Sphere extends Primitive {
 		Vec3 dir = ray.getDirection();
 		double t = qc.getLocalT();
 		
-		Vec3 normal = orig.sum(dir.mul(t)).mul(1/radius);
+		Vec3 normal = orig.sum(dir.mul(t));
 
-		double u = 0.5f + (double)((Math.atan2(normal.z, normal.x))/(2*Math.PI));
-		double v = 0.5f - (double)(Math.asin(normal.y)/Math.PI);
+		double u = 0.5 + ((Math.atan2(normal.z, normal.x))/(2*Math.PI));
+		double v = 0.5 - (Math.asin(normal.y)/Math.PI);
 		return new Collision(this, ray, t, normal, u, v);
 	}
 }

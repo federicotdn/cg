@@ -41,7 +41,7 @@ public class MeshKDTree {
         double[] minMax = new double[2];
         for (int index : indexes) {
             meshData.calculateMinAndMax(index, axis, minMax);
-            if (minMax[0] <= location) {
+            if (minMax[0] < location) {
                 left.add(index);
             }
 
@@ -61,7 +61,7 @@ public class MeshKDTree {
         Deque<StackNode> stack = new LinkedList<>();
         double tMax = ray.getMaxT();
         double tMin = 0;
-        stack.push(new StackNode(root, 0, tMax));
+        stack.push(new StackNode(root, tMin, tMax));
         QuickCollision col = null;
         KDTreeNode first, second;
         while (!stack.isEmpty() && col == null) {
@@ -72,16 +72,16 @@ public class MeshKDTree {
             while (!node.isLeaf()) {
                 INode iNode = (INode)node;
                 double t = (iNode.location - ray.getOrigin().getCoordByAxis(iNode.axis))/ray.getDirection().getCoordByAxis(iNode.axis);
-                if (ray.getOrigin().getCoordByAxis(iNode.axis) <= iNode.location ||
+                if (ray.getOrigin().getCoordByAxis(iNode.axis) < iNode.location ||
                         (Math.abs(ray.getOrigin().getCoordByAxis(iNode.axis) - iNode.location) < 0.00001
-                                && ray.getDirection().getCoordByAxis(iNode.axis) < 0)) {
+                                && ray.getDirection().getCoordByAxis(iNode.axis) <= 0)) {
                     first = iNode.leftChild;
                     second = iNode.rightChild;
                 } else {
                     first = iNode.rightChild;
                     second = iNode.leftChild;
                 }
-                if (t >= tMax || t <= 0)
+                if (t > tMax || t <= 0)
                     node = first;
                 else if (t < tMin)
                     node = second;

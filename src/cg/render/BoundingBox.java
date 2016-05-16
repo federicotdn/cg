@@ -73,7 +73,7 @@ public class BoundingBox {
 
     }
 
-    public Double collide(Ray ray) {
+    public double collide(Ray ray) {
         return Box.collisionForBox(pMin, pMax, ray);
     }
 }

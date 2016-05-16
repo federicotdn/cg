@@ -14,7 +14,7 @@ public class Start {
 
 	public static void main(String[] args) throws IOException {
 		System.out.println("Loading scene...");
-		SceneParser parser = new SceneParser("/Users/Hobbit/git/edutracing/Assets/bunny.json");
+		SceneParser parser = new SceneParser("/Users/Hobbit/git/edutracing/Assets/reflection.ssd");
 		System.out.println("Scene loaded.");
 		Scene scene = parser.parseScene();
 
@@ -38,9 +38,11 @@ public class Start {
 		img.writeFile("img/" + df.format(date) + ".png");
 
 
-		imageInfo += " (" + img.getWidth() + "x" + img.getHeight() + "). Samples: " + scene.getSamples();
+		imageInfo += " (" + img.getWidth() + "x" + img.getHeight() + "). Samples: " + scene.getSamples() + ". Threads: "
+				+ scene.getThreads() + ". Bucket size: " + scene.getBucketSize() + ". Reflection TD: " + scene.getReflectionTraceDepth()
+				+ ". Refraction TD: " + scene.getRefractionTraceDepth() + ".";
 		Graphics graphics = img.getBufferedImage().getGraphics();
-		graphics.setColor(new Color(0, 0, 0, 0.4f));
+		graphics.setColor(new Color(0, 0, 0, 0.5f));
 		graphics.fillRect(0, img.getHeight() - 40, img.getWidth(), 40);
 		graphics.setColor(Color.WHITE);
 		graphics.setFont(graphics.getFont().deriveFont(24));
