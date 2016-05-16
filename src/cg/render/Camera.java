@@ -7,6 +7,8 @@ import cg.rand.MultiJitteredSampler;
 
 public class Camera extends WorldObject {
 	private double fovDegrees;
+	
+	//TODO: Use WorldObject transform or this one
 	private Matrix4 transform;
 	private Vec3 pos;
 	

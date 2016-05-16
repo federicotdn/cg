@@ -78,15 +78,6 @@ public class Scene {
 		}
 		
 		kdTree = new KDTree(primitives, 5);
-		long count = 0;
-		Ray[] rays = new Ray[samples];
-		
-		MultiJitteredSampler sampler;
-		if (samples == 1) {
-			sampler = null;
-		} else {
-			sampler = new MultiJitteredSampler(samples);
-		}
 
 		Queue<Bucket> buckets = generateBuckets();
 		Queue<Ray[]> rayQ = new ConcurrentLinkedQueue<>();

@@ -50,21 +50,16 @@ public abstract class Primitive extends WorldObject {
 		Vec4 localNormal = collision.getNormal().asDirection();
 		Vec3 worldNormal = invTransform.traspose().mulVec(localNormal).asVec3();
 		
-		Material mat = getMaterial();
-		double u = ((collision.u * mat.getScaleU()) + mat.getOffsetU());
-		double v = ((collision.v * mat.getScaleV()) + mat.getOffsetV());
-		u = repeatUV(u);
-		v = repeatUV(v);
+//		Material mat = getMaterial();
+//		double u = ((collision.u * mat.getScaleU()) + mat.getOffsetU());
+//		double v = ((collision.v * mat.getScaleV()) + mat.getOffsetV());
+//		u = repeatUV(u);
+//		v = repeatUV(v);
+		
+		double u = collision.u;
+		double v = collision.v;
 		
 		return new Collision(this, qc.getWorldRay(), qc.getWorldT(), worldNormal, u, v);
-	}
-	
-	private double repeatUV(double coord) {
-		if (coord >= 0) {
-			return coord % 1;
-		} else {
-			return 1 - (Math.abs(coord) % 1);
-		}
 	}
 
 	@Override
