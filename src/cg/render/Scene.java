@@ -109,47 +109,40 @@ public class Scene {
 			pool.awaitTermination(Long.MAX_VALUE, TimeUnit.NANOSECONDS);
 			return img;
 		} catch (InterruptedException e) {
-
+			return null;
 		}
-
-		return img;
 	}
 
-		private void renderBucket(Bucket bucket, Ray[] rays, MultiJitteredSampler sampler) {
-			for (int p = 0; p < bucket.getHeight() * bucket.getWidth(); p++) {
-				int x = (p % bucket.getWidth()) + bucket.getX();
-				int y = (p / bucket.getWidth()) + bucket.getY();
+	private void renderBucket(Bucket bucket, Ray[] rays, MultiJitteredSampler sampler) {
+		for (int p = 0; p < bucket.getHeight() * bucket.getWidth(); p++) {
+			int x = (p % bucket.getWidth()) + bucket.getX();
+			int y = (p / bucket.getWidth()) + bucket.getY();
 
-				sampler.generateSamples();
+			sampler.generateSamples();
 
-				cam.raysFor(rays, sampler, img, x, y);
+			cam.raysFor(rays, sampler, img, x, y);
 
-				double r = 0, g = 0, b = 0;
+			double r = 0, g = 0, b = 0;
 
-				for (int i = 0; i < samples; i++) {
-					Color c = BACKGROUND_COLOR;
+			for (int i = 0; i < samples; i++) {
+				Color c = BACKGROUND_COLOR;
 
-					QuickCollision qc = collideRay(rays[i]);
-					if (qc != null) {
-						Collision col = qc.completeCollision();
-						c = col.getPrimitive().getMaterial().getSurfaceColor(col, this);
-					}
-
-					r += c.getRed();
-					g += c.getGreen();
-					b += c.getBlue();
+				QuickCollision qc = collideRay(rays[i]);
+				if (qc != null) {
+					Collision col = qc.completeCollision();
+					c = col.getPrimitive().getMaterial().getSurfaceColor(col, this);
 				}
 
-				r /= samples;
-				g /= samples;
-				b /= samples;
+				r += c.getRed();
+				g += c.getGreen();
+				b += c.getBlue();
+			}
 
-				img.setPixel(x, y, new Color(r, g, b));
-//			count++;
-//
-//			if (count % (img.getHeight() * img.getWidth() / 100) == 0) {
-//				System.out.println((int)((double)count / (img.getWidth() * img.getHeight()) * 100)  + " %");
-//			}
+			r /= samples;
+			g /= samples;
+			b /= samples;
+
+			img.setPixel(x, y, new Color(r, g, b));
 		}
 	}
 

@@ -136,58 +136,41 @@ public class SceneParser {
 
                     break;
                 case "Texture":
-                    byte[] bytes = parseBase64(o.getString("base64PNG", ""));
-                    Texture texture = new Texture(bytes);
-                    materialFactory.addTexture(id, texture);
+                    byte[] bytes;
+                    
+                    try {
+                    	bytes = parseBase64(o.getString("base64PNG", ""));
+                    } catch (Exception e) {
+                		printWarning("Invalid Base64 for Texture data in Asset ID: " + id + ", skipping.");
+                		break;
+                    }
+                    
+					Texture texture;
+					try {
+						texture = new Texture(bytes);
+						materialFactory.addTexture(id, texture);
+					} catch (Exception e) {
+                		printWarning("Invalid Texture data in Asset ID: " + id + ", skipping.");
+					}
 
                     break;
                 case "Mesh":
-                    byte[] data = parseBase64(o.getString("base64OBJ", ""));
+                	byte[] data;
+                	try {
+                		data = parseBase64(o.getString("base64OBJ", ""));
+                	} catch (Exception e) {
+                		printWarning("Invalid Base64 for Mesh data in Asset ID: " + id + ", skipping.");
+                		break;
+                	}
+                     
                     Scanner scanner = new Scanner(new ByteArrayInputStream(data)).useLocale(Locale.US);
-                    List<Double> v = new ArrayList<>();
-                    List<Double> normals = new ArrayList<>();
-                    List<Double> uv = new ArrayList<>();
-                    List<Integer> faces = new ArrayList<>();
-                    while (scanner.hasNext()) {
-                        String s = scanner.next();
-                        switch (s) {
-                            case "v":
-                                v.add(scanner.nextDouble());
-                                v.add(scanner.nextDouble());
-                                v.add(scanner.nextDouble());
-                                break;
-                            case "vn":
-                                normals.add(scanner.nextDouble());
-                                normals.add(scanner.nextDouble());
-                                normals.add(scanner.nextDouble());
-                                break;
-                            case "vt":
-                                uv.add(scanner.nextDouble());
-                                uv.add(scanner.nextDouble());
-                                break;
-                            case "f":
-                                String[] f = scanner.next().split("/");
-                                faces.add(Integer.parseInt(f[0]) - 1);
-                                faces.add(Integer.parseInt(f[1]) - 1);
-                                faces.add(Integer.parseInt(f[2]) - 1);
-
-                                f = scanner.next().split("/");
-                                faces.add(Integer.parseInt(f[0]) - 1);
-                                faces.add(Integer.parseInt(f[1]) - 1);
-                                faces.add(Integer.parseInt(f[2]) - 1);
-
-                                f = scanner.next().split("/");
-                                faces.add(Integer.parseInt(f[0]) - 1);
-                                faces.add(Integer.parseInt(f[1]) - 1);
-                                faces.add(Integer.parseInt(f[2]) - 1);
-                                break;
-                            default:
-                                printWarning("Invalid character found in mesh '" + s + "'");
-                        }
+                    
+                    try {
+                    	Mesh mesh = scanMesh(scanner);
+                    	meshes.put(id, mesh);                    	
+                    } catch (Exception e) {
+                		printWarning("Invalid Mesh data in Asset ID: " + id + ", skipping.");
                     }
-
-                    Mesh mesh = new Mesh(v, normals, uv, faces);
-                    meshes.put(id, mesh);
 
                     break;
                 default:
@@ -228,6 +211,53 @@ public class SceneParser {
 		return object;
     }
 
+    private Mesh scanMesh(Scanner scanner) {
+        List<Double> v = new ArrayList<>();
+        List<Double> normals = new ArrayList<>();
+        List<Double> uv = new ArrayList<>();
+        List<Integer> faces = new ArrayList<>();
+
+        while (scanner.hasNext()) {
+            String s = scanner.next();
+            switch (s) {
+                case "v":
+                    v.add(scanner.nextDouble());
+                    v.add(scanner.nextDouble());
+                    v.add(scanner.nextDouble());
+                    break;
+                case "vn":
+                    normals.add(scanner.nextDouble());
+                    normals.add(scanner.nextDouble());
+                    normals.add(scanner.nextDouble());
+                    break;
+                case "vt":
+                    uv.add(scanner.nextDouble());
+                    uv.add(scanner.nextDouble());
+                    break;
+                case "f":
+                    String[] f = scanner.next().split("/");
+                    faces.add(Integer.parseInt(f[0]) - 1);
+                    faces.add(Integer.parseInt(f[1]) - 1);
+                    faces.add(Integer.parseInt(f[2]) - 1);
+
+                    f = scanner.next().split("/");
+                    faces.add(Integer.parseInt(f[0]) - 1);
+                    faces.add(Integer.parseInt(f[1]) - 1);
+                    faces.add(Integer.parseInt(f[2]) - 1);
+
+                    f = scanner.next().split("/");
+                    faces.add(Integer.parseInt(f[0]) - 1);
+                    faces.add(Integer.parseInt(f[1]) - 1);
+                    faces.add(Integer.parseInt(f[2]) - 1);
+                    break;
+                default:
+                    printWarning("Invalid character found in mesh '" + s + "'");
+            }
+        }
+
+        return new Mesh(v, normals, uv, faces);
+    }
+    
     private void addWorldObjects(JsonArray objects, WorldObject parent, int cameraId) {
         for (JsonValue value: objects) {
             JsonObject o = value.asObject();
@@ -235,20 +265,21 @@ public class SceneParser {
 
             int id = o.getInt("id", -1);
             if (id == -1) {
-                printWarning("Object of type '" + "' doesn't have an id");
+                printWarning("Object of type '" + "' doesn't have an ID, skipping.");
                 continue;
             }
 
             WorldObject wo;
             switch (type) {
                 case "Camera":
-                	wo = null;
                     if (id == cameraId) {
                         Camera cam = new Camera(getPosition(o),
                                 getRotation(o),
                                 o.getDouble("fieldOfView", 60));
                         scene.setCam(cam);
+                        wo = cam;
                     } else {
+                    	wo = null;
                     	printWarning("Ignored camera with ID: " + String.valueOf(id));
                     }
                     break;
@@ -322,7 +353,7 @@ public class SceneParser {
                         case "Mesh":
                             int meshId = o.getInt("meshId", -1);
                             if (!meshes.containsKey(meshId)) {
-                                printWarning("Referenced mesh id " + meshId +  " does not exist");
+                                printWarning("WorldObject ID: " + id + " Referenced mesh ID: " + meshId +  " does not exist, skipping object.");
                                 primitive = null;
                             } else {
                                 primitive = new MeshInstance(meshes.get(meshId), getPosition(o), getRotation(o), getScale(o));
@@ -404,6 +435,6 @@ public class SceneParser {
     }
     
     private void printError(String s) {
-        System.err.println("ERROR: " + s);
+        System.out.println("ERROR: " + s);
     }
 }

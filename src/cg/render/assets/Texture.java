@@ -18,19 +18,15 @@ public class Texture {
 		/* EMPTY */
 	}
 	
-	public Texture(byte[] data) {
-		try {
-			BufferedImage img = ImageIO.read(new ByteArrayInputStream(data));
-			this.width = img.getWidth();
-			this.height = img.getHeight();
-			pixels = new double[width * height * 4];
-			if (img.getType() != BufferedImage.TYPE_4BYTE_ABGR) {
-				throw new IllegalArgumentException("Invalid image format");
-			}
-			transformABGR4Byte(img);
-		} catch (IOException e) {
-			e.printStackTrace();
+	public Texture(byte[] data) throws IOException {
+		BufferedImage img = ImageIO.read(new ByteArrayInputStream(data));
+		this.width = img.getWidth();
+		this.height = img.getHeight();
+		pixels = new double[width * height * 4];
+		if (img.getType() != BufferedImage.TYPE_4BYTE_ABGR) {
+			throw new IllegalArgumentException("Invalid image format");
 		}
+		transformABGR4Byte(img);
 	}
 
 	private void transformABGR4Byte(BufferedImage bufferedImage) {

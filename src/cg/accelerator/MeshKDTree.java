@@ -142,9 +142,8 @@ public class MeshKDTree {
 
         if (avg.length % 2 == 1) {
             return avg[avg.length/2];
-        } else {
-            return (avg[(avg.length)/2 - 1] + avg[avg.length/2])/2.0;
         }
+		return (avg[(avg.length)/2 - 1] + avg[avg.length/2])/2.0;
     }
 
     private class Leaf implements KDTreeNode {
