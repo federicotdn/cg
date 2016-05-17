@@ -3,11 +3,10 @@ package cg.run;
 import cg.parser.SceneParser;
 import cg.render.Image;
 import cg.render.Scene;
+import org.apache.commons.cli.*;
 
 import java.awt.*;
 import java.util.concurrent.TimeUnit;
-
-import org.apache.commons.cli.*;
 
 public class Start {
 
@@ -119,10 +118,13 @@ public class Start {
 			totalRunTimes += runTime;
 			
 			String runRenderTime = getPrettyTime(runTime);
-			
-			System.out.println("Run ended. Render time: " + runRenderTime);
-			System.out.println();
-		}
+
+			if (ri.includeTime) {
+				System.out.println("Run ended. Render time: " + runRenderTime);
+			} else {
+				System.out.println("Run ended.");
+			}
+a		}
 		
 		long avgTime = totalRunTimes / ri.runs;
 		String renderTime = getPrettyTime(avgTime);
@@ -156,7 +158,8 @@ public class Start {
 			System.out.println("Error writing image file.  Exiting.");
 			System.exit(1);
 		}
-		System.out.println("All done.  Exiting.");
+		System.out.println("All done.");
+		System.out.println("Total time: " + getPrettyTime(totalRunTimes + parseTime));
 	}
 
 	private static String getPrettyTime(long t) {
