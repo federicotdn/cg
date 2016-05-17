@@ -120,7 +120,7 @@ public class RefractiveMaterial extends Material {
             double r0 = Math.pow((n1 - n2)/(n1 + n2), 2);
             double cos;
             if (n1 <= n2) {
-                cos = - normal.dot(ray.getDirection());
+                cos = cosI;
             } else {
                 cos = Math.sqrt(1 - sen2t);
             }

@@ -71,7 +71,7 @@ public class Sphere extends Primitive {
 		Vec3 dir = ray.getDirection();
 		double t = qc.getLocalT();
 		
-		Vec3 normal = orig.sum(dir.mul(t));
+		Vec3 normal = orig.sum(dir.mul(t)).mul(1/radius);
 
 		double u = 0.5 + ((Math.atan2(normal.z, normal.x))/(2*Math.PI));
 		double v = 0.5 - (Math.asin(normal.y)/Math.PI);
