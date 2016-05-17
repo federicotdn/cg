@@ -59,7 +59,7 @@ public class Mesh {
 
 		Vec3 s1 = ray.getDirection().cross(e2); // pvec
 		double divisor = s1.dot(e1); // det
-		if (divisor < 0.00001) {
+		if (Math.abs(divisor) < 0.00000000000000001) {
 			return null;
 		}
 		double invDivisor = 1.0f/divisor;

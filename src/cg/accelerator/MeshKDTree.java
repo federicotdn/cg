@@ -22,7 +22,7 @@ public class MeshKDTree {
             indexes.add(i);
         }
 
-        this.root = generateTree(indexes, 50, 0, 20);
+        this.root = generateTree(indexes, 25, 0, 20);
     }
 
     private KDTreeNode generateTree(List<Integer> indexes, int threshold, int depth, int maxDepth) {

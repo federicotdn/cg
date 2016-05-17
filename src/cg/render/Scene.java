@@ -77,7 +77,7 @@ public class Scene {
 			throw new RuntimeException("Missing camera or height and width");
 		}
 		
-		kdTree = new KDTree(primitives, 5);
+		kdTree = new KDTree(primitives, 3);
 
 		Queue<Bucket> buckets = generateBuckets();
 		Queue<Ray[]> rayQ = new ConcurrentLinkedQueue<>();
