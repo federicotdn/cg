@@ -1,0 +1,5605 @@
+{
+    "mainCameraId": 1395,
+    "objects": [
+        {
+            "id": 1417,
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "children": [
+                {
+                    "type": "Light",
+                    "localScale": {
+                        "y": 1,
+                        "z": 1,
+                        "x": 1
+                    },
+                    "name": "Pointlight",
+                    "localRotation": {
+                        "y": 0,
+                        "z": 0,
+                        "x": 0
+                    },
+                    "lightType": "Point",
+                    "color": {
+                        "a": 1,
+                        "r": 1,
+                        "g": 1,
+                        "b": 1
+                    },
+                    "id": 1406,
+                    "intensity": 0.200000002980232,
+                    "children": [
+                        
+                    ],
+                    "localPosition": {
+                        "y": -0.120999999344349,
+                        "z": 1.64999997615814,
+                        "x": 9.21000003814697
+                    }
+                },
+                {
+                    "type": "Light",
+                    "localScale": {
+                        "y": 1,
+                        "z": 1,
+                        "x": 1
+                    },
+                    "name": "SpotLight",
+                    "localRotation": {
+                        "y": 0,
+                        "z": 0,
+                        "x": 30
+                    },
+                    "spotAngle": 60,
+                    "lightType": "Spot",
+                    "color": {
+                        "a": 1,
+                        "r": 1,
+                        "g": 1,
+                        "b": 1
+                    },
+                    "id": 1447,
+                    "intensity": 0.800000011920929,
+                    "children": [
+                        
+                    ],
+                    "localPosition": {
+                        "y": 7.51999998092651,
+                        "z": -5.53000020980835,
+                        "x": 1.17999994754791
+                    }
+                },
+                {
+                    "type": "Light",
+                    "localScale": {
+                        "y": 1,
+                        "z": 1,
+                        "x": 1
+                    },
+                    "name": "DirectionalLight",
+                    "localRotation": {
+                        "y": -14.4215993881226,
+                        "z": 7.38059997558594,
+                        "x": 36.1442985534668
+                    },
+                    "lightType": "Directional",
+                    "color": {
+                        "a": 1,
+                        "r": 1,
+                        "g": 1,
+                        "b": 1
+                    },
+                    "id": 1443,
+                    "intensity": 0.300000011920929,
+                    "children": [
+                        
+                    ],
+                    "localPosition": {
+                        "y": -0.121000051498413,
+                        "z": -1.60000014305115,
+                        "x": 2.24399995803833
+                    }
+                }
+            ],
+            "type": "None",
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "LightsContainer",
+            "localPosition": {
+                "y": 1.71599996089935,
+                "z": -2.91000008583069,
+                "x": -0.177000001072884
+            }
+        },
+        {
+            "type": "Camera",
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Main Camera",
+            "localRotation": {
+                "y": -7.90669965744019,
+                "z": 0,
+                "x": 13.235499382019
+            },
+            "fieldOfView": 60,
+            "id": 1395,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.98367977142334,
+                "z": -9.69232177734375,
+                "x": 2.09225964546204
+            },
+            "cameraType": "Pinhole"
+        },
+        {
+            "type": "Shape",
+            "materialID": 1419,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Plane",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "width": 100,
+            "finite": false,
+            "id": 1418,
+            "children": [
+                
+            ],
+            "height": 100,
+            "localPosition": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "shapeType": "Plane"
+        },
+        {
+            "type": "Light",
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Pointlight",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "lightType": "Point",
+            "color": {
+                "a": 1,
+                "r": 1,
+                "g": 1,
+                "b": 1
+            },
+            "id": 1335,
+            "intensity": 0.200000002980232,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 3.17000007629395,
+                "z": -1.26000010967255,
+                "x": 9.03299999237061
+            }
+        },
+        {
+            "type": "Light",
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Pointlight (1)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "lightType": "Point",
+            "color": {
+                "a": 1,
+                "r": 1,
+                "g": 1,
+                "b": 1
+            },
+            "id": 1280,
+            "intensity": 0.200000002980232,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 3.17000007629395,
+                "z": 23.1399993896484,
+                "x": -3.98000001907349
+            }
+        },
+        {
+            "type": "Light",
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Pointlight (2)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "lightType": "Point",
+            "color": {
+                "a": 1,
+                "r": 1,
+                "g": 1,
+                "b": 1
+            },
+            "id": 1269,
+            "intensity": 0.200000002980232,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.59499990940094,
+                "z": 23.1399993896484,
+                "x": -3.98000001907349
+            }
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1370,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 5.44999980926514,
+                "x": 0.0599999986588955
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (1)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1382,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 7.48999977111816,
+                "x": 11.8900003433228
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (2)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1389,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 2.38000011444092,
+                "x": -9.52000045776367
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (3)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1379,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": -0.980000019073486,
+                "x": 3.16000008583069
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1243,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (4)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1429,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 1.55999994277954,
+                "x": 13.75
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1243,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (5)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1376,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 1.55999994277954,
+                "x": -4.15999984741211
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1243,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (6)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1441,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": -1.71000003814697,
+                "x": -9.40999984741211
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1243,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (7)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1368,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": -5.3600001335144,
+                "x": -2.1800000667572
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (8)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1407,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": -6.96999979019165,
+                "x": 1.45000004768372
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (9)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1446,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": -7.8600001335144,
+                "x": -4.17999982833862
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1243,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (10)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1425,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": -4.15000009536743,
+                "x": -0.159999996423721
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (11)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1436,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": -4.15000009536743,
+                "x": 3.83999991416931
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1243,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (12)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1433,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 3.74000000953674,
+                "x": 3.83999991416931
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (13)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1428,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 19.0200004577637,
+                "x": 9.07999992370605
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (14)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1449,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 3.74000000953674,
+                "x": -3.00999999046326
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (15)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1384,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": -1.91999995708466,
+                "x": -2.76999998092651
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (16)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1415,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": -1.92999994754791,
+                "x": -0.670000016689301
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1243,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (17)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1434,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 0.850000023841858,
+                "x": -0.670000016689301
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.5,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (18)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1381,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.764999985694885,
+                "z": 1.59200000762939,
+                "x": 1.08000004291534
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (19)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1373,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 1.11000001430511,
+                "x": 11.25
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (20)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1416,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 7.48000001907349,
+                "x": -9.27000045776367
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (21)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1410,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": -2.0699999332428,
+                "x": -5.98000001907349
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (22)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1408,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": -2.0699999332428,
+                "x": 1.74000000953674
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1243,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (23)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1445,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 5.44999980926514,
+                "x": -4.92999982833862
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (24)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1399,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 0.949999988079071,
+                "x": -6.05000019073486
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (25)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1387,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 7.65999984741211,
+                "x": -0.360000014305115
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (26)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1383,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 8.46000003814697,
+                "x": -3.59999990463257
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (27)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1442,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 8.46000003814697,
+                "x": 3.40000009536743
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1243,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (28)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1392,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 10.460000038147,
+                "x": 3.40000009536743
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1243,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (29)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1427,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 10.460000038147,
+                "x": -1.77999997138977
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (30)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1413,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 6.15999984741211,
+                "x": -1.77999997138977
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1243,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (31)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1405,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 6.15999984741211,
+                "x": 1.22000002861023
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (32)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1388,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 11.8599996566772,
+                "x": 1.22000002861023
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (33)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1377,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 11.8599996566772,
+                "x": 8.22000026702881
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1243,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (34)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1390,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 8.22999954223633,
+                "x": 8.22000026702881
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (35)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1402,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 3.24000000953674,
+                "x": 8.22000026702881
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (36)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1391,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": -0.310000002384186,
+                "x": 6.15999984741211
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (37)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1396,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 1.98000001907349,
+                "x": 6.15999984741211
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (38)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1380,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 6.26999998092651,
+                "x": 6.15999984741211
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (39)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1426,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 11.0600004196167,
+                "x": 6.15999984741211
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (40)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1409,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 13.0799999237061,
+                "x": 6.15999984741211
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (41)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1394,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 13.0799999237061,
+                "x": -4.6399998664856
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (42)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1411,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 13.0799999237061,
+                "x": -4.6399998664856
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (43)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1385,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 8.9399995803833,
+                "x": -4.6399998664856
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (44)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1398,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 8.9399995803833,
+                "x": -6.88000011444092
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (45)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1423,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 3.9300000667572,
+                "x": -6.88000011444092
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1243,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (46)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1372,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 5.44999980926514,
+                "x": -12.3699998855591
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1243,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (47)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1404,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 16.4599990844727,
+                "x": -10.9799995422363
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1243,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (48)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1432,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 27.5300006866455,
+                "x": -21.0200004577637
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (49)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1438,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 15,
+                "x": -16.9200000762939
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (50)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1365,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 20.0100002288818,
+                "x": -16.9200000762939
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (51)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1400,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 20.0100002288818,
+                "x": -14.6800003051758
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (52)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1374,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 24.1499996185303,
+                "x": -14.6800003051758
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (53)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1421,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 24.1499996185303,
+                "x": -14.6800003051758
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1243,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (54)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1375,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 21.5300006866455,
+                "x": -11.8199996948242
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (55)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1424,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 19.5300006866455,
+                "x": -13.6400003433228
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (56)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1430,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 12.0200004577637,
+                "x": -16.0900001525879
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1243,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (57)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1431,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 16.5200004577637,
+                "x": -14.9700002670288
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (58)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1412,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 18.5499992370605,
+                "x": -19.3099994659424
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (59)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1422,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 14.8100004196167,
+                "x": -13.0500001907349
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1243,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (60)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1437,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 12.6300001144409,
+                "x": -14.1999998092651
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (61)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1448,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 11.1300001144409,
+                "x": -12.8100004196167
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (62)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1366,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 26.2299995422363,
+                "x": 6.15999984741211
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (63)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1440,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 24.2099990844727,
+                "x": 6.15999984741211
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1243,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (64)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1414,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 19.3099994659424,
+                "x": 1.22000002861023
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1243,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (65)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1435,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 23.6100006103516,
+                "x": 3.40000009536743
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (66)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1397,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 21.6100006103516,
+                "x": 3.40000009536743
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (67)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1386,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 16.8899993896484,
+                "x": 1.87000000476837
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (68)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1393,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 16.8899993896484,
+                "x": -7.55999994277954
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (69)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1369,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 21.6100006103516,
+                "x": -6.03000020980835
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1243,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (70)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1367,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 23.6100006103516,
+                "x": -6.03000020980835
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1243,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (71)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1403,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 19.3099994659424,
+                "x": -8.21000003814697
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (72)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1401,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 24.2099990844727,
+                "x": -3.26999998092651
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (73)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1444,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 26.2299995422363,
+                "x": -3.26999998092651
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (74)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1378,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 17.3299999237061,
+                "x": -3.59999990463257
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (75)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1439,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 12.7299995422363,
+                "x": -11.2600002288818
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1243,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (76)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1371,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": -5.26999998092651,
+                "x": -9.40999984741211
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (77)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1364,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.86000001430511,
+                "z": 21.6100006103516,
+                "x": -9.34000015258789
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (78)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1363,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.86000001430511,
+                "z": 17.3299999237061,
+                "x": -6.90999984741211
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (79)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1362,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.86000001430511,
+                "z": 8.46000003814697,
+                "x": -6.90999984741211
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (80)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1361,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.86000001430511,
+                "z": 8.9399995803833,
+                "x": -7.94999980926514
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (81)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1360,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.86000001430511,
+                "z": 7.65999984741211,
+                "x": -3.67000007629395
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (82)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1359,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.86000001430511,
+                "z": 11.8599996566772,
+                "x": -2.08999991416931
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1243,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (83)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1358,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.86000001430511,
+                "z": 10.460000038147,
+                "x": 0.0900000035762787
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (84)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1357,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.86000001430511,
+                "z": 16.8899993896484,
+                "x": -10.8699998855591
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (85)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1356,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.86000001430511,
+                "z": 13.0799999237061,
+                "x": -7.94999980926514
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (86)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1355,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.86000001430511,
+                "z": 8.9399995803833,
+                "x": -10.1899995803833
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1243,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (87)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1354,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.86000001430511,
+                "z": 19.3099994659424,
+                "x": -11.5200004577637
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1243,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (88)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1353,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.86000001430511,
+                "z": 16.4599990844727,
+                "x": -14.289999961853
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (89)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1352,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.86000001430511,
+                "z": 13.0799999237061,
+                "x": -7.94999980926514
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (90)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1351,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.86000001430511,
+                "z": 6.15999984741211,
+                "x": -5.09000015258789
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (91)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1350,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.86000001430511,
+                "z": 14.8100004196167,
+                "x": -16.3600006103516
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1243,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (92)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1349,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.86000001430511,
+                "z": 10.460000038147,
+                "x": -5.09000015258789
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (93)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1348,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.86000001430511,
+                "z": 12.7299995422363,
+                "x": -14.5699996948242
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (94)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1347,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.86000001430511,
+                "z": 8.46000003814697,
+                "x": 0.0900000035762787
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1243,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (95)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1346,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.86000001430511,
+                "z": 5.44999980926514,
+                "x": -8.23999977111816
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (96)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1345,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.86000001430511,
+                "z": 3.74000000953674,
+                "x": -6.32000017166138
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (97)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1344,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 2.13000011444092,
+                "z": 5.44999980926514,
+                "x": 0.0599999986588955
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (98)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1343,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 2.13000011444092,
+                "z": 6.26999998092651,
+                "x": 6.15999984741211
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (99)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1342,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 2.13000011444092,
+                "z": 7.65999984741211,
+                "x": -0.360000014305115
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (100)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1341,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 2.13000011444092,
+                "z": 11.8599996566772,
+                "x": 1.22000002861023
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (101)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1340,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 2.13000011444092,
+                "z": -0.310000002384186,
+                "x": 6.15999984741211
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1243,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (102)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1339,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 2.13000011444092,
+                "z": 10.460000038147,
+                "x": 3.40000009536743
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (103)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1338,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 2.13000011444092,
+                "z": 1.98000001907349,
+                "x": 6.15999984741211
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (104)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1337,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 2.13000011444092,
+                "z": 3.24000000953674,
+                "x": 8.22000026702881
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1243,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (105)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1336,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 2.13000011444092,
+                "z": 6.15999984741211,
+                "x": 1.22000002861023
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1243,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (106)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1334,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 2.13000011444092,
+                "z": 10.460000038147,
+                "x": -1.77999997138977
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1243,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (107)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1333,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 2.13000011444092,
+                "z": 3.74000000953674,
+                "x": 3.83999991416931
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (108)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1332,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 2.13000011444092,
+                "z": 8.46000003814697,
+                "x": 3.40000009536743
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1243,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (109)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1331,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.44000005722046,
+                "z": -5.3600001335144,
+                "x": -2.1800000667572
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (110)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1330,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.44000005722046,
+                "z": 1.11000001430511,
+                "x": 11.25
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.5,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (111)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1329,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.63999998569489,
+                "z": 1.59200000762939,
+                "x": 1.08000004291534
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (112)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1328,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.44000005722046,
+                "z": -1.91999995708466,
+                "x": -2.76999998092651
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (113)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1327,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.44000005722046,
+                "z": -6.96999979019165,
+                "x": 1.45000004768372
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (114)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1326,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.44000005722046,
+                "z": -1.92999994754791,
+                "x": -0.670000016689301
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1243,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (115)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1325,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.44000005722046,
+                "z": -4.15000009536743,
+                "x": -0.159999996423721
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (116)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1324,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.44000005722046,
+                "z": 19.0200004577637,
+                "x": 9.07999992370605
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1243,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (117)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1323,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.44000005722046,
+                "z": 3.74000000953674,
+                "x": 3.83999991416931
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1243,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (118)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1322,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.44000005722046,
+                "z": 0.850000023841858,
+                "x": -0.670000016689301
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (119)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1321,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.44000005722046,
+                "z": -4.15000009536743,
+                "x": 3.83999991416931
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (120)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1320,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.44000005722046,
+                "z": -7.8600001335144,
+                "x": -4.17999982833862
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (121)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1319,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.44000005722046,
+                "z": 3.74000000953674,
+                "x": -3.00999999046326
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (122)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1318,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 2.20000004768372,
+                "z": -1.87000000476837,
+                "x": -12.4200000762939
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1243,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (123)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1317,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 2.20000004768372,
+                "z": 0.629999995231628,
+                "x": -10.4200000762939
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1243,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (124)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1316,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.32000005245209,
+                "z": 0.629999995231628,
+                "x": -10.4200000762939
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1243,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (125)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1315,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.32000005245209,
+                "z": 0.720000028610229,
+                "x": -17.6499996185303
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1243,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (126)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1314,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.32000005245209,
+                "z": 11.4399995803833,
+                "x": -20.6100006103516
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (127)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1313,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.32000005245209,
+                "z": 8.36999988555908,
+                "x": -17.7600002288818
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (128)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1312,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.32000005245209,
+                "z": 3.92000007629395,
+                "x": -14.2200002670288
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (129)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1311,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.32000005245209,
+                "z": 18.0100002288818,
+                "x": -24.3299999237061
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1243,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (130)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1310,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.32000005245209,
+                "z": 4.28000020980835,
+                "x": -17.6499996185303
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (131)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1309,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.32000005245209,
+                "z": -1.87000000476837,
+                "x": -12.4200000762939
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (132)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1308,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.86000001430511,
+                "z": 19.3700008392334,
+                "x": -6.90999984741211
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (133)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1307,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.86000001430511,
+                "z": 23.6499996185303,
+                "x": -9.34000015258789
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1243,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (134)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1306,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 21.3500003814697,
+                "x": -8.21000003814697
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1243,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (135)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1305,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 25.1100006103516,
+                "x": -8.21000003814697
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (136)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1304,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.86000001430511,
+                "z": 27.4099998474121,
+                "x": -9.34000015258789
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (137)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1303,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.86000001430511,
+                "z": 23.1299991607666,
+                "x": -6.90999984741211
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (138)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1302,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 24.2099990844727,
+                "x": -5.57999992370605
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1243,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (139)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1301,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 19.3099994659424,
+                "x": -1.0900000333786
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (140)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1300,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 26.2299995422363,
+                "x": -5.57999992370605
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (141)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1299,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.86000001430511,
+                "z": 16.2900009155273,
+                "x": -7.94999980926514
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1243,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (142)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1298,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.86000001430511,
+                "z": 22.5200004577637,
+                "x": -11.5200004577637
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (143)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1297,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.86000001430511,
+                "z": 16.2900009155273,
+                "x": -7.94999980926514
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (144)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1296,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.86000001430511,
+                "z": 20.1000003814697,
+                "x": -10.8699998855591
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (145)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1295,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 27.3600006103516,
+                "x": -14.6800003051758
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (146)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1294,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 27.3600006103516,
+                "x": -14.6800003051758
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (147)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1293,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.86000001430511,
+                "z": 19.1800003051758,
+                "x": -21.7800006866455
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (148)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1292,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.86000001430511,
+                "z": 21.2600002288818,
+                "x": -23.5699996948242
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (149)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1291,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 25,
+                "x": -26.5200004577637
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1243,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (150)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1290,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 19.0799999237061,
+                "x": -21.4099998474121
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (151)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1289,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 21.4500007629395,
+                "x": -24.1299991607666
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (152)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1288,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 17.5799999237061,
+                "x": -20.0200004577637
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (153)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1287,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 27.8199996948242,
+                "x": -20.0200004577637
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (154)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1286,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 31.6900005340576,
+                "x": -24.1299991607666
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1243,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (155)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1285,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 29.3199996948242,
+                "x": -21.4099998474121
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (156)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1284,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 35.2400016784668,
+                "x": -26.5200004577637
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (157)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1283,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.86000001430511,
+                "z": 31.5,
+                "x": -23.5699996948242
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (158)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1282,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.86000001430511,
+                "z": 29.4200000762939,
+                "x": -21.7800006866455
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (159)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1281,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.44000005722046,
+                "z": 25.5100002288818,
+                "x": -1.75999999046326
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (160)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1279,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 2.13000011444092,
+                "z": 27.6399993896484,
+                "x": -4.78999996185303
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (161)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1278,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 2.13000011444092,
+                "z": 30.6700000762939,
+                "x": -6.84999990463257
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (162)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1277,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 50.6300010681152,
+                "x": -6.84999990463257
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (163)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1276,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 36.2599983215332,
+                "x": -4.78999996185303
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (164)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1275,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 30.6700000762939,
+                "x": -6.84999990463257
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (165)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1274,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 31.8899993896484,
+                "x": -1.12000000476837
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (166)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1273,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 41.2900009155273,
+                "x": -11.1400003433228
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1243,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (167)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1272,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 32.6300010681152,
+                "x": -4.78999996185303
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (168)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1271,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 46.0099983215332,
+                "x": -9.60999965667725
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (169)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1270,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 27.6399993896484,
+                "x": -4.78999996185303
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (170)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1268,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 37.4799995422363,
+                "x": -6.84999990463257
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1243,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (171)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1267,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 43.7099990844727,
+                "x": -11.789999961853
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (172)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1266,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 35.4599990844727,
+                "x": -6.84999990463257
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1243,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (173)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1265,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 48.0099983215332,
+                "x": -9.60999965667725
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (174)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1264,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 48.6100006103516,
+                "x": -6.84999990463257
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (175)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1263,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 48.6100006103516,
+                "x": -11.8500003814697
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1243,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (176)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1262,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 48.0099983215332,
+                "x": -14.6099996566772
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (177)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1261,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 37.4799995422363,
+                "x": -11.8500003814697
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (178)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1260,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 46.0099983215332,
+                "x": -14.6099996566772
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (179)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1259,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 50.6300010681152,
+                "x": -11.8500003814697
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (180)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1258,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 38.7900009155273,
+                "x": -21.6200008392334
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (181)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1257,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 38.7900009155273,
+                "x": -21.6200008392334
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1243,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (182)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1256,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.86000001430511,
+                "z": 30.7399997711182,
+                "x": -18.4599990844727
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (183)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1255,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.86000001430511,
+                "z": 28.3199996948242,
+                "x": -17.8099994659424
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (184)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1254,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 35.5800018310547,
+                "x": -21.6200008392334
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1243,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (185)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1253,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 32.9599990844727,
+                "x": -18.7600002288818
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1243,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (186)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1252,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 27.8899993896484,
+                "x": -17.9200000762939
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (187)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1251,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 35.5800018310547,
+                "x": -21.6200008392334
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (188)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1250,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 30.9599990844727,
+                "x": -20.5799999237061
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (189)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1249,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 43.9599990844727,
+                "x": -20.5799999237061
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (190)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1248,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 48.5800018310547,
+                "x": -21.6200008392334
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1243,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (191)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1247,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 40.8899993896484,
+                "x": -17.9200000762939
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1243,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (192)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1246,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 45.9599990844727,
+                "x": -18.7600002288818
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (193)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1245,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 48.5800018310547,
+                "x": -21.6200008392334
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (194)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1244,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.86000001430511,
+                "z": 41.3199996948242,
+                "x": -17.8099994659424
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1243,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (195)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1242,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.86000001430511,
+                "z": 43.7400016784668,
+                "x": -18.4599990844727
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (196)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1241,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 51.7900009155273,
+                "x": -21.6200008392334
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (197)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1240,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 51.7900009155273,
+                "x": -21.6200008392334
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (198)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1239,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.560000002384186,
+                "z": 42.2999992370605,
+                "x": -15.1499996185303
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (199)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1238,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.86000001430511,
+                "z": 32.2299995422363,
+                "x": -12.6400003433228
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (200)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1237,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.86000001430511,
+                "z": 28.4699993133545,
+                "x": -12.6400003433228
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.25,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (201)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1234,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.86000001430511,
+                "z": 26.4300003051758,
+                "x": -12.6400003433228
+            },
+            "shapeType": "Sphere"
+        }
+    ],
+    "assets": [
+        {
+            "colorScale": {
+                "y": 3,
+                "x": 5
+            },
+            "materialType": "Diffuse",
+            "colorTextureId": 1236,
+            "colorOffset": {
+                "y": 0,
+                "x": 0
+            },
+            "id": 1235,
+            "assetType": "Material",
+            "color": {
+                "a": 1,
+                "r": 0.448529362678528,
+                "g": 0,
+                "b": 0
+            },
+            "name": "TestDiffuseMaterial"
+        },
+        {
+            "id": 1236,
+            "name": "LightChecker",
+            "base64PNG": "iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAIN0lEQVR4Ae3YsWpiARiEUTemEHzmpMg7CyLI7qYJBLI7/XePlXr/Zs7ABPPr7e3t9/1+P3kdT+ByuZw+Pj6OF1ziL4HX2+12ejweX194cxyB5/N5nLCS/ijwcj6ff3zgy76A7vsdr4Qv68BzAgS6Agag261kBKaAAZhEDgh0BQxAt1vJCEwBAzCJHBDoChiAbreSEZgCBmASOSDQFTAA3W4lIzAFDMAkckCgK2AAut1KRmAKGIBJ5IBAV8AAdLuVjMAUMACTyAGBroAB6HYrGYEpYAAmkQMCXQED0O1WMgJTwABMIgcEugIGoNutZASmgAGYRA4IdAUMQLdbyQhMAQMwiRwQ6AoYgG63khGYAgZgEjkg0BUwAN1uJSMwBQzAJHJAoCtgALrdSkZgChiASeSAQFfAAHS7lYzAFDAAk8gBga6AAeh2KxmBKWAAJpEDAl0BA9DtVjICU8AATCIHBLoCBqDbrWQEpoABmEQOCHQFDEC3W8kITAEDMIkcEOgKGIBut5IRmAIGYBI5INAVMADdbiUjMAUMwCRyQKArYAC63UpGYAoYgEnkgEBXwAB0u5WMwBQwAJPIAYGugAHodisZgSlgACaRAwJdAQPQ7VYyAlPAAEwiBwS6Agag261kBKaAAZhEDgh0BQxAt1vJCEwBAzCJHBDoChiAbreSEZgCBmASOSDQFTAA3W4lIzAFDMAkckCgK2AAut1KRmAKGIBJ5IBAV8AAdLuVjMAUMACTyAGBroAB6HYrGYEpYAAmkQMCXQED0O1WMgJTwABMIgcEugIGoNutZASmgAGYRA4IdAUMQLdbyQhMAQMwiRwQ6AoYgG63khGYAgZgEjkg0BUwAN1uJSMwBQzAJHJAoCtgALrdSkZgChiASeSAQFfAAHS7lYzAFDAAk8gBga6AAeh2KxmBKWAAJpEDAl0BA9DtVjICU8AATCIHBLoCBqDbrWQEpoABmEQOCHQFDEC3W8kITAEDMIkcEOgKGIBut5IRmAIGYBI5INAVMADdbiUjMAUMwCRyQKArYAC63UpGYAoYgEnkgEBXwAB0u5WMwBQwAJPIAYGugAHodisZgSlgACaRAwJdAQPQ7VYyAlPAAEwiBwS6Agag261kBKaAAZhEDgh0BQxAt1vJCEwBAzCJHBDoChiAbreSEZgCBmASOSDQFTAA3W4lIzAFDMAkckCgK2AAut1KRmAKGIBJ5IBAV8AAdLuVjMAUMACTyAGBroAB6HYrGYEpYAAmkQMCXQED0O1WMgJTwABMIgcEugIGoNutZASmgAGYRA4IdAUMQLdbyQhMAQMwiRwQ6AoYgG63khGYAgZgEjkg0BUwAN1uJSMwBQzAJHJAoCtgALrdSkZgChiASeSAQFfg5fl8dtNJ9l8B3f+X5xAPX6/X6+l8Ph8irJDfBS6Xy/cvfDqcwK/ff1+HSy3wl8D7+/vpfr9/ffbmOAKffwBejxNX0p8Ebrfb6fF4/PTId3GBz5+A/gkYL3nF8/NvCXWff3ZvALr9SkZgChiASeSAQFfAAHS7lYzAFDAAk8gBga6AAeh2KxmBKWAAJpEDAl0BA9DtVjICU8AATCIHBLoCBqDbrWQEpoABmEQOCHQFDEC3W8kITAEDMIkcEOgKGIBut5IRmAIGYBI5INAVMADdbiUjMAUMwCRyQKArYAC63UpGYAoYgEnkgEBXwAB0u5WMwBQwAJPIAYGugAHodisZgSlgACaRAwJdAQPQ7VYyAlPAAEwiBwS6Agag261kBKaAAZhEDgh0BQxAt1vJCEwBAzCJHBDoChiAbreSEZgCBmASOSDQFTAA3W4lIzAFDMAkckCgK2AAut1KRmAKGIBJ5IBAV8AAdLuVjMAUMACTyAGBroAB6HYrGYEpYAAmkQMCXQED0O1WMgJTwABMIgcEugIGoNutZASmgAGYRA4IdAUMQLdbyQhMAQMwiRwQ6AoYgG63khGYAgZgEjkg0BUwAN1uJSMwBQzAJHJAoCtgALrdSkZgChiASeSAQFfAAHS7lYzAFDAAk8gBga6AAeh2KxmBKWAAJpEDAl0BA9DtVjICU8AATCIHBLoCBqDbrWQEpoABmEQOCHQFDEC3W8kITAEDMIkcEOgKGIBut5IRmAIGYBI5INAVMADdbiUjMAUMwCRyQKArYAC63UpGYAoYgEnkgEBXwAB0u5WMwBQwAJPIAYGugAHodisZgSlgACaRAwJdAQPQ7VYyAlPAAEwiBwS6Agag261kBKaAAZhEDgh0BQxAt1vJCEwBAzCJHBDoChiAbreSEZgCBmASOSDQFTAA3W4lIzAFDMAkckCgK2AAut1KRmAKGIBJ5IBAV8AAdLuVjMAUMACTyAGBroAB6HYrGYEpYAAmkQMCXQED0O1WMgJTwABMIgcEugIGoNutZASmgAGYRA4IdAUMQLdbyQhMAQMwiRwQ6AoYgG63khGYAgZgEjkg0BUwAN1uJSMwBQzAJHJAoCtgALrdSkZgChiASeSAQFfAAHS7lYzAFDAAk8gBga6AAeh2KxmBKWAAJpEDAl0BA9DtVjICU8AATCIHBLoCBqDbrWQEpoABmEQOCHQFDEC3W8kITAEDMIkcEOgKGIBut5IRmAIGYBI5INAVMADdbiUjMAUMwCRyQKArYAC63UpGYAoYgEnkgEBXwAB0u5WMwBQwAJPIAYGugAHodisZgSlgACaRAwJdAQPQ7VYyAlPAAEwiBwS6Agag261kBKaAAZhEDgh0BQxAt1vJCEwBAzCJ2gfP57MdULp/Cnx2//rPpx4cQuB6vZ7O5/Mhsgr5XeByuZz+APiZL4WMlHQLAAAAAElFTkSuQmCC",
+            "assetType": "Texture"
+        },
+        {
+            "colorScale": {
+                "y": 3,
+                "x": 5
+            },
+            "materialType": "Diffuse",
+            "colorTextureId": 1236,
+            "colorOffset": {
+                "y": 0,
+                "x": 0
+            },
+            "id": 1243,
+            "assetType": "Material",
+            "color": {
+                "a": 1,
+                "r": 0,
+                "g": 0.0216530729085207,
+                "b": 0.448529303073883
+            },
+            "name": "TestDiffuseMaterial2"
+        },
+        {
+            "colorScale": {
+                "y": 3,
+                "x": 5
+            },
+            "materialType": "Diffuse",
+            "colorTextureId": 1420,
+            "colorOffset": {
+                "y": 0,
+                "x": 0
+            },
+            "id": 1419,
+            "assetType": "Material",
+            "color": {
+                "a": 1,
+                "r": 1,
+                "g": 1,
+                "b": 1
+            },
+            "name": "TestDiffuseMaterial3"
+        },
+        {
+            "id": 1420,
+            "name": "Checker",
+            "base64PNG": "iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAIO0lEQVR4Ae3YMW5aCxiEUWLdnoI+3v+yvAAKCjqkvLixlCcn03/3uMLcv5kz1iD84+fPn78ej8fFz/kErtfr5ePj43zBJf4SOO73++X5fH694cV5BF6v13nCSvqtwNtxHN8+8GZfQPf9jlfCt3XgOQECXQED0O1WMgJTwABMIgcEugIGoNutZASmgAGYRA4IdAUMQLdbyQhMAQMwiRwQ6AoYgG63khGYAgZgEjkg0BUwAN1uJSMwBQzAJHJAoCtgALrdSkZgChiASeSAQFfAAHS7lYzAFDAAk8gBga6AAeh2KxmBKWAAJpEDAl0BA9DtVjICU8AATCIHBLoCBqDbrWQEpoABmEQOCHQFDEC3W8kITAEDMIkcEOgKGIBut5IRmAIGYBI5INAVMADdbiUjMAUMwCRyQKArYAC63UpGYAoYgEnkgEBXwAB0u5WMwBQwAJPIAYGugAHodisZgSlgACaRAwJdAQPQ7VYyAlPAAEwiBwS6Agag261kBKaAAZhEDgh0BQxAt1vJCEwBAzCJHBDoChiAbreSEZgCBmASOSDQFTAA3W4lIzAFDMAkckCgK2AAut1KRmAKGIBJ5IBAV8AAdLuVjMAUMACTyAGBroAB6HYrGYEpYAAmkQMCXQED0O1WMgJTwABMIgcEugIGoNutZASmgAGYRA4IdAUMQLdbyQhMAQMwiRwQ6AoYgG63khGYAgZgEjkg0BUwAN1uJSMwBQzAJHJAoCtgALrdSkZgChiASeSAQFfAAHS7lYzAFDAAk8gBga6AAeh2KxmBKWAAJpEDAl0BA9DtVjICU8AATCIHBLoCBqDbrWQEpoABmEQOCHQFDEC3W8kITAEDMIkcEOgKGIBut5IRmAIGYBI5INAVMADdbiUjMAUMwCRyQKArYAC63UpGYAoYgEnkgEBXwAB0u5WMwBQwAJPIAYGugAHodisZgSlgACaRAwJdAQPQ7VYyAlPAAEwiBwS6Agag261kBKaAAZhEDgh0BQxAt1vJCEwBAzCJHBDoChiAbreSEZgCBmASOSDQFTAA3W4lIzAFDMAkckCgK2AAut1KRmAKGIBJ5IBAV8AAdLuVjMAUMACTyAGBroAB6HYrGYEpYAAmkQMCXQED0O1WMgJTwABMIgcEugIGoNutZASmgAGYRA4IdAUMQLdbyQhMAQMwiRwQ6AoYgG63khGYAgZgEjkg0BUwAN1uJSMwBQzAJHJAoCtgALrdSkZgChiASeSAQFfAAHS7lYzAFDAAk8gBga6AAeh2KxmBKWAAJpEDAl0BA9DtVjICU8AATCIHBLoCBqDbrWQEpoABmEQOCHQFDEC3W8kITAEDMIkcEOgKGIBut5IRmAIGYBI5INAVMADdbiUjMAUMwCRyQKAr8PZ6vbrpJPungO7/yXOKh8ftdrscx3GKsEL+KXC9Xv98w2+nE/jx6/fP6VIL/CXw/v5+eTweX797cR6Bzw8AH/3n6fvbpPf7/fJ8Pr995s22wOdXQP8EbHc80/n6N4myB5/dG4BsvYIR2AIGYBu5IJAVMADZagUjsAUMwDZyQSArYACy1QpGYAsYgG3kgkBWwABkqxWMwBYwANvIBYGsgAHIVisYgS1gALaRCwJZAQOQrVYwAlvAAGwjFwSyAgYgW61gBLaAAdhGLghkBQxAtlrBCGwBA7CNXBDIChiAbLWCEdgCBmAbuSCQFTAA2WoFI7AFDMA2ckEgK2AAstUKRmALGIBt5IJAVsAAZKsVjMAWMADbyAWBrIAByFYrGIEtYAC2kQsCWQEDkK1WMAJbwABsIxcEsgIGIFutYAS2gAHYRi4IZAUMQLZawQhsAQOwjVwQyAoYgGy1ghHYAgZgG7kgkBUwANlqBSOwBQzANnJBICtgALLVCkZgCxiAbeSCQFbAAGSrFYzAFjAA28gFgayAAchWKxiBLWAAtpELAlkBA5CtVjACW8AAbCMXBLICBiBbrWAEtoAB2EYuCGQFDEC2WsEIbAEDsI1cEMgKGIBstYIR2AIGYBu5IJAVMADZagUjsAUMwDZyQSArYACy1QpGYAsYgG3kgkBWwABkqxWMwBYwANvIBYGsgAHIVisYgS1gALaRCwJZAQOQrVYwAlvAAGwjFwSyAgYgW61gBLaAAdhGLghkBQxAtlrBCGwBA7CNXBDIChiAbLWCEdgCBmAbuSCQFTAA2WoFI7AFDMA2ckEgK2AAstUKRmALGIBt5IJAVsAAZKsVjMAWMADbyAWBrIAByFYrGIEtYAC2kQsCWQEDkK1WMAJbwABsIxcEsgIGIFutYAS2gAHYRi4IZAUMQLZawQhsAQOwjVwQyAoYgGy1ghHYAgZgG7kgkBUwANlqBSOwBQzANnJBICtgALLVCkZgCxiAbeSCQFbAAGSrFYzAFjAA28gFgayAAchWKxiBLWAAtpELAlkBA5CtVjACW8AAbCMXBLICBiBbrWAEtoAB2EYuCGQFDEC2WsEIbAEDsI1cEMgKGIBstYIR2AIGYBu5IJAVMADZagUjsAUMwDZyQSArYACy1QpGYAsYgG3kgkBWwABkqxWMwBYwANvIBYGsgAHIVisYgS1gALaRCwJZAQOQrVYwAlvAAGwjFwSyAgYgW61gBLaAAdhGLghkBQxAtlrBCGwBA7CNXBDIChiAbLWCEdgCBmAbuSCQFTAA2WoFI7AFDMA2ckEgK2AAstUKRmALGIBt5IJAVsAAZKsVjMAWMADbyAWBrIAByFYrGIEtYAC2kQsCWQEDkK1WMAJbwABso/TF6/VK5xPu7wKf3R9/f+zJGQRut9vlOPwZnKHr/2e8Xq+X/wCM7C50SfPEUAAAAABJRU5ErkJggg==",
+            "assetType": "Texture"
+        }
+    ],
+    "renderOptions": {
+        "refractionTraceDepth": 5,
+        "antialiasing": 0,
+        "threads": 14,
+        "width": 1280,
+        "reflectionTraceDepth": 3,
+        "bucketSize": 263,
+        "height": 720
+    }
+}

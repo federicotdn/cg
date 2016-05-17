@@ -1,0 +1,818 @@
+{
+    "mainCameraId": 1243,
+    "objects": [
+        {
+            "id": 1258,
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "children": [
+                {
+                    "type": "Light",
+                    "localScale": {
+                        "y": 1,
+                        "z": 1,
+                        "x": 1
+                    },
+                    "name": "Pointlight",
+                    "localRotation": {
+                        "y": 0,
+                        "z": 0,
+                        "x": 30
+                    },
+                    "lightType": "Directional",
+                    "color": {
+                        "a": 1,
+                        "r": 1,
+                        "g": 1,
+                        "b": 1
+                    },
+                    "id": 1251,
+                    "intensity": 0.800000011920929,
+                    "children": [
+                        
+                    ],
+                    "localPosition": {
+                        "y": 1.47000002861023,
+                        "z": -5.30000019073486,
+                        "x": 0.0500000007450581
+                    }
+                },
+                {
+                    "type": "Light",
+                    "localScale": {
+                        "y": 1,
+                        "z": 1,
+                        "x": 1
+                    },
+                    "name": "Pointlight (1)",
+                    "localRotation": {
+                        "y": 0,
+                        "z": 0,
+                        "x": 35.6051979064941
+                    },
+                    "spotAngle": 60,
+                    "lightType": "Spot",
+                    "color": {
+                        "a": 1,
+                        "r": 1,
+                        "g": 1,
+                        "b": 1
+                    },
+                    "id": 1265,
+                    "intensity": 1,
+                    "children": [
+                        
+                    ],
+                    "localPosition": {
+                        "y": 6.51000022888184,
+                        "z": -5.36999988555908,
+                        "x": 0.0499999970197678
+                    }
+                },
+                {
+                    "type": "Light",
+                    "localScale": {
+                        "y": 1,
+                        "z": 1,
+                        "x": 1
+                    },
+                    "name": "Pointlight (2)",
+                    "localRotation": {
+                        "y": 0,
+                        "z": 0,
+                        "x": 0
+                    },
+                    "lightType": "Point",
+                    "color": {
+                        "a": 1,
+                        "r": 1,
+                        "g": 1,
+                        "b": 1
+                    },
+                    "id": 1253,
+                    "intensity": 1,
+                    "children": [
+                        
+                    ],
+                    "localPosition": {
+                        "y": 4.46000003814697,
+                        "z": 7.19999980926514,
+                        "x": 9.01000022888184
+                    }
+                },
+                {
+                    "type": "Light",
+                    "localScale": {
+                        "y": 1,
+                        "z": 1,
+                        "x": 1
+                    },
+                    "name": "Pointlight (3)",
+                    "localRotation": {
+                        "y": 0,
+                        "z": 0,
+                        "x": 0
+                    },
+                    "lightType": "Point",
+                    "color": {
+                        "a": 1,
+                        "r": 1,
+                        "g": 1,
+                        "b": 1
+                    },
+                    "id": 1252,
+                    "intensity": 1,
+                    "children": [
+                        
+                    ],
+                    "localPosition": {
+                        "y": 4.46000003814697,
+                        "z": 7.19999980926514,
+                        "x": -5.84000015258789
+                    }
+                },
+                {
+                    "type": "Light",
+                    "localScale": {
+                        "y": 1,
+                        "z": 1,
+                        "x": 1
+                    },
+                    "name": "Pointlight (4)",
+                    "localRotation": {
+                        "y": 0,
+                        "z": 0,
+                        "x": 0
+                    },
+                    "lightType": "Point",
+                    "color": {
+                        "a": 1,
+                        "r": 1,
+                        "g": 1,
+                        "b": 1
+                    },
+                    "id": 1242,
+                    "intensity": 1,
+                    "children": [
+                        
+                    ],
+                    "localPosition": {
+                        "y": 4.46000003814697,
+                        "z": -5.42999982833862,
+                        "x": -5.11999988555908
+                    }
+                }
+            ],
+            "type": "None",
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "LightsContainer",
+            "localPosition": {
+                "y": 1.71599996089935,
+                "z": -2.91000008583069,
+                "x": -0.177000001072884
+            }
+        },
+        {
+            "type": "Camera",
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Main Camera",
+            "localRotation": {
+                "y": 13.3733997344971,
+                "z": 0,
+                "x": 20.4546985626221
+            },
+            "fieldOfView": 60,
+            "id": 1243,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 2.67288303375244,
+                "z": -4.46704864501953,
+                "x": -1.89743649959564
+            },
+            "cameraType": "Pinhole"
+        },
+        {
+            "type": "Shape",
+            "materialID": 1260,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Plane",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "width": 20,
+            "finite": true,
+            "id": 1259,
+            "children": [
+                
+            ],
+            "height": 20,
+            "localPosition": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "shapeType": "Plane"
+        },
+        {
+            "type": "Shape",
+            "materialID": 1250,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Plane (1)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": -89.9801940917969
+            },
+            "width": 20,
+            "finite": true,
+            "id": 1249,
+            "children": [
+                
+            ],
+            "height": 10,
+            "localPosition": {
+                "y": 5,
+                "z": 9.9399995803833,
+                "x": 0
+            },
+            "shapeType": "Plane"
+        },
+        {
+            "type": "Shape",
+            "materialID": 1246,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Plane (2)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 89.9801940917969
+            },
+            "width": 20,
+            "finite": true,
+            "id": 1245,
+            "children": [
+                
+            ],
+            "height": 10,
+            "localPosition": {
+                "y": 5,
+                "z": -10,
+                "x": 0
+            },
+            "shapeType": "Plane"
+        },
+        {
+            "type": "Shape",
+            "materialID": 1256,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Plane (3)",
+            "localRotation": {
+                "y": -90,
+                "z": 0,
+                "x": 90
+            },
+            "width": 20,
+            "finite": true,
+            "id": 1255,
+            "children": [
+                
+            ],
+            "height": 10,
+            "localPosition": {
+                "y": 5,
+                "z": 0,
+                "x": 9.90999984741211
+            },
+            "shapeType": "Plane"
+        },
+        {
+            "type": "Shape",
+            "materialID": 1241,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Plane (4)",
+            "localRotation": {
+                "y": -180,
+                "z": -180,
+                "x": 0
+            },
+            "width": 20,
+            "finite": true,
+            "id": 1240,
+            "children": [
+                
+            ],
+            "height": 20,
+            "localPosition": {
+                "y": 9.98999977111816,
+                "z": 0,
+                "x": 0
+            },
+            "shapeType": "Plane"
+        },
+        {
+            "type": "Shape",
+            "materialID": 1262,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Plane (5)",
+            "localRotation": {
+                "y": 90,
+                "z": 0,
+                "x": 90
+            },
+            "width": 20,
+            "finite": true,
+            "id": 1263,
+            "children": [
+                
+            ],
+            "height": 10,
+            "localPosition": {
+                "y": 5,
+                "z": 0,
+                "x": -10
+            },
+            "shapeType": "Plane"
+        },
+        {
+            "radius": 1.5,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "ReflectiveSphere",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1248,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.5,
+                "z": -1.11000001430511,
+                "x": -1.12999999523163
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 1.5,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "ReflectiveSphere (1)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1236,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.5,
+                "z": -7.26000022888184,
+                "x": 1.72000002861023
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 1.5,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "ReflectiveSphere (2)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1234,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.5,
+                "z": 2.09500002861023,
+                "x": 6.76000022888184
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.5,
+            "type": "Shape",
+            "materialID": 1238,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1237,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 2.04999995231628,
+                "z": -5.96000003814697,
+                "x": -1.04999995231628
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.5,
+            "type": "Shape",
+            "materialID": 1238,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (1)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1266,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 3.51999998092651,
+                "z": 4.76999998092651,
+                "x": 2.29999995231628
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.5,
+            "type": "Shape",
+            "materialID": 1256,
+            "localScale": {
+                "y": 0.699999988079071,
+                "z": 0.699999988079071,
+                "x": 0.699999988079071
+            },
+            "name": "Sphere (2)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1257,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.639999985694885,
+                "z": 0.0670000016689301,
+                "x": -3.85999989509583
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.5,
+            "type": "Shape",
+            "materialID": 1262,
+            "localScale": {
+                "y": 0.699999988079071,
+                "z": 0.699999988079071,
+                "x": 1.29999995231628
+            },
+            "name": "Sphere (3)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1264,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1.54999995231628,
+                "z": 1.98000001907349,
+                "x": -1.625
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.5,
+            "type": "Shape",
+            "materialID": 1246,
+            "localScale": {
+                "y": 0.699999988079071,
+                "z": 0.699999988079071,
+                "x": 0.699999988079071
+            },
+            "name": "Sphere (4)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1254,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 3.70000004768372,
+                "z": 0.300000011920929,
+                "x": -1.08000004291534
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.5,
+            "type": "Shape",
+            "materialID": 1238,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (5)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1244,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 2.55999994277954,
+                "z": 4.76999998092651,
+                "x": -4.67999982833862
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.5,
+            "type": "Shape",
+            "materialID": 1262,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Sphere (6)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1261,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 2.55999994277954,
+                "z": -4.11999988555908,
+                "x": 5.23999977111816
+            },
+            "shapeType": "Sphere"
+        }
+    ],
+    "assets": [
+        {
+            "id": 1235,
+            "reflectivityColor": {
+                "a": 1,
+                "r": 1,
+                "g": 1,
+                "b": 1
+            },
+            "name": "TestReflectionMaterial",
+            "materialType": "Reflective",
+            "assetType": "Material"
+        },
+        {
+            "colorScale": {
+                "y": 3,
+                "x": 5
+            },
+            "materialType": "Diffuse",
+            "colorTextureId": 1239,
+            "colorOffset": {
+                "y": 0,
+                "x": 0
+            },
+            "id": 1238,
+            "assetType": "Material",
+            "color": {
+                "a": 1,
+                "r": 0.448529362678528,
+                "g": 0,
+                "b": 0
+            },
+            "name": "TestDiffuseMaterial"
+        },
+        {
+            "id": 1239,
+            "name": "LightChecker",
+            "base64PNG": "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",
+            "assetType": "Texture"
+        },
+        {
+            "colorScale": {
+                "y": 3,
+                "x": 5
+            },
+            "materialType": "Diffuse",
+            "colorTextureId": 1239,
+            "colorOffset": {
+                "y": 0,
+                "x": 0
+            },
+            "id": 1241,
+            "assetType": "Material",
+            "color": {
+                "a": 1,
+                "r": 0.00692042196169496,
+                "g": 0.90251749753952,
+                "b": 0.941176474094391
+            },
+            "name": "TestDiffuseMaterial7"
+        },
+        {
+            "colorScale": {
+                "y": 5,
+                "x": 5
+            },
+            "materialType": "Diffuse",
+            "colorTextureId": 1247,
+            "colorOffset": {
+                "y": 0,
+                "x": 0
+            },
+            "id": 1246,
+            "assetType": "Material",
+            "color": {
+                "a": 1,
+                "r": 1,
+                "g": 1,
+                "b": 1
+            },
+            "name": "TestDiffuseMaterial3"
+        },
+        {
+            "id": 1247,
+            "name": "Checker",
+            "base64PNG": "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",
+            "assetType": "Texture"
+        },
+        {
+            "colorScale": {
+                "y": 3,
+                "x": 5
+            },
+            "materialType": "Diffuse",
+            "colorTextureId": 1239,
+            "colorOffset": {
+                "y": 0,
+                "x": 0
+            },
+            "id": 1250,
+            "assetType": "Material",
+            "color": {
+                "a": 1,
+                "r": 0.181660860776901,
+                "g": 0.514705836772919,
+                "b": 0.183957695960999
+            },
+            "name": "TestDiffuseMaterial6"
+        },
+        {
+            "colorScale": {
+                "y": 5,
+                "x": 5
+            },
+            "materialType": "Diffuse",
+            "colorTextureId": 1239,
+            "colorOffset": {
+                "y": 0,
+                "x": 0
+            },
+            "id": 1256,
+            "assetType": "Material",
+            "color": {
+                "a": 1,
+                "r": 0.882352948188782,
+                "g": 0.0648788809776306,
+                "b": 0.758322238922119
+            },
+            "name": "TestDiffuseMaterial4"
+        },
+        {
+            "colorScale": {
+                "y": 3,
+                "x": 5
+            },
+            "materialType": "Diffuse",
+            "colorTextureId": 1239,
+            "colorOffset": {
+                "y": 0,
+                "x": 0
+            },
+            "id": 1260,
+            "assetType": "Material",
+            "color": {
+                "a": 1,
+                "r": 0,
+                "g": 0.0216530729085207,
+                "b": 0.448529303073883
+            },
+            "name": "TestDiffuseMaterial2"
+        },
+        {
+            "colorScale": {
+                "y": 3,
+                "x": 5
+            },
+            "materialType": "Diffuse",
+            "colorTextureId": 1239,
+            "colorOffset": {
+                "y": 0,
+                "x": 0
+            },
+            "id": 1262,
+            "assetType": "Material",
+            "color": {
+                "a": 1,
+                "r": 0.928290188312531,
+                "g": 0.941176474094391,
+                "b": 0.00692042196169496
+            },
+            "name": "TestDiffuseMaterial5"
+        }
+    ],
+    "renderOptions": {
+        "refractionTraceDepth": 6,
+        "antialiasing": 4,
+        "threads": 0,
+        "width": 1280,
+        "reflectionTraceDepth": 7,
+        "bucketSize": 64,
+        "height": 720
+    }
+}
