@@ -80,7 +80,7 @@ public class Channel {
 		
 		if (c == null) {
 			c = DEFAULT_COLOR;
-			warnings.add("Channel type: " + chanPrefix + " using default color.");
+			warnings.add("Channel type: " + t + " using default color.");
 		}
 
 		Integer id = parseTextureId(o, chanPrefix);
@@ -92,12 +92,12 @@ public class Channel {
 			
 			if (offset == null) {
 				offset = new Vec2(0, 0);
-				warnings.add("Channel type: " + chanPrefix + " using default texture offset.");
+				warnings.add("Channel type: " + t + " using default texture offset.");
 			}
 			
 			if (scale == null) {
 				scale = new Vec2(1, 1);
-				warnings.add("Channel type: " + chanPrefix + " using default texture scale.");
+				warnings.add("Channel type: " + t + " using default texture scale.");
 			}
 		}
 		
@@ -110,7 +110,7 @@ public class Channel {
 		
 		if (scalar == null) {
 			scalar = DEFAULT_SCALAR;
-			warnings.add("Channel type: " + chanPrefix + " using default scalar value.");
+			warnings.add("Channel type: " + t + " using default scalar value.");
 		}
 
 		Integer id = parseTextureId(o, chanPrefix);
@@ -122,12 +122,12 @@ public class Channel {
 			
 			if (offset == null) {
 				offset = new Vec2(0, 0);
-				warnings.add("Channel type: " + chanPrefix + " using default texture offset.");
+				warnings.add("Channel type: " + t + " using default texture offset.");
 			}
 			
 			if (scale == null) {
 				scale = new Vec2(1, 1);
-				warnings.add("Channel type: " + chanPrefix + " using default texture scale.");
+				warnings.add("Channel type: " + t + " using default texture scale.");
 			}
 		}
 		

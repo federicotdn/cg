@@ -97,21 +97,21 @@ public class Mesh {
 
 		Vec3 normal = interpolate(b1, b2, n1, n2, n3);
 
-		double u = 0, v = 0;
+		double texU = 0, texV = 0;
 
 		if (uv != null) {
 			double u1 = uv[faces[faceIndex + 1] * 2];
 			double u2 = uv[faces[faceIndex + 4] * 2];
 			double u3 = uv[faces[faceIndex + 7] * 2];
-			u = ((1 - b2 - b1)*u1) + (u2 * b1) + (u3 * b2);
+			texU = ((1 - b2 - b1)*u1) + (u2 * b1) + (u3 * b2);
 
 			double v1 = uv[(faces[faceIndex + 1] * 2) + 1];
 			double v2 = uv[(faces[faceIndex + 4] * 2) + 1];
 			double v3 = uv[(faces[faceIndex + 7] * 2) + 1];
-			v = ((1 - b2 - b1)*v1) + (v2 * b1) + (v3 * b2);
+			texV = ((1 - b2 - b1)*v1) + (v2 * b1) + (v3 * b2);
 		}
 		
-		return new Collision(instance, qc.getLocalRay(), qc.getLocalT(), normal, u, v);
+		return new Collision(instance, qc.getLocalRay(), qc.getLocalT(), normal, texU, texV);
 	}
 
 	private Vec3 interpolate(double b1, double b2, Vec3  v1, Vec3 v2, Vec3 v3) {

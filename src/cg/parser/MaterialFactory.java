@@ -139,7 +139,7 @@ public class MaterialFactory {
 				if (ch.isTextured()) {
 					Texture tex = textures.get(ch.textureId);
 					if (tex == null) {
-						matWarnings.add("Channel references invalid texture ID: " + ch.textureId + ", using default.");
+						matWarnings.add("Channel type: " + ch.type + " references invalid texture ID: " + ch.textureId + ", using default.");
 						tex = defaultTexture;
 					}
 					

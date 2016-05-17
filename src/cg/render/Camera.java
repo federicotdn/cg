@@ -9,19 +9,37 @@ public class Camera extends WorldObject {
 	private double fovDegrees;
 	
 	//TODO: Use WorldObject transform or this one
-	private Matrix4 transform;
 	private Vec3 pos;
 	
-	public Camera(Vec3 pos, Vec3 rotation, double fov) {
-		Matrix4 rot = getRotationMatrix(rotation);
-		
-		this.pos = pos;
-		this.transform = Matrix4.transFromVec(pos).mul(rot);
+	public Camera(Vec3 t, Vec3 r, double fov) {
+		setTransform(t, r);
 		this.fovDegrees = fov;
+	}
+	
+	public void setTransform(Vec3 t, Vec3 r) {
+		if (t == null) {
+			t = new Vec3();
+		}
+
+		if (r == null) {
+			r = new Vec3();
+		}
+
+		Matrix4 translation = Matrix4.transFromVec(t);
+		Matrix4 rot = getRotationMatrix(r);
+
+		this.transform = translation.mul(rot);
+		this.invTransform = transform.inverse();
 	}
 	
 	public Vec3 getPosition() {
 		return pos;
+	}
+	
+	@Override
+	public void calculateTransform() {
+		super.calculateTransform();
+		this.pos = transform.mulVec(new Vec4(0,0,0,1)).asVec3();
 	}
 	
 	public void raysFor(Ray[] rays, MultiJitteredSampler sampler, Image img, int pixelX, int pixelY) {
