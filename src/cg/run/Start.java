@@ -124,7 +124,7 @@ public class Start {
 			} else {
 				System.out.println("Run ended.");
 			}
-a		}
+		}
 		
 		long avgTime = totalRunTimes / ri.runs;
 		String renderTime = getPrettyTime(avgTime);
