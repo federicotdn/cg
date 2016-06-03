@@ -30,12 +30,20 @@ public class Scene {
 	
 	public final Color BACKGROUND_COLOR = Color.BLACK;
 
+	private boolean pathTracingEnabled = false;
+	private int pathTracingSamples;
+	
 	public Scene() {
 		primitives = new ArrayList<Primitive>();
 		unboundedPrimitives = new ArrayList<Primitive>();
 		lights = new ArrayList<Light>();
 	}
 
+	public void enablePathTracing(int samples) {
+		pathTracingEnabled = true;
+		pathTracingSamples = samples;
+	}
+	
 	public void addPrimitive(Primitive p) {
 		if (p.getBBox() != null) {
 			primitives.add(p);

@@ -10,11 +10,15 @@ import java.util.concurrent.TimeUnit;
 
 public class Start {
 
+	private static final int DEFAULT_SAMPLES = 100;
+	
 	private static class RenderInfo {
 		public String inputPath;
 		public String outputPath;
 		public int runs;
 		public boolean includeTime;
+		public boolean usePathTracing;
+		public int pathTracingSamples;
 	}
 	
 	private static RenderInfo parseRenderInfo(String[] args) {
@@ -23,6 +27,8 @@ public class Start {
 		options.addOption("o", true, "PNG image output file path");
 		options.addOption("time", false, "Include render information on image");
 		options.addOption("benchmark", true, "Enable benchmarking (n runs)");
+		options.addOption("path", false, "Enable path tracing");
+		options.addOption("samples", true, "Path tracing samples");
 		
 		CommandLineParser cmdParser = new DefaultParser();
 		CommandLine cmd;
@@ -65,6 +71,23 @@ public class Start {
 		ri.outputPath = output;
 		ri.runs = runs;
 		
+		ri.usePathTracing = cmd.hasOption("path");
+		if (ri.usePathTracing) {
+			ri.pathTracingSamples = DEFAULT_SAMPLES;
+			String samplesStr = cmd.getOptionValue("samples");
+			if (samplesStr != null) {
+				try {
+					ri.pathTracingSamples = Integer.parseInt(samplesStr);
+				} catch (NumberFormatException e) {
+					return null;
+				}
+			}
+			
+			if (ri.pathTracingSamples < 1) {
+				return null;
+			}
+		}
+		
 		return ri;
 	}
 	
@@ -80,6 +103,10 @@ public class Start {
 		System.out.println("Ouput file path: " + ri.outputPath);
 		System.out.println("Show render info: " + ri.includeTime);
 		System.out.println("Render runs: " + ri.runs);
+		System.out.println("Path tracing enabled: " + ri.usePathTracing);
+		if (ri.usePathTracing) {
+			System.out.println("Path tracing samples: " + ri.pathTracingSamples);
+		}
 		System.out.println();
 		
 		System.out.println("Loading scene...");
@@ -87,7 +114,7 @@ public class Start {
 		System.out.println("Scene loaded.  Parsing scene...");
 		
 		long parseStartTime = System.currentTimeMillis();
-		Scene scene = parser.parseScene();
+		Scene scene = parser.parseScene(ri.usePathTracing);
 		long parseTime = System.currentTimeMillis() - parseStartTime;
 
 		if (scene == null) {
@@ -97,9 +124,16 @@ public class Start {
 		
 		System.out.println("Scene parsed. (time: " + getPrettyTime(parseTime) + ")");
 		System.out.println();
+		
+		if (ri.usePathTracing) {
+			scene.enablePathTracing(ri.pathTracingSamples);
+			System.out.println("+++ Path tracing is enabled. +++");
+			System.out.println();
+		}
+		
 		System.out.println("Settings:");
 
-		printSettings(scene);
+		printSettings(scene, ri);
 		
 		System.out.println();
 		
@@ -124,6 +158,7 @@ public class Start {
 			} else {
 				System.out.println("Run ended.");
 			}
+			System.out.println();
 		}
 		
 		long avgTime = totalRunTimes / ri.runs;
@@ -167,7 +202,7 @@ public class Start {
 				TimeUnit.MILLISECONDS.toSeconds(t) % 60 + "s " + t % 1000 + "ms";
 	}
 	
-	private static void printSettings(Scene scene) {
+	private static void printSettings(Scene scene, RenderInfo settings) {
 		System.out.println("Image size: " + scene.getWidth() + "x" + scene.getHeight() + ".");
 		if (scene.getSamples() == 1) {
 			System.out.println("Antialiasing is disabled.");

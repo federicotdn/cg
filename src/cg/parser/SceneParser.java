@@ -47,7 +47,7 @@ public class SceneParser {
         materialFactory = new MaterialFactory();
     }
 
-    public Scene parseScene() {
+    public Scene parseScene(boolean pathTracingEnabled) {
     	JsonObject object = readJSONFile();
     	if (object == null) {
     		return null;
