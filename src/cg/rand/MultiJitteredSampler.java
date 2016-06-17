@@ -8,6 +8,30 @@ public class MultiJitteredSampler {
 	public double[] yCoords;
 	private int size;
 	
+	public class SubSampler {
+		public double[] xCoords;
+		public double[] yCoords;
+		private int samples;
+		
+		public SubSampler(int samples) {
+			if (samples > size * size) {
+				throw new RuntimeException("Sample count must be equal or less than parent Sampler.");
+			}
+			
+			this.samples = samples;
+			xCoords = new double[samples];
+			yCoords = new double[samples];
+		}
+		
+		public void generateSamples() {
+			for (int i = 0; i < samples; i++) {
+				int index = (int)(Math.random() * (size * size));
+				this.xCoords[i] = MultiJitteredSampler.this.xCoords[index];
+				this.yCoords[i] = MultiJitteredSampler.this.yCoords[index];
+			}
+		}
+	}
+	
 	public MultiJitteredSampler(int samples) {
 		if (samples == 1) {
 			size = 1;
