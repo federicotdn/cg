@@ -114,7 +114,7 @@ public class Start {
 		System.out.println("Scene loaded.  Parsing scene...");
 		
 		long parseStartTime = System.currentTimeMillis();
-		Scene scene = parser.parseScene(ri.usePathTracing);
+		Scene scene = parser.parseScene(ri.usePathTracing, ri.pathTracingSamples);
 		long parseTime = System.currentTimeMillis() - parseStartTime;
 
 		if (scene == null) {
@@ -127,9 +127,6 @@ public class Start {
 		
 		if (ri.usePathTracing) {
 			System.out.println("+++ Path tracing is enabled. +++");
-			System.out.println("Generating samples cache...");
-			scene.enablePathTracing(ri.pathTracingSamples);
-			System.out.println("Done.");
 			System.out.println();
 		}
 		

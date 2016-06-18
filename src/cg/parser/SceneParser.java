@@ -44,7 +44,7 @@ public class SceneParser {
         materialFactory = new MaterialFactory();
     }
 
-    public Scene parseScene(boolean pathTracingEnabled) {
+    public Scene parseScene(boolean pathTracingEnabled, int pathTracingSamples) {
     	JsonObject object = readJSONFile();
     	if (object == null) {
     		return null;
@@ -56,15 +56,6 @@ public class SceneParser {
 			return null;
 		}
 		
-		addAssets(object.get("assets").asArray());
-		
-		Warnings w = materialFactory.buildMaterials();
-		for (String s : w) {
-			printWarning(s);
-		}
-		
-		addWorldObjects(object.get("objects").asArray(), rootObject, cameraId);
-
 		JsonObject renderOptions = object.get("renderOptions").asObject();
 		scene.setSize(renderOptions.getInt("width", 1920), renderOptions.getInt("height", 1080));
         scene.setReflectionTraceDepth(renderOptions.getInt("reflectionTraceDepth", 2));
@@ -82,6 +73,22 @@ public class SceneParser {
 		}
 		
 		scene.setSamples((int)Math.pow(2, samples));
+		
+		if (pathTracingEnabled) {
+			System.out.println("(Generating samples cache for scene...)");
+			scene.enablePathTracing(pathTracingSamples);
+			System.out.println("Done.");
+			System.out.println();
+		}
+		
+		addAssets(object.get("assets").asArray());
+		
+		Warnings w = materialFactory.buildMaterials();
+		for (String s : w) {
+			printWarning(s);
+		}
+		
+		addWorldObjects(object.get("objects").asArray(), rootObject, cameraId);
 		
 		rootObject.calculateTransform();
 

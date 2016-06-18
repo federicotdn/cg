@@ -188,7 +188,7 @@ public class Scene {
 
 			cam.raysFor(rays, subSampler, img, x, y);
 			img.setPixel(x, y, colorForRays(rays, pathTracingSamples));
-		}		
+		}
 	}
 	
 	private void renderBucket(Bucket bucket, Ray[] rays, MultiJitteredSampler sampler) {
