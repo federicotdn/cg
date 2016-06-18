@@ -57,6 +57,10 @@ public class MultiJitteredSampler {
 		yCoords = new double[size * size];
 	}
 	
+	public SubSampler getSubSampler(int samples) {
+		return new SubSampler(this, samples);
+	}
+	
 	public int getSize() {
 		return size;
 	}
