@@ -1,5 +1,7 @@
 package cg.rand;
 
+import cg.math.Vec2;
+
 public class MultiJitteredSampler {
 	
 	/* Correlated Multi-Jittered Sampler */
@@ -63,6 +65,13 @@ public class MultiJitteredSampler {
 	
 	public int getSize() {
 		return size;
+	}
+	
+	public Vec2 getRandomSample() {
+		int index = (int)(Math.random() * (size * size));
+		double x = xCoords[index];
+		double y = yCoords[index];
+		return new Vec2(x, y);
 	}
 	
 	public void generateSamples() {

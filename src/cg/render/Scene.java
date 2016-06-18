@@ -86,11 +86,19 @@ public class Scene {
 	}
 
 	public void addLight(Light l) {
-		lights.add(l);
+		if (l.isRenderable()) {
+			areaLights.add(l);
+		} else {			
+			lights.add(l);
+		}
 	}
 	
 	public List<Light> getLights() {
 		return lights;
+	}
+	
+	public List<Light> getAreaLights() {
+		return areaLights;
 	}
 	
 	public Camera getCamera() {
