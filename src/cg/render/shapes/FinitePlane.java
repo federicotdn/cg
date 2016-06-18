@@ -21,14 +21,14 @@ public class FinitePlane extends Primitive {
 	}
 
 	@Override
-	protected BoundingBox calculateBBox(Matrix4 trs) {
+	public BoundingBox calculateBBox(Matrix4 trs) {
 		Vec3 pMax = new Vec3(halfWidth, EPSILON, halfDepth);
 		Vec3 pMin = new Vec3(-halfWidth, -EPSILON, -halfDepth);
 		return (new BoundingBox(pMin, pMax)).transformBBox(trs);
 	}
 
 	@Override
-	protected QuickCollision internalQuickCollideWith(Ray ray) {
+	public QuickCollision internalQuickCollideWith(Ray ray) {
         Double t = InfinitePlane.planeT(ray, InfinitePlane.PLANE_NORMAL, 0);
         if (t == null || t > ray.getMaxT()) {
         	return null;
@@ -43,7 +43,7 @@ public class FinitePlane extends Primitive {
 	}
 
 	@Override
-	protected Collision internalCompleteCollision(QuickCollision qc) {
+	public Collision internalCompleteCollision(QuickCollision qc) {
 		Vec3 colPos = qc.getLocalPosition();
 		double u = Math.abs(colPos.x - halfWidth) / (halfWidth*2);
 		double v = Math.abs(colPos.z - halfDepth) / (halfDepth * 2);

@@ -19,7 +19,7 @@ public abstract class Light extends Primitive {
 	}
 
 	protected Light(Scene scene, Color color, double intensity, Vec3 t, Vec3 r) {
-		this(scene, color, intensity, t, r, new Vec3(1,1,1));
+		this(scene, color, intensity, t, r, null);
 	}
 
 	@Override

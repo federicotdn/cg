@@ -318,6 +318,7 @@ public class SceneParser {
                     wo = light;
                     if (light != null) {
                         scene.addLight(light);
+                        primitives.add(light);
                         worldObjects.add(light);
                     } 
                     break;

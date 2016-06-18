@@ -1,11 +1,10 @@
 package cg.render.lights;
 
+import cg.math.Matrix4;
 import cg.math.Vec3;
 import cg.parser.Channel;
-import cg.render.Collision;
-import cg.render.Color;
-import cg.render.Light;
-import cg.render.Scene;
+import cg.rand.MultiJitteredSampler;
+import cg.render.*;
 import cg.render.materials.ColorMaterial;
 import cg.render.shapes.FinitePlane;
 
@@ -14,10 +13,10 @@ import cg.render.shapes.FinitePlane;
  */
 public class RectangleAreaLight extends Light {
     private FinitePlane plane;
-
-    public RectangleAreaLight(Scene scene, Color color, double intensity, Vec3 r, Vec3 t, Vec3 s, double width, double height) {
+    private MultiJitteredSampler.SubSampler sampler;
+    public RectangleAreaLight(Scene scene, Color color, double intensity, Vec3 t, Vec3 r, Vec3 s, double width, double height) {
         super(scene, color, intensity, t, r, s);
-        plane = new FinitePlane(width, height, new Vec3(0,0,0), new Vec3(0,0,0), new Vec3(1,1,1));
+        plane = new FinitePlane(width, height, new Vec3(0, 0, 0), new Vec3(0, 0, 0), new Vec3(1, 1, 1));
         plane.setMaterial(new ColorMaterial(Channel.getBasicColorChannel(color)));
     }
 
@@ -26,6 +25,26 @@ public class RectangleAreaLight extends Light {
         super.calculateTransform();
         plane.setParent(this);
         plane.calculateTransform();;
+    }
+
+    @Override
+    protected BoundingBox calculateBBox(Matrix4 trs) {
+        return plane.calculateBBox(trs);
+    }
+
+    @Override
+    public Collision completeCollision(QuickCollision qc) {
+        return plane.completeCollision(qc);
+    }
+
+    @Override
+    protected Collision internalCompleteCollision(QuickCollision qc) {
+        return plane.internalCompleteCollision(qc);
+    }
+
+    @Override
+    public QuickCollision internalQuickCollideWith(Ray ray) {
+        return plane.internalQuickCollideWith(ray);
     }
 
     @Override

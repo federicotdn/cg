@@ -18,7 +18,7 @@ public class Sphere extends Primitive {
 	}
 
 	@Override
-	protected BoundingBox calculateBBox(Matrix4 trs) {
+	public BoundingBox calculateBBox(Matrix4 trs) {
 		Vec3 pMin = new Vec3(-radius, -radius, -radius);
 		Vec3 pMax = pMin.mul(-1);
 
@@ -26,7 +26,7 @@ public class Sphere extends Primitive {
 	}
 
 	@Override
-	protected QuickCollision internalQuickCollideWith(Ray ray) {
+	public QuickCollision internalQuickCollideWith(Ray ray) {
 		Vec3 orig = ray.getOrigin();
 		Vec3 dir = ray.getDirection();
 		
@@ -65,7 +65,7 @@ public class Sphere extends Primitive {
 	}
 
 	@Override
-	protected Collision internalCompleteCollision(QuickCollision qc) {
+	public Collision internalCompleteCollision(QuickCollision qc) {
 		Ray ray = qc.getLocalRay();
 		Vec3 orig = ray.getOrigin();
 		Vec3 dir = ray.getDirection();

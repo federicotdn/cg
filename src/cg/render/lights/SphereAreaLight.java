@@ -1,11 +1,9 @@
 package cg.render.lights;
 
+import cg.math.Matrix4;
 import cg.math.Vec3;
 import cg.parser.Channel;
-import cg.render.Collision;
-import cg.render.Color;
-import cg.render.Light;
-import cg.render.Scene;
+import cg.render.*;
 import cg.render.materials.ColorMaterial;
 import cg.render.shapes.Sphere;
 
@@ -15,9 +13,9 @@ import cg.render.shapes.Sphere;
 public class SphereAreaLight extends Light {
     private Sphere sphere;
 
-    public SphereAreaLight(Scene scene, Color color, double intensity, Vec3 r, Vec3 t, Vec3 s, double radius) {
+    public SphereAreaLight(Scene scene, Color color, double intensity, Vec3 t, Vec3 r, Vec3 s, double radius) {
         super(scene, color, intensity, t, r, s);
-        sphere = new Sphere(t, r, s, radius);
+        sphere = new Sphere(new Vec3(0, 0, 0), new Vec3(0, 0, 0), new Vec3(1, 1, 1), radius);
         sphere.setMaterial(new ColorMaterial(Channel.getBasicColorChannel(color)));
     }
 
@@ -25,7 +23,32 @@ public class SphereAreaLight extends Light {
     public void calculateTransform() {
         super.calculateTransform();
         sphere.setParent(this);
-        sphere.calculateTransform();;
+        sphere.calculateTransform();
+    }
+
+    @Override
+    public boolean isRenderable() {
+        return true;
+    }
+
+    @Override
+    protected BoundingBox calculateBBox(Matrix4 trs) {
+        return sphere.calculateBBox(trs);
+    }
+
+    @Override
+    public Collision completeCollision(QuickCollision qc) {
+        return sphere.completeCollision(qc);
+    }
+
+    @Override
+    protected Collision internalCompleteCollision(QuickCollision qc) {
+        return sphere.internalCompleteCollision(qc);
+    }
+
+    @Override
+    public QuickCollision internalQuickCollideWith(Ray ray) {
+        return sphere.internalQuickCollideWith(ray);
     }
 
     @Override
