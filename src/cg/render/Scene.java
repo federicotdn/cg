@@ -2,6 +2,7 @@ package cg.render;
 
 import cg.accelerator.KDTree;
 import cg.rand.MultiJitteredSampler;
+import cg.rand.MultiJitteredSampler.SubSampler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,10 +29,13 @@ public class Scene {
 	private int threads;
 	private int bucketSize;
 	
-	public final Color BACKGROUND_COLOR = Color.BLACK;
+	public static final Color BACKGROUND_COLOR = Color.BLACK;
 
+	// Path Tracing Variables
 	private boolean pathTracingEnabled = false;
 	private int pathTracingSamples;
+	private MultiJitteredSampler sampleCache = null;
+	private static int SAMPLE_CACHE_SIZE = 25000000;
 	
 	public Scene() {
 		primitives = new ArrayList<Primitive>();
@@ -40,8 +44,18 @@ public class Scene {
 	}
 
 	public void enablePathTracing(int samples) {
+		sampleCache = new MultiJitteredSampler(SAMPLE_CACHE_SIZE);
+		sampleCache.generateSamples();
 		pathTracingEnabled = true;
 		pathTracingSamples = samples;
+	}
+	
+	public boolean isPathTracingEnabled() {
+		return pathTracingEnabled;
+	}
+	
+	public MultiJitteredSampler getSampleCache() {
+		return sampleCache;
 	}
 	
 	public void addPrimitive(Primitive p) {
@@ -79,21 +93,35 @@ public class Scene {
 	public Camera getCamera() {
 		return cam;
 	}
-
+	
 	public Image render() {
 		if (cam == null || img == null) {
 			throw new RuntimeException("Missing camera or height and width");
 		}
 		
-		kdTree = new KDTree(primitives, 3);
+		kdTree = new KDTree(primitives, 3 /* magic :-) */);
 
 		Queue<Bucket> buckets = generateBuckets();
 		Queue<Ray[]> rayQ = new ConcurrentLinkedQueue<>();
 		Queue<MultiJitteredSampler> samplerQ = new ConcurrentLinkedQueue<>();
-
-		for (int i = 0; i < threads; i++) {
-			rayQ.offer(new Ray[samples]);
-			samplerQ.offer(new MultiJitteredSampler(samples));
+		Queue<MultiJitteredSampler.SubSampler> subSamplerQ = new ConcurrentLinkedQueue<>();
+		
+		if (pathTracingEnabled) {
+			for (int i = 0; i < threads; i++) {
+				rayQ.offer(new Ray[pathTracingSamples]);
+			}
+			
+			for (int i = 0; i < threads; i++) {
+				subSamplerQ.offer(new SubSampler(sampleCache, pathTracingSamples));
+			}
+		} else {
+			for (int i = 0; i < threads; i++) {
+				rayQ.offer(new Ray[samples]);
+			}
+			
+			for (int i = 0; i < threads; i++) {
+				samplerQ.offer(new MultiJitteredSampler(samples));
+			}
 		}
 
 		ExecutorService pool = Executors.newFixedThreadPool(threads);
@@ -104,10 +132,20 @@ public class Scene {
 				@Override
 				public void run() {
 					Ray rays[] = rayQ.poll();
-					MultiJitteredSampler sampler = samplerQ.poll();
-					renderBucket(bucket, rays, sampler);
+
+					if (pathTracingEnabled) {
+						//TODO: Regenerate samples cache every now and then
+						
+						MultiJitteredSampler.SubSampler subSampler = subSamplerQ.poll();
+						renderBucketPath(bucket, rays, subSampler);
+						subSamplerQ.offer(subSampler);
+					} else {						
+						MultiJitteredSampler sampler = samplerQ.poll();
+						renderBucket(bucket, rays, sampler);
+						samplerQ.offer(sampler);
+					}
+					
 					rayQ.offer(rays);
-					samplerQ.offer(sampler);
 				}
 			});
 		}
@@ -120,7 +158,43 @@ public class Scene {
 			return null;
 		}
 	}
+	
+	private Color colorForRays(Ray[] rays, int samples) {
+		double r = 0, g = 0, b = 0;
 
+		for (int i = 0; i < samples; i++) {
+			Color c = BACKGROUND_COLOR;
+
+			QuickCollision qc = collideRay(rays[i]);
+			if (qc != null) {
+				Collision col = qc.completeCollision();
+				c = col.getPrimitive().getMaterial().getSurfaceColor(col, this);
+			}
+
+			r += c.getRed();
+			g += c.getGreen();
+			b += c.getBlue();
+		}
+
+		r /= samples;
+		g /= samples;
+		b /= samples;
+		
+		return new Color(r, g, b);
+	}
+
+	private void renderBucketPath(Bucket bucket, Ray[] rays, MultiJitteredSampler.SubSampler subSampler) {
+		for (int p = 0; p < bucket.getHeight() * bucket.getWidth(); p++) {
+			int x = (p % bucket.getWidth()) + bucket.getX();
+			int y = (p / bucket.getWidth()) + bucket.getY();
+
+			subSampler.generateSamples();
+
+			cam.raysFor(rays, subSampler, img, x, y);
+			img.setPixel(x, y, colorForRays(rays, pathTracingSamples));
+		}		
+	}
+	
 	private void renderBucket(Bucket bucket, Ray[] rays, MultiJitteredSampler sampler) {
 		for (int p = 0; p < bucket.getHeight() * bucket.getWidth(); p++) {
 			int x = (p % bucket.getWidth()) + bucket.getX();
@@ -129,28 +203,7 @@ public class Scene {
 			sampler.generateSamples();
 
 			cam.raysFor(rays, sampler, img, x, y);
-
-			double r = 0, g = 0, b = 0;
-
-			for (int i = 0; i < samples; i++) {
-				Color c = BACKGROUND_COLOR;
-
-				QuickCollision qc = collideRay(rays[i]);
-				if (qc != null) {
-					Collision col = qc.completeCollision();
-					c = col.getPrimitive().getMaterial().getSurfaceColor(col, this);
-				}
-
-				r += c.getRed();
-				g += c.getGreen();
-				b += c.getBlue();
-			}
-
-			r /= samples;
-			g /= samples;
-			b /= samples;
-
-			img.setPixel(x, y, new Color(r, g, b));
+			img.setPixel(x, y, colorForRays(rays, samples));
 		}
 	}
 

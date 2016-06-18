@@ -27,8 +27,8 @@ public class Start {
 		options.addOption("o", true, "PNG image output file path");
 		options.addOption("time", false, "Include render information on image");
 		options.addOption("benchmark", true, "Enable benchmarking (n runs)");
-		options.addOption("path", false, "Enable path tracing");
-		options.addOption("samples", true, "Path tracing samples");
+		options.addOption("pathtracer", false, "Enable path tracing");
+		options.addOption("s", true, "Path tracing samples");
 		
 		CommandLineParser cmdParser = new DefaultParser();
 		CommandLine cmd;
@@ -71,10 +71,10 @@ public class Start {
 		ri.outputPath = output;
 		ri.runs = runs;
 		
-		ri.usePathTracing = cmd.hasOption("path");
+		ri.usePathTracing = cmd.hasOption("pathtracer");
 		if (ri.usePathTracing) {
 			ri.pathTracingSamples = DEFAULT_SAMPLES;
-			String samplesStr = cmd.getOptionValue("samples");
+			String samplesStr = cmd.getOptionValue("s");
 			if (samplesStr != null) {
 				try {
 					ri.pathTracingSamples = Integer.parseInt(samplesStr);
@@ -126,8 +126,10 @@ public class Start {
 		System.out.println();
 		
 		if (ri.usePathTracing) {
-			scene.enablePathTracing(ri.pathTracingSamples);
 			System.out.println("+++ Path tracing is enabled. +++");
+			System.out.println("Generating samples cache...");
+			scene.enablePathTracing(ri.pathTracingSamples);
+			System.out.println("Done.");
 			System.out.println();
 		}
 		

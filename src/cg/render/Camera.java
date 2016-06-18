@@ -54,6 +54,15 @@ public class Camera extends WorldObject {
 		}
 	}
 	
+	public void raysFor(Ray[] rays, MultiJitteredSampler.SubSampler subSampler, Image img, int pixelX, int pixelY) {
+		final int size = subSampler.sampleCount();
+		for (int i = 0; i < size; i++) {
+			double offsetX = subSampler.xCoords[i];
+			double offsetY = subSampler.yCoords[i];
+			rays[i] = rayFor(img, pixelX, pixelY, offsetX, offsetY);
+		}
+	}
+	
 	private Ray rayFor(Image img, int pixelX, int pixelY, double offsetX, double offsetY) {
 		double aspectRatio = img.aspectRatio();
 		double halfImagePlane = Math.tan(Math.toRadians(fovDegrees / 2));
