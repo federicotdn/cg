@@ -51,4 +51,29 @@ public abstract class Light extends Primitive {
 	public double getIntensity() {
 		return intensity;
 	}
+
+	public static boolean pointVisibleFrom(Scene scene, Collision col, Vec3 position) {
+		if (col.getRay().shouldIgnoreShadows()) {
+			return true;
+		}
+
+		Vec3 surfaceToLight = position.sub(col.getPosition());
+		double cosAngle = col.getNormal().dot(surfaceToLight.normalize());
+
+		if (cosAngle < 0) {
+			return false;
+		}
+
+		Vec3 displacedOrigin = col.getPosition().sum(col.getNormal().mul(Light.EPSILON));
+		Vec3 path = position.sub(displacedOrigin);
+
+		Ray ray = new Ray(displacedOrigin, path, path.len() - Light.EPSILON);
+
+		QuickCollision sceneCol = scene.collideRay(ray);
+		if (sceneCol != null) {
+			return false;
+		}
+
+		return true;
+	}
 }

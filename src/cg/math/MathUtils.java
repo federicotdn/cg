@@ -1,6 +1,8 @@
 package cg.math;
 
 public class MathUtils {
+    public static double EPSILON = 0.0000000001;
+
     public static double clamp(double x, double min, double max) {
         if (x < min) {
             return min;

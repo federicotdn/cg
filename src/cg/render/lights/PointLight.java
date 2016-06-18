@@ -28,28 +28,7 @@ public class PointLight extends Light {
 
 	@Override
 	public boolean visibleFrom(Collision col) {
-		if (col.getRay().shouldIgnoreShadows()) {
-			return true;
-		}
-
-		Vec3 surfaceToLight = vectorFromCollision(col);
-		double cosAngle = col.getNormal().dot(surfaceToLight.normalize());
-		
-		if (cosAngle < 0) {
-			return false;
-		}
-		
-		Vec3 displacedOrigin = col.getPosition().sum(col.getNormal().mul(Light.EPSILON));
-		Vec3 path = position.sub(displacedOrigin);
-		
-		Ray ray = new Ray(displacedOrigin, path, path.len() - Light.EPSILON);
-		
-		QuickCollision sceneCol = scene.collideRay(ray);
-		if (sceneCol != null) {
-			return false;
-		}
-		
-		return true;
+		return pointVisibleFrom(scene, col, position);
 	}
 
 	@Override
