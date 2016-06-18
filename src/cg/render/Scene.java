@@ -150,35 +150,12 @@ public class Scene {
 			return null;
 		}
 	}
-	
-	private Color colorForRays(Ray[] rays, int samples) {
-		double r = 0, g = 0, b = 0;
-
-		for (int i = 0; i < samples; i++) {
-			Color c = BACKGROUND_COLOR;
-
-			QuickCollision qc = collideRay(rays[i]);
-			if (qc != null) {
-				Collision col = qc.completeCollision();
-				c = col.getPrimitive().getMaterial().getSurfaceColor(col, this);
-			}
-
-			r += c.getRed();
-			g += c.getGreen();
-			b += c.getBlue();
-		}
-
-		r /= samples;
-		g /= samples;
-		b /= samples;
-		
-		return new Color(r, g, b);
-	}
 
 	private void renderBucketPath(Bucket bucket, Ray[] rays) {
 		for (int p = 0; p < bucket.getHeight() * bucket.getWidth(); p++) {
 			int x = (p % bucket.getWidth()) + bucket.getX();
 			int y = (p / bucket.getWidth()) + bucket.getY();
+			int samples; // Do not remove; allow compiler to warn if <samples> is used here
 
 			MultiJitteredSampler sampler = samplerCaches.poll();
 			MultiJitteredSampler.SubSampler subSampler = sampler.getSubSampler(pathTracingSamples);
@@ -187,7 +164,30 @@ public class Scene {
 			samplerCaches.offer(sampler);
 
 			cam.raysFor(rays, subSampler, img, x, y);
-			img.setPixel(x, y, colorForRays(rays, pathTracingSamples));
+			
+			double r = 0, g = 0, b = 0;
+
+			for (int i = 0; i < pathTracingSamples; i++) {
+				Color c = BACKGROUND_COLOR;
+
+				QuickCollision qc = collideRay(rays[i]);
+				if (qc != null) {
+					Collision col = qc.completeCollision();
+					
+					// TODO: Change getSurfaceColor for path tracing equivalent
+					c = col.getPrimitive().getMaterial().getSurfaceColor(col, this);
+				}
+
+				r += c.getRed();
+				g += c.getGreen();
+				b += c.getBlue();
+			}
+
+			r /= pathTracingSamples;
+			g /= pathTracingSamples;
+			b /= pathTracingSamples;
+			
+			img.setPixel(x, y, new Color(r, g, b));
 		}
 	}
 	
@@ -199,7 +199,28 @@ public class Scene {
 			sampler.generateSamples();
 
 			cam.raysFor(rays, sampler, img, x, y);
-			img.setPixel(x, y, colorForRays(rays, samples));
+			
+			double r = 0, g = 0, b = 0;
+
+			for (int i = 0; i < samples; i++) {
+				Color c = BACKGROUND_COLOR;
+
+				QuickCollision qc = collideRay(rays[i]);
+				if (qc != null) {
+					Collision col = qc.completeCollision();
+					c = col.getPrimitive().getMaterial().getSurfaceColor(col, this);
+				}
+
+				r += c.getRed();
+				g += c.getGreen();
+				b += c.getBlue();
+			}
+
+			r /= samples;
+			g /= samples;
+			b /= samples;
+			
+			img.setPixel(x, y, new Color(r, g, b));
 		}
 	}
 
