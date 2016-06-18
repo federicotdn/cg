@@ -83,7 +83,7 @@ public class RectangleAreaLight extends Light {
     // TODO: Add sampler to sample area light
     @Override
     public boolean visibleFrom(Collision col) {
-        int index = (int)(Math.random() * (xSamples.length * xSamples.length));
+        int index = (int)(Math.random() * xSamples.length);
         Vec3 pos = new Vec3(xSamples[index], ySamples[index], 0);
         pos = transform.mulVec(pos.asPosition()).asVec3();
         return pointVisibleFrom(scene, col, pos);

@@ -5,6 +5,7 @@ import cg.parser.Channel;
 import cg.render.Collision;
 import cg.render.Color;
 import cg.render.Material;
+import cg.render.PathData;
 import cg.render.Scene;
 import cg.render.assets.Texture;
 
@@ -37,5 +38,14 @@ public class ColorMaterial extends Material {
 			myColor = myColor.mul(texCol);
 		}
 		return myColor;
+	}
+
+	@Override
+	public PathData traceSurfaceColor(Collision col, Scene scene) {
+		// Direct
+		
+		PathData pd = new PathData();
+		pd.color = getSurfaceColor(col, scene);
+		return pd;
 	}
 }

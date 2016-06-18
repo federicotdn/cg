@@ -55,4 +55,10 @@ public class ReflectiveMaterial extends Material {
 
         return scene.BACKGROUND_COLOR;
     }
+
+	@Override
+	public PathData traceSurfaceColor(Collision col, Scene scene) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

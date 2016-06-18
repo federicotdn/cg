@@ -155,4 +155,10 @@ public class RefractiveMaterial extends Material {
 
         return refractedColor.mul(1-r).sum(reflectedColor.mul(r));
     }
+
+	@Override
+	public PathData traceSurfaceColor(Collision col, Scene scene) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

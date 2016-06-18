@@ -101,4 +101,10 @@ public class Phong extends Material {
 
 		return diffuse.mul(diffuseTexColor).sum(specularTexColor.mul(specular));
 	}
+
+	@Override
+	public PathData traceSurfaceColor(Collision col, Scene scene) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

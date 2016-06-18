@@ -173,9 +173,8 @@ public class Scene {
 				QuickCollision qc = collideRay(rays[i]);
 				if (qc != null) {
 					Collision col = qc.completeCollision();
-					
-					// TODO: Change getSurfaceColor for path tracing equivalent
-					c = col.getPrimitive().getMaterial().getSurfaceColor(col, this);
+					PathData pd = col.getPrimitive().getMaterial().traceSurfaceColor(col, this);
+					c = pd.color;
 				}
 
 				r += c.getRed();
