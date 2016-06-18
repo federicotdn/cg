@@ -14,7 +14,7 @@ public class Box extends Primitive {
 	private double width;
 	private double height;
 	private double depth;
-	
+
 	public Box(double width, double height, double depth, Vec3 t, Vec3 r, Vec3 s) {
 		pMax = new Vec3(width / 2, height / 2, depth / 2);
 		pMin = new Vec3(-width / 2, -height / 2, -depth / 2);
@@ -25,7 +25,7 @@ public class Box extends Primitive {
 	}
 	
     public static double collisionForBox(Vec3 pMin, Vec3 pMax, Ray ray) {
-        double t0 = 0, t1 = ray.getMaxT();
+        double t0 = Double.NEGATIVE_INFINITY, t1 = Double.POSITIVE_INFINITY;
         double invRayDir = 1.f / ray.getDirection().x;
         double tNear = (pMin.x  - ray.getOrigin().x) * invRayDir;
         double tFar =  (pMax.x  - ray.getOrigin().x) * invRayDir;
@@ -67,6 +67,10 @@ public class Box extends Primitive {
         t0 = tNear > t0 ? tNear : t0;
         t1 = tFar  < t1 ? tFar  : t1;
         if (t0 > t1) return -1;
+
+		if (t0 < 0) {
+			return t1;
+		}
 
 		return t0;
     }

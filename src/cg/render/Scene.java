@@ -61,7 +61,7 @@ public class Scene {
 	public void addPrimitive(Primitive p) {
 		if (p.getBBox() != null) {
 			primitives.add(p);
-		} else {
+		} else if (p.isRenderable()) {
 			unboundedPrimitives.add(p);
 		}
 	}

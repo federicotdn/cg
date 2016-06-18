@@ -111,7 +111,6 @@ public class RefractiveMaterial extends Material {
         double n = n1/n2;
         double cosI = - normal.dot(dir);
         double sen2t = (n * n) * (1 - (cosI * cosI));
-        Vec3 refraction = dir.mul(n).sub(normal.mul((n * cosI) + Math.sqrt(1 - sen2t)));
 
         double r;
         if (sen2t > 1) {
@@ -130,7 +129,8 @@ public class RefractiveMaterial extends Material {
         r = MathUtils.clamp(r);
         if (ray.getHops() <= scene.getRefractionTraceDepth()) {
             if (sen2t <= 1) {
-                Ray refractionRay = new Ray(col.getPosition().sum(normal.mul(-0.00001)), refraction, Double.POSITIVE_INFINITY, ray.getHops() + 1, !ray.isInsidePrimitive(), true);
+				Vec3 refraction = dir.mul(n).sub(normal.mul((-n * cosI) + Math.sqrt(1 - sen2t)));
+				Ray refractionRay = new Ray(col.getPosition().sum(normal.mul(-0.00001)), refraction, Double.POSITIVE_INFINITY, ray.getHops() + 1, !ray.isInsidePrimitive(), true);
                 QuickCollision qc = scene.collideRay(refractionRay);
                 if (qc != null) {
                     Collision refractionCol = qc.completeCollision();
@@ -140,7 +140,7 @@ public class RefractiveMaterial extends Material {
         }
 
         Color reflectedColor = scene.BACKGROUND_COLOR;
-        if (ray.getHops() <= scene.getReflectionTraceDepth()) {
+        if (ray.getHops() <= scene.getReflectionTraceDepth() && !ray.isInsidePrimitive()) {
             Vec3 d = col.getRay().getDirection().mul(-1);
             Vec3 reflection = d.reflect(col.getNormal());
 

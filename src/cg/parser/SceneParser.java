@@ -4,10 +4,7 @@ import cg.math.Vec3;
 import cg.render.*;
 import cg.render.assets.Mesh;
 import cg.render.assets.Texture;
-import cg.render.lights.AmbientLight;
-import cg.render.lights.DirectionalLight;
-import cg.render.lights.PointLight;
-import cg.render.lights.SpotLight;
+import cg.render.lights.*;
 import cg.render.materials.*;
 import cg.render.shapes.*;
 import com.eclipsesource.json.Json;
@@ -304,7 +301,14 @@ public class SceneParser {
                         case "Ambient":
                         	light = new AmbientLight(scene, color, intensity);
                         	break;
-                            
+                        case "Rectangle":
+                            light = new RectangleAreaLight(scene, color, intensity, getPosition(o), getRotation(o),
+                                    getScale(o), o.getDouble("width", 1), o.getDouble("height", 1));
+                            break;
+                        case "Sphere":
+                            light = new SphereAreaLight(scene, color, intensity, getPosition(o), getRotation(o),
+                                    getScale(o), o.getDouble("radius", 1));
+                            break;
                         default:
                         	light = null;
                             printWarning("Unsupported light of type '" + lightType + "' ");

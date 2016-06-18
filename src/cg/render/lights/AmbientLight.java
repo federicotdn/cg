@@ -21,4 +21,9 @@ public class AmbientLight extends Light {
 	public Vec3 vectorFromCollision(Collision col) {
 		return col.getNormal();
 	}
+
+	@Override
+	public boolean isRenderable() {
+		return false;
+	}
 }
