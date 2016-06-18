@@ -10,7 +10,7 @@ import java.util.List;
  * Created by Hobbit on 4/21/16.
  */
 public abstract class WorldObject {
-    protected Matrix4 transform;
+    public Matrix4 transform;
     protected Matrix4 invTransform;
     protected List<WorldObject> children;
     protected WorldObject parent;
