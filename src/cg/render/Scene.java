@@ -2,6 +2,7 @@ package cg.render;
 
 import cg.accelerator.KDTree;
 import cg.rand.MultiJitteredSampler;
+import cg.rand.SamplerCacheQueue;
 import cg.rand.MultiJitteredSampler.SubSampler;
 
 import java.util.ArrayList;
@@ -33,9 +34,10 @@ public class Scene {
 
 	// Path Tracing Variables
 	private boolean pathTracingEnabled = false;
+	private static final int SAMPLERS_PER_THREAD = 2;
+	private static final int SAMPLERS_SIZE = 1000000;
 	private int pathTracingSamples;
-	private MultiJitteredSampler sampleCache = null;
-	private static int SAMPLE_CACHE_SIZE = 25000000;
+	private SamplerCacheQueue samplerCaches;
 	
 	public Scene() {
 		primitives = new ArrayList<Primitive>();
@@ -44,8 +46,7 @@ public class Scene {
 	}
 
 	public void enablePathTracing(int samples) {
-		sampleCache = new MultiJitteredSampler(SAMPLE_CACHE_SIZE);
-		sampleCache.generateSamples();
+		samplerCaches = new SamplerCacheQueue(SAMPLERS_PER_THREAD * threads, SAMPLERS_SIZE);
 		pathTracingEnabled = true;
 		pathTracingSamples = samples;
 	}
@@ -54,8 +55,8 @@ public class Scene {
 		return pathTracingEnabled;
 	}
 	
-	public MultiJitteredSampler getSampleCache() {
-		return sampleCache;
+	public SamplerCacheQueue getSamplerCaches() {
+		return samplerCaches;
 	}
 	
 	public void addPrimitive(Primitive p) {
@@ -104,15 +105,10 @@ public class Scene {
 		Queue<Bucket> buckets = generateBuckets();
 		Queue<Ray[]> rayQ = new ConcurrentLinkedQueue<>();
 		Queue<MultiJitteredSampler> samplerQ = new ConcurrentLinkedQueue<>();
-		Queue<MultiJitteredSampler.SubSampler> subSamplerQ = new ConcurrentLinkedQueue<>();
-		
+
 		if (pathTracingEnabled) {
 			for (int i = 0; i < threads; i++) {
 				rayQ.offer(new Ray[pathTracingSamples]);
-			}
-			
-			for (int i = 0; i < threads; i++) {
-				subSamplerQ.offer(new SubSampler(sampleCache, pathTracingSamples));
 			}
 		} else {
 			for (int i = 0; i < threads; i++) {
@@ -134,11 +130,7 @@ public class Scene {
 					Ray rays[] = rayQ.poll();
 
 					if (pathTracingEnabled) {
-						//TODO: Regenerate samples cache every now and then
-						
-						MultiJitteredSampler.SubSampler subSampler = subSamplerQ.poll();
-						renderBucketPath(bucket, rays, subSampler);
-						subSamplerQ.offer(subSampler);
+						renderBucketPath(bucket, rays);
 					} else {						
 						MultiJitteredSampler sampler = samplerQ.poll();
 						renderBucket(bucket, rays, sampler);
@@ -183,12 +175,16 @@ public class Scene {
 		return new Color(r, g, b);
 	}
 
-	private void renderBucketPath(Bucket bucket, Ray[] rays, MultiJitteredSampler.SubSampler subSampler) {
+	private void renderBucketPath(Bucket bucket, Ray[] rays) {
 		for (int p = 0; p < bucket.getHeight() * bucket.getWidth(); p++) {
 			int x = (p % bucket.getWidth()) + bucket.getX();
 			int y = (p / bucket.getWidth()) + bucket.getY();
 
+			MultiJitteredSampler sampler = samplerCaches.poll();
+			MultiJitteredSampler.SubSampler subSampler = sampler.getSubSampler(pathTracingSamples);
+			
 			subSampler.generateSamples();
+			samplerCaches.offer(sampler);
 
 			cam.raysFor(rays, subSampler, img, x, y);
 			img.setPixel(x, y, colorForRays(rays, pathTracingSamples));
