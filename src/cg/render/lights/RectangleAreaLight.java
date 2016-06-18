@@ -22,13 +22,13 @@ public class RectangleAreaLight extends Light {
     private double[] ySamples;
     public RectangleAreaLight(Scene scene, Color color, double intensity, Vec3 t, Vec3 r, Vec3 s, double width, double height) {
         super(scene, color, intensity, t, r, s);
-        plane = new FinitePlane(width, height, new Vec3(0, 0, 0), new Vec3(0, 0, 0), new Vec3(1, 1, 1));
+        plane = new FinitePlane(width, height, new Vec3(0, 0, 0), new Vec3(-90, 0, 0), new Vec3(1, 1, 1));
         plane.setMaterial(new ColorMaterial(Channel.getBasicColorChannel(color)));
+        addChild(plane);
         MultiJitteredSampler baseSampler = scene.getSamplerCaches().poll();
         MultiJitteredSampler.SubSampler sampler = baseSampler.getSubSampler(10000);
         sampler.generateSamples();
         scene.getSamplerCaches().offer(baseSampler);
-
 
         if (Math.abs(height - width) < MathUtils.EPSILON) {
             xSamples = sampler.xCoords;
@@ -50,15 +50,8 @@ public class RectangleAreaLight extends Light {
     }
 
     @Override
-    public void calculateTransform() {
-        super.calculateTransform();
-        plane.setParent(this);
-        plane.calculateTransform();;
-    }
-
-    @Override
     protected BoundingBox calculateBBox(Matrix4 trs) {
-        return plane.calculateBBox(trs);
+        return plane.calculateBBox(plane.transform);
     }
 
     @Override

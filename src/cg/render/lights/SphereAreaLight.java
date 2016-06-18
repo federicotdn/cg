@@ -18,13 +18,7 @@ public class SphereAreaLight extends Light {
         super(scene, color, intensity, t, r, s);
         sphere = new Sphere(new Vec3(0, 0, 0), new Vec3(0, 0, 0), new Vec3(1, 1, 1), radius);
         sphere.setMaterial(new ColorMaterial(Channel.getBasicColorChannel(color)));
-    }
-
-    @Override
-    public void calculateTransform() {
-        super.calculateTransform();
-        sphere.setParent(this);
-        sphere.calculateTransform();
+        addChild(sphere);
     }
 
     @Override
@@ -34,7 +28,7 @@ public class SphereAreaLight extends Light {
 
     @Override
     protected BoundingBox calculateBBox(Matrix4 trs) {
-        return sphere.calculateBBox(trs);
+        return sphere.calculateBBox(sphere.transform);
     }
 
     @Override
