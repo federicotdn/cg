@@ -4,6 +4,7 @@ import cg.math.Matrix4;
 import cg.math.Vec3;
 import cg.parser.Channel;
 import cg.render.*;
+import cg.render.Light.VisibilityResult;
 import cg.render.materials.ColorMaterial;
 import cg.render.shapes.Sphere;
 
@@ -56,9 +57,15 @@ public class SphereAreaLight extends Light {
         return null;
     }
 
-    // TODO: Add sampler to sample area light
     @Override
     public boolean visibleFrom(Collision col) {
         return false;
     }
+    
+    // TODO: Add sampler to sample area light
+	@Override
+	public VisibilityResult sampledVisibleFrom(Collision col) {
+		//TODO: Implement
+		return null;
+	}
 }

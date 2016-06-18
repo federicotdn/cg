@@ -9,7 +9,20 @@ public abstract class Light extends Primitive {
 	protected Color color;
 	protected double intensity;
 	
+	public static class VisibilityResult {
+		public VisibilityResult(boolean isVisible, Vec3 lightSurface) {
+			this.isVisible = isVisible;
+			this.lightSurface = lightSurface;
+		}
+		
+		public final boolean isVisible;
+		public final Vec3 lightSurface;
+	}
+	
 	public abstract boolean visibleFrom(Collision col);
+	public VisibilityResult sampledVisibleFrom(Collision col) {
+		return null;
+	}
 
 	protected Light(Scene scene, Color color, double intensity, Vec3 t, Vec3 r, Vec3 s) {
 		this.scene = scene;
