@@ -53,6 +53,11 @@ public class PointLight extends Light {
 	}
 
 	@Override
+	public boolean isRenderable() {
+		return false;
+	}
+
+	@Override
 	public Vec3 vectorFromCollision(Collision col) {
 		return position.sub(col.getPosition());
 	}

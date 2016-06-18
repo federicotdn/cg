@@ -44,6 +44,11 @@ public class DirectionalLight extends Light {
 	}
 
 	@Override
+	public boolean isRenderable() {
+		return false;
+	}
+
+	@Override
 	public Vec3 vectorFromCollision(Collision col) {
 		return negDirection;
 	}

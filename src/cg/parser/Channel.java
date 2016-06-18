@@ -38,8 +38,12 @@ public class Channel {
 	}
 	
 	public static Channel getDefaultColorChannel() {
+		return getBasicColorChannel(new Color(0.5));
+	}
+
+	public static Channel getBasicColorChannel(Color color) {
 		Warnings w = new Warnings();
-		return new Channel(ChanType.COLOR, new Color(0.5, 0.5, 0.5), null, null, null, null, w);
+		return new Channel(ChanType.COLOR, color, null, null, null, null, w);
 	}
 	
 	public static Channel getColorChannel(JsonObject o) {

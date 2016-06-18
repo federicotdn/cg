@@ -56,6 +56,10 @@ public abstract class Primitive extends WorldObject {
 		return new Collision(this, qc.getWorldRay(), qc.getWorldT(), worldNormal, u, v);
 	}
 
+	public boolean isRenderable() {
+		return true;
+	}
+
 	@Override
 	public void calculateTransform() {
 		super.calculateTransform();
