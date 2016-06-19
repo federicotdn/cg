@@ -6,6 +6,7 @@ import cg.math.Vec3;
 import cg.parser.Channel;
 import cg.rand.MultiJitteredSampler;
 import cg.render.*;
+import cg.render.Light.VisibilityResult;
 import cg.render.materials.ColorMaterial;
 import cg.render.shapes.FinitePlane;
 
@@ -76,11 +77,18 @@ public class RectangleAreaLight extends Light {
     // TODO: Add sampler to sample area light
     @Override
     public boolean visibleFrom(Collision col) {
+    	return false;
+    }
+    
+	@Override
+	public VisibilityResult sampledVisibleFrom(Collision col) {
         int index = (int)(Math.random() * xSamples.length);
         Vec3 pos = new Vec3(xSamples[index], ySamples[index], 0);
         pos = transform.mulVec(pos.asPosition()).asVec3();
-        return pointVisibleFrom(scene, col, pos);
-    }
+        boolean visible = pointVisibleFrom(scene, col, pos);
+        
+        return new VisibilityResult(visible, pos);
+	}
 
     private double[][] samplesForSize(double size, double multiplier, double[] samples, double[] secondSamples) {
         List<Double> newSamples = new ArrayList<>();

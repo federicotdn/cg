@@ -1,14 +1,17 @@
 package cg.render.materials;
 
+import cg.math.MathUtils;
 import cg.math.Vec2;
 import cg.math.Vec3;
 import cg.parser.Channel;
+import cg.rand.MultiJitteredSampler;
 import cg.render.Collision;
 import cg.render.Color;
 import cg.render.Light;
 import cg.render.Material;
 import cg.render.PathData;
 import cg.render.Scene;
+import cg.render.Light.VisibilityResult;
 import cg.render.assets.Texture;
 
 public class Diffuse extends Material {
@@ -61,7 +64,19 @@ public class Diffuse extends Material {
 
 		for (Light light : scene.getLights()) {
 			if (light.visibleFrom(col)) {
-				Color result = (light.getColor().mul(light.getIntensity()));
+				Vec3 surfaceToLight = light.vectorFromCollision(col).normalize();
+				double cosAngle = surfaceToLight.dot(col.getNormal());
+				Color result = (light.getColor().mul(light.getIntensity())).mul(cosAngle);
+				c = c.sum(result);
+			}
+		}
+		
+		for (Light light : scene.getAreaLights()) {
+			VisibilityResult visibility = light.sampledVisibleFrom(col);
+			if (visibility.isVisible) {
+				Vec3 surfaceToLight = visibility.lightSurface.sub(col.getPosition()).normalize();
+				double cosAngle = surfaceToLight.dot(col.getNormal());
+				Color result = (light.getColor().mul(light.getIntensity())).mul(cosAngle);
 				c = c.sum(result);
 			}
 		}
@@ -73,6 +88,13 @@ public class Diffuse extends Material {
 		}
 		
 		// Indirect Lightning
+		
+		MultiJitteredSampler sampler = scene.getSamplerCaches().poll();
+		Vec2 sample = sampler.getRandomSample();
+		scene.getSamplerCaches().offer(sampler);
+		
+		Vec3 hemisphereSample = MathUtils.squareToHemisphere(sample.x, sample.y).normalize();
+		
 		PathData pd = new PathData();
 		pd.color = myColor.mul(c);
 		return pd;

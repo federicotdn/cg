@@ -18,6 +18,7 @@ public class Scene {
 	private List<Primitive> unboundedPrimitives;
 
 	private List<Light> lights; //camera, action
+	private List<Light> areaLights;
 	private Camera cam;
 	private KDTree kdTree;
 
@@ -43,6 +44,7 @@ public class Scene {
 		primitives = new ArrayList<Primitive>();
 		unboundedPrimitives = new ArrayList<Primitive>();
 		lights = new ArrayList<Light>();
+		areaLights = new ArrayList<>();
 	}
 
 	public void enablePathTracing(int samples) {
@@ -84,11 +86,19 @@ public class Scene {
 	}
 
 	public void addLight(Light l) {
-		lights.add(l);
+		if (l.isRenderable()) {
+			areaLights.add(l);
+		} else {			
+			lights.add(l);
+		}
 	}
 	
 	public List<Light> getLights() {
 		return lights;
+	}
+	
+	public List<Light> getAreaLights() {
+		return areaLights;
 	}
 	
 	public Camera getCamera() {
