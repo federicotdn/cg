@@ -19,15 +19,17 @@ public class MathUtils {
         return clamp(x, 0, 1);
     }
     
-    public static Vec3 squareToHemisphere(double x, double y) {
-    	double e2 = x;
-    	double e1 = y;
-    	
-    	double twoPiE2 = 2 * Math.PI * e2;
-    	double sqrtOneE1 = Math.sqrt(1 - (e1 * e1));
-    	
-    	x = Math.cos(twoPiE2) * sqrtOneE1;
-    	y = Math.sin(twoPiE2) * sqrtOneE1;
-    	return new Vec3(x, y, e1);
+    public static Vec3 squareToHemisphere(double x, double y, double e) {
+        double phi = 2 * Math.PI * x;
+        double cosphi = Math.cos(phi);
+        double sinphi = Math.sin(phi);
+
+        double costheta = Math.pow(1 - y, 1/(e + 1));
+    	double sintheta = Math.sqrt(1 - (costheta * costheta));
+
+    	double pu = sintheta * cosphi;
+    	double py = sintheta * sinphi;
+        double pw = cosphi;
+    	return new Vec3(pu, py, pw);
     }
 }
