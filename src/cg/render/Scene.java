@@ -3,7 +3,6 @@ package cg.render;
 import cg.accelerator.KDTree;
 import cg.rand.MultiJitteredSampler;
 import cg.rand.SamplerCacheQueue;
-import cg.rand.MultiJitteredSampler.SubSampler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +26,15 @@ public class Scene {
 
 	private int reflectionTraceDepth;
 	private int refractionTraceDepth;
+	private int maxTraceDepth;
+
+	public int getMaxTraceDepth() {
+		return maxTraceDepth;
+	}
+
+	public void setMaxTraceDepth(int maxTraceDepth) {
+		this.maxTraceDepth = Math.max(maxTraceDepth, 0);
+	}
 
 	private int threads;
 	private int bucketSize;
@@ -290,6 +298,10 @@ public class Scene {
 
 	public int getHeight() {
 		return img.getHeight();
+	}
+
+	public int getPathTracingSamples() {
+		return pathTracingSamples;
 	}
 
 	public int getWidth() {

@@ -173,9 +173,15 @@ public class Start {
 			System.out.println();
 
 			String imageInfo = "Render time: ";
-			imageInfo += renderTime + " (" + img.getWidth() + "x" + img.getHeight() + "). Samples: " + scene.getSamples() + ". Threads: "
-					+ scene.getThreads() + ". Bucket size: " + scene.getBucketSize() + ". Reflection TD: " + scene.getReflectionTraceDepth()
-					+ ". Refraction TD: " + scene.getRefractionTraceDepth() + ".";
+			imageInfo += renderTime + " (" + img.getWidth() + "x" + img.getHeight() + "). Threads: "
+					+ scene.getThreads() + ". Bucket size: " + scene.getBucketSize() + ". ";
+
+			if (scene.isPathTracingEnabled()) {
+				imageInfo += "Samples: " + scene.getPathTracingSamples() + "Trace depth: " + scene.getMaxTraceDepth() + " . Mode: Path tracing.";
+			} else {
+				imageInfo += "Samples: " + scene.getSamples() + ". Reflection TD: " + scene.getReflectionTraceDepth()
+						+ ". Refraction TD: " + scene.getRefractionTraceDepth() + ".Mode: Ray tracing.";
+			}
 			
 			Graphics graphics = img.getBufferedImage().getGraphics();
 			graphics.setColor(new Color(0, 0, 0, 0.5f));
@@ -203,14 +209,22 @@ public class Start {
 	
 	private static void printSettings(Scene scene, RenderInfo settings) {
 		System.out.println("Image size: " + scene.getWidth() + "x" + scene.getHeight() + ".");
-		if (scene.getSamples() == 1) {
-			System.out.println("Antialiasing is disabled.");
-		} else {
-			System.out.println("Antialiasing set to " + scene.getSamples() + " samples.");
-		}
+		System.out.println("Mode: " + (scene.isPathTracingEnabled() ? "Path tracing" : "Ray tracing"));
+
 		System.out.println("Using " + scene.getThreads() + " threads.");
 		System.out.println("Bucket size: " + scene.getBucketSize() + ".");
-		System.out.println("Refraction trace depth: " + scene.getRefractionTraceDepth() + ".");
-		System.out.println("Reflection trace depth: " + scene.getReflectionTraceDepth() + ".");
+
+		if (!scene.isPathTracingEnabled()) {
+			if (scene.getSamples() == 1) {
+				System.out.println("Antialiasing is disabled.");
+			} else {
+				System.out.println("Antialiasing set to " + scene.getSamples() + " samples.");
+			}
+			System.out.println("Refraction trace depth: " + scene.getRefractionTraceDepth() + ".");
+			System.out.println("Reflection trace depth: " + scene.getReflectionTraceDepth() + ".");
+		} else {
+			System.out.println("Ray trace depth: " + scene.getMaxTraceDepth());
+			System.out.println("Samples: " + scene.getPathTracingSamples());
+		}
 	}
 }

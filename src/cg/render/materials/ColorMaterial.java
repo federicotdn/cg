@@ -44,8 +44,7 @@ public class ColorMaterial extends Material {
 	public PathData traceSurfaceColor(Collision col, Scene scene) {
 		// Direct
 		
-		PathData pd = new PathData();
-		pd.color = getSurfaceColor(col, scene);
+		PathData pd = new PathData(getSurfaceColor(col, scene));
 		return pd;
 	}
 }

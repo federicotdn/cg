@@ -30,6 +30,10 @@ public class Vec3 {
 	public Vec3 mul(double scalar) {
 		return new Vec3(x * scalar, y * scalar, z * scalar);
 	}
+
+	public Vec3 div(double scalar) {
+		return mul(1/scalar);
+	}
 	
 	public Vec3 sum(Vec3 v) {
 		return new Vec3(x + v.x, y + v.y, z + v.z);
@@ -84,6 +88,22 @@ public class Vec3 {
 	public Vec3 max(double value) {
 		return new Vec3((double) Math.max(x, value), (double) Math.max(y, value), (double) Math.max(z, value));
 
+	}
+
+	public Vec3 getSmallestAxis() {
+		double absX = Math.abs(x);
+		double absY = Math.abs(y);
+		double absZ = Math.abs(z);
+
+		if (absX <= absY && absX <= absZ) {
+			return new Vec3(1,0,0);
+		}
+
+		if (absY <= absX && absY <= absZ) {
+			return new Vec3(0,1,0);
+		}
+
+		return new Vec3(0,0,1);
 	}
 
 	public Vec3 max(Vec3 v) {

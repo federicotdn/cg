@@ -75,6 +75,8 @@ public class Sphere extends Primitive {
 
 		double u = 0.5 + ((Math.atan2(normal.z, normal.x))/(2*Math.PI));
 		double v = 0.5 - (Math.asin(normal.y)/Math.PI);
+
+
 		return new Collision(this, ray, t, normal, u, v);
 	}
 }

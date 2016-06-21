@@ -24,12 +24,12 @@ public class MathUtils {
         double cosphi = Math.cos(phi);
         double sinphi = Math.sin(phi);
 
-        double costheta = Math.pow(1 - y, 1/(e + 1));
+        double costheta = Math.pow(1 - y, 1.0/(e + 1));
     	double sintheta = Math.sqrt(1 - (costheta * costheta));
 
     	double pu = sintheta * cosphi;
-    	double py = sintheta * sinphi;
-        double pw = cosphi;
-    	return new Vec3(pu, py, pw);
+    	double pv = sintheta * sinphi;
+        double pw = costheta;
+    	return new Vec3(pu, pw, pv);
     }
 }

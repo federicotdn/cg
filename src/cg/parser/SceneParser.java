@@ -62,6 +62,7 @@ public class SceneParser {
         scene.setRefractionTraceDepth(renderOptions.getInt("refractionTraceDepth", 2));
         scene.setBucketSize(renderOptions.getInt("bucketSize", 32));
         scene.setThreads(renderOptions.getInt("threads", 1));
+        scene.setMaxTraceDepth(renderOptions.getInt("maxTraceDepth", 5));
 
         int samples = renderOptions.getInt("antialiasing", -1);
 		if (samples == -1) {

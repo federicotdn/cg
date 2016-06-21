@@ -97,7 +97,7 @@ public class Mesh {
 
 		Vec3 normal = interpolate(b1, b2, n1, n2, n3);
 
-		double texU = 0, texV = 0;
+		double texU = b1, texV = b2;
 
 		if (uv != null) {
 			double u1 = uv[faces[faceIndex + 1] * 2];
