@@ -1,10 +1,9 @@
 package cg.render.lights;
 
-import cg.math.Matrix4;
-import cg.math.Vec3;
+import cg.math.*;
 import cg.parser.Channel;
+import cg.rand.MultiJitteredSampler;
 import cg.render.*;
-import cg.render.Light.VisibilityResult;
 import cg.render.materials.ColorMaterial;
 import cg.render.shapes.Sphere;
 
@@ -12,13 +11,28 @@ import cg.render.shapes.Sphere;
  * Created by Hobbit on 6/18/16.
  */
 public class SphereAreaLight extends Light {
+    private MultiJitteredSampler.SubSampler sampler;
     private Sphere sphere;
+    private Vec3 position;
+    private double area;
 
     public SphereAreaLight(Scene scene, Color color, double intensity, Vec3 t, Vec3 r, Vec3 s, double radius) {
         super(scene, color, intensity, t, r, s);
         sphere = new Sphere(new Vec3(0, 0, 0), new Vec3(0, 0, 0), new Vec3(1, 1, 1), radius);
         sphere.setMaterial(new ColorMaterial(Channel.getBasicColorChannel(color)));
         addChild(sphere);
+        MultiJitteredSampler baseSampler = scene.getSamplerCaches().poll();
+        sampler = baseSampler.getSubSampler(10000);
+        sampler.generateSamples();
+        scene.getSamplerCaches().offer(baseSampler);
+        area = (radius * radius) * 4 * Math.PI;
+        area = MathUtils.clamp(area, 1, area);
+    }
+
+    @Override
+    public void calculateTransform() {
+        super.calculateTransform();
+        this.position = transform.mulVec(new Vec4(0,0,0,1)).asVec3();
     }
 
     @Override
@@ -59,7 +73,21 @@ public class SphereAreaLight extends Light {
     // TODO: Add sampler to sample area light
 	@Override
 	public VisibilityResult sampledVisibleFrom(Collision col) {
-		//TODO: Implement
-		return null;
+        Vec2 sample = sampler.getRandomSample();
+        Vec3 hemisphereSample = MathUtils.squareToHemisphere(sample.x, sample.y, 0);
+        Vec3 dir = col.getPosition().sub(position).normalize();
+        Vec3 tan = dir.getSmallestAxis().cross(dir).normalize();
+        Vec3 bitan = tan.cross(dir).normalize();
+        Vec3 newRayDir = new Vec3(hemisphereSample.x * tan.x + hemisphereSample.y * dir.x + hemisphereSample.z * bitan.x,
+                hemisphereSample.x * tan.y + hemisphereSample.y * dir.y + hemisphereSample.z * bitan.y,
+                hemisphereSample.x * tan.z + hemisphereSample.y * dir.z + hemisphereSample.z * bitan.z).normalize();
+        Vec3 surfacePosition = position.sum(newRayDir.mul(sphere.getRadius()));
+        VisibilityResult res = new VisibilityResult(pointVisibleFrom(scene, col, surfacePosition), surfacePosition);
+        return res;
 	}
+
+    @Override
+    public double getIntensity() {
+        return intensity/area;
+    }
 }

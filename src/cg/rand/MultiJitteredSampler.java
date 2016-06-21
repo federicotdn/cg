@@ -34,6 +34,13 @@ public class MultiJitteredSampler {
 				this.yCoords[i] = base.yCoords[index];
 			}
 		}
+
+		public Vec2 getRandomSample() {
+			int index = (int)(Math.random() * samples);
+			double x = xCoords[index];
+			double y = yCoords[index];
+			return new Vec2(x, y);
+		}
 		
 		public int sampleCount() {
 			return samples;

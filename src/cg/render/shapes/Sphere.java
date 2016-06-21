@@ -79,4 +79,8 @@ public class Sphere extends Primitive {
 
 		return new Collision(this, ray, t, normal, u, v);
 	}
+
+	public double getRadius() {
+		return radius;
+	}
 }

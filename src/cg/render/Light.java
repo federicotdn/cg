@@ -66,10 +66,6 @@ public abstract class Light extends Primitive {
 	}
 
 	public static boolean pointVisibleFrom(Scene scene, Collision col, Vec3 position) {
-		if (col.getRay().shouldIgnoreShadows()) {
-			return true;
-		}
-
 		Vec3 surfaceToLight = position.sub(col.getPosition());
 		double cosAngle = col.getNormal().dot(surfaceToLight.normalize());
 

@@ -6,7 +6,6 @@ import cg.math.Vec3;
 import cg.parser.Channel;
 import cg.rand.MultiJitteredSampler;
 import cg.render.*;
-import cg.render.Light.VisibilityResult;
 import cg.render.materials.ColorMaterial;
 import cg.render.shapes.FinitePlane;
 
@@ -20,6 +19,8 @@ public class RectangleAreaLight extends Light {
     private FinitePlane plane;
     private double[] xSamples;
     private double[] ySamples;
+    private double area;
+
     public RectangleAreaLight(Scene scene, Color color, double intensity, Vec3 t, Vec3 r, Vec3 s, double width, double height) {
         super(scene, color, intensity, t, r, s);
         plane = new FinitePlane(width, height, new Vec3(0, 0, 0), new Vec3(-90, 0, 0), new Vec3(1, 1, 1));
@@ -29,6 +30,9 @@ public class RectangleAreaLight extends Light {
         MultiJitteredSampler.SubSampler sampler = baseSampler.getSubSampler(10000);
         sampler.generateSamples();
         scene.getSamplerCaches().offer(baseSampler);
+
+        area = width * height;
+        area = MathUtils.clamp(area, 1, area);
 
         if (Math.abs(height - width) < MathUtils.EPSILON) {
             xSamples = sampler.xCoords;
@@ -86,7 +90,7 @@ public class RectangleAreaLight extends Light {
         Vec3 pos = new Vec3(xSamples[index], ySamples[index], 0);
         pos = transform.mulVec(pos.asPosition()).asVec3();
         boolean visible = pointVisibleFrom(scene, col, pos);
-        
+
         return new VisibilityResult(visible, pos);
 	}
 
@@ -115,5 +119,10 @@ public class RectangleAreaLight extends Light {
         for (int i =0;  i < samples.length; i++) {
             samples[i] *= multiplier;
         }
+    }
+
+    @Override
+    public double getIntensity() {
+        return intensity/area;
     }
 }

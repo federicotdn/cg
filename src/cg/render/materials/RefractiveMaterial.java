@@ -158,7 +158,90 @@ public class RefractiveMaterial extends Material {
 
 	@Override
 	public PathData traceSurfaceColor(Collision col, Scene scene) {
-		// TODO Auto-generated method stub
-		return null;
+        //Get channel values:
+        //Reflective:
+        Color reflectiveTexColor = reflectivityColor;
+        if (reflectivityColorTexture != null) {
+            Color texCol = reflectivityColorTexture.getOffsetScaledSample(reflectivityColorTextureOffset, reflectivityColorTextureScale, col.u, col.v);
+            reflectiveTexColor = reflectiveTexColor.mul(texCol);
+        }
+
+        //Refractive:
+        Color refractiveTexColor = refractionColor;
+        if (refractionColorTexture != null) {
+            Color texCol = refractionColorTexture.getOffsetScaledSample(refractionColorTextureOffset, refractionColorTextureScale, col.u, col.v);
+            refractiveTexColor = refractiveTexColor.mul(texCol);
+        }
+
+        //IOR:
+        double iorTex = ior;
+        if (iorTexture != null) {
+            Color texColor = iorTexture.getOffsetScaledSample(iorTextureOffset, iorTextureScale, col.u, col.v);
+            iorTex *= texColor.getRed(); // Assuming image is grayscale
+            iorTex = MathUtils.clamp(iorTex, 1, iorTex);
+        }
+
+        PathData pd = new PathData(Color.BLACK);
+        Color refractedColor = Color.BLACK;
+        Ray ray = col.getRay();
+
+        Vec3 normal = col.getNormal();
+        double n1 = 1;
+        double n2 = iorTex;
+        if (ray.isInsidePrimitive()) {
+            normal = normal.mul(-1);
+            n1 = iorTex;
+            n2 = 1;
+        }
+
+        Vec3 dir = ray.getDirection();
+
+        double n = n1/n2;
+        double cosI = - normal.dot(dir);
+        double sen2t = (n * n) * (1 - (cosI * cosI));
+
+        double r;
+        if (sen2t > 1) {
+            r = 1;
+        } else {
+            double r0 = Math.pow((n1 - n2)/(n1 + n2), 2);
+            double cos;
+            if (n1 <= n2) {
+                cos = cosI;
+            } else {
+                cos = Math.sqrt(1 - sen2t);
+            }
+
+            r = r0 + ((1 - r0)*(Math.pow(1 - cos, 5)));
+        }
+        r = MathUtils.clamp(r);
+        if (ray.getHops() <= scene.getRefractionTraceDepth()) {
+            if (sen2t <= 1) {
+                Vec3 refraction = dir.mul(n).sub(normal.mul((-n * cosI) + Math.sqrt(1 - sen2t)));
+                Ray refractionRay = new Ray(col.getPosition().sum(normal.mul(-0.00001)), refraction, Double.POSITIVE_INFINITY, ray.getHops() + 1, !ray.isInsidePrimitive(), true);
+                QuickCollision qc = scene.collideRay(refractionRay);
+                if (qc != null) {
+                    Collision refractionCol = qc.completeCollision();
+                    refractedColor = refractionCol.getPrimitive().getMaterial().traceSurfaceColor(refractionCol, scene).color;
+                }
+            }
+        }
+
+        Color reflectedColor = scene.BACKGROUND_COLOR;
+        if (ray.getHops() <= scene.getReflectionTraceDepth() && !ray.isInsidePrimitive()) {
+            Vec3 d = col.getRay().getDirection().mul(-1);
+            Vec3 reflection = d.reflect(col.getNormal());
+
+            Ray reflectionRay = new Ray(col.getPosition().sum(col.getNormal().mul(0.00001)), reflection, Double.POSITIVE_INFINITY, col.getRay().getHops() + 1);
+            QuickCollision qc =  scene.collideRay(reflectionRay);
+            if (qc != null) {
+                Collision reflectionCol = qc.completeCollision();
+                pd = reflectionCol.getPrimitive().getMaterial().traceSurfaceColor(reflectionCol, scene);
+                reflectedColor = reflectiveTexColor.mul(pd.color);
+            }
+        }
+
+        pd.color = refractedColor.mul(1-r).sum(reflectedColor.mul(r));
+        return pd;
 	}
 }

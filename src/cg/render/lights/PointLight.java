@@ -28,6 +28,9 @@ public class PointLight extends Light {
 
 	@Override
 	public boolean visibleFrom(Collision col) {
+		if (col.getRay().shouldIgnoreShadows()) {
+			return true;
+		}
 		return pointVisibleFrom(scene, col, position);
 	}
 

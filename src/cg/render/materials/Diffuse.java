@@ -61,21 +61,22 @@ public class Diffuse extends Material {
 			return new PathData(Color.BLACK);
 		}
 
-		for (Light light : scene.getLights()) {
-			if (light.visibleFrom(col)) {
-				Vec3 surfaceToLight = light.vectorFromCollision(col).normalize();
-				double cosAngle = surfaceToLight.dot(col.getNormal());
-				Color result = (light.getColor().mul(light.getIntensity())).mul(cosAngle);
-				c = c.sum(result);
-			}
-		}
-		
+//		for (Light light : scene.getLights()) {
+//			if (light.visibleFrom(col)) {
+//				Vec3 surfaceToLight = light.vectorFromCollision(col).normalize();
+//				double cosAngle = surfaceToLight.dot(col.getNormal());
+//				Color result = (light.getColor().mul(light.getIntensity())).mul(cosAngle);
+//				c = c.sum(result);
+//			}
+//		}
+
 		for (Light light : scene.getAreaLights()) {
 			VisibilityResult visibility = light.sampledVisibleFrom(col);
 			if (visibility.isVisible) {
-				Vec3 surfaceToLight = visibility.lightSurface.sub(col.getPosition()).normalize();
-				double cosAngle = surfaceToLight.dot(col.getNormal());
+				Vec3 surfaceToLight = visibility.lightSurface.sub(col.getPosition());
+				double cosAngle = surfaceToLight.normalize().dot(col.getNormal());
 				Color result = (light.getColor().mul(light.getIntensity())).mul(cosAngle);
+//				result = result.mul(1/Math.pow(surfaceToLight.len(), 2));
 				c = c.sum(result);
 			}
 		}
@@ -109,8 +110,14 @@ public class Diffuse extends Material {
 			Collision newCol = qc.completeCollision();
 			PathData pd = newCol.getPrimitive().getMaterial().traceSurfaceColor(newCol, scene);
 			double cosAngle = newRayDir.dot(col.getNormal());
-			Color indirectColor = pd.color.mul(cosAngle).mul(myColor);
+			Color indirectColor = pd.color.mul(cosAngle).mul(myColor).mul(2);
+//			if (newCol.getPrimitive().getMaterial().isEmissive()) {
+//				double distance = newCol.getPosition().sub(col.getPosition()).len();
+//				distance = MathUtils.clamp(distance, 1, distance);
+//				indirectColor = indirectColor.mul(1/(distance * distance));
+//			}
 			pd.color = indirectColor.sum(c);
+			pd.distance += newCol.getPosition().sub(col.getPosition()).len();
 			return pd;
 		}
 
