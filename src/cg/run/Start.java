@@ -3,10 +3,15 @@ package cg.run;
 import cg.parser.SceneParser;
 import cg.render.Image;
 import cg.render.Scene;
+import cg.test.SpheresScene;
+
 import org.apache.commons.cli.*;
 
 import java.awt.*;
 import java.util.concurrent.TimeUnit;
+
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
 
 public class Start {
 
@@ -19,6 +24,7 @@ public class Start {
 		public boolean includeTime;
 		public boolean usePathTracing;
 		public int pathTracingSamples;
+		public boolean test;
 	}
 	
 	private static RenderInfo parseRenderInfo(String[] args) {
@@ -29,6 +35,7 @@ public class Start {
 		options.addOption("benchmark", true, "Enable benchmarking (n runs)");
 		options.addOption("pathtracer", false, "Enable path tracing");
 		options.addOption("s", true, "Path tracing samples");
+		options.addOption("test", false, "Enable test mode");
 		
 		CommandLineParser cmdParser = new DefaultParser();
 		CommandLine cmd;
@@ -67,6 +74,7 @@ public class Start {
 		RenderInfo ri = new RenderInfo();
 		
 		ri.includeTime = cmd.hasOption("time");
+		ri.test = cmd.hasOption("test");
 		ri.inputPath = input;
 		ri.outputPath = output;
 		ri.runs = runs;
@@ -91,7 +99,13 @@ public class Start {
 		return ri;
 	}
 	
-	public static void main(String[] args) {		
+	public static void main(String[] args) {
+		
+		ScriptEngineManager manager = new ScriptEngineManager();
+		System.out.println(manager);
+		ScriptEngine engine = manager.getEngineByName("java");
+		System.out.println(engine);
+			
 		RenderInfo ri = parseRenderInfo(args);
 		if (ri == null) {
 			System.out.println("Invalid command line parameters, exiting.");
@@ -109,21 +123,31 @@ public class Start {
 		}
 		System.out.println();
 		
-		System.out.println("Loading scene...");
-		SceneParser parser = new SceneParser(ri.inputPath);
-		System.out.println("Scene loaded.  Parsing scene...");
+		Scene scene;
+		long parseTime;
 		
-		long parseStartTime = System.currentTimeMillis();
-		Scene scene = parser.parseScene(ri.usePathTracing, ri.pathTracingSamples);
-		long parseTime = System.currentTimeMillis() - parseStartTime;
-
-		if (scene == null) {
-			System.out.println("Scene was not parsed correctly, exiting.");
-			System.exit(1);
+		if (ri.test) {
+			System.out.println("Test mode enabled.");
+			System.out.println();
+			parseTime = 0;
+			scene = SpheresScene.fillScene();
+		} else {
+			System.out.println("Loading scene...");
+			SceneParser parser = new SceneParser(ri.inputPath);
+			System.out.println("Scene loaded.  Parsing scene...");
+			
+			long parseStartTime = System.currentTimeMillis();
+			scene = parser.parseScene(ri.usePathTracing, ri.pathTracingSamples);
+			parseTime = System.currentTimeMillis() - parseStartTime;
+			
+			if (scene == null) {
+				System.out.println("Scene was not parsed correctly, exiting.");
+				System.exit(1);
+			}
+			
+			System.out.println("Scene parsed. (time: " + getPrettyTime(parseTime) + ")");
+			System.out.println();			
 		}
-		
-		System.out.println("Scene parsed. (time: " + getPrettyTime(parseTime) + ")");
-		System.out.println();
 		
 		if (ri.usePathTracing) {
 			System.out.println("+++ Path tracing is enabled. +++");
@@ -132,7 +156,9 @@ public class Start {
 		
 		System.out.println("Settings:");
 
-		printSettings(scene, ri);
+		if (!ri.test) {			
+			printSettings(scene, ri);
+		}
 		
 		System.out.println();
 		

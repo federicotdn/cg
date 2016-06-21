@@ -40,6 +40,7 @@ public class Scene {
 	private int bucketSize;
 	
 	public static final Color BACKGROUND_COLOR = Color.BLACK;
+	public static final float ROULETTE_P = 0.05f;
 
 	// Path Tracing Variables
 	private boolean pathTracingEnabled = false;

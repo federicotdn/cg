@@ -23,11 +23,12 @@ import java.util.*;
  * Created by Hobbit on 4/22/16.
  */
 public class SceneParser {
-	private static final Material DEFAULT_MATERIAL = Diffuse.DEFAULT_DIFFUSE;
+	public static final Material DEFAULT_MATERIAL = Diffuse.DEFAULT_DIFFUSE;
 	private static final int DEFAULT_SAMPLES = 2;
 	
     private String filename;
     private WorldObject rootObject;
+    //TODO: Remove worldObjects list - unused
     private List<WorldObject> worldObjects;
     private List<Primitive> primitives;
     private Map<Integer, Mesh> meshes;
