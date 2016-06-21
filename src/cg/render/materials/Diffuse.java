@@ -57,8 +57,8 @@ public class Diffuse extends Material {
 		// Direct Lightning 
 		Color c = Color.BLACK;
 
-		if (col.getRay().getHops() > scene.getMaxTraceDepth()) {
-			return new PathData(Color.BLACK);
+		if (col.getRay().getHops() > scene.getMaxTraceDepth() || Math.random() < Scene.ROULETTE_P) {
+			return new PathData(Scene.BACKGROUND_COLOR);
 		}
 
 		for (Light light : scene.getLights()) {
