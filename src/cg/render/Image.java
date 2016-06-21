@@ -1,5 +1,7 @@
 package cg.render;
 
+import cg.math.MathUtils;
+
 import javax.imageio.ImageIO;
 import java.awt.image.*;
 import java.io.File;
@@ -25,10 +27,10 @@ public class Image {
 	}
 
 	private void setPixel(int p, Color color) {
-		pixels[p] = color.getAlpha();
-		pixels[p + 1] = color.getRed();
-		pixels[p + 2] = color.getGreen();
-		pixels[p + 3] = color.getBlue();
+		pixels[p] = MathUtils.clamp(color.getAlpha());
+		pixels[p + 1] = MathUtils.clamp(color.getRed());
+		pixels[p + 2] = MathUtils.clamp(color.getGreen());
+		pixels[p + 3] = MathUtils.clamp(color.getBlue());
 	}
 	
 	public void writeFile(String filename) throws IOException {

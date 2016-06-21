@@ -1,7 +1,5 @@
 package cg.render;
 
-import cg.math.MathUtils;
-
 /**
  * Created by Hobbit on 4/6/16.
  */
@@ -26,10 +24,10 @@ public class Color {
     }
 
     public Color(double alpha, double red, double green, double blue) {
-        this.alpha = MathUtils.clamp(alpha);
-        this.red = MathUtils.clamp(red);
-        this.green = MathUtils.clamp(green);
-        this.blue = MathUtils.clamp(blue);
+        this.alpha = alpha;
+        this.red = red;
+        this.green = green;
+        this.blue = blue;
     }
 
     public Color sum(Color other) {
