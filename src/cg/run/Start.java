@@ -186,6 +186,7 @@ public class Start {
 			System.out.println();
 		}
 		
+
 		long avgTime = totalRunTimes / ri.runs;
 		String renderTime = getPrettyTime(avgTime);
 		
@@ -193,6 +194,8 @@ public class Start {
 		System.out.println("Average render time: " + renderTime);
 		System.out.println("=======");
 		System.out.println();
+
+		img.enableGammaCorrection();
 		
 		if (ri.includeTime) {
 			System.out.println("Adding render info to image.");
@@ -217,7 +220,7 @@ public class Start {
 			graphics.drawString(imageInfo, 15, img.getHeight() - 15);			
 		}
 
-		System.out.println("Writing image file.");
+		System.out.println("Writing image file (gamma correction enabled).");
 		try {
 			img.writeFile(ri.outputPath);
 		} catch (Exception e) {

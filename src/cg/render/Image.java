@@ -14,6 +14,8 @@ public class Image {
 	private int height;
 	private double[] pixels;
 	private BufferedImage buffer;
+	private boolean gammaCorrect = false;
+	private static final double GAMMA = 0.454;
 	
 	public Image(int width, int height) {
 		this.width = width;
@@ -28,9 +30,18 @@ public class Image {
 
 	private void setPixel(int p, Color color) {
 		pixels[p] = MathUtils.clamp(color.getAlpha());
-		pixels[p + 1] = MathUtils.clamp(color.getRed());
-		pixels[p + 2] = MathUtils.clamp(color.getGreen());
-		pixels[p + 3] = MathUtils.clamp(color.getBlue());
+		
+		double red = MathUtils.clamp(color.getRed());
+		double green = MathUtils.clamp(color.getGreen());
+		double blue = MathUtils.clamp(color.getBlue());
+		
+		pixels[p + 1] = red;
+		pixels[p + 2] = green;
+		pixels[p + 3] = blue;
+	}
+	
+	public void enableGammaCorrection() {
+		gammaCorrect = true;
 	}
 	
 	public void writeFile(String filename) throws IOException {
@@ -44,7 +55,18 @@ public class Image {
 			int[] data = new int[pixels.length / 4];
 			int j = 0;
 			for (int i = 0; i < data.length; i++) {
-				data[i] = ((doubleToInt(pixels[j]) << 24) | doubleToInt(pixels[j + 1]) << 16) | (doubleToInt(pixels[j + 2]) << 8) | (doubleToInt(pixels[j + 3]));
+				double alpha = pixels[j];
+				double red = pixels[j + 1];
+				double green = pixels[j + 2];
+				double blue = pixels[j + 3];
+				
+				if (gammaCorrect) {
+					red = Math.pow(red, GAMMA);
+					green = Math.pow(green, GAMMA);
+					blue = Math.pow(blue, GAMMA);
+				}
+				
+				data[i] = ((doubleToInt(alpha) << 24) | doubleToInt(red) << 16) | (doubleToInt(green) << 8) | (doubleToInt(blue));
 				j += 4;
 			}
 
