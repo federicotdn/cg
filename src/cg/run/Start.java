@@ -4,14 +4,12 @@ import cg.parser.SceneParser;
 import cg.render.Image;
 import cg.render.Scene;
 import cg.test.SpheresScene;
-
 import org.apache.commons.cli.*;
-
-import java.awt.*;
-import java.util.concurrent.TimeUnit;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
+import java.awt.*;
+import java.util.concurrent.TimeUnit;
 
 public class Start {
 
@@ -206,7 +204,7 @@ public class Start {
 					+ scene.getThreads() + ". Bucket size: " + scene.getBucketSize() + ". ";
 
 			if (scene.isPathTracingEnabled()) {
-				imageInfo += "Samples: " + scene.getPathTracingSamples() + "Trace depth: " + scene.getMaxTraceDepth() + " . Mode: Path tracing.";
+				imageInfo += "Samples: " + scene.getPathTracingSamples() + ". Trace depth: " + scene.getMaxTraceDepth() + " . Mode: Path tracing.";
 			} else {
 				imageInfo += "Samples: " + scene.getSamples() + ". Reflection TD: " + scene.getReflectionTraceDepth()
 						+ ". Refraction TD: " + scene.getRefractionTraceDepth() + ".Mode: Ray tracing.";
@@ -220,7 +218,7 @@ public class Start {
 			graphics.drawString(imageInfo, 15, img.getHeight() - 15);			
 		}
 
-		System.out.println("Writing image file (gamma correction enabled).");
+		System.out.println("Writing image file" + (img.isGammaCorrect() ? "(gamma correction enabled)" : "") + ".");
 		try {
 			img.writeFile(ri.outputPath);
 		} catch (Exception e) {

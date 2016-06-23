@@ -15,7 +15,7 @@ public class Image {
 	private double[] pixels;
 	private BufferedImage buffer;
 	private boolean gammaCorrect = false;
-	private static final double GAMMA = 0.454;
+	private static final double GAMMA = 1/2.2;
 	
 	public Image(int width, int height) {
 		this.width = width;
@@ -61,9 +61,9 @@ public class Image {
 				double blue = pixels[j + 3];
 				
 				if (gammaCorrect) {
-					red = Math.pow(red, GAMMA);
-					green = Math.pow(green, GAMMA);
-					blue = Math.pow(blue, GAMMA);
+					red = MathUtils.clamp(Math.pow(red, GAMMA));
+					green = MathUtils.clamp(Math.pow(green, GAMMA));
+					blue = MathUtils.clamp(Math.pow(blue, GAMMA));
 				}
 				
 				data[i] = ((doubleToInt(alpha) << 24) | doubleToInt(red) << 16) | (doubleToInt(green) << 8) | (doubleToInt(blue));
@@ -97,5 +97,9 @@ public class Image {
 	
 	public int getHeight() {
 		return height;
+	}
+
+	public boolean isGammaCorrect() {
+		return gammaCorrect;
 	}
 }

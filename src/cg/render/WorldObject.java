@@ -11,7 +11,7 @@ import java.util.List;
  */
 public abstract class WorldObject {
     public Matrix4 transform;
-    protected Matrix4 invTransform;
+    public Matrix4 invTransform;
     protected List<WorldObject> children;
     protected WorldObject parent;
 

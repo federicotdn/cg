@@ -10,13 +10,15 @@ public abstract class Light extends Primitive {
 	protected double intensity;
 	
 	public static class VisibilityResult {
-		public VisibilityResult(boolean isVisible, Vec3 lightSurface) {
-			this.isVisible = isVisible;
-			this.lightSurface = lightSurface;
-		}
-		
 		public final boolean isVisible;
 		public final Vec3 lightSurface;
+		public final double intensity;
+
+		public VisibilityResult(boolean isVisible, Vec3 lightSurface, double intensity) {
+			this.isVisible = isVisible;
+			this.lightSurface = lightSurface;
+			this.intensity = intensity;
+		}
 	}
 	
 	public abstract boolean visibleFrom(Collision col);

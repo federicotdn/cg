@@ -1,19 +1,18 @@
 package cg.test;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import cg.math.MathUtils;
 import cg.math.Vec3;
 import cg.rand.MultiJitteredSampler;
 import cg.render.Camera;
 import cg.render.Color;
-import cg.render.Light;
 import cg.render.Primitive;
 import cg.render.Scene;
 import cg.render.lights.PointLight;
 import cg.render.materials.Diffuse;
 import cg.render.shapes.Sphere;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SpheresScene {
 	public static Scene fillScene() {
@@ -27,7 +26,7 @@ public class SpheresScene {
 		s.setMaxTraceDepth(5);
 		s.setSamples(1);
 		
-		int samples = 1024;
+		int samples = 300*300 ;
 		
 		MultiJitteredSampler sampler = new MultiJitteredSampler(samples);
 		sampler.generateSamples();
@@ -44,9 +43,12 @@ public class SpheresScene {
 		for (int i = 0; i < samples; i++) {
 			double x = sampler.xCoords[i];
 			double y = sampler.yCoords[i];
-			Vec3 hemisphereSample = MathUtils.squareToHemisphere(x, y, 0);//.normalize();
-			
-			Sphere sphere = new Sphere(hemisphereSample, new Vec3(), new Vec3(1, 1, 1), 0.01);
+			Vec3 hemisphereSample = MathUtils.squareToHemisphere(x, y, 25);//.normalize();
+//			Vec3 normal = new Vec3(-1,-1,0);
+//			Vec3 tan = normal.getSmallestAxis().cross(normal).normalize();
+//			Vec3 bitan = normal.cross(tan).normalize();
+//			hemisphereSample = tan.mul(hemisphereSample.x).sum(normal.mul(hemisphereSample.y)).sum(bitan.mul(hemisphereSample.z)).normalize();
+			Sphere sphere = new Sphere(hemisphereSample, new Vec3(), new Vec3(1, 1, 1), 0.001);
 			sphere.setMaterial(Diffuse.DEFAULT_DIFFUSE);
 			p.add(sphere);
 		}

@@ -8,7 +8,8 @@ public abstract class Primitive extends WorldObject {
 	private Material material;
 	private BoundingBox bbox;
 	private String name;
-	
+	private int id;
+
 	public QuickCollision quickCollideWith(Ray ray) {
 		Vec4 localOrigin = ray.getOrigin().asPosition();
 		localOrigin = invTransform.mulVec(localOrigin);
@@ -85,7 +86,31 @@ public abstract class Primitive extends WorldObject {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		Primitive primitive = (Primitive) o;
+
+		return id == primitive.id;
+
+	}
+
+	@Override
+	public int hashCode() {
+		return id;
+	}
+
 	protected abstract QuickCollision internalQuickCollideWith(Ray ray);
 	protected abstract Collision internalCompleteCollision(QuickCollision qc);
 	protected abstract BoundingBox calculateBBox(Matrix4 trs);

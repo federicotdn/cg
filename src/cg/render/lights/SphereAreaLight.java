@@ -4,7 +4,7 @@ import cg.math.*;
 import cg.parser.Channel;
 import cg.rand.MultiJitteredSampler;
 import cg.render.*;
-import cg.render.materials.ColorMaterial;
+import cg.render.materials.EmissiveMaterial;
 import cg.render.shapes.Sphere;
 
 /**
@@ -14,19 +14,19 @@ public class SphereAreaLight extends Light {
     private MultiJitteredSampler.SubSampler sampler;
     private Sphere sphere;
     private Vec3 position;
-    private double area;
 
     public SphereAreaLight(Scene scene, Color color, double intensity, Vec3 t, Vec3 r, Vec3 s, double radius) {
         super(scene, color, intensity, t, r, s);
+        double area = (radius * radius) * 4 * Math.PI;
+        area = MathUtils.clamp(area, 1, area);
+        this.intensity = intensity/area;
         sphere = new Sphere(new Vec3(0, 0, 0), new Vec3(0, 0, 0), new Vec3(1, 1, 1), radius);
-        sphere.setMaterial(new ColorMaterial(Channel.getBasicColorChannel(color)));
+        sphere.setMaterial(new EmissiveMaterial(Channel.getBasicColorChannel(color), getIntensity()));
         addChild(sphere);
         MultiJitteredSampler baseSampler = scene.getSamplerCaches().poll();
         sampler = baseSampler.getSubSampler(10000);
         sampler.generateSamples();
         scene.getSamplerCaches().offer(baseSampler);
-        area = (radius * radius) * 4 * Math.PI;
-        area = MathUtils.clamp(area, 1, area);
     }
 
     @Override
@@ -82,12 +82,7 @@ public class SphereAreaLight extends Light {
                 hemisphereSample.x * tan.y + hemisphereSample.y * dir.y + hemisphereSample.z * bitan.y,
                 hemisphereSample.x * tan.z + hemisphereSample.y * dir.z + hemisphereSample.z * bitan.z).normalize();
         Vec3 surfacePosition = position.sum(newRayDir.mul(sphere.getRadius()));
-        VisibilityResult res = new VisibilityResult(pointVisibleFrom(scene, col, surfacePosition), surfacePosition);
+        VisibilityResult res = new VisibilityResult(pointVisibleFrom(scene, col, surfacePosition), surfacePosition, getIntensity());
         return res;
 	}
-
-    @Override
-    public double getIntensity() {
-        return intensity/area;
-    }
 }

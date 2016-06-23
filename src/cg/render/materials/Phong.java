@@ -8,12 +8,7 @@ import cg.render.assets.Texture;
 
 public class Phong extends Material {	
 	//New fields:
-	
-	//color channel
-	private final Color color;
-	private final Texture colorTexture;
-	private final Vec2 colorTextureOffset;
-	private final Vec2 colorTextureScale;
+	private final Diffuse diffuse;
 	
 	//specular channel
 	private final Color specularColor;
@@ -28,16 +23,7 @@ public class Phong extends Material {
 	private final Vec2 exponentTextureScale;
 
 	public Phong(Channel colorChannel, Channel specularColorChannel, Channel exponentChannel) {
-		this.color = colorChannel.colorComponent;
-		if (colorChannel.isTextured()) {
-			this.colorTexture = colorChannel.getTexture();
-			this.colorTextureOffset = colorChannel.textureOffset;
-			this.colorTextureScale = colorChannel.textureScale;
-		} else {
-			this.colorTexture = null;
-			this.colorTextureOffset = null;
-			this.colorTextureScale = null;			
-		}
+		diffuse = new Diffuse(colorChannel);
 		
 		this.specularColor = specularColorChannel.colorComponent;
 		if (specularColorChannel.isTextured()) {
@@ -64,14 +50,8 @@ public class Phong extends Material {
 	
 	@Override
 	public Color getSurfaceColor(Collision col, Scene scene) {
-		Color diffuse = scene.BACKGROUND_COLOR;
+		Color diffuseColor = scene.BACKGROUND_COLOR;
 		Color specular = scene.BACKGROUND_COLOR;
-
-		Color diffuseTexColor = color;
-		if (colorTexture != null) {
-			Color texColor = colorTexture.getOffsetScaledSample(colorTextureOffset, colorTextureScale, col.u, col.v);
-			diffuseTexColor = diffuseTexColor.mul(texColor);
-		}
 		
 		Color specularTexColor = specularColor;
 		if (specularColorTexture != null) {
@@ -88,23 +68,26 @@ public class Phong extends Material {
 		for (Light light : scene.getLights()) {
 			if (light.visibleFrom(col)) {
 				Vec3 surfaceToLight = light.vectorFromCollision(col).normalize();
-				double cosAngle = surfaceToLight.dot(col.getNormal());
-				Color result = (light.getColor().mul(light.getIntensity())).mul(cosAngle);
-				diffuse = diffuse.sum(result);
+				Color result = (light.getColor().mul(light.getIntensity())).mul(diffuse.brdf(surfaceToLight, col));
+				diffuseColor = diffuseColor.sum(result);
 
-				Vec3 r = surfaceToLight.reflect(col.getNormal());
-				double spec = Math.pow(Math.max(0, - r.dot(col.getRay().getDirection())), exponentTex);
-				result = (new Color(spec).mul(light.getColor().mul(light.getIntensity())));
+				result = (new Color(brdf(surfaceToLight, col, exponentTex)).mul(light.getColor().mul(light.getIntensity())));
 				specular = specular.sum(result);
 			}
 		}
 
-		return diffuse.mul(diffuseTexColor).sum(specularTexColor.mul(specular));
+		diffuseColor = diffuseColor.mul(diffuse.getColor(col.u, col.v));
+		return diffuseColor.sum(specularTexColor.mul(specular));
 	}
 
 	@Override
 	public PathData traceSurfaceColor(Collision col, Scene scene) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public double brdf(Vec3 dir, Collision col, double exponent) {
+		Vec3 r = dir.reflect(col.getNormal());
+		return Math.pow(Math.max(0, - r.dot(col.getRay().getDirection())), exponent);
 	}
 }

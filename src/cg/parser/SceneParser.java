@@ -311,6 +311,7 @@ public class SceneParser {
                         	light = new AmbientLight(scene, color, intensity);
                         	break;
                         case "Rectangle":
+                            Vec3 rot = getRotation(o);
                             light = new RectangleAreaLight(scene, color, intensity, getPosition(o), getRotation(o),
                                     getScale(o), o.getDouble("width", 1), o.getDouble("height", 1));
                             break;
@@ -381,6 +382,7 @@ public class SceneParser {
                     
                     wo = primitive;
                     if (primitive != null) {
+                        primitive.setId(o.getInt("id", -1));
                     	primitive.setName(name);
                     	primitives.add(primitive);
                     	

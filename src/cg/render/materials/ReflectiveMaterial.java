@@ -38,14 +38,10 @@ public class ReflectiveMaterial extends Material {
 
         Vec3 d = col.getRay().getDirection().mul(-1);
         Vec3 reflection = d.reflect(col.getNormal());
-        
-        Color reflectiveTexColor = reflectivityColor;
-        if (reflectivityColorTexture != null) {
-        	Color texCol = reflectivityColorTexture.getOffsetScaledSample(reflectivityColorTextureOffset, reflectivityColorTextureScale, col.u, col.v);
-        	reflectiveTexColor = reflectiveTexColor.mul(texCol);
-        }
 
-        Ray reflectionRay = new Ray(col.getPosition().sum(col.getNormal().mul(0.0001)), reflection, Double.POSITIVE_INFINITY, col.getRay().getHops() + 1);
+		Color reflectiveTexColor = getColor(col.u, col.v);
+
+		Ray reflectionRay = new Ray(col.getPosition().sum(col.getNormal().mul(0.00001)), reflection, Double.POSITIVE_INFINITY, col.getRay().getHops() + 1);
         QuickCollision qc =  scene.collideRay(reflectionRay);
         if (qc != null) {
             Collision reflectionCol = qc.completeCollision();
@@ -65,13 +61,9 @@ public class ReflectiveMaterial extends Material {
 		Vec3 d = col.getRay().getDirection().mul(-1);
 		Vec3 reflection = d.reflect(col.getNormal());
 
-		Color reflectiveTexColor = reflectivityColor;
-		if (reflectivityColorTexture != null) {
-			Color texCol = reflectivityColorTexture.getOffsetScaledSample(reflectivityColorTextureOffset, reflectivityColorTextureScale, col.u, col.v);
-			reflectiveTexColor = reflectiveTexColor.mul(texCol);
-		}
+		Color reflectiveTexColor = getColor(col.u, col.v);
 
-		Ray reflectionRay = new Ray(col.getPosition().sum(col.getNormal().mul(0.0001)), reflection, Double.POSITIVE_INFINITY, col.getRay().getHops() + 1);
+		Ray reflectionRay = new Ray(col.getPosition().sum(col.getNormal().mul(0.00001)), reflection, Double.POSITIVE_INFINITY, col.getRay().getHops() + 1);
 		QuickCollision qc =  scene.collideRay(reflectionRay);
 		if (qc != null) {
 			Collision reflectionCol = qc.completeCollision();
@@ -81,5 +73,15 @@ public class ReflectiveMaterial extends Material {
 		}
 
 		return new PathData(Color.BLACK);
+	}
+
+	public Color getColor(double u, double v) {
+		Color reflectiveTexColor = reflectivityColor;
+		if (reflectivityColorTexture != null) {
+			Color texCol = reflectivityColorTexture.getOffsetScaledSample(reflectivityColorTextureOffset, reflectivityColorTextureScale, u, v);
+			reflectiveTexColor = reflectiveTexColor.mul(texCol);
+		}
+
+		return reflectiveTexColor;
 	}
 }

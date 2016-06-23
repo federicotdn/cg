@@ -38,18 +38,12 @@ public class Diffuse extends Material {
 		for (Light light : scene.getLights()) {
 			if (light.visibleFrom(col)) {
 				Vec3 surfaceToLight = light.vectorFromCollision(col).normalize();
-				double cosAngle = surfaceToLight.dot(col.getNormal());
-				Color result = (light.getColor().mul(light.getIntensity())).mul(cosAngle);
+				Color result = (light.getColor().mul(light.getIntensity())).mul(brdf(surfaceToLight, col));
 				c = c.sum(result);
 			}
 		}
 
-		Color myColor = color;
-		if (colorTexture != null) {
-			Color texCol = colorTexture.getOffsetScaledSample(colorTextureOffset, colorTextureScale, col.u, col.v);
-			myColor = myColor.mul(texCol);
-		}
-		return myColor.mul(c);
+		return c;
 	}
 
 	@Override
@@ -61,35 +55,65 @@ public class Diffuse extends Material {
 			return new PathData(Scene.BACKGROUND_COLOR);
 		}
 
-//		for (Light light : scene.getLights()) {
-//			if (light.visibleFrom(col)) {
-//				Vec3 surfaceToLight = light.vectorFromCollision(col).normalize();
-//				double cosAngle = surfaceToLight.dot(col.getNormal());
-//				Color result = (light.getColor().mul(light.getIntensity())).mul(cosAngle);
-//				c = c.sum(result);
-//			}
-//		}
+		if (scene.getLights().size() > 0) {
+			int index = (int) Math.random() * scene.getAreaLights().size();
+			Light light = scene.getLights().get(index);
+			Vec3 surfaceToLight = light.vectorFromCollision(col).normalize();
+			Color result = (light.getColor().mul(light.getIntensity())).mul(brdf(surfaceToLight, col));
+			c = c.sum(result);
+		}
 
-		for (Light light : scene.getAreaLights()) {
+		Light light = null;
+		if (scene.getAreaLights().size() > 0) {
+			int index = (int) Math.random() * scene.getAreaLights().size();
+			light = scene.getAreaLights().get(index);
 			VisibilityResult visibility = light.sampledVisibleFrom(col);
 			if (visibility.isVisible) {
-				Vec3 surfaceToLight = visibility.lightSurface.sub(col.getPosition());
-				double cosAngle = surfaceToLight.normalize().dot(col.getNormal());
-				Color result = (light.getColor().mul(light.getIntensity())).mul(cosAngle);
-//				result = result.mul(1/Math.pow(surfaceToLight.len(), 2));
+				Vec3 surfaceToLight = visibility.lightSurface.sub(col.getPosition()).normalize();
+				Color result = (light.getColor().mul(visibility.intensity)).mul(brdf(surfaceToLight, col));
+//			result = result.mul(1/Math.pow(1 + surfaceToLight.len(), 2));
 				c = c.sum(result);
 			}
 		}
 
+		// Indirect Lightning
+
+		Vec3 newRayDir = sample(scene, col);
+		Ray newRay = new Ray(col.getPosition().sum(col.getNormal().mul(0.0001)), newRayDir, Double.POSITIVE_INFINITY, col.getRay().getHops() + 1);
+		QuickCollision qc = scene.collideRay(newRay);
+		if (qc != null) {
+			Collision newCol = qc.completeCollision();
+			PathData pd = newCol.getPrimitive().getMaterial().traceSurfaceColor(newCol, scene);
+			Color indirectColor = pd.color.mul(brdf(newRayDir, col)).mul(2);
+//			if (newCol.getPrimitive().getMaterial().isEmissive()) {
+//				double distance = newCol.getPosition().sub(col.getPosition()).len();
+//				distance = MathUtils.clamp(distance, 1, distance);
+//				indirectColor = indirectColor.mul(1/(distance * distance));
+//			}
+			pd.color = indirectColor.sum(c).mul(getColor(col.u, col.v));
+			pd.distance += newCol.getPosition().sub(col.getPosition()).len();
+			return pd;
+		}
+
+		PathData pd = new PathData(c.mul(getColor(col.u, col.v)));
+		return pd;
+	}
+
+	public Color getColor(double u, double v) {
 		Color myColor = color;
 		if (colorTexture != null) {
-			Color texCol = colorTexture.getOffsetScaledSample(colorTextureOffset, colorTextureScale, col.u, col.v);
+			Color texCol = colorTexture.getOffsetScaledSample(colorTextureOffset, colorTextureScale, u, v);
 			myColor = myColor.mul(texCol);
 		}
 
-		c = c.mul(myColor);
-		// Indirect Lightning
-		
+		return myColor;
+	}
+
+	public double brdf(Vec3 dir, Collision col) {
+		return dir.dot(col.getNormal());
+	}
+
+	public Vec3 sample(Scene scene, Collision col) {
 		MultiJitteredSampler sampler = scene.getSamplerCaches().poll();
 		Vec2 sample = sampler.getRandomSample();
 		scene.getSamplerCaches().offer(sampler);
@@ -104,24 +128,6 @@ public class Diffuse extends Material {
 				hemisphereSample.x * nt.y + hemisphereSample.y * normal.y + hemisphereSample.z * nb.y,
 				hemisphereSample.x * nt.z + hemisphereSample.y * normal.z + hemisphereSample.z * nb.z).normalize();
 
-		Ray newRay = new Ray(col.getPosition().sum(col.getNormal().mul(0.0001)), newRayDir, Double.POSITIVE_INFINITY, col.getRay().getHops() + 1);
-		QuickCollision qc = scene.collideRay(newRay);
-		if (qc != null) {
-			Collision newCol = qc.completeCollision();
-			PathData pd = newCol.getPrimitive().getMaterial().traceSurfaceColor(newCol, scene);
-			double cosAngle = newRayDir.dot(col.getNormal());
-			Color indirectColor = pd.color.mul(cosAngle).mul(myColor).mul(2);
-//			if (newCol.getPrimitive().getMaterial().isEmissive()) {
-//				double distance = newCol.getPosition().sub(col.getPosition()).len();
-//				distance = MathUtils.clamp(distance, 1, distance);
-//				indirectColor = indirectColor.mul(1/(distance * distance));
-//			}
-			pd.color = indirectColor.sum(c);
-			pd.distance += newCol.getPosition().sub(col.getPosition()).len();
-			return pd;
-		}
-
-		PathData pd = new PathData(c);
-		return pd;
+		return newRayDir;
 	}
 }

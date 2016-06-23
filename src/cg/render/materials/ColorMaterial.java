@@ -30,11 +30,6 @@ public class ColorMaterial extends Material {
 	}
 
 	@Override
-	public boolean isEmissive() {
-		return true;
-	}
-
-	@Override
 	public Color getSurfaceColor(Collision col, Scene scene) {
 		Color myColor = color;
 		
