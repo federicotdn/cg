@@ -5,9 +5,6 @@ import cg.render.Image;
 import cg.render.Scene;
 import cg.test.SpheresScene;
 import org.apache.commons.cli.*;
-
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
 import java.awt.*;
 import java.util.concurrent.TimeUnit;
 
@@ -97,13 +94,7 @@ public class Start {
 		return ri;
 	}
 	
-	public static void main(String[] args) {
-		
-		ScriptEngineManager manager = new ScriptEngineManager();
-		System.out.println(manager);
-		ScriptEngine engine = manager.getEngineByName("java");
-		System.out.println(engine);
-			
+	public static void main(String[] args) {			
 		RenderInfo ri = parseRenderInfo(args);
 		if (ri == null) {
 			System.out.println("Invalid command line parameters, exiting.");
