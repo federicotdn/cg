@@ -7,7 +7,7 @@ import cg.math.Vec3;
 import cg.parser.Channel;
 import cg.rand.MultiJitteredSampler;
 import cg.render.*;
-import cg.render.materials.ColorMaterial;
+import cg.render.materials.EmissiveMaterial;
 import cg.render.shapes.Sphere;
 
 /**
@@ -18,7 +18,7 @@ public class DomeLight extends Light {
 
     public DomeLight(Scene scene, Channel colorChannel, double intensity) {
         super(scene, colorChannel.colorComponent, intensity, null, null, null);
-        setMaterial(new ColorMaterial(colorChannel));
+        setMaterial(new EmissiveMaterial(colorChannel, intensity));
         MultiJitteredSampler baseSampler = scene.getSamplerCaches().poll();
         sampler = baseSampler.getSubSampler(10000);
         sampler.generateSamples();
@@ -51,8 +51,8 @@ public class DomeLight extends Light {
         return new Collision(this, ray, 1, normal, uvs.x, uvs.y);
     }
 
-    private ColorMaterial getColorMaterial() {
-        return (ColorMaterial)getMaterial();
+    private EmissiveMaterial getEmisiveMaterial() {
+        return (EmissiveMaterial)getMaterial();
     }
 
 
@@ -74,10 +74,10 @@ public class DomeLight extends Light {
             visible = true;
         }
 
-        double u = 0.5 + ((Math.atan2(position.z, position.x))/(2*Math.PI));
+        double u = 0.5 + ((Math.atan2(position.z, position.x)) / (2 * Math.PI));
         double v = 0.5 - (Math.asin(position.y)/Math.PI);
 
-        return new VisibilityResult(visible, position, getColorMaterial().getSampledColor(new Vec2(u, v)).mul(intensity));
+        return new VisibilityResult(visible, position, getEmisiveMaterial().getSampledColor(u, v));
     }
         @Override
     public boolean visibleFrom(Collision col) {

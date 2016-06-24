@@ -29,7 +29,7 @@ public class Image {
 	}
 
 	private void setPixel(int p, Color color) {
-		pixels[p] = MathUtils.clamp(color.getAlpha());
+		pixels[p] = color.getAlpha();
 		
 		double red = MathUtils.clamp(color.getRed());
 		double green = MathUtils.clamp(color.getGreen());

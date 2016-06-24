@@ -99,7 +99,7 @@ public class RefractiveMaterial extends Material {
 
         Color reflectedColor = reflectiveMaterial.getSurfaceColor(col, scene);
 
-        double r = fresnel(n1, n2, cosI, sen2t);
+        double r = shlick(n1, n2, cosI, sen2t);
         return refractedColor.mul(1-r).sum(reflectedColor.mul(r));
     }
 
@@ -132,7 +132,7 @@ public class RefractiveMaterial extends Material {
         double cosI = - normal.dot(dir);
         double sen2t = (n * n) * (1 - (cosI * cosI));
 
-        double r = fresnel(n1, n2, cosI, sen2t);
+        double r = shlick(n1, n2, cosI, sen2t);
         if (ray.getHops() <= scene.getMaxTraceDepth()) {
             if (sen2t <= 1) {
                 Vec3 refraction = getSample(n, sen2t, cosI, dir, normal);
@@ -170,7 +170,7 @@ public class RefractiveMaterial extends Material {
         return iorTex;
     }
 
-    private double fresnel(double n1, double n2, double cosI, double sen2t) {
+    private double shlick(double n1, double n2, double cosI, double sen2t) {
         double r;
         double r0 = Math.pow((n1 - n2) / (n1 + n2), 2);
         double cos;

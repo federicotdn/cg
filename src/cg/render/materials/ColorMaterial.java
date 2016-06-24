@@ -29,7 +29,7 @@ public class ColorMaterial extends Material {
 		}
 	}
 
-	public Color getSampledColor(Vec2 uv) {
+	private Color getSampledColor(Vec2 uv) {
 		Color myColor = color;
 
 		if (colorTexture != null) {
