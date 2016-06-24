@@ -65,8 +65,7 @@ public class DomeLight extends Light {
         Vec3 displacedOrigin = col.getPosition().sum(col.getNormal().mul(Light.EPSILON));
         Vec3 path = position.sub(displacedOrigin);
 
-        Ray ray = new Ray(displacedOrigin, path, path.len() - Light.EPSILON);
-
+        Ray ray = new Ray(displacedOrigin, path, Ray.DEFAULT_MAX_T);
         QuickCollision sceneCol = scene.collideRay(ray);
         boolean visible;
         if (sceneCol != null) {

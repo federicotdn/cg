@@ -60,7 +60,6 @@ public class RefractiveMaterial extends Material {
     public Color getSurfaceColor(Collision col, Scene scene) {
     	//Get channel values:
     	//Reflective:
-        Color reflectiveTexColor = reflectiveMaterial.getColor(col.u, col.v);
 
         //Refractive:
         Color refractiveTexColor = getRefractionColor(col.u, col.v);
@@ -86,7 +85,6 @@ public class RefractiveMaterial extends Material {
         double cosI = - normal.dot(dir);
         double sen2t = (n * n) * (1 - (cosI * cosI));
 
-        double r = fresnel(n1, n2, cosI, sen2t);
         if (ray.getHops() <= scene.getRefractionTraceDepth()) {
             if (sen2t <= 1) {
                 Vec3 refraction = getSample(n, sen2t, cosI, dir, normal);
@@ -101,14 +99,13 @@ public class RefractiveMaterial extends Material {
 
         Color reflectedColor = reflectiveMaterial.getSurfaceColor(col, scene);
 
+        double r = fresnel(n1, n2, cosI, sen2t);
         return refractedColor.mul(1-r).sum(reflectedColor.mul(r));
     }
 
 	@Override
 	public PathData traceSurfaceColor(Collision col, Scene scene) {
         //Get channel values:
-        //Reflective:
-        Color reflectiveTexColor = reflectiveMaterial.getColor(col.u, col.v);
 
         //Refractive:
         Color refractiveTexColor = getRefractionColor(col.u, col.v);
@@ -143,7 +140,7 @@ public class RefractiveMaterial extends Material {
                 QuickCollision qc = scene.collideRay(refractionRay);
                 if (qc != null) {
                     Collision refractionCol = qc.completeCollision();
-                    refractedColor = refractionCol.getPrimitive().getMaterial().traceSurfaceColor(refractionCol, scene).color;
+                    refractedColor = refractionCol.getPrimitive().getMaterial().traceSurfaceColor(refractionCol, scene).color.mul(refractiveTexColor);
                 }
             }
         }
@@ -175,19 +172,19 @@ public class RefractiveMaterial extends Material {
 
     private double fresnel(double n1, double n2, double cosI, double sen2t) {
         double r;
-        if (sen2t > 1) {
-            r = 1;
+        double r0 = Math.pow((n1 - n2) / (n1 + n2), 2);
+        double cos;
+        if (n1 <= n2) {
+            cos = cosI;
         } else {
-            double r0 = Math.pow((n1 - n2)/(n1 + n2), 2);
-            double cos;
-            if (n1 <= n2) {
-                cos = cosI;
-            } else {
-                cos = Math.sqrt(1 - sen2t);
+            if (sen2t > 1) {
+                return 1;
             }
-
-            r = r0 + ((1 - r0)*(Math.pow(1 - cos, 5)));
+            cos = Math.sqrt(1 - sen2t);
         }
+
+        r = r0 + ((1 - r0) * (Math.pow(1 - cos, 5)));
+
         return MathUtils.clamp(r);
     }
 

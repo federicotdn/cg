@@ -35,9 +35,9 @@ public class Texture {
 		int j = 0;
 		for (int i = 0; i < data.length; i += 4) {
 			pixels[j] = intToDouble(data[i]);
-			pixels[j + 1] = intToDouble(data[i + 3]);
-			pixels[j + 2] = intToDouble(data[i + 2]);
-			pixels[j + 3] = intToDouble(data[i + 1]);
+			pixels[j + 1] = Math.pow(intToDouble(data[i + 3]), 2.2);
+			pixels[j + 2] = Math.pow(intToDouble(data[i + 2]), 2.2);
+			pixels[j + 3] = Math.pow(intToDouble(data[i + 1]), 2.2);
 
 			j += 4;
 		}

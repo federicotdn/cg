@@ -321,9 +321,14 @@ public class SceneParser {
                                     getScale(o), o.getDouble("radius", 1));
                             break;
                         case "Dome":
-                            int textureId = o.getInt("textureId", -1);
+                            Integer textureId = o.getInt("textureId", -1);
+                            if (textureId == -1) {
+                                textureId = null;
+                            }
                             Channel colorChannel = new Channel(Channel.ChanType.COLOR, color, null, textureId, new Vec2(0,0), new Vec2(1,1), new Warnings());
-                            colorChannel.setTexture(materialFactory.getTexture(textureId));
+                            if (colorChannel.isTextured()) {
+                                colorChannel.setTexture(materialFactory.getTexture(textureId));
+                            }
                             light = new DomeLight(scene, colorChannel, intensity);
                             break;
                         default:
