@@ -76,13 +76,14 @@ public class SphereAreaLight extends Light {
         Vec2 sample = sampler.getRandomSample();
         Vec3 hemisphereSample = MathUtils.squareToHemisphere(sample.x, sample.y, 0);
         Vec3 dir = col.getPosition().sub(position).normalize();
-        Vec3 tan = dir.getSmallestAxis().cross(dir).normalize();
-        Vec3 bitan = tan.cross(dir).normalize();
-        Vec3 newRayDir = new Vec3(hemisphereSample.x * tan.x + hemisphereSample.y * dir.x + hemisphereSample.z * bitan.x,
-                hemisphereSample.x * tan.y + hemisphereSample.y * dir.y + hemisphereSample.z * bitan.y,
-                hemisphereSample.x * tan.z + hemisphereSample.y * dir.z + hemisphereSample.z * bitan.z).normalize();
+        Vec3 newRayDir = MathUtils.tangentToWorldSpace(hemisphereSample, dir);
         Vec3 surfacePosition = position.sum(newRayDir.mul(sphere.getRadius()));
-        VisibilityResult res = new VisibilityResult(pointVisibleFrom(scene, col, surfacePosition), surfacePosition, getIntensity());
+        VisibilityResult res = new VisibilityResult(pointVisibleFrom(scene, col, surfacePosition), surfacePosition, color.mul(getIntensity()));
         return res;
 	}
+
+    @Override
+    public Material getMaterial() {
+        return sphere.getMaterial();
+    }
 }

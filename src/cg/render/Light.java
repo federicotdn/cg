@@ -12,12 +12,12 @@ public abstract class Light extends Primitive {
 	public static class VisibilityResult {
 		public final boolean isVisible;
 		public final Vec3 lightSurface;
-		public final double intensity;
+		public final Color color;
 
-		public VisibilityResult(boolean isVisible, Vec3 lightSurface, double intensity) {
+		public VisibilityResult(boolean isVisible, Vec3 lightSurface, Color color) {
 			this.isVisible = isVisible;
 			this.lightSurface = lightSurface;
-			this.intensity = intensity;
+			this.color = color;
 		}
 	}
 	
@@ -39,11 +39,6 @@ public abstract class Light extends Primitive {
 
 	@Override
 	protected BoundingBox calculateBBox(Matrix4 trs) {
-		return null;
-	}
-
-	@Override
-	public Collision completeCollision(QuickCollision qc) {
 		return null;
 	}
 

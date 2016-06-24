@@ -1,19 +1,14 @@
 package cg.parser;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
-
-import com.eclipsesource.json.JsonObject;
-
 import cg.parser.Channel.ChanType;
 import cg.render.Material;
 import cg.render.assets.Texture;
-import cg.render.materials.ColorMaterial;
-import cg.render.materials.Diffuse;
-import cg.render.materials.Phong;
-import cg.render.materials.ReflectiveMaterial;
-import cg.render.materials.RefractiveMaterial;
+import cg.render.materials.*;
+import com.eclipsesource.json.JsonObject;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class MaterialFactory {
 	private static final Material DEFAULT_MATERIAL = Diffuse.DEFAULT_DIFFUSE;
@@ -77,6 +72,14 @@ public class MaterialFactory {
 		md.addChan(colorChan);
 		
 		materialData.put(id, md);
+	}
+
+	public Texture getTexture(int id) {
+		if (textures.containsKey(id)) {
+			return textures.get(id);
+		}
+
+		return defaultTexture;
 	}
 	
 	public void registerPhong(Integer id, JsonObject o) {

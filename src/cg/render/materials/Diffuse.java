@@ -70,7 +70,7 @@ public class Diffuse extends Material {
 			VisibilityResult visibility = light.sampledVisibleFrom(col);
 			if (visibility.isVisible) {
 				Vec3 surfaceToLight = visibility.lightSurface.sub(col.getPosition()).normalize();
-				Color result = (light.getColor().mul(visibility.intensity)).mul(brdf(surfaceToLight, col));
+				Color result = visibility.color.mul(brdf(surfaceToLight, col));
 //			result = result.mul(1/Math.pow(1 + surfaceToLight.len(), 2));
 				c = c.sum(result);
 			}
@@ -119,14 +119,7 @@ public class Diffuse extends Material {
 		scene.getSamplerCaches().offer(sampler);
 
 		Vec3 hemisphereSample = MathUtils.squareToHemisphere(sample.x, sample.y, 0).normalize();
-
-		Vec3 normal = col.getNormal();
-
-		Vec3 nt = normal.getSmallestAxis().cross(normal).normalize();
-		Vec3 nb = nt.cross(normal).normalize();
-		Vec3 newRayDir = new Vec3(hemisphereSample.x * nt.x + hemisphereSample.y * normal.x + hemisphereSample.z * nb.x,
-				hemisphereSample.x * nt.y + hemisphereSample.y * normal.y + hemisphereSample.z * nb.y,
-				hemisphereSample.x * nt.z + hemisphereSample.y * normal.z + hemisphereSample.z * nb.z).normalize();
+		Vec3 newRayDir = MathUtils.tangentToWorldSpace(hemisphereSample, col.getNormal());
 
 		return newRayDir;
 	}

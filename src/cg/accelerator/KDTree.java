@@ -21,6 +21,10 @@ public class KDTree {
     private BoundingBox worldBounds;
 
     public KDTree(List<Primitive> primitives, int threshold) {
+        if (primitives.size() == 0) {
+            return;
+        }
+
         Vec3 pMin = primitives.get(0).getBBox().pMin, pMax =  primitives.get(0).getBBox().pMax;
 
         for (Primitive primitive: primitives) {
@@ -34,7 +38,7 @@ public class KDTree {
     }
 
     public QuickCollision hit(Ray ray) {
-        if (worldBounds.collide(ray) < 0) {
+        if (root == null || worldBounds.collide(ray) < 0) {
             return null;
         }
 

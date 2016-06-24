@@ -29,15 +29,19 @@ public class ColorMaterial extends Material {
 		}
 	}
 
-	@Override
-	public Color getSurfaceColor(Collision col, Scene scene) {
+	public Color getSampledColor(Vec2 uv) {
 		Color myColor = color;
-		
+
 		if (colorTexture != null) {
-			Color texCol = colorTexture.getOffsetScaledSample(colorTextureOffset, colorTextureScale, col.u, col.v);
+			Color texCol = colorTexture.getOffsetScaledSample(colorTextureOffset, colorTextureScale, uv.x, uv.y);
 			myColor = myColor.mul(texCol);
 		}
 		return myColor;
+	}
+
+	@Override
+	public Color getSurfaceColor(Collision col, Scene scene) {
+		return getSampledColor(new Vec2(col.u, col.v));
 	}
 
 	@Override

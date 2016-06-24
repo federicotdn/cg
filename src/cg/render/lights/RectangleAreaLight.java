@@ -108,7 +108,7 @@ public class RectangleAreaLight extends Light {
             intensity = this.intensity * cosAngle;
         }
 
-        return new VisibilityResult(visible, pos, intensity);
+        return new VisibilityResult(visible, pos, color.mul(intensity));
 	}
 
     private double[][] samplesForSize(double size, double multiplier, double[] samples, double[] secondSamples) {
@@ -136,5 +136,10 @@ public class RectangleAreaLight extends Light {
         for (int i =0;  i < samples.length; i++) {
             samples[i] *= multiplier;
         }
+    }
+
+    @Override
+    public Material getMaterial() {
+        return plane.getMaterial();
     }
 }

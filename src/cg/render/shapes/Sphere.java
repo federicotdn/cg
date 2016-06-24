@@ -1,12 +1,9 @@
 package cg.render.shapes;
 
 import cg.math.Matrix4;
+import cg.math.Vec2;
 import cg.math.Vec3;
-import cg.render.BoundingBox;
-import cg.render.Collision;
-import cg.render.Primitive;
-import cg.render.QuickCollision;
-import cg.render.Ray;
+import cg.render.*;
 
 public class Sphere extends Primitive {
 
@@ -25,18 +22,17 @@ public class Sphere extends Primitive {
 		return new BoundingBox(pMin, pMax).transformBBox(trs);
 	}
 
-	@Override
-	public QuickCollision internalQuickCollideWith(Ray ray) {
+	public static double sphereCollisionT(Ray ray, double radius) {
 		Vec3 orig = ray.getOrigin();
 		Vec3 dir = ray.getDirection();
-		
+
 		double A = (dir.x * dir.x) + (dir.y * dir.y) + (dir.z * dir.z);
 		double B = 2 * (dir.x * orig.x + dir.y * orig.y + dir.z * orig.z);
 		double C = (orig.x * orig.x) + (orig.y * orig.y) + (orig.z * orig.z) - (radius * radius);
-		
+
 		double disc = (B * B) - (4 * A * C);
 		if (disc <= 0) {
-			return null;
+			return -1;
 		}
 
 		double rootDisc = Math.sqrt(disc);
@@ -53,15 +49,31 @@ public class Sphere extends Primitive {
 		double t = (t0 > t1 ? t1 : t0);
 
 		if (t0 > ray.getMaxT() || t1 < 0) {
-			return null;
+			return -1;
 		}
 
 		if (t0 < 0 && t1 > ray.getMaxT()) {
+			return -1;
+		}
+
+		return t;
+	}
+
+	@Override
+	public QuickCollision internalQuickCollideWith(Ray ray) {
+		double t = sphereCollisionT(ray, radius);
+		if (t < 0) {
 			return null;
 		}
 
-
 		return new QuickCollision(this, ray, null, t, -1);
+	}
+
+	public static Vec2 uvs(Vec3 normal) {
+		double u = 0.5 + ((Math.atan2(normal.z, normal.x))/(2*Math.PI));
+		double v = 0.5 - (Math.asin(normal.y)/Math.PI);
+
+		return new Vec2(u, v);
 	}
 
 	@Override
@@ -73,11 +85,9 @@ public class Sphere extends Primitive {
 		
 		Vec3 normal = orig.sum(dir.mul(t)).mul(1/radius);
 
-		double u = 0.5 + ((Math.atan2(normal.z, normal.x))/(2*Math.PI));
-		double v = 0.5 - (Math.asin(normal.y)/Math.PI);
+		Vec2 uvs = uvs(normal);
 
-
-		return new Collision(this, ray, t, normal, u, v);
+		return new Collision(this, ray, t, normal, uvs.x, uvs.y);
 	}
 
 	public double getRadius() {

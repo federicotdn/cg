@@ -32,4 +32,13 @@ public class MathUtils {
         double pw = costheta;
     	return new Vec3(pu, pw, pv);
     }
+
+    public static Vec3 tangentToWorldSpace(Vec3 v, Vec3 dir) {
+        Vec3 tan = dir.getSmallestAxis().cross(dir).normalize();
+        Vec3 bitan = tan.cross(dir).normalize();
+        Vec3 newDir = new Vec3(v.x * tan.x + v.y * dir.x + v.z * bitan.x,
+                v.x * tan.y + v.y * dir.y + v.z * bitan.y,
+                v.x * tan.z + v.y * dir.z + v.z * bitan.z).normalize();
+        return newDir;
+    }
 }

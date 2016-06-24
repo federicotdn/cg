@@ -26,7 +26,7 @@ public class Channel {
 	
 	public final Warnings warnings;
 	
-	private Channel(ChanType type, Color colorComponent, Double scalarComponent, Integer textureId, Vec2 textureOffset,
+	public Channel(ChanType type, Color colorComponent, Double scalarComponent, Integer textureId, Vec2 textureOffset,
 			Vec2 textureScale, Warnings warnings) {
 		this.type = type;
 		this.colorComponent = colorComponent;
@@ -45,7 +45,7 @@ public class Channel {
 		Warnings w = new Warnings();
 		return new Channel(ChanType.COLOR, color, null, null, null, null, w);
 	}
-	
+
 	public static Channel getColorChannel(JsonObject o) {
 		return coloredChannel(ChanType.COLOR, "color", o);
 	}
@@ -135,7 +135,7 @@ public class Channel {
 			}
 		}
 		
-		return new Channel(t, null, scalar, id, offset, scale, warnings);		
+		return new Channel(t, null, scalar, id, offset, scale, warnings);
 	}
 	
 	public boolean isTextured() {

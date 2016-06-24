@@ -1,5 +1,6 @@
 package cg.parser;
 
+import cg.math.Vec2;
 import cg.math.Vec3;
 import cg.render.*;
 import cg.render.assets.Mesh;
@@ -318,6 +319,12 @@ public class SceneParser {
                         case "Sphere":
                             light = new SphereAreaLight(scene, color, intensity, getPosition(o), getRotation(o),
                                     getScale(o), o.getDouble("radius", 1));
+                            break;
+                        case "Dome":
+                            int textureId = o.getInt("textureId", -1);
+                            Channel colorChannel = new Channel(Channel.ChanType.COLOR, color, null, textureId, new Vec2(0,0), new Vec2(1,1), new Warnings());
+                            colorChannel.setTexture(materialFactory.getTexture(textureId));
+                            light = new DomeLight(scene, colorChannel, intensity);
                             break;
                         default:
                         	light = null;

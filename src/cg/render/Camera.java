@@ -67,8 +67,8 @@ public class Camera extends WorldObject {
 		double aspectRatio = img.aspectRatio();
 		double halfImagePlane = Math.tan(Math.toRadians(fovDegrees / 2));
 		
-		double ndcx = ((double)pixelX + offsetX) / img.getWidth();
-		double ndcy = ((double)pixelY + offsetY) / img.getHeight();
+		double ndcx = (pixelX + offsetX) / img.getWidth();
+		double ndcy = (pixelY + offsetY) / img.getHeight();
 		
 		double px = ((2 * ndcx) - 1) * aspectRatio * halfImagePlane;
 		double py = (1 - (2 * ndcy)) * halfImagePlane;
