@@ -21,6 +21,7 @@ public class Start {
 		public int pathTracingSamples;
 		public boolean test;
 		public boolean gammaEnabled;
+		public boolean verbose;
 	}
 	
 	private static RenderInfo parseRenderInfo(String[] args) {
@@ -34,6 +35,7 @@ public class Start {
 		options.addOption("test", false, "Enable test mode");
 		options.addOption("nogamma", false, "Disable gamma correction (output and input)");
 		options.addOption("randname", false, "Enable output file name randomization");
+		options.addOption("silent", false, "Disable completion percentage logs.");
 		
 		CommandLineParser cmdParser = new DefaultParser();
 		CommandLine cmd;
@@ -82,6 +84,7 @@ public class Start {
 		ri.inputPath = input;
 		ri.outputPath = output;
 		ri.runs = runs;
+		ri.verbose = !cmd.hasOption("silent");
 		
 		ri.usePathTracing = cmd.hasOption("pathtracer");
 		if (ri.usePathTracing) {
@@ -116,6 +119,7 @@ public class Start {
 		System.out.println("Show render info: " + ri.includeTime);
 		System.out.println("Render runs: " + ri.runs);
 		System.out.println("Gamma correction enabled: " + ri.gammaEnabled);
+		System.out.println("Verbose mode: " + ri.verbose);
 		System.out.println("Path tracing enabled: " + ri.usePathTracing);
 		if (ri.usePathTracing) {
 			System.out.println("Path tracing samples: " + ri.pathTracingSamples);
@@ -151,6 +155,10 @@ public class Start {
 		if (ri.usePathTracing) {
 			System.out.println("+++ Path tracing is enabled. +++");
 			System.out.println();
+		}
+		
+		if (ri.verbose) {
+			scene.enableVerbose();
 		}
 		
 		System.out.println("Settings:");

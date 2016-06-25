@@ -22,6 +22,8 @@ public class Scene {
 	private List<Light> areaLights;
 	private Camera cam;
 	private KDTree kdTree;
+	
+	private boolean verbose = false;
 
 	private Image img;
 	private int samples;
@@ -81,6 +83,10 @@ public class Scene {
 		} else if (p.isRenderable()) {
 			unboundedPrimitives.add(p);
 		}
+	}
+	
+	public void enableVerbose() {
+		verbose = true;
 	}
 
 	public void setSize(int width, int height) {
@@ -161,7 +167,10 @@ public class Scene {
 						renderBucket(bucket, rays, sampler);
 						samplerQ.offer(sampler);
 					}
-					Scene.this.bucketDoneCallback();
+					
+					if (verbose) {						
+						Scene.this.bucketDoneCallback();
+					}
 					
 					rayQ.offer(rays);
 				}
