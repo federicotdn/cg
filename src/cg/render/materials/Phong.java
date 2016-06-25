@@ -139,9 +139,10 @@ public class Phong extends Material {
 		Color directColor = diffuseColor.sum(specularTexColor.mul(specular));
 		
 		// Indirect Lightning
-
-		Vec3 reflectionDir = col.getRay().getDirection().reflect(col.getNormal());
-		Vec3 newRayDir = sample(scene, exponentTex, reflectionDir);
+		Vec3 newRayDir;
+		
+		Vec3 reflectionDir = col.getRay().getDirection().mul(-1).reflect(col.getNormal());
+		newRayDir = sample(scene, exponentTex, reflectionDir);			
 		
 		Ray newRay = new Ray(col.getPosition().sum(col.getNormal().mul(0.0001)), newRayDir, Double.POSITIVE_INFINITY, col.getRay().getHops() + 1);
 		QuickCollision qc = scene.collideRay(newRay);
@@ -155,6 +156,7 @@ public class Phong extends Material {
 			Color specularIndirect = pd.color.mul(brdf(newRayDir, col, exponentTex)).mul(specularTexColor);
 			// specularIndirect = specularIndirect.mul(0x4fc3901 * Math.pow(Math.PI, 3));
 			
+			diffuseIndirect = Color.BLACK;
 			pd.color = directColor.sum(diffuseIndirect.sum(specularIndirect));
 			pd.distance += newCol.getPosition().sub(col.getPosition()).len();
 			return pd;
