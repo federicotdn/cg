@@ -11,6 +11,8 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Scene {
 	private List<Primitive> primitives;
@@ -38,6 +40,9 @@ public class Scene {
 
 	private int threads;
 	private int bucketSize;
+	private Lock mutex = new ReentrantLock();
+	private int doneBuckets = 0;
+	private int bucketCount;
 	
 	public static final Color BACKGROUND_COLOR = Color.BLACK;
 	public static final float ROULETTE_P = 0.05f;
@@ -114,7 +119,7 @@ public class Scene {
 		return cam;
 	}
 	
-	public Image render() {
+	public Image render() {		
 		if (cam == null || img == null) {
 			throw new RuntimeException("Missing camera or height and width");
 		}
@@ -122,6 +127,7 @@ public class Scene {
 		kdTree = new KDTree(primitives, 3 /* magic :-) */);
 
 		Queue<Bucket> buckets = generateBuckets();
+		bucketCount = buckets.size();
 		Queue<Ray[]> rayQ = new ConcurrentLinkedQueue<>();
 		Queue<MultiJitteredSampler> samplerQ = new ConcurrentLinkedQueue<>();
 
@@ -155,6 +161,7 @@ public class Scene {
 						renderBucket(bucket, rays, sampler);
 						samplerQ.offer(sampler);
 					}
+					Scene.this.bucketDoneCallback();
 					
 					rayQ.offer(rays);
 				}
@@ -168,6 +175,16 @@ public class Scene {
 		} catch (InterruptedException e) {
 			return null;
 		}
+	}
+	
+	public void bucketDoneCallback() {
+		mutex.lock();
+		doneBuckets++;
+		
+		String fmt = "%4.2f";
+		double done = (double)doneBuckets * 100 / bucketCount;
+		System.out.println("Completed: " + String.format(fmt, done) + "%.");
+		mutex.unlock();
 	}
 
 	private void renderBucketPath(Bucket bucket, Ray[] rays) {
