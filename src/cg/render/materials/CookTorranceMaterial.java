@@ -12,7 +12,7 @@ import cg.render.assets.Texture;
  * Created by Hobbit on 6/24/16.
  */
 public class CookTorranceMaterial extends Material {
-    private static final double ior = 3.5;
+    private static final double ior = 3.0504;
 
     private final Diffuse diffuse;
 
@@ -105,8 +105,8 @@ public class CookTorranceMaterial extends Material {
 
         // Indirect Lightning
 
-        Vec3 reflectionDir = col.getRay().getDirection().reflect(col.getNormal());
-        Vec3 newRayDir = sample(scene, reflectionDir, roughnessTex);
+        Vec3 reflectionDir = col.getRay().getDirection().mul(-1).reflect(col.getNormal());
+        Vec3 newRayDir = sampleAlt(scene, reflectionDir, roughnessTex);
 
         Ray newRay = new Ray(col.getPosition().sum(col.getNormal().mul(0.0001)), newRayDir, Double.POSITIVE_INFINITY, col.getRay().getHops() + 1);
         QuickCollision qc = scene.collideRay(newRay);
@@ -114,12 +114,10 @@ public class CookTorranceMaterial extends Material {
             Collision newCol = qc.completeCollision();
             PathData pd = newCol.getPrimitive().getMaterial().traceSurfaceColor(newCol, scene);
 
-            Color diffuseIndirect = pd.color.mul(diffuse.brdf(newRayDir, col)).mul(diffuse.getColor(col.u, col.v));
-            diffuseIndirect = diffuseIndirect.mul(2 * Math.PI);
+            Color indirectColor = pd.color;
+            Color diffuseIndirect = indirectColor.mul(diffuse.brdf(newRayDir, col)).mul(diffuse.getColor(col.u, col.v));
 
-            Color specularIndirect = pd.color.mul(brdf(newRayDir, col, roughnessTex)).mul(specularTexColor);
-            // specularIndirect = specularIndirect.mul(0x4fc3901 * Math.pow(Math.PI, 3));
-
+            Color specularIndirect = indirectColor.mul(brdf(newRayDir, col, roughnessTex)).mul(specularTexColor);
             pd.color = directColor.sum(diffuseIndirect.sum(specularIndirect));
             pd.distance += newCol.getPosition().sub(col.getPosition()).len();
             return pd;
@@ -145,12 +143,13 @@ public class CookTorranceMaterial extends Material {
         double exp = ((normalDotH * normalDotH) - 1) / ((roughness * roughness) * (normalDotH * normalDotH));
         double d = (1/(Math.PI * roughness * roughness * Math.pow(normalDotH, 4))) * Math.exp(exp);
 
-        double cosI = normal.dot(v);
-        double n = 1/ior;
-        double sen2t = (n * n) * (1 - (cosI * cosI));
-        double f = MathUtils.shlick(1, ior, cosI, sen2t);
 
-        return (f * d * g) / (Math.PI * normal.dot(l) * cosI);
+        double cosI = normal.dot(v);
+        double f = MathUtils.shlick(1, ior, cosI, 0);
+
+        double ans =  (f * d * g) / (Math.PI * normal.dot(l) * cosI);
+
+        return ans;
 
     }
 
@@ -169,7 +168,29 @@ public class CookTorranceMaterial extends Material {
         Vec2 sample = sampler.getRandomSample();
         scene.getSamplerCaches().offer(sampler);
 
-        Vec3 hemisphereSample = MathUtils.squareToHemisphere(sample.x, sample.y, roughness).normalize();
+        Vec3 hemisphereSample = MathUtils.squareToHemisphere(sample.x, sample.y, roughness * 250);
+        Vec3 newRayDir = MathUtils.tangentToWorldSpace(hemisphereSample, direction);
+
+        return newRayDir;
+    }
+
+
+    public Vec3 sampleAlt(Scene scene, Vec3 direction, double roughness) {
+        MultiJitteredSampler sampler = scene.getSamplerCaches().poll();
+        Vec2 sample = sampler.getRandomSample();
+        scene.getSamplerCaches().offer(sampler);
+
+        double phi = 2 * Math.PI * sample.x;
+        double cosphi = Math.cos(phi);
+        double sinphi = Math.sin(phi);
+
+        double costheta = Math.cos(Math.atan(Math.sqrt(- (roughness * roughness) * Math.log(1 - sample.y))));
+        double sintheta = Math.sqrt(1 - (costheta * costheta));
+
+        double pu = sintheta * cosphi;
+        double pv = sintheta * sinphi;
+        double pw = costheta;
+        Vec3 hemisphereSample =  new Vec3(pu, pw, pv);
         Vec3 newRayDir = MathUtils.tangentToWorldSpace(hemisphereSample, direction);
 
         return newRayDir;
