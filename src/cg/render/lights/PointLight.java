@@ -3,6 +3,7 @@ package cg.render.lights;
 import cg.math.Vec3;
 import cg.math.Vec4;
 import cg.render.*;
+import cg.render.Light.VisibilityResult;
 
 /*
  * 
@@ -26,7 +27,6 @@ public class PointLight extends Light {
 		this.position = transform.mulVec(new Vec4(0,0,0,1)).asVec3();
 	}
 
-	@Override
 	public boolean visibleFrom(Collision col) {
 		if (col.getRay().shouldIgnoreShadows()) {
 			return true;
@@ -40,7 +40,9 @@ public class PointLight extends Light {
 	}
 
 	@Override
-	public Vec3 vectorFromCollision(Collision col) {
-		return position.sub(col.getPosition());
+	public VisibilityResult sampledVisibleFrom(Collision col) {
+		boolean visible = visibleFrom(col);
+		Vec3 surfaceToLight = position.sub(col.getPosition()).normalize();
+		return new VisibilityResult(visible, surfaceToLight, color.mul(intensity));
 	}
 }

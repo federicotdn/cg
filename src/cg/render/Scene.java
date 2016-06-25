@@ -19,9 +19,10 @@ public class Scene {
 	private List<Primitive> unboundedPrimitives;
 
 	private List<Light> lights; //camera, action
-	private List<Light> areaLights;
 	private Camera cam;
 	private KDTree kdTree;
+	
+	private boolean verbose = false;
 
 	private Image img;
 	private int samples;
@@ -58,13 +59,15 @@ public class Scene {
 		primitives = new ArrayList<Primitive>();
 		unboundedPrimitives = new ArrayList<Primitive>();
 		lights = new ArrayList<Light>();
-		areaLights = new ArrayList<>();
 	}
 
-	public void enablePathTracing(int samples) {
+	public void generateSamplesCache() {
 		samplerCaches = new SamplerCacheQueue(SAMPLERS_PER_THREAD * threads, SAMPLERS_SIZE);
+	}
+	
+	public void enablePathTracing(int pathSamples) {
 		pathTracingEnabled = true;
-		pathTracingSamples = samples;
+		pathTracingSamples = pathSamples;
 	}
 	
 	public boolean isPathTracingEnabled() {
@@ -81,6 +84,10 @@ public class Scene {
 		} else if (p.isRenderable()) {
 			unboundedPrimitives.add(p);
 		}
+	}
+	
+	public void enableVerbose() {
+		verbose = true;
 	}
 
 	public void setSize(int width, int height) {
@@ -99,20 +106,12 @@ public class Scene {
 		this.cam = cam;
 	}
 
-	public void addLight(Light l) {
-		if (l.isRenderable()) {
-			areaLights.add(l);
-		} else {			
-			lights.add(l);
-		}
+	public void addLight(Light l) {		
+		lights.add(l);
 	}
 	
 	public List<Light> getLights() {
 		return lights;
-	}
-	
-	public List<Light> getAreaLights() {
-		return areaLights;
 	}
 	
 	public Camera getCamera() {
@@ -161,7 +160,10 @@ public class Scene {
 						renderBucket(bucket, rays, sampler);
 						samplerQ.offer(sampler);
 					}
-					Scene.this.bucketDoneCallback();
+					
+					if (verbose) {						
+						Scene.this.bucketDoneCallback();
+					}
 					
 					rayQ.offer(rays);
 				}

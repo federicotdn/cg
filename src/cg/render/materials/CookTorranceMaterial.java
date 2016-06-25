@@ -75,9 +75,9 @@ public class CookTorranceMaterial extends Material {
         double roughnessTex = getFinalRoughness(col.u, col.v);
 
         if (scene.getLights().size() > 0) {
-            int index = (int) Math.random() * scene.getAreaLights().size();
+            int index = (int) Math.random() * scene.getLights().size();
             Light light = scene.getLights().get(index);
-            Vec3 surfaceToLight = light.vectorFromCollision(col).normalize();
+            Vec3 surfaceToLight = null;//light.vectorFromCollision(col).normalize();
             Color result = (light.getColor().mul(light.getIntensity())).mul(diffuse.brdf(surfaceToLight, col));
             diffuseColor = diffuseColor.sum(result);
 
@@ -86,12 +86,12 @@ public class CookTorranceMaterial extends Material {
         }
 
         Light light = null;
-        if (scene.getAreaLights().size() > 0) {
-            int index = (int) Math.random() * scene.getAreaLights().size();
-            light = scene.getAreaLights().get(index);
+        if (scene.getLights().size() > 0) {
+            int index = (int) Math.random() * scene.getLights().size();
+            light = scene.getLights().get(index);
             Light.VisibilityResult visibility = light.sampledVisibleFrom(col);
             if (visibility.isVisible) {
-                Vec3 surfaceToLight = visibility.lightSurface.sub(col.getPosition()).normalize();
+                Vec3 surfaceToLight = null;//visibility.lightSurface.sub(col.getPosition()).normalize();
                 Color result = visibility.color.mul(diffuse.brdf(surfaceToLight, col));
                 diffuseColor = diffuseColor.sum(result);
 

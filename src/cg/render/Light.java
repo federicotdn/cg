@@ -11,20 +11,17 @@ public abstract class Light extends Primitive {
 	
 	public static class VisibilityResult {
 		public final boolean isVisible;
-		public final Vec3 lightSurface;
+		public final Vec3 surfaceToLight;
 		public final Color color;
 
-		public VisibilityResult(boolean isVisible, Vec3 lightSurface, Color color) {
+		public VisibilityResult(boolean isVisible, Vec3 surfaceToLight, Color color) {
 			this.isVisible = isVisible;
-			this.lightSurface = lightSurface;
+			this.surfaceToLight = surfaceToLight;
 			this.color = color;
 		}
 	}
-	
-	public abstract boolean visibleFrom(Collision col);
-	public VisibilityResult sampledVisibleFrom(Collision col) {
-		return null;
-	}
+
+	public abstract VisibilityResult sampledVisibleFrom(Collision col);
 
 	protected Light(Scene scene, Color color, double intensity, Vec3 t, Vec3 r, Vec3 s) {
 		this.scene = scene;
@@ -55,8 +52,6 @@ public abstract class Light extends Primitive {
 	public Color getColor() {
 		return color;
 	}
-	
-	public abstract Vec3 vectorFromCollision(Collision col);
 	
 	public double getIntensity() {
 		return intensity;

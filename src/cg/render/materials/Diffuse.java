@@ -36,10 +36,11 @@ public class Diffuse extends Material {
 		Color c = new Color(1, 0, 0, 0);
 
 		for (Light light : scene.getLights()) {
-			if (light.visibleFrom(col)) {
-				Vec3 surfaceToLight = light.vectorFromCollision(col).normalize();
-				Color result = (light.getColor().mul(light.getIntensity())).mul(brdf(surfaceToLight, col));
-				c = c.sum(result);
+			VisibilityResult visibilityResult = light.sampledVisibleFrom(col);
+			if (visibilityResult.isVisible) {
+				Vec3 surfaceToLight = visibilityResult.surfaceToLight;
+				Color result = visibilityResult.color.mul(brdf(surfaceToLight, col));
+				c = c.sum(result);				
 			}
 		}
 
@@ -55,21 +56,13 @@ public class Diffuse extends Material {
 			return new PathData(Scene.BACKGROUND_COLOR);
 		}
 
-		if (scene.getLights().size() > 0) {
-			int index = (int) Math.random() * scene.getAreaLights().size();
-			Light light = scene.getLights().get(index);
-			Vec3 surfaceToLight = light.vectorFromCollision(col).normalize();
-			Color result = (light.getColor().mul(light.getIntensity())).mul(brdf(surfaceToLight, col));
-			c = c.sum(result);
-		}
-
 		Light light = null;
-		if (scene.getAreaLights().size() > 0) {
-			int index = (int) Math.random() * scene.getAreaLights().size();
-			light = scene.getAreaLights().get(index);
+		if (scene.getLights().size() > 0) {
+			int index = (int) Math.random() * scene.getLights().size();
+			light = scene.getLights().get(index);
 			VisibilityResult visibility = light.sampledVisibleFrom(col);
 			if (visibility.isVisible) {
-				Vec3 surfaceToLight = visibility.lightSurface.sub(col.getPosition()).normalize();
+				Vec3 surfaceToLight = visibility.surfaceToLight;
 				Color result = visibility.color.mul(brdf(surfaceToLight, col));
 				c = c.sum(result);
 			}

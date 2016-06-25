@@ -73,16 +73,17 @@ public class Phong extends Material {
 	
 	@Override
 	public Color getSurfaceColor(Collision col, Scene scene) {
-		Color diffuseColor = scene.BACKGROUND_COLOR;
-		Color specular = scene.BACKGROUND_COLOR;
+		Color diffuseColor = Scene.BACKGROUND_COLOR;
+		Color specular = Scene.BACKGROUND_COLOR;
 		
 		Color specularTexColor = getSpecularColor(col.u, col.v);
 		double exponentTex = getFinalExponent(col.u, col.v);
 
 		for (Light light : scene.getLights()) {
-			if (light.visibleFrom(col)) {
-				Vec3 surfaceToLight = light.vectorFromCollision(col).normalize();
-				Color result = (light.getColor().mul(light.getIntensity())).mul(diffuse.brdf(surfaceToLight, col));
+			VisibilityResult visibilityResult = light.sampledVisibleFrom(col);
+			if (visibilityResult.isVisible) {
+				Vec3 surfaceToLight = visibilityResult.surfaceToLight;
+				Color result = visibilityResult.color.mul(diffuse.brdf(surfaceToLight, col));
 				diffuseColor = diffuseColor.sum(result);
 
 				result = (new Color(brdf(surfaceToLight, col, exponentTex)).mul(light.getColor().mul(light.getIntensity())));
@@ -103,30 +104,19 @@ public class Phong extends Material {
 		
 		// Direct Color
 		
-		Color diffuseColor = scene.BACKGROUND_COLOR;
-		Color specular = scene.BACKGROUND_COLOR;
+		Color diffuseColor = Scene.BACKGROUND_COLOR;
+		Color specular = Scene.BACKGROUND_COLOR;
 		
 		Color specularTexColor = getSpecularColor(col.u, col.v);
 		double exponentTex = getFinalExponent(col.u, col.v);
-
-		if (scene.getLights().size() > 0) {
-			int index = (int) Math.random() * scene.getAreaLights().size();
-			Light light = scene.getLights().get(index);
-			Vec3 surfaceToLight = light.vectorFromCollision(col).normalize();
-			Color result = (light.getColor().mul(light.getIntensity())).mul(diffuse.brdf(surfaceToLight, col));
-			diffuseColor = diffuseColor.sum(result);
-
-			result = (new Color(brdf(surfaceToLight, col, exponentTex)).mul(light.getColor().mul(light.getIntensity())));
-			specular = specular.sum(result);
-		}
 		
 		Light light = null;
-		if (scene.getAreaLights().size() > 0) {
-			int index = (int) Math.random() * scene.getAreaLights().size();
-			light = scene.getAreaLights().get(index);
+		if (scene.getLights().size() > 0) {
+			int index = (int) Math.random() * scene.getLights().size();
+			light = scene.getLights().get(index);
 			VisibilityResult visibility = light.sampledVisibleFrom(col);
 			if (visibility.isVisible) {
-				Vec3 surfaceToLight = visibility.lightSurface.sub(col.getPosition()).normalize();
+				Vec3 surfaceToLight = visibility.surfaceToLight;
 				Color result = visibility.color.mul(diffuse.brdf(surfaceToLight, col));
 				diffuseColor = diffuseColor.sum(result);
 
@@ -166,19 +156,19 @@ public class Phong extends Material {
 		return pd;
 	}
 
-	public Vec3 sample(Scene scene, double exponent, Vec3 direction) {
+	public Vec3 sample(Scene scene, double exp, Vec3 direction) {
 		MultiJitteredSampler sampler = scene.getSamplerCaches().poll();
 		Vec2 sample = sampler.getRandomSample();
 		scene.getSamplerCaches().offer(sampler);
 
-		Vec3 hemisphereSample = MathUtils.squareToHemisphere(sample.x, sample.y, exponent).normalize();
+		Vec3 hemisphereSample = MathUtils.squareToHemisphere(sample.x, sample.y, exp).normalize();
 		Vec3 newRayDir = MathUtils.tangentToWorldSpace(hemisphereSample, direction);
 
 		return newRayDir;
 	}
 	
-	public double brdf(Vec3 dir, Collision col, double exponent) {
+	public double brdf(Vec3 dir, Collision col, double exp) {
 		Vec3 r = dir.reflect(col.getNormal());
-		return Math.pow(Math.max(0, - r.dot(col.getRay().getDirection())), exponent);
+		return Math.pow(Math.max(0, - r.dot(col.getRay().getDirection())), exp);
 	}
 }

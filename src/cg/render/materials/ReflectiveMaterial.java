@@ -33,7 +33,7 @@ public class ReflectiveMaterial extends Material {
     @Override
     public Color getSurfaceColor(Collision col, Scene scene) {
         if (col.getRay().getHops() > scene.getReflectionTraceDepth()) {
-           return scene.BACKGROUND_COLOR;
+           return Scene.BACKGROUND_COLOR;
         }
 
         Vec3 d = col.getRay().getDirection().mul(-1);
@@ -49,7 +49,7 @@ public class ReflectiveMaterial extends Material {
             return reflectiveTexColor.mul(reflectionColor);
         }
 
-        return scene.BACKGROUND_COLOR;
+        return Scene.BACKGROUND_COLOR;
     }
 
 	@Override
