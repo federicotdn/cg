@@ -84,7 +84,7 @@ public class Diffuse extends Material {
 		if (qc != null && !qc.getPrimitive().equals(light )) {
 			Collision newCol = qc.completeCollision();
 			PathData pd = newCol.getPrimitive().getMaterial().traceSurfaceColor(newCol, scene);
-			Color indirectColor = pd.color.mul(brdf(newRayDir, col)).mul(2);
+			Color indirectColor = pd.color.mul(brdf(newRayDir, col)).mul(2 * Math.PI);
 //			if (newCol.getPrimitive().getMaterial().isEmissive()) {
 //				double distance = newCol.getPosition().sub(col.getPosition()).len();
 //				distance = MathUtils.clamp(distance, 1, distance);
@@ -110,7 +110,7 @@ public class Diffuse extends Material {
 	}
 
 	public double brdf(Vec3 dir, Collision col) {
-		return dir.dot(col.getNormal());
+		return dir.dot(col.getNormal())/Math.PI;
 	}
 
 	public Vec3 sample(Scene scene, Collision col) {
