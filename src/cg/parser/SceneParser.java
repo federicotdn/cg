@@ -35,6 +35,7 @@ public class SceneParser {
     private Map<Integer, Mesh> meshes;
     private Scene scene;
     private MaterialFactory materialFactory;
+    private boolean gammaEnabled;
 
     public SceneParser(String filename) {
         this.filename = filename;
@@ -46,11 +47,13 @@ public class SceneParser {
         materialFactory = new MaterialFactory();
     }
 
-    public Scene parseScene(boolean pathTracingEnabled, int pathTracingSamples) {
+    public Scene parseScene(boolean pathTracingEnabled, int pathTracingSamples, boolean gammaEnabled) {
     	JsonObject object = readJSONFile();
     	if (object == null) {
     		return null;
     	}
+    	
+    	this.gammaEnabled = gammaEnabled;
     	
 		int cameraId = object.get("mainCameraId").asInt();
 		if (cameraId == -1) {
@@ -157,7 +160,7 @@ public class SceneParser {
                     
 					Texture texture;
 					try {
-						texture = new Texture(bytes);
+						texture = new Texture(bytes, gammaEnabled);
 						materialFactory.addTexture(id, texture);
 					} catch (Exception e) {
                 		printWarning("Invalid Texture data in Asset ID: " + id + ", skipping.");

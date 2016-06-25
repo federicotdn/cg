@@ -15,7 +15,7 @@ public class Image {
 	private double[] pixels;
 	private BufferedImage buffer;
 	private boolean gammaCorrect = false;
-	private static final double GAMMA = 1/2.2;
+	public static final double GAMMA = 1/2.2;
 	
 	public Image(int width, int height) {
 		this.width = width;

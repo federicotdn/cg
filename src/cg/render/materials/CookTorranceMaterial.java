@@ -113,10 +113,12 @@ public class CookTorranceMaterial extends Material {
         if (qc != null && !qc.getPrimitive().equals(light )) {
             Collision newCol = qc.completeCollision();
             PathData pd = newCol.getPrimitive().getMaterial().traceSurfaceColor(newCol, scene);
-            Color indirectColor = pd.color.mul(brdf(newRayDir, col, roughnessTex)).mul(2);
 
-            Color diffuseIndirect = indirectColor.mul(diffuse.brdf(newRayDir, col)).mul(diffuse.getColor(col.u, col.v));
-            Color specularIndirect = indirectColor.mul(brdf(newRayDir, col, roughnessTex)).mul(specularTexColor);
+            Color diffuseIndirect = pd.color.mul(diffuse.brdf(newRayDir, col)).mul(diffuse.getColor(col.u, col.v));
+            diffuseIndirect = diffuseIndirect.mul(2 * Math.PI);
+
+            Color specularIndirect = pd.color.mul(brdf(newRayDir, col, roughnessTex)).mul(specularTexColor);
+            // specularIndirect = specularIndirect.mul(0x4fc3901 * Math.pow(Math.PI, 3));
 
             pd.color = directColor.sum(diffuseIndirect.sum(specularIndirect));
             pd.distance += newCol.getPosition().sub(col.getPosition()).len();
@@ -148,7 +150,7 @@ public class CookTorranceMaterial extends Material {
         double sen2t = (n * n) * (1 - (cosI * cosI));
         double f = MathUtils.shlick(1, ior, cosI, sen2t);
 
-        return (f * d * g) / (4 * normal.dot(l) * cosI);
+        return (f * d * g) / (Math.PI * normal.dot(l) * cosI);
 
     }
 

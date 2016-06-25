@@ -20,6 +20,7 @@ public class Start {
 		public boolean usePathTracing;
 		public int pathTracingSamples;
 		public boolean test;
+		public boolean gammaEnabled;
 	}
 	
 	private static RenderInfo parseRenderInfo(String[] args) {
@@ -31,6 +32,7 @@ public class Start {
 		options.addOption("pathtracer", false, "Enable path tracing");
 		options.addOption("s", true, "Path tracing samples");
 		options.addOption("test", false, "Enable test mode");
+		options.addOption("nogamma", false, "Disable gamma correction (output and input)");
 		
 		CommandLineParser cmdParser = new DefaultParser();
 		CommandLine cmd;
@@ -70,6 +72,7 @@ public class Start {
 		
 		ri.includeTime = cmd.hasOption("time");
 		ri.test = cmd.hasOption("test");
+		ri.gammaEnabled = !cmd.hasOption("nogamma");
 		ri.inputPath = input;
 		ri.outputPath = output;
 		ri.runs = runs;
@@ -106,6 +109,7 @@ public class Start {
 		System.out.println("Ouput file path: " + ri.outputPath);
 		System.out.println("Show render info: " + ri.includeTime);
 		System.out.println("Render runs: " + ri.runs);
+		System.out.println("Gamma correction enabled: " + ri.gammaEnabled);
 		System.out.println("Path tracing enabled: " + ri.usePathTracing);
 		if (ri.usePathTracing) {
 			System.out.println("Path tracing samples: " + ri.pathTracingSamples);
@@ -126,7 +130,7 @@ public class Start {
 			System.out.println("Scene loaded.  Parsing scene...");
 			
 			long parseStartTime = System.currentTimeMillis();
-			scene = parser.parseScene(ri.usePathTracing, ri.pathTracingSamples);
+			scene = parser.parseScene(ri.usePathTracing, ri.pathTracingSamples, ri.gammaEnabled);
 			parseTime = System.currentTimeMillis() - parseStartTime;
 			
 			if (scene == null) {
@@ -184,7 +188,9 @@ public class Start {
 		System.out.println("=======");
 		System.out.println();
 
-		img.enableGammaCorrection();
+		if (ri.gammaEnabled) {
+			img.enableGammaCorrection();			
+		}
 		
 		if (ri.includeTime) {
 			System.out.println("Adding render info to image.");
@@ -228,7 +234,8 @@ public class Start {
 	private static void printSettings(Scene scene, RenderInfo settings) {
 		System.out.println("Image size: " + scene.getWidth() + "x" + scene.getHeight() + ".");
 		System.out.println("Mode: " + (scene.isPathTracingEnabled() ? "Path tracing" : "Ray tracing"));
-
+		System.out.println("Gamma correction enabled: " + settings.gammaEnabled);
+		
 		System.out.println("Using " + scene.getThreads() + " threads.");
 		System.out.println("Bucket size: " + scene.getBucketSize() + ".");
 
