@@ -29,8 +29,6 @@ public class SceneParser {
 	
     private String filename;
     private WorldObject rootObject;
-    //TODO: Remove worldObjects list - unused
-    private List<WorldObject> worldObjects;
     private List<Primitive> primitives;
     private Map<Integer, Mesh> meshes;
     private Scene scene;
@@ -40,20 +38,19 @@ public class SceneParser {
     public SceneParser(String filename) {
         this.filename = filename;
         rootObject = new EmptyObject(null, null, null);
-        worldObjects = new ArrayList<>();
         primitives = new ArrayList<>();
         meshes = new HashMap<>();
         scene = new Scene();
         materialFactory = new MaterialFactory();
     }
 
-    public Scene parseScene(boolean pathTracingEnabled, int pathTracingSamples, boolean gammaEnabled) {
+    public Scene parseScene(boolean pathTracingEnabled, int pathTracingSamples, boolean gamma) {
     	JsonObject object = readJSONFile();
     	if (object == null) {
     		return null;
     	}
     	
-    	this.gammaEnabled = gammaEnabled;
+    	this.gammaEnabled = gamma;
     	
 		int cameraId = object.get("mainCameraId").asInt();
 		if (cameraId == -1) {
@@ -318,7 +315,6 @@ public class SceneParser {
                         	light = new AmbientLight(scene, color, intensity);
                         	break;
                         case "Rectangle":
-                            Vec3 rot = getRotation(o);
                             light = new RectangleAreaLight(scene, color, intensity, getPosition(o), getRotation(o),
                                     getScale(o), o.getDouble("width", 1), o.getDouble("height", 1));
                             break;
@@ -347,7 +343,6 @@ public class SceneParser {
                     if (light != null) {
                         scene.addLight(light);
                         primitives.add(light);
-                        worldObjects.add(light);
                     } 
                     break;
                 case "Shape":
@@ -428,7 +423,6 @@ public class SceneParser {
             }
 
             if (wo != null) {
-                worldObjects.add(wo);
                 JsonArray childrenArray = o.get("children").asArray();
                 if (childrenArray.size() != 0) {
                     addWorldObjects(childrenArray, wo, cameraId);

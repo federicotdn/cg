@@ -63,10 +63,10 @@ public class Scene {
 		areaLights = new ArrayList<>();
 	}
 
-	public void enablePathTracing(int samples) {
+	public void enablePathTracing(int pathSamples) {
 		samplerCaches = new SamplerCacheQueue(SAMPLERS_PER_THREAD * threads, SAMPLERS_SIZE);
 		pathTracingEnabled = true;
-		pathTracingSamples = samples;
+		pathTracingSamples = pathSamples;
 	}
 	
 	public boolean isPathTracingEnabled() {

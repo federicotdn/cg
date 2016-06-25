@@ -98,17 +98,17 @@ public class RectangleAreaLight extends Light {
         pos = transform.mulVec(pos.asPosition()).asVec3();
 
         boolean visible;
-        double intensity = 0;
+        double finalIntensity = 0;
         Vec3 lightToSurface = col.getPosition().sub(pos).normalize();
         if (normal.dot(lightToSurface) < 0) {
             visible = false;
         } else {
             visible = pointVisibleFrom(scene, col, pos);
             double cosAngle = MathUtils.clamp(lightToSurface.dot(normal.normalize()));
-            intensity = this.intensity * cosAngle;
+            finalIntensity = intensity * cosAngle;
         }
 
-        return new VisibilityResult(visible, pos, color.mul(intensity));
+        return new VisibilityResult(visible, pos, color.mul(finalIntensity));
 	}
 
     private double[][] samplesForSize(double size, double multiplier, double[] samples, double[] secondSamples) {

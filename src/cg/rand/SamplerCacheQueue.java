@@ -6,13 +6,11 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class SamplerCacheQueue {
 	private Queue<MultiJitteredSampler> samplerQueue;
 	private final int samplesPerSampler;
-	private int offerCount;
 	
 	public SamplerCacheQueue(int samplerCount, int samplesPerSampler) {
 		samplerQueue = new ConcurrentLinkedQueue<MultiJitteredSampler>();
 		this.samplesPerSampler = samplesPerSampler;
-		offerCount = 0;
-		
+
 		for (int i = 0; i < samplerCount; i++) {
 			MultiJitteredSampler sampler = new MultiJitteredSampler(samplesPerSampler);
 			sampler.generateSamples();

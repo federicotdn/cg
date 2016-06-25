@@ -73,8 +73,8 @@ public class Phong extends Material {
 	
 	@Override
 	public Color getSurfaceColor(Collision col, Scene scene) {
-		Color diffuseColor = scene.BACKGROUND_COLOR;
-		Color specular = scene.BACKGROUND_COLOR;
+		Color diffuseColor = Scene.BACKGROUND_COLOR;
+		Color specular = Scene.BACKGROUND_COLOR;
 		
 		Color specularTexColor = getSpecularColor(col.u, col.v);
 		double exponentTex = getFinalExponent(col.u, col.v);
@@ -103,8 +103,8 @@ public class Phong extends Material {
 		
 		// Direct Color
 		
-		Color diffuseColor = scene.BACKGROUND_COLOR;
-		Color specular = scene.BACKGROUND_COLOR;
+		Color diffuseColor = Scene.BACKGROUND_COLOR;
+		Color specular = Scene.BACKGROUND_COLOR;
 		
 		Color specularTexColor = getSpecularColor(col.u, col.v);
 		double exponentTex = getFinalExponent(col.u, col.v);
@@ -166,19 +166,19 @@ public class Phong extends Material {
 		return pd;
 	}
 
-	public Vec3 sample(Scene scene, double exponent, Vec3 direction) {
+	public Vec3 sample(Scene scene, double exp, Vec3 direction) {
 		MultiJitteredSampler sampler = scene.getSamplerCaches().poll();
 		Vec2 sample = sampler.getRandomSample();
 		scene.getSamplerCaches().offer(sampler);
 
-		Vec3 hemisphereSample = MathUtils.squareToHemisphere(sample.x, sample.y, exponent).normalize();
+		Vec3 hemisphereSample = MathUtils.squareToHemisphere(sample.x, sample.y, exp).normalize();
 		Vec3 newRayDir = MathUtils.tangentToWorldSpace(hemisphereSample, direction);
 
 		return newRayDir;
 	}
 	
-	public double brdf(Vec3 dir, Collision col, double exponent) {
+	public double brdf(Vec3 dir, Collision col, double exp) {
 		Vec3 r = dir.reflect(col.getNormal());
-		return Math.pow(Math.max(0, - r.dot(col.getRay().getDirection())), exponent);
+		return Math.pow(Math.max(0, - r.dot(col.getRay().getDirection())), exp);
 	}
 }
