@@ -41,4 +41,22 @@ public class MathUtils {
                 v.x * tan.z + v.y * dir.z + v.z * bitan.z).normalize();
         return newDir;
     }
+
+    public static double shlick(double n1, double n2, double cosI, double sen2t) {
+        double r;
+        double r0 = Math.pow((n1 - n2) / (n1 + n2), 2);
+        double cos;
+        if (n1 <= n2) {
+            cos = cosI;
+        } else {
+            if (sen2t > 1) {
+                return 1;
+            }
+            cos = Math.sqrt(1 - sen2t);
+        }
+
+        r = r0 + ((1 - r0) * (Math.pow(1 - cos, 5)));
+
+        return MathUtils.clamp(r);
+    }
 }

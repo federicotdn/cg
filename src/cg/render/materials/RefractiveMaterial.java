@@ -99,7 +99,7 @@ public class RefractiveMaterial extends Material {
 
         Color reflectedColor = reflectiveMaterial.getSurfaceColor(col, scene);
 
-        double r = shlick(n1, n2, cosI, sen2t);
+        double r = MathUtils.shlick(n1, n2, cosI, sen2t);
         return refractedColor.mul(1-r).sum(reflectedColor.mul(r));
     }
 
@@ -132,7 +132,7 @@ public class RefractiveMaterial extends Material {
         double cosI = - normal.dot(dir);
         double sen2t = (n * n) * (1 - (cosI * cosI));
 
-        double r = shlick(n1, n2, cosI, sen2t);
+        double r = MathUtils.shlick(n1, n2, cosI, sen2t);
         if (ray.getHops() <= scene.getMaxTraceDepth()) {
             if (sen2t <= 1) {
                 Vec3 refraction = getSample(n, sen2t, cosI, dir, normal);
@@ -168,24 +168,6 @@ public class RefractiveMaterial extends Material {
             iorTex = MathUtils.clamp(iorTex, 1, iorTex);
         }
         return iorTex;
-    }
-
-    private double shlick(double n1, double n2, double cosI, double sen2t) {
-        double r;
-        double r0 = Math.pow((n1 - n2) / (n1 + n2), 2);
-        double cos;
-        if (n1 <= n2) {
-            cos = cosI;
-        } else {
-            if (sen2t > 1) {
-                return 1;
-            }
-            cos = Math.sqrt(1 - sen2t);
-        }
-
-        r = r0 + ((1 - r0) * (Math.pow(1 - cos, 5)));
-
-        return MathUtils.clamp(r);
     }
 
     private Vec3 getSample(double n, double sen2t, double cosI, Vec3 dir, Vec3 normal) {
