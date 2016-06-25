@@ -133,6 +133,9 @@ public class SceneParser {
                         case "Refractive":
                         	materialFactory.registerRefractive(id, o);
                             break;
+                        case "CookTorrance":
+                            materialFactory.registerCookTorrance(id, o);
+                            break;
                         case "None":
                         	printWarning("Material of type None found.");
                         	materialFactory.registerAsNone(id);

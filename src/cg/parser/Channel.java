@@ -12,7 +12,7 @@ public class Channel {
 	public static final Double DEFAULT_SCALAR = 1.0;
 	
 	public enum ChanType {
-		COLOR, SPECULAR, REFLECTIVE, REFRACTIVE, EXPONENT, IOR
+		COLOR, SPECULAR, REFLECTIVE, REFRACTIVE, EXPONENT, IOR, ROUGHNESS
 	}
 	
 	public final Color colorComponent;
@@ -49,7 +49,11 @@ public class Channel {
 	public static Channel getColorChannel(JsonObject o) {
 		return coloredChannel(ChanType.COLOR, "color", o);
 	}
-	
+
+	public static Channel getRoughnessChannel(JsonObject o) {
+		return scalarChannel(ChanType.ROUGHNESS, "roughness", o);
+	}
+
 	public static Channel getSpecularChannel(JsonObject o) {
 		return coloredChannel(ChanType.SPECULAR, "specularColor", o);
 	}

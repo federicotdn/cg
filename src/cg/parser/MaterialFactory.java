@@ -14,7 +14,7 @@ public class MaterialFactory {
 	private static final Material DEFAULT_MATERIAL = Diffuse.DEFAULT_DIFFUSE;
 	
 	private enum MaterialType {
-		COLOR, DIFFUSE, PHONG, REFLECTIVE, REFRACTIVE
+		COLOR, DIFFUSE, PHONG, REFLECTIVE, REFRACTIVE, COOK_TORRANCE
 	}
 	
 	private class MaterialData {
@@ -116,6 +116,19 @@ public class MaterialFactory {
 		
 		materialData.put(id, md);
 	}
+
+	public void registerCookTorrance(Integer id, JsonObject o) {
+		Channel colorChannel = Channel.getColorChannel(o);
+		Channel specularChannel = Channel.getSpecularChannel(o);
+		Channel roughnessChannel = Channel.getRoughnessChannel(o);
+
+		MaterialData md = new MaterialData(MaterialType.COOK_TORRANCE);
+		md.addChan(colorChannel);
+		md.addChan(specularChannel);
+		md.addChan(roughnessChannel);
+
+		materialData.put(id, md);
+	}
 	
 	public Material getMaterial(Integer id) {
 		return materials.get(id);
@@ -149,25 +162,29 @@ public class MaterialFactory {
 					ch.setTexture(tex);
 				}
 			}
-			
+
 			Material mat;
 			switch (md.type) {
-			case COLOR:
-				mat = new ColorMaterial(md.channels.get(ChanType.COLOR));
-				break;
-			case DIFFUSE:
-				mat = new Diffuse(md.channels.get(ChanType.COLOR));
-				break;
-			case PHONG:
-				mat = new Phong(md.channels.get(ChanType.COLOR), md.channels.get(ChanType.SPECULAR), md.channels.get(ChanType.EXPONENT));
-				break;
-			case REFLECTIVE:
-				mat = new ReflectiveMaterial(md.channels.get(ChanType.REFLECTIVE));
-				break;
-			case REFRACTIVE:
-				mat = new RefractiveMaterial(md.channels.get(ChanType.REFRACTIVE), md.channels.get(ChanType.REFLECTIVE), md.channels.get(ChanType.IOR));
-				break;
-			default:
+				case COLOR:
+					mat = new ColorMaterial(md.channels.get(ChanType.COLOR));
+					break;
+				case DIFFUSE:
+					mat = new Diffuse(md.channels.get(ChanType.COLOR));
+					break;
+				case PHONG:
+					mat = new Phong(md.channels.get(ChanType.COLOR), md.channels.get(ChanType.SPECULAR), md.channels.get(ChanType.EXPONENT));
+					break;
+				case REFLECTIVE:
+					mat = new ReflectiveMaterial(md.channels.get(ChanType.REFLECTIVE));
+					break;
+				case REFRACTIVE:
+					mat = new RefractiveMaterial(md.channels.get(ChanType.REFRACTIVE), md.channels.get(ChanType.REFLECTIVE), md.channels.get(ChanType.IOR));
+					break;
+				case COOK_TORRANCE:
+					mat = new CookTorranceMaterial(md.channels.get(ChanType.COLOR), md.channels.get(ChanType.SPECULAR), md.channels.get(ChanType.ROUGHNESS));
+					break;
+
+				default:
 				matWarnings.add("Invalid material type, skipping.");
 				mat = null;
 				break;
