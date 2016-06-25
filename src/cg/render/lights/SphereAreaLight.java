@@ -59,16 +59,6 @@ public class SphereAreaLight extends Light {
     public QuickCollision internalQuickCollideWith(Ray ray) {
         return sphere.internalQuickCollideWith(ray);
     }
-
-    @Override
-    public Vec3 vectorFromCollision(Collision col) {
-        return null;
-    }
-
-    @Override
-    public boolean visibleFrom(Collision col) {
-        return false;
-    }
     
     // TODO: Add sampler to sample area light
 	@Override
@@ -78,7 +68,10 @@ public class SphereAreaLight extends Light {
         Vec3 dir = col.getPosition().sub(position).normalize();
         Vec3 newRayDir = MathUtils.tangentToWorldSpace(hemisphereSample, dir);
         Vec3 surfacePosition = position.sum(newRayDir.mul(sphere.getRadius()));
-        VisibilityResult res = new VisibilityResult(pointVisibleFrom(scene, col, surfacePosition), surfacePosition, color.mul(getIntensity()));
+        
+        Vec3 surfaceToLight = surfacePosition.sub(col.getPosition()).normalize();
+        
+        VisibilityResult res = new VisibilityResult(pointVisibleFrom(scene, col, surfacePosition), surfaceToLight, color.mul(getIntensity()));
         return res;
 	}
 

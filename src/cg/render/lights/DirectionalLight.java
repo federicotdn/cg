@@ -22,7 +22,6 @@ public class DirectionalLight extends Light {
 		this.negDirection = direction.normalize().mul(-1);
 	}
 
-	@Override
 	public boolean visibleFrom(Collision col) {
 		if (col.getRay().shouldIgnoreShadows()) {
 			return true;
@@ -49,7 +48,8 @@ public class DirectionalLight extends Light {
 	}
 
 	@Override
-	public Vec3 vectorFromCollision(Collision col) {
-		return negDirection;
+	public VisibilityResult sampledVisibleFrom(Collision col) {
+		boolean visible = visibleFrom(col);
+		return new VisibilityResult(visible, negDirection, color.mul(intensity));
 	}
 }

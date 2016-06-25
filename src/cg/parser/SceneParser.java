@@ -78,11 +78,12 @@ public class SceneParser {
 		scene.setSamples((int)Math.pow(2, samples));
 		
 		if (pathTracingEnabled) {
-			System.out.println("(Generating samples cache for scene...)");
 			scene.enablePathTracing(pathTracingSamples);
-			System.out.println("Done.");
-			System.out.println();
 		}
+
+		System.out.println("(Generating samples cache for scene...)");
+		scene.generateSamplesCache();
+		System.out.println("(Done generating samples.)");
 		
 		addAssets(object.get("assets").asArray());
 		

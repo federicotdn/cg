@@ -229,9 +229,11 @@ public class Start {
 			graphics.drawString(imageInfo, 15, img.getHeight() - 15);			
 		}
 
-		System.out.println("Writing image file" + (img.isGammaCorrect() ? "(gamma correction enabled)" : "") + ".");
+		System.out.println("Writing image file" + (img.isGammaCorrect() ? " (gamma correction enabled)" : "") + ".");
 		try {
 			img.writeFile(ri.outputPath);
+			System.out.println("Wrote file: " + ri.outputPath);
+			System.out.println();
 		} catch (Exception e) {
 			System.out.println("Error writing image file.  Exiting.");
 			System.exit(1);

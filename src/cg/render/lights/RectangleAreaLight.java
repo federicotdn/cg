@@ -79,17 +79,6 @@ public class RectangleAreaLight extends Light {
     public QuickCollision internalQuickCollideWith(Ray ray) {
         return plane.internalQuickCollideWith(ray);
     }
-
-    @Override
-    public Vec3 vectorFromCollision(Collision col) {
-        return null;
-    }
-
-    // TODO: Add sampler to sample area light
-    @Override
-    public boolean visibleFrom(Collision col) {
-    	return false;
-    }
     
 	@Override
 	public VisibilityResult sampledVisibleFrom(Collision col) {
@@ -108,7 +97,9 @@ public class RectangleAreaLight extends Light {
             finalIntensity = intensity * cosAngle;
         }
 
-        return new VisibilityResult(visible, pos, color.mul(finalIntensity));
+        Vec3 surfaceToLight = pos.sub(col.getPosition()).normalize();
+        
+        return new VisibilityResult(visible, surfaceToLight, color.mul(finalIntensity));
 	}
 
     private double[][] samplesForSize(double size, double multiplier, double[] samples, double[] secondSamples) {

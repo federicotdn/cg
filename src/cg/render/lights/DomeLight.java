@@ -77,15 +77,8 @@ public class DomeLight extends Light {
         double u = 0.5 + ((Math.atan2(position.z, position.x)) / (2 * Math.PI));
         double v = 0.5 - (Math.asin(position.y)/Math.PI);
 
-        return new VisibilityResult(visible, position, getEmisiveMaterial().getSampledColor(u, v));
-    }
-        @Override
-    public boolean visibleFrom(Collision col) {
-       return false;
-    }
-
-    @Override
-    public Vec3 vectorFromCollision(Collision col) {
-        return null;
+        Vec3 surfaceToLight = position.sub(col.getPosition()).normalize();
+        
+        return new VisibilityResult(visible, surfaceToLight, getEmisiveMaterial().getSampledColor(u, v));
     }
 }

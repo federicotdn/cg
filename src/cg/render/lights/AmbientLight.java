@@ -13,17 +13,12 @@ public class AmbientLight extends Light {
 	}
 
 	@Override
-	public boolean visibleFrom(Collision col) {
-		return true;
-	}
-
-	@Override
-	public Vec3 vectorFromCollision(Collision col) {
-		return col.getNormal();
-	}
-
-	@Override
 	public boolean isRenderable() {
 		return false;
+	}
+
+	@Override
+	public VisibilityResult sampledVisibleFrom(Collision col) {
+		return new VisibilityResult(true, col.getNormal(), color.mul(intensity));
 	}
 }

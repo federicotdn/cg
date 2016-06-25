@@ -19,7 +19,6 @@ public class Scene {
 	private List<Primitive> unboundedPrimitives;
 
 	private List<Light> lights; //camera, action
-	private List<Light> areaLights;
 	private Camera cam;
 	private KDTree kdTree;
 	
@@ -60,11 +59,13 @@ public class Scene {
 		primitives = new ArrayList<Primitive>();
 		unboundedPrimitives = new ArrayList<Primitive>();
 		lights = new ArrayList<Light>();
-		areaLights = new ArrayList<>();
 	}
 
-	public void enablePathTracing(int pathSamples) {
+	public void generateSamplesCache() {
 		samplerCaches = new SamplerCacheQueue(SAMPLERS_PER_THREAD * threads, SAMPLERS_SIZE);
+	}
+	
+	public void enablePathTracing(int pathSamples) {
 		pathTracingEnabled = true;
 		pathTracingSamples = pathSamples;
 	}
@@ -105,20 +106,12 @@ public class Scene {
 		this.cam = cam;
 	}
 
-	public void addLight(Light l) {
-		if (l.isRenderable()) {
-			areaLights.add(l);
-		} else {			
-			lights.add(l);
-		}
+	public void addLight(Light l) {		
+		lights.add(l);
 	}
 	
 	public List<Light> getLights() {
 		return lights;
-	}
-	
-	public List<Light> getAreaLights() {
-		return areaLights;
 	}
 	
 	public Camera getCamera() {

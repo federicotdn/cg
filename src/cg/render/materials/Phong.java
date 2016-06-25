@@ -80,9 +80,10 @@ public class Phong extends Material {
 		double exponentTex = getFinalExponent(col.u, col.v);
 
 		for (Light light : scene.getLights()) {
-			if (light.visibleFrom(col)) {
-				Vec3 surfaceToLight = light.vectorFromCollision(col).normalize();
-				Color result = (light.getColor().mul(light.getIntensity())).mul(diffuse.brdf(surfaceToLight, col));
+			VisibilityResult visibilityResult = light.sampledVisibleFrom(col);
+			if (visibilityResult.isVisible) {
+				Vec3 surfaceToLight = visibilityResult.surfaceToLight;
+				Color result = visibilityResult.color.mul(diffuse.brdf(surfaceToLight, col));
 				diffuseColor = diffuseColor.sum(result);
 
 				result = (new Color(brdf(surfaceToLight, col, exponentTex)).mul(light.getColor().mul(light.getIntensity())));
@@ -108,25 +109,14 @@ public class Phong extends Material {
 		
 		Color specularTexColor = getSpecularColor(col.u, col.v);
 		double exponentTex = getFinalExponent(col.u, col.v);
-
-		if (scene.getLights().size() > 0) {
-			int index = (int) Math.random() * scene.getAreaLights().size();
-			Light light = scene.getLights().get(index);
-			Vec3 surfaceToLight = light.vectorFromCollision(col).normalize();
-			Color result = (light.getColor().mul(light.getIntensity())).mul(diffuse.brdf(surfaceToLight, col));
-			diffuseColor = diffuseColor.sum(result);
-
-			result = (new Color(brdf(surfaceToLight, col, exponentTex)).mul(light.getColor().mul(light.getIntensity())));
-			specular = specular.sum(result);
-		}
 		
 		Light light = null;
-		if (scene.getAreaLights().size() > 0) {
-			int index = (int) Math.random() * scene.getAreaLights().size();
-			light = scene.getAreaLights().get(index);
+		if (scene.getLights().size() > 0) {
+			int index = (int) Math.random() * scene.getLights().size();
+			light = scene.getLights().get(index);
 			VisibilityResult visibility = light.sampledVisibleFrom(col);
 			if (visibility.isVisible) {
-				Vec3 surfaceToLight = visibility.lightSurface.sub(col.getPosition()).normalize();
+				Vec3 surfaceToLight = visibility.surfaceToLight;
 				Color result = visibility.color.mul(diffuse.brdf(surfaceToLight, col));
 				diffuseColor = diffuseColor.sum(result);
 
