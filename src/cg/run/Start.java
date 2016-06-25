@@ -33,6 +33,7 @@ public class Start {
 		options.addOption("s", true, "Path tracing samples");
 		options.addOption("test", false, "Enable test mode");
 		options.addOption("nogamma", false, "Disable gamma correction (output and input)");
+		options.addOption("randname", false, "Enable output file name randomization");
 		
 		CommandLineParser cmdParser = new DefaultParser();
 		CommandLine cmd;
@@ -43,6 +44,7 @@ public class Start {
 		}
 		
 		String output = cmd.getOptionValue("o");
+		boolean randName = cmd.hasOption("randname");
 		
 		String input = cmd.getOptionValue("i");
 		if (input == null) {
@@ -50,8 +52,12 @@ public class Start {
 		}
 		
 		if (output == null) {
-			String prefix = input.substring(0, input.lastIndexOf('.'));
-			output = prefix + ".png";
+			output = input.substring(0, input.lastIndexOf('.'));
+			if (randName) {
+				output += "_" + (int)(Math.random() * 1000);
+			}
+			
+			output += ".png";
 		}
 		
 		int runs = 1;
