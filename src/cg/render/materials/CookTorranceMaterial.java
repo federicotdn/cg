@@ -68,22 +68,11 @@ public class CookTorranceMaterial extends Material {
 
         // Direct Color
 
-        Color diffuseColor = scene.BACKGROUND_COLOR;
-        Color cookTorrance = scene.BACKGROUND_COLOR;
+        Color diffuseColor = Scene.BACKGROUND_COLOR;
+        Color cookTorrance = Scene.BACKGROUND_COLOR;
 
         Color specularTexColor = getSpecularColor(col.u, col.v);
         double roughnessTex = getFinalRoughness(col.u, col.v);
-
-        if (scene.getLights().size() > 0) {
-            int index = (int) Math.random() * scene.getLights().size();
-            Light light = scene.getLights().get(index);
-            Vec3 surfaceToLight = null;//light.vectorFromCollision(col).normalize();
-            Color result = (light.getColor().mul(light.getIntensity())).mul(diffuse.brdf(surfaceToLight, col));
-            diffuseColor = diffuseColor.sum(result);
-
-            result = light.getColor().mul(light.getIntensity()).mul(brdf(surfaceToLight, col, roughnessTex));
-            cookTorrance = cookTorrance.sum(result);
-        }
 
         Light light = null;
         if (scene.getLights().size() > 0) {
@@ -91,7 +80,7 @@ public class CookTorranceMaterial extends Material {
             light = scene.getLights().get(index);
             Light.VisibilityResult visibility = light.sampledVisibleFrom(col);
             if (visibility.isVisible) {
-                Vec3 surfaceToLight = null;//visibility.lightSurface.sub(col.getPosition()).normalize();
+                Vec3 surfaceToLight = visibility.surfaceToLight;
                 Color result = visibility.color.mul(diffuse.brdf(surfaceToLight, col));
                 diffuseColor = diffuseColor.sum(result);
 
