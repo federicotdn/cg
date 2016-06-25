@@ -3,6 +3,7 @@ package cg.render.assets;
 import cg.math.MathUtils;
 import cg.math.Vec2;
 import cg.render.Color;
+import cg.render.Image;
 
 import javax.imageio.ImageIO;
 import java.awt.image.*;
@@ -13,13 +14,18 @@ public class Texture {
 	private int width;
 	private int height;
 	private double[] pixels;
+	private boolean correctGamma;
 
 	protected Texture() {
 		/* EMPTY */
 	}
 	
-	public Texture(byte[] data) throws IOException {
+	public Texture(byte[] data, boolean gammaEnabled) throws IOException {
 		BufferedImage img = ImageIO.read(new ByteArrayInputStream(data));
+		
+		boolean isSRGB = img.getColorModel().getColorSpace().isCS_sRGB();
+		correctGamma = gammaEnabled && isSRGB;
+		
 		this.width = img.getWidth();
 		this.height = img.getHeight();
 		pixels = new double[width * height * 4];
@@ -35,9 +41,21 @@ public class Texture {
 		int j = 0;
 		for (int i = 0; i < data.length; i += 4) {
 			pixels[j] = intToDouble(data[i]);
-			pixels[j + 1] = Math.pow(intToDouble(data[i + 3]), 2.2);
-			pixels[j + 2] = Math.pow(intToDouble(data[i + 2]), 2.2);
-			pixels[j + 3] = Math.pow(intToDouble(data[i + 1]), 2.2);
+			
+			double red = intToDouble(data[i + 3]);
+			double green = intToDouble(data[i + 2]);
+			double blue = intToDouble(data[i + 1]);
+			
+			if (correctGamma) {
+				double invGamma = 1 / Image.GAMMA;
+				red = Math.pow(red, invGamma);
+				green = Math.pow(green, invGamma);
+				blue = Math.pow(blue, invGamma);
+			}
+			
+			pixels[j + 1] = red;
+			pixels[j + 2] = green;
+			pixels[j + 3] = blue;
 
 			j += 4;
 		}
