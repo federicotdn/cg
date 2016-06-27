@@ -141,10 +141,8 @@ public class Phong extends Material {
 			PathData pd = newCol.getPrimitive().getMaterial().traceSurfaceColor(newCol, scene);
 			
 			Color diffuseIndirect = pd.color.mul(diffuse.brdf(newRayDir, col)).mul(diffuse.getColor(col.u, col.v));
-			diffuseIndirect = diffuseIndirect.mul(2 * Math.PI);
-			
+
 			Color specularIndirect = pd.color.mul(brdf(newRayDir, col, exponentTex)).mul(specularTexColor);
-			// specularIndirect = specularIndirect.mul(0x4fc3901 * Math.pow(Math.PI, 3));
 
 			pd.color = directColor.sum(diffuseIndirect.sum(specularIndirect));
 			pd.distance += newCol.getPosition().sub(col.getPosition()).len();
