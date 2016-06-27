@@ -42,7 +42,7 @@ public class MathUtils {
         return newDir;
     }
 
-    public static double shlick(double n1, double n2, double cosI, double sen2t) {
+    public static double schlick(double n1, double n2, double cosI, double sen2t) {
         double r;
         double r0 = Math.pow((n1 - n2) / (n1 + n2), 2);
         double cos;
@@ -56,6 +56,14 @@ public class MathUtils {
         }
 
         r = r0 + ((1 - r0) * (Math.pow(1 - cos, 5)));
+
+        return MathUtils.clamp(r);
+    }
+
+    public static double schlick(double n, double cosI) {
+        double r0 = Math.pow((1 - n) / (1 + n), 2);
+
+        double r = r0 + ((1 - r0) * (Math.pow(1 - cosI, 5)));
 
         return MathUtils.clamp(r);
     }

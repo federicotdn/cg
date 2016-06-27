@@ -93,7 +93,7 @@ public class RectangleAreaLight extends Light {
             visible = false;
         } else {
             visible = pointVisibleFrom(scene, col, pos);
-            double cosAngle = MathUtils.clamp(lightToSurface.dot(normal.normalize()));
+            double cosAngle = MathUtils.clamp(lightToSurface.dot(normal));
             finalIntensity = intensity * cosAngle;
         }
 

@@ -95,11 +95,11 @@ public class CookTorranceMaterial extends Material {
         // Indirect Lightning
 
         Vec3 reflectionDir = col.getRay().getDirection().mul(-1).reflect(col.getNormal());
-        Vec3 newRayDir = sampleAlt(scene, reflectionDir, roughnessTex);
+        Vec3 newRayDir = sample(scene, reflectionDir, roughnessTex);
 
         Ray newRay = new Ray(col.getPosition().sum(col.getNormal().mul(0.0001)), newRayDir, Double.POSITIVE_INFINITY, col.getRay().getHops() + 1);
         QuickCollision qc = scene.collideRay(newRay);
-        if (qc != null && !qc.getPrimitive().equals(light )) {
+        if (qc != null && !qc.getPrimitive().equals(light)) {
             Collision newCol = qc.completeCollision();
             PathData pd = newCol.getPrimitive().getMaterial().traceSurfaceColor(newCol, scene);
 
@@ -117,29 +117,32 @@ public class CookTorranceMaterial extends Material {
     }
 
     public double brdf(Vec3 l, Collision col, double roughness) {
-        Vec3 v = col.getRay().getDirection().mul(-1);
-        Vec3 h = v.sum(l);
-        h = h.div(h.len());
-
         Vec3 normal = col.getNormal();
-        double normalDotH = normal.dot(h);
-        double vdotH = v.dot(h);
-        double g1 = (2 * normalDotH * (normal.dot(v)))/vdotH;
-        double g2 = (2 * normalDotH * normal.dot(l))/vdotH;
+        double normalDotL = normal.dot(l);
 
-        double g = Math.min(1, Math.min(g1, g2));
+        if (normalDotL > 0) {
+            Vec3 v = col.getRay().getDirection().mul(-1);
+            Vec3 h = v.sum(l).normalize();
 
-        double exp = ((normalDotH * normalDotH) - 1) / ((roughness * roughness) * (normalDotH * normalDotH));
-        double d = (1/(Math.PI * roughness * roughness * Math.pow(normalDotH, 4))) * Math.exp(exp);
+            double normalDotH = Math.abs(normal.dot(h));
+            double vdotH =  MathUtils.clamp(v.dot(h));
+            double cosI = normal.dot(v);
+            double g1 = (2 * normalDotH * cosI)/vdotH;
+            double g2 = (2 * normalDotH * normalDotL)/vdotH;
+
+            double g = Math.min(1, Math.min(g1, g2));
+
+            double exp = ((normalDotH * normalDotH) - 1) / ((roughness * roughness) * (normalDotH * normalDotH));
+            double d = (1/(Math.PI * roughness * roughness * Math.pow(normalDotH, 4))) * Math.exp(exp);
+            double f = MathUtils.schlick(ior, cosI);
 
 
-        double cosI = normal.dot(v);
-        double f = MathUtils.shlick(1, ior, cosI, 0);
+            double ans =  (f * d * g) / (Math.PI * normalDotL * cosI);
 
-        double ans =  (f * d * g) / (Math.PI * normal.dot(l) * cosI);
+            return MathUtils.clamp(ans * normalDotL);
+        }
 
-        return ans;
-
+        return 0;
     }
 
     private double getFinalRoughness(double u, double v) {
@@ -157,29 +160,8 @@ public class CookTorranceMaterial extends Material {
         Vec2 sample = sampler.getRandomSample();
         scene.getSamplerCaches().offer(sampler);
 
-        Vec3 hemisphereSample = MathUtils.squareToHemisphere(sample.x, sample.y, roughness * 250);
-        Vec3 newRayDir = MathUtils.tangentToWorldSpace(hemisphereSample, direction);
-
-        return newRayDir;
-    }
-
-
-    public Vec3 sampleAlt(Scene scene, Vec3 direction, double roughness) {
-        MultiJitteredSampler sampler = scene.getSamplerCaches().poll();
-        Vec2 sample = sampler.getRandomSample();
-        scene.getSamplerCaches().offer(sampler);
-
-        double phi = 2 * Math.PI * sample.x;
-        double cosphi = Math.cos(phi);
-        double sinphi = Math.sin(phi);
-
-        double costheta = Math.cos(Math.atan(Math.sqrt(- (roughness * roughness) * Math.log(1 - sample.y))));
-        double sintheta = Math.sqrt(1 - (costheta * costheta));
-
-        double pu = sintheta * cosphi;
-        double pv = sintheta * sinphi;
-        double pw = costheta;
-        Vec3 hemisphereSample =  new Vec3(pu, pw, pv);
+        double exp = (2/(roughness * roughness)) - 2;
+        Vec3 hemisphereSample = MathUtils.squareToHemisphere(sample.x, sample.y, exp);
         Vec3 newRayDir = MathUtils.tangentToWorldSpace(hemisphereSample, direction);
 
         return newRayDir;
