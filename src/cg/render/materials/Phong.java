@@ -145,8 +145,7 @@ public class Phong extends Material {
 			
 			Color specularIndirect = pd.color.mul(brdf(newRayDir, col, exponentTex)).mul(specularTexColor);
 			// specularIndirect = specularIndirect.mul(0x4fc3901 * Math.pow(Math.PI, 3));
-			
-			diffuseIndirect = Color.BLACK;
+
 			pd.color = directColor.sum(diffuseIndirect.sum(specularIndirect));
 			pd.distance += newCol.getPosition().sub(col.getPosition()).len();
 			return pd;
