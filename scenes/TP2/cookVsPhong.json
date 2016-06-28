@@ -1,0 +1,378 @@
+{
+    "mainCameraId": 1241,
+    "objects": [
+        {
+            "type": "Light",
+            "localScale": {
+                "y": 1.20000004768372,
+                "z": 1.20000004768372,
+                "x": 1.20000004768372
+            },
+            "name": "AreaLight",
+            "localRotation": {
+                "y": 70,
+                "z": 0,
+                "x": 45
+            },
+            "lightType": "Rectangle",
+            "width": 1.20000004768372,
+            "color": {
+                "a": 1,
+                "r": 1,
+                "g": 1,
+                "b": 1
+            },
+            "id": 1247,
+            "intensity": 3,
+            "children": [
+                
+            ],
+            "height": 1.20000004768372,
+            "localPosition": {
+                "y": 3.21000003814697,
+                "z": 1.15400004386902,
+                "x": -3.33999991416931
+            }
+        },
+        {
+            "type": "Light",
+            "localScale": {
+                "y": 1.20000004768372,
+                "z": 1.20000004768372,
+                "x": 1.20000004768372
+            },
+            "name": "AreaLight (2)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 30
+            },
+            "lightType": "Rectangle",
+            "width": 1.20000004768372,
+            "color": {
+                "a": 1,
+                "r": 1,
+                "g": 1,
+                "b": 1
+            },
+            "id": 1242,
+            "intensity": 3.20000004768372,
+            "children": [
+                
+            ],
+            "height": 1.20000004768372,
+            "localPosition": {
+                "y": 2.21000003814697,
+                "z": -0.36599999666214,
+                "x": 1.33599996566772
+            }
+        },
+        {
+            "radius": 1,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "CookTorranceSphere",
+            "localRotation": {
+                "y": -180,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1234,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1,
+                "z": 2.75,
+                "x": 3.26999998092651
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "type": "Shape",
+            "materialID": 1239,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "floor",
+            "localRotation": {
+                "y": -180,
+                "z": 0,
+                "x": 0
+            },
+            "width": 40,
+            "finite": true,
+            "id": 1245,
+            "children": [
+                
+            ],
+            "height": 15,
+            "localPosition": {
+                "y": 0,
+                "z": -2.5,
+                "x": 0
+            },
+            "shapeType": "Plane"
+        },
+        {
+            "type": "Shape",
+            "materialID": 1239,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "floor (1)",
+            "localRotation": {
+                "y": -180,
+                "z": 0,
+                "x": 180
+            },
+            "width": 40,
+            "finite": true,
+            "id": 1240,
+            "children": [
+                
+            ],
+            "height": 15,
+            "localPosition": {
+                "y": 7,
+                "z": -2.5,
+                "x": 0
+            },
+            "shapeType": "Plane"
+        },
+        {
+            "type": "Camera",
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Main Camera",
+            "localRotation": {
+                "y": 1.61439990997314,
+                "z": 9.99999974737875E-05,
+                "x": 16.0548000335693
+            },
+            "fieldOfView": 60,
+            "id": 1241,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 2.06850528717041,
+                "z": -1.17010104656219,
+                "x": 1.97496819496155
+            },
+            "cameraType": "Pinhole"
+        },
+        {
+            "radius": 1,
+            "type": "Shape",
+            "materialID": 1237,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "PhongSphere",
+            "localRotation": {
+                "y": -180,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1236,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 1,
+                "z": 2.75,
+                "x": 0.319999992847443
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "type": "Shape",
+            "materialID": 1239,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "wall",
+            "localRotation": {
+                "y": -180,
+                "z": 0,
+                "x": 90
+            },
+            "width": 40,
+            "finite": true,
+            "id": 1238,
+            "children": [
+                
+            ],
+            "height": 7,
+            "localPosition": {
+                "y": 3.5,
+                "z": 5,
+                "x": 0
+            },
+            "shapeType": "Plane"
+        },
+        {
+            "type": "Shape",
+            "materialID": 1239,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "wall (1)",
+            "localRotation": {
+                "y": -180,
+                "z": 0,
+                "x": -90
+            },
+            "width": 40,
+            "finite": true,
+            "id": 1244,
+            "children": [
+                
+            ],
+            "height": 7,
+            "localPosition": {
+                "y": 3.5,
+                "z": -10,
+                "x": 0
+            },
+            "shapeType": "Plane"
+        },
+        {
+            "type": "Shape",
+            "materialID": 1239,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "wall (2)",
+            "localRotation": {
+                "y": -90,
+                "z": 0,
+                "x": 90
+            },
+            "width": 15,
+            "finite": true,
+            "id": 1246,
+            "children": [
+                
+            ],
+            "height": 7,
+            "localPosition": {
+                "y": 3.5,
+                "z": -2.5,
+                "x": 20
+            },
+            "shapeType": "Plane"
+        },
+        {
+            "type": "Shape",
+            "materialID": 1239,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "wall (3)",
+            "localRotation": {
+                "y": 90,
+                "z": 0,
+                "x": 90
+            },
+            "width": 15,
+            "finite": true,
+            "id": 1243,
+            "children": [
+                
+            ],
+            "height": 7,
+            "localPosition": {
+                "y": 3.5,
+                "z": -2.5,
+                "x": -20
+            },
+            "shapeType": "Plane"
+        }
+    ],
+    "assets": [
+        {
+            "id": 1235,
+            "specularColor": {
+                "a": 1,
+                "r": 0.720588207244873,
+                "g": 0.713629722595215,
+                "b": 0.704692900180817
+            },
+            "roughness": 0.200000002980232,
+            "name": "CookTorrance 7",
+            "color": {
+                "a": 1,
+                "r": 0.426470547914505,
+                "g": 0.423125654459,
+                "b": 0.420198917388916
+            },
+            "materialType": "CookTorrance",
+            "assetType": "Material"
+        },
+        {
+            "id": 1237,
+            "specularColor": {
+                "a": 1,
+                "r": 0.721568644046783,
+                "g": 0.713725507259369,
+                "b": 0.70588231086731
+            },
+            "exponent": 52,
+            "name": "Phong",
+            "color": {
+                "a": 1,
+                "r": 0.427450954914093,
+                "g": 0.423529386520386,
+                "b": 0.419607818126678
+            },
+            "materialType": "Phong",
+            "assetType": "Material"
+        },
+        {
+            "id": 1239,
+            "name": "CornelWhite",
+            "color": {
+                "a": 1,
+                "r": 0.70588231086731,
+                "g": 0.70588231086731,
+                "b": 0.70588231086731
+            },
+            "materialType": "Diffuse",
+            "assetType": "Material"
+        }
+    ],
+    "renderOptions": {
+        "maxTraceDepth": 5,
+        "refractionTraceDepth": 5,
+        "antialiasing": 6,
+        "threads": 8,
+        "width": 640,
+        "reflectionTraceDepth": 5,
+        "bucketSize": 32,
+        "height": 480
+    }
+}
