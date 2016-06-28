@@ -20,7 +20,7 @@ public class DomeLight extends Light {
         super(scene, colorChannel.colorComponent, intensity, null, null, null);
         setMaterial(new EmissiveMaterial(colorChannel, intensity));
         MultiJitteredSampler baseSampler = scene.getSamplerCaches().poll();
-        sampler = baseSampler.getSubSampler(10000);
+        sampler = baseSampler.getSubSampler(SAMPLES);
         sampler.generateSamples();
         scene.getSamplerCaches().offer(baseSampler);
     }

@@ -97,7 +97,7 @@ public class CookTorranceMaterial extends Material {
         Vec3 reflectionDir = col.getRay().getDirection().mul(-1).reflect(col.getNormal());
         Vec3 newRayDir = sample(scene, reflectionDir, roughnessTex);
 
-        Ray newRay = new Ray(col.getPosition().sum(col.getNormal().mul(0.0001)), newRayDir, Double.POSITIVE_INFINITY, col.getRay().getHops() + 1);
+        Ray newRay = new Ray(col.getPosition().sum(col.getNormal().mul(Light.EPSILON)), newRayDir, Double.POSITIVE_INFINITY, col.getRay().getHops() + 1);
         QuickCollision qc = scene.collideRay(newRay);
         if (qc != null && !qc.getPrimitive().equals(light)) {
             Collision newCol = qc.completeCollision();

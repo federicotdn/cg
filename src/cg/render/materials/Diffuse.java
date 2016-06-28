@@ -71,7 +71,7 @@ public class Diffuse extends Material {
 		// Indirect Lightning
 
 		Vec3 newRayDir = sample(scene, col);
-		Ray newRay = new Ray(col.getPosition().sum(col.getNormal().mul(0.0001)), newRayDir, Double.POSITIVE_INFINITY, col.getRay().getHops() + 1);
+		Ray newRay = new Ray(col.getPosition().sum(col.getNormal().mul(Light.EPSILON)), newRayDir, Double.POSITIVE_INFINITY, col.getRay().getHops() + 1);
 		QuickCollision qc = scene.collideRay(newRay);
 		if (qc != null && !qc.getPrimitive().equals(light )) {
 			Collision newCol = qc.completeCollision();

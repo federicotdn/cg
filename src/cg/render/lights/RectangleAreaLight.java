@@ -31,7 +31,7 @@ public class RectangleAreaLight extends Light {
         plane.setMaterial(new EmissiveMaterial(Channel.getBasicColorChannel(color), getIntensity()));
         addChild(plane);
         MultiJitteredSampler baseSampler = scene.getSamplerCaches().poll();
-        MultiJitteredSampler.SubSampler sampler = baseSampler.getSubSampler(10000);
+        MultiJitteredSampler.SubSampler sampler = baseSampler.getSubSampler(SAMPLES);
         sampler.generateSamples();
         scene.getSamplerCaches().offer(baseSampler);
 

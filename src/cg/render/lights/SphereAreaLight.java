@@ -24,7 +24,7 @@ public class SphereAreaLight extends Light {
         sphere.setMaterial(new EmissiveMaterial(Channel.getBasicColorChannel(color), getIntensity()));
         addChild(sphere);
         MultiJitteredSampler baseSampler = scene.getSamplerCaches().poll();
-        sampler = baseSampler.getSubSampler(10000);
+        sampler = baseSampler.getSubSampler(SAMPLES);
         sampler.generateSamples();
         scene.getSamplerCaches().offer(baseSampler);
     }

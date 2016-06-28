@@ -41,7 +41,7 @@ public class ReflectiveMaterial extends Material {
 
 		Color reflectiveTexColor = getColor(col.u, col.v);
 
-		Ray reflectionRay = new Ray(col.getPosition().sum(col.getNormal().mul(0.00001)), reflection, Double.POSITIVE_INFINITY, col.getRay().getHops() + 1);
+		Ray reflectionRay = new Ray(col.getPosition().sum(col.getNormal().mul(Light.EPSILON)), reflection, Double.POSITIVE_INFINITY, col.getRay().getHops() + 1);
         QuickCollision qc =  scene.collideRay(reflectionRay);
         if (qc != null) {
             Collision reflectionCol = qc.completeCollision();
@@ -63,7 +63,7 @@ public class ReflectiveMaterial extends Material {
 
 		Color reflectiveTexColor = getColor(col.u, col.v);
 
-		Ray reflectionRay = new Ray(col.getPosition().sum(col.getNormal().mul(0.00001)), reflection, Double.POSITIVE_INFINITY, col.getRay().getHops() + 1);
+		Ray reflectionRay = new Ray(col.getPosition().sum(col.getNormal().mul(Light.EPSILON)), reflection, Double.POSITIVE_INFINITY, col.getRay().getHops() + 1);
 		QuickCollision qc =  scene.collideRay(reflectionRay);
 		if (qc != null) {
 			Collision reflectionCol = qc.completeCollision();
