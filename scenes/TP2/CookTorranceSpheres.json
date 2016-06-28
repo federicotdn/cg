@@ -1,0 +1,558 @@
+{
+    "mainCameraId": 1243,
+    "objects": [
+        {
+            "type": "Light",
+            "localScale": {
+                "y": 1.20000004768372,
+                "z": 1.20000004768372,
+                "x": 1.20000004768372
+            },
+            "name": "AreaLight",
+            "localRotation": {
+                "y": 70,
+                "z": 0,
+                "x": 45
+            },
+            "lightType": "Rectangle",
+            "width": 1.20000004768372,
+            "color": {
+                "a": 1,
+                "r": 1,
+                "g": 1,
+                "b": 1
+            },
+            "id": 1255,
+            "intensity": 3.5,
+            "children": [
+                
+            ],
+            "height": 1.20000004768372,
+            "localPosition": {
+                "y": 2.30999994277954,
+                "z": 0.0120000001043081,
+                "x": -8.35999965667725
+            }
+        },
+        {
+            "type": "Light",
+            "localScale": {
+                "y": 1.20000004768372,
+                "z": 1.20000004768372,
+                "x": 1.20000004768372
+            },
+            "name": "AreaLight (2)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 30
+            },
+            "lightType": "Rectangle",
+            "width": 1.20000004768372,
+            "color": {
+                "a": 1,
+                "r": 1,
+                "g": 1,
+                "b": 1
+            },
+            "id": 1244,
+            "intensity": 2.20000004768372,
+            "children": [
+                
+            ],
+            "height": 1.20000004768372,
+            "localPosition": {
+                "y": 2.21000003814697,
+                "z": -0.340000003576279,
+                "x": -0.319999992847443
+            }
+        },
+        {
+            "type": "Shape",
+            "materialID": 1239,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "floor",
+            "localRotation": {
+                "y": -180,
+                "z": 0,
+                "x": 0
+            },
+            "width": 40,
+            "finite": true,
+            "id": 1251,
+            "children": [
+                
+            ],
+            "height": 15,
+            "localPosition": {
+                "y": 0,
+                "z": -2.5,
+                "x": 0
+            },
+            "shapeType": "Plane"
+        },
+        {
+            "type": "Shape",
+            "materialID": 1239,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "floor (1)",
+            "localRotation": {
+                "y": -180,
+                "z": 0,
+                "x": 180
+            },
+            "width": 40,
+            "finite": true,
+            "id": 1240,
+            "children": [
+                
+            ],
+            "height": 15,
+            "localPosition": {
+                "y": 7,
+                "z": -2.5,
+                "x": 0
+            },
+            "shapeType": "Plane"
+        },
+        {
+            "radius": 0.75,
+            "type": "Shape",
+            "materialID": 1247,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "GameObject",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1246,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.75,
+                "z": 2,
+                "x": -5.1100001335144
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.75,
+            "type": "Shape",
+            "materialID": 1254,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "GameObject (1)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1253,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.75,
+                "z": 2,
+                "x": -3.10999989509583
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.75,
+            "type": "Shape",
+            "materialID": 1242,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "GameObject (2)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1241,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.75,
+                "z": 2,
+                "x": -1.13999998569489
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.75,
+            "type": "Shape",
+            "materialID": 1235,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "GameObject (3)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1234,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.75,
+                "z": 2,
+                "x": 0.819999992847443
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.75,
+            "type": "Shape",
+            "materialID": 1250,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "GameObject (4)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1249,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.75,
+                "z": 2,
+                "x": 2.69000005722046
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "radius": 0.75,
+            "type": "Shape",
+            "materialID": 1237,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "GameObject (5)",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "id": 1236,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 0.75,
+                "z": 2,
+                "x": 4.76999998092651
+            },
+            "shapeType": "Sphere"
+        },
+        {
+            "type": "Camera",
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Main Camera",
+            "localRotation": {
+                "y": 1.27039992809296,
+                "z": 9.99999974737875E-05,
+                "x": 27.0555992126465
+            },
+            "fieldOfView": 60,
+            "id": 1243,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 4.60835266113281,
+                "z": -5.13307189941406,
+                "x": -0.644696950912476
+            },
+            "cameraType": "Pinhole"
+        },
+        {
+            "type": "Shape",
+            "materialID": 1239,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "wall",
+            "localRotation": {
+                "y": -180,
+                "z": 0,
+                "x": 90
+            },
+            "width": 40,
+            "finite": true,
+            "id": 1238,
+            "children": [
+                
+            ],
+            "height": 7,
+            "localPosition": {
+                "y": 3.5,
+                "z": 5,
+                "x": 0
+            },
+            "shapeType": "Plane"
+        },
+        {
+            "type": "Shape",
+            "materialID": 1239,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "wall (1)",
+            "localRotation": {
+                "y": -180,
+                "z": 0,
+                "x": -90
+            },
+            "width": 40,
+            "finite": true,
+            "id": 1248,
+            "children": [
+                
+            ],
+            "height": 7,
+            "localPosition": {
+                "y": 3.5,
+                "z": -10,
+                "x": 0
+            },
+            "shapeType": "Plane"
+        },
+        {
+            "type": "Shape",
+            "materialID": 1239,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "wall (2)",
+            "localRotation": {
+                "y": -90,
+                "z": 0,
+                "x": 90
+            },
+            "width": 15,
+            "finite": true,
+            "id": 1252,
+            "children": [
+                
+            ],
+            "height": 7,
+            "localPosition": {
+                "y": 3.5,
+                "z": -2.5,
+                "x": 20
+            },
+            "shapeType": "Plane"
+        },
+        {
+            "type": "Shape",
+            "materialID": 1239,
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "wall (3)",
+            "localRotation": {
+                "y": 90,
+                "z": 0,
+                "x": 90
+            },
+            "width": 15,
+            "finite": true,
+            "id": 1245,
+            "children": [
+                
+            ],
+            "height": 7,
+            "localPosition": {
+                "y": 3.5,
+                "z": -2.5,
+                "x": -20
+            },
+            "shapeType": "Plane"
+        }
+    ],
+    "assets": [
+        {
+            "id": 1235,
+            "specularColor": {
+                "a": 1,
+                "r": 0.273022264242172,
+                "g": 0.176470547914505,
+                "b": 1
+            },
+            "roughness": 0.5,
+            "name": "CookTorrance 4",
+            "color": {
+                "a": 1,
+                "r": 0.132940620183945,
+                "g": 0.044333890080452,
+                "b": 0.602941155433655
+            },
+            "materialType": "CookTorrance",
+            "assetType": "Material"
+        },
+        {
+            "id": 1237,
+            "specularColor": {
+                "a": 1,
+                "r": 0.273022264242172,
+                "g": 0.176470547914505,
+                "b": 1
+            },
+            "roughness": 0.899999976158142,
+            "name": "CookTorrance 6",
+            "color": {
+                "a": 1,
+                "r": 0.132940620183945,
+                "g": 0.044333890080452,
+                "b": 0.602941155433655
+            },
+            "materialType": "CookTorrance",
+            "assetType": "Material"
+        },
+        {
+            "id": 1239,
+            "name": "CornelWhite",
+            "color": {
+                "a": 1,
+                "r": 0.70588231086731,
+                "g": 0.70588231086731,
+                "b": 0.70588231086731
+            },
+            "materialType": "Diffuse",
+            "assetType": "Material"
+        },
+        {
+            "id": 1242,
+            "specularColor": {
+                "a": 1,
+                "r": 0.273022264242172,
+                "g": 0.176470547914505,
+                "b": 1
+            },
+            "roughness": 0.300000011920929,
+            "name": "CookTorrance 3",
+            "color": {
+                "a": 1,
+                "r": 0.132940620183945,
+                "g": 0.044333890080452,
+                "b": 0.602941155433655
+            },
+            "materialType": "CookTorrance",
+            "assetType": "Material"
+        },
+        {
+            "id": 1247,
+            "specularColor": {
+                "a": 1,
+                "r": 0.273022264242172,
+                "g": 0.176470547914505,
+                "b": 1
+            },
+            "roughness": 0.0500000007450581,
+            "name": "CookTorrance 1",
+            "color": {
+                "a": 1,
+                "r": 0.132940620183945,
+                "g": 0.044333890080452,
+                "b": 0.602941155433655
+            },
+            "materialType": "CookTorrance",
+            "assetType": "Material"
+        },
+        {
+            "id": 1250,
+            "specularColor": {
+                "a": 1,
+                "r": 0.273022264242172,
+                "g": 0.176470547914505,
+                "b": 1
+            },
+            "roughness": 0.699999988079071,
+            "name": "CookTorrance 5",
+            "color": {
+                "a": 1,
+                "r": 0.132940620183945,
+                "g": 0.044333890080452,
+                "b": 0.602941155433655
+            },
+            "materialType": "CookTorrance",
+            "assetType": "Material"
+        },
+        {
+            "id": 1254,
+            "specularColor": {
+                "a": 1,
+                "r": 0.273022264242172,
+                "g": 0.176470547914505,
+                "b": 1
+            },
+            "roughness": 0.150000005960464,
+            "name": "CookTorrance 2",
+            "color": {
+                "a": 1,
+                "r": 0.132940620183945,
+                "g": 0.044333890080452,
+                "b": 0.602941155433655
+            },
+            "materialType": "CookTorrance",
+            "assetType": "Material"
+        }
+    ],
+    "renderOptions": {
+        "maxTraceDepth": 5,
+        "refractionTraceDepth": 5,
+        "antialiasing": 6,
+        "threads": 8,
+        "width": 640,
+        "reflectionTraceDepth": 5,
+        "bucketSize": 32,
+        "height": 480
+    }
+}
