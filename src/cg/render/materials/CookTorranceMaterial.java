@@ -56,7 +56,26 @@ public class CookTorranceMaterial extends Material {
 
     @Override
     public Color getSurfaceColor(Collision col, Scene scene) {
-        return null;
+        Color diffuseColor = Scene.BACKGROUND_COLOR;
+        Color cookTorrance = Scene.BACKGROUND_COLOR;
+
+        Color specularTexColor = getSpecularColor(col.u, col.v);
+        double roughnessTex = getFinalRoughness(col.u, col.v);
+
+        for (Light light : scene.getLights()) {
+            Light.VisibilityResult visibilityResult = light.sampledVisibleFrom(col);
+            if (visibilityResult.isVisible) {
+                Vec3 surfaceToLight = visibilityResult.surfaceToLight;
+                Color result = visibilityResult.color.mul(diffuse.brdf(surfaceToLight, col));
+                diffuseColor = diffuseColor.sum(result);
+
+                result = visibilityResult.color.mul(brdf(surfaceToLight, col, roughnessTex));
+                cookTorrance = cookTorrance.sum(result);
+            }
+        }
+
+        diffuseColor = diffuseColor.mul(diffuse.getColor(col.u, col.v));
+        return diffuseColor.sum(specularTexColor.mul(cookTorrance));
     }
 
     @Override

@@ -33,7 +33,7 @@ public class Diffuse extends Material {
 
 	@Override
 	public Color getSurfaceColor(Collision col, Scene scene) {
-		Color c = new Color(1, 0, 0, 0);
+		Color c = Color.BLACK;
 
 		for (Light light : scene.getLights()) {
 			VisibilityResult visibilityResult = light.sampledVisibleFrom(col);
