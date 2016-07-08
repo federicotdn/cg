@@ -109,11 +109,9 @@ public class Phong extends Material {
 		
 		Color specularTexColor = getSpecularColor(col.u, col.v);
 		double exponentTex = getFinalExponent(col.u, col.v);
-		
-		Light light = null;
-		if (scene.getLights().size() > 0) {
-			int index = (int) Math.random() * scene.getLights().size();
-			light = scene.getLights().get(index);
+
+		Light light = scene.getRandomLight();
+		if (light != null) {
 			VisibilityResult visibility = light.sampledVisibleFrom(col);
 			if (visibility.isVisible) {
 				Vec3 surfaceToLight = visibility.surfaceToLight;

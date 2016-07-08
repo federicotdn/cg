@@ -343,4 +343,13 @@ public class Scene {
 	public void setRefractionTraceDepth(int refractionTraceDepth) {
 		this.refractionTraceDepth = refractionTraceDepth;
 	}
+
+	public Light getRandomLight() {
+		if (lights.size() > 0) {
+			int index = (int) (Math.random() * lights.size());
+			return lights.get(index);
+		}
+
+		return null;
+	}
 }

@@ -56,10 +56,8 @@ public class Diffuse extends Material {
 			return new PathData(Scene.BACKGROUND_COLOR);
 		}
 
-		Light light = null;
-		if (scene.getLights().size() > 0) {
-			int index = (int) Math.random() * scene.getLights().size();
-			light = scene.getLights().get(index);
+		Light light = scene.getRandomLight();
+		if (light != null) {
 			VisibilityResult visibility = light.sampledVisibleFrom(col);
 			if (visibility.isVisible) {
 				Vec3 surfaceToLight = visibility.surfaceToLight;
