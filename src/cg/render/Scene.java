@@ -3,6 +3,7 @@ package cg.render;
 import cg.accelerator.KDTree;
 import cg.rand.MultiJitteredSampler;
 import cg.rand.SamplerCacheQueue;
+import cg.render.camera.Camera;
 
 import java.util.ArrayList;
 import java.util.List;

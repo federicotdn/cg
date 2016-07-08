@@ -1,19 +1,19 @@
-package cg.render;
+package cg.render.camera;
 
 import cg.math.Matrix4;
 import cg.math.Vec3;
 import cg.math.Vec4;
 import cg.rand.MultiJitteredSampler;
+import cg.render.Image;
+import cg.render.Ray;
+import cg.render.WorldObject;
 
-public class Camera extends WorldObject {
-	private double fovDegrees;
-	
-	//TODO: Use WorldObject transform or this one
+public abstract class Camera extends WorldObject {	
+	protected static Vec3 DEFAULT_CAMERA_POS = new Vec3(0, 0, 0);
 	private Vec3 pos;
 	
-	public Camera(Vec3 t, Vec3 r, double fov) {
+	public Camera(Vec3 t, Vec3 r) {
 		setTransform(t, r);
-		this.fovDegrees = fov;
 	}
 	
 	public void setTransform(Vec3 t, Vec3 r) {
@@ -63,24 +63,5 @@ public class Camera extends WorldObject {
 		}
 	}
 	
-	private Ray rayFor(Image img, int pixelX, int pixelY, double offsetX, double offsetY) {
-		double aspectRatio = img.aspectRatio();
-		double halfImagePlane = Math.tan(Math.toRadians(fovDegrees / 2));
-		
-		double ndcx = (pixelX + offsetX) / img.getWidth();
-		double ndcy = (pixelY + offsetY) / img.getHeight();
-		
-		double px = ((2 * ndcx) - 1) * aspectRatio * halfImagePlane;
-		double py = (1 - (2 * ndcy)) * halfImagePlane;
-		
-		Vec3 origin3 = new Vec3();
-		Vec4 origin = origin3.asPosition();
-		origin = transform.mulVec(origin);
-		
-		Vec3 direction3 = new Vec3((double)px, (double)py, 1);
-		Vec4 direction = direction3.normalize().asDirection();
-		direction = transform.mulVec(direction);
-		
-		return new Ray(origin.asVec3(), direction.asVec3(), null);
-	}
+	protected abstract Ray rayFor(Image img, int pixelX, int pixelY, double offsetX, double offsetY);
 }

@@ -60,7 +60,6 @@ public class SphereAreaLight extends Light {
         return sphere.internalQuickCollideWith(ray);
     }
     
-    // TODO: Add sampler to sample area light
 	@Override
 	public VisibilityResult sampledVisibleFrom(Collision col) {
         Vec2 sample = sampler.getRandomSample();

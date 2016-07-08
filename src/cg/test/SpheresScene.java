@@ -3,10 +3,10 @@ package cg.test;
 import cg.math.MathUtils;
 import cg.math.Vec3;
 import cg.rand.MultiJitteredSampler;
-import cg.render.Camera;
 import cg.render.Color;
 import cg.render.Primitive;
 import cg.render.Scene;
+import cg.render.camera.PinholeCamera;
 import cg.render.lights.PointLight;
 import cg.render.materials.Diffuse;
 import cg.render.shapes.Sphere;
@@ -31,7 +31,7 @@ public class SpheresScene {
 		MultiJitteredSampler sampler = new MultiJitteredSampler(samples);
 		sampler.generateSamples();
 		
-		Camera cam = new Camera(new Vec3(0,0,-2), new Vec3(), 60);
+		PinholeCamera cam = new PinholeCamera(new Vec3(0,0,-2), new Vec3(), 60);
 		s.setCam(cam);
 		
 		List<Primitive> p = new ArrayList<>();
