@@ -33,6 +33,37 @@ public class MathUtils {
     	return new Vec3(pu, pw, pv);
     }
 
+    public static Vec2 squareToDisk(double x, double y) {
+        double sx = (2.0 * x) - 1;
+        double sy = (2.0 * y) - 1;
+
+        double phi, r;
+        if (sx > - sy) {
+            if (sx > sy) {
+                r = sx;
+                phi = sy/sx;
+            } else {
+                r = sy;
+                phi =  2 - (sx/sy);
+            }
+        } else {
+            if (sx < sy) {
+                r = -sx;
+                phi = 4 + (sy/sx);
+            } else {
+                r = -sy;
+                if (sy != 0) {
+                    phi = 6 - (sx/sy);
+                } else {
+                    phi = 0;
+                }
+            }
+        }
+
+        phi *= Math.PI/4;
+        return new Vec2(r * Math.cos(phi), r * Math.sin(phi));
+    }
+
     public static Vec3 tangentToWorldSpace(Vec3 v, Vec3 dir) {
         Vec3 tan = dir.getSmallestAxis().cross(dir).normalize();
         Vec3 bitan = tan.cross(dir).normalize();
