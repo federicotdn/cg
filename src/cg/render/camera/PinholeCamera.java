@@ -21,17 +21,10 @@ public class PinholeCamera extends Camera {
 		double ndcx = (pixelX + offsetX) / img.getWidth();
 		double ndcy = (pixelY + offsetY) / img.getHeight();
 		
-		if (ndcy > 1 || (ndcx * aspectRatio) > 1)
-		{
-			System.out.println(ndcx * aspectRatio);
-			System.out.println(ndcy);
-			System.out.println("---");			
-		}
-		
 		double px = ((2 * ndcx) - 1) * aspectRatio * halfImagePlane;
 		double py = (1 - (2 * ndcy)) * halfImagePlane;
 		
-		Vec3 origin3 = new Vec3();
+		Vec3 origin3 = DEFAULT_CAMERA_POS;
 		Vec4 origin = origin3.asPosition();
 		origin = transform.mulVec(origin);
 		
@@ -41,5 +34,4 @@ public class PinholeCamera extends Camera {
 		
 		return new Ray(origin.asVec3(), direction.asVec3(), null);
 	}
-
 }

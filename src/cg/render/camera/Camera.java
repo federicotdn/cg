@@ -9,6 +9,7 @@ import cg.render.Ray;
 import cg.render.WorldObject;
 
 public abstract class Camera extends WorldObject {	
+	protected static Vec3 DEFAULT_CAMERA_POS = new Vec3(0, 0, 0);
 	private Vec3 pos;
 	
 	public Camera(Vec3 t, Vec3 r) {
