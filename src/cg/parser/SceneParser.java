@@ -5,6 +5,8 @@ import cg.math.Vec3;
 import cg.render.*;
 import cg.render.assets.Mesh;
 import cg.render.assets.Texture;
+import cg.render.camera.Camera;
+import cg.render.camera.PinholeCamera;
 import cg.render.lights.*;
 import cg.render.materials.*;
 import cg.render.shapes.*;
@@ -282,9 +284,10 @@ public class SceneParser {
 
             WorldObject wo;
             switch (type) {
+            	//TODO: Parse camera type
                 case "Camera":
                     if (id == cameraId) {
-                        Camera cam = new Camera(getPosition(o),
+                        Camera cam = new PinholeCamera(getPosition(o),
                                 getRotation(o),
                                 o.getDouble("fieldOfView", 60));
                         scene.setCam(cam);

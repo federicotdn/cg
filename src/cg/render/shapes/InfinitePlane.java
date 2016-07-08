@@ -18,7 +18,6 @@ public class InfinitePlane extends Primitive {
     	setTransform(t, r, s);
     }
 
-    //TODO: Change Double to double
     public static double planeT(Ray ray, Vec3 normal, double d) {
         Vec3 rDir = ray.getDirection();
         Vec3 rPos = ray.getOrigin();
