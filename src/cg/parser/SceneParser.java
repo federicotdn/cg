@@ -5,9 +5,7 @@ import cg.math.Vec3;
 import cg.render.*;
 import cg.render.assets.Mesh;
 import cg.render.assets.Texture;
-import cg.render.camera.Camera;
-import cg.render.camera.PinholeCamera;
-import cg.render.camera.ThinLensCamera;
+import cg.render.camera.*;
 import cg.render.lights.*;
 import cg.render.materials.Diffuse;
 import cg.render.shapes.*;
@@ -295,6 +293,15 @@ public class SceneParser {
                                 cam = new ThinLensCamera(getPosition(o),
                                         getRotation(o), o.getDouble("fieldOfView", 60), o.getDouble("focusDistance", 5),
                                         o.getDouble("aperture", 0.2));
+                                break;
+                            case "Cylindrical":
+                                cam = new CylindricalCamera(getPosition(o), getRotation(o), o.getDouble("height", 2.0));
+                                break;
+                            case "Spherical":
+                                cam = new SphericalCamera(getPosition(o), getRotation(o));
+                                break;
+                            case "FishEye":
+                                cam = new FishEyeCamera(getPosition(o), getRotation(o));
                                 break;
                             default:
                                 cam = null;
