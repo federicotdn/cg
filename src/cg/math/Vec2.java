@@ -9,6 +9,10 @@ public class Vec2 {
 		this.y = y;
 	}
 
+	public Vec2 mul(double mul) {
+		return new Vec2(x * mul, y * mul);
+	}
+
 	@Override
 	public String toString() {
 		return "Vec2 [x=" + x + ", y=" + y + "]";
