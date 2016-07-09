@@ -8,6 +8,10 @@ import cg.render.assets.Texture;
 import cg.render.camera.*;
 import cg.render.lights.*;
 import cg.render.materials.Diffuse;
+import cg.render.procedural.CloudTexture;
+import cg.render.procedural.MarbleTexture;
+import cg.render.procedural.VoronoiTexture;
+import cg.render.procedural.WoodTexture;
 import cg.render.shapes.*;
 import com.eclipsesource.json.Json;
 import com.eclipsesource.json.JsonArray;
@@ -144,22 +148,65 @@ public class SceneParser {
 
                     break;
                 case "Texture":
-                    byte[] bytes;
-                    
-                    try {
-                    	bytes = parseBase64(o.getString("base64PNG", ""));
-                    } catch (Exception e) {
-                		printWarning("Invalid Base64 for Texture data in Asset ID: " + id + ", skipping.");
-                		break;
+                    String textureType = o.getString("textureType", null);
+                    if (textureType == null) {
+                        textureType = "Image";
                     }
-                    
-					Texture texture;
-					try {
-						texture = new Texture(bytes, gammaEnabled);
-						materialFactory.addTexture(id, texture);
-					} catch (Exception e) {
-                		printWarning("Invalid Texture data in Asset ID: " + id + ", skipping.");
-					}
+
+                    Texture texture;
+                    int width = o.getInt("width", 1000);
+                    int height = o.getInt("height", 1000);
+
+                    switch (textureType) {
+                        case "Image":
+
+                            byte[] bytes;
+
+                            try {
+                                bytes = parseBase64(o.getString("base64PNG", null));
+                            } catch (Exception e) {
+                                printWarning("Invalid Base64 for Texture data in Asset ID: " + id + ", skipping.");
+                                break;
+                            }
+
+                            try {
+                                texture = new Texture(bytes, gammaEnabled);
+                                materialFactory.addTexture(id, texture);
+                            } catch (Exception e) {
+                                printWarning("Invalid Texture data in Asset ID: " + id + ", skipping.");
+                            }
+
+                            break;
+
+                        case "Wood":
+                            int rings = o.getInt("rings", 10);
+                            texture = new WoodTexture(width, height, rings);
+                            materialFactory.addTexture(id, texture);
+                            break;
+
+                        case "Voronoi":
+                            int samples = o.getInt("samples", 10);
+                            boolean bw = o.getBoolean("blackAndWhite", false);
+                            texture = new VoronoiTexture(scene, width, height, samples, bw);
+                            materialFactory.addTexture(id, texture);
+                            break;
+
+                        case "Marble":
+                            texture = new MarbleTexture(width, height);
+                            materialFactory.addTexture(id, texture);
+                            break;
+
+                        case "Cloud":
+                            int density = o.getInt("density", 128);
+
+                            texture = new CloudTexture(width, height, density);
+                            materialFactory.addTexture(id, texture);
+
+                            break;
+
+                        default:
+                            printWarning("Invalid textureType for Texture Asset ID: " + id + ", skipping.");
+                    }
 
                     break;
                 case "Mesh":
@@ -282,7 +329,7 @@ public class SceneParser {
             switch (type) {
                 case "Camera":
                     if (id == cameraId) {
-                        String cameraType = o.getString("cameraType", "");
+                        String cameraType = o.getString("cameraType", "Pinhole");
                         switch (cameraType) {
                             case "Pinhole":
                                  cam = new PinholeCamera(getPosition(o),

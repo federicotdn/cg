@@ -11,10 +11,10 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
 public class Texture {
-	private int width;
-	private int height;
-	private double[] pixels;
-	private boolean correctGamma;
+	protected int width;
+	protected int height;
+	protected double[] pixels;
+	protected boolean correctGamma;
 
 	protected Texture() {
 		/* EMPTY */
