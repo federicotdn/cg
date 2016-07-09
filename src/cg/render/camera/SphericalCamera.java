@@ -5,26 +5,26 @@ import cg.math.Vec4;
 import cg.render.Image;
 import cg.render.Ray;
 
-public class CylindricalCamera extends Camera {
-
-	private double height;
-	
-	public CylindricalCamera(Vec3 t, Vec3 r, double height) {
+public class SphericalCamera extends Camera {
+	public SphericalCamera(Vec3 t, Vec3 r) {
 		super(t, r);
-		this.height = height;
 	}
 
 	@Override
-	protected Ray rayFor(Image img, int pixelX, int pixelY, double offsetX, double offsetY) {		
+	protected Ray rayFor(Image img, int pixelX, int pixelY, double offsetX, double offsetY) {
 		double ndcx = (pixelX + offsetX) / img.getWidth();
 		double ndcy = (pixelY + offsetY) / img.getHeight();
 		
-		double px = (2 * ndcx) - 1;
+		double px = (2 * ndcx);
 		double py = (2 * ndcy) - 1;
-
-		double phi = Math.PI * px;
 		
-		Vec3 dir = new Vec3(Math.sin(phi), -py * height, Math.cos(phi));
+		double lambda = px * Math.PI;
+		double psi = py * 0.5 * Math.PI;
+		
+		double theta = (0.5 * Math.PI) - psi;
+		double phi = Math.PI - lambda;
+		
+		Vec3 dir = new Vec3(-Math.sin(theta) * Math.sin(phi), -Math.cos(theta),Math.sin(theta) * Math.cos(phi));
 		
 		Vec3 origin3 = DEFAULT_CAMERA_POS;
 		Vec4 origin = origin3.asPosition();
