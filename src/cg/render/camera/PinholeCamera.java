@@ -7,17 +7,18 @@ import cg.render.Ray;
 
 public class PinholeCamera extends Camera {
 	private double fovDegrees;
+	private double halfImagePlane;
 	
 	public PinholeCamera(Vec3 t, Vec3 r, double fov) {
 		super(t, r);
 		this.fovDegrees = fov;
+		this.halfImagePlane = Math.tan(Math.toRadians(fovDegrees / 2));
 	}
 
 	@Override
 	protected Ray rayFor(Image img, int pixelX, int pixelY, double offsetX, double offsetY) {
 		double aspectRatio = img.aspectRatio();
-		double halfImagePlane = Math.tan(Math.toRadians(fovDegrees / 2));
-		
+
 		double ndcx = (pixelX + offsetX) / img.getWidth();
 		double ndcy = (pixelY + offsetY) / img.getHeight();
 		

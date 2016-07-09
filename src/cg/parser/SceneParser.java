@@ -7,19 +7,16 @@ import cg.render.assets.Mesh;
 import cg.render.assets.Texture;
 import cg.render.camera.Camera;
 import cg.render.camera.PinholeCamera;
+import cg.render.camera.ThinLensCamera;
 import cg.render.lights.*;
-import cg.render.materials.*;
+import cg.render.materials.Diffuse;
 import cg.render.shapes.*;
 import com.eclipsesource.json.Json;
 import com.eclipsesource.json.JsonArray;
 import com.eclipsesource.json.JsonObject;
 import com.eclipsesource.json.JsonValue;
 
-import java.io.ByteArrayInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.Reader;
+import java.io.*;
 import java.util.*;
 
 /**
@@ -283,18 +280,36 @@ public class SceneParser {
             }
 
             WorldObject wo;
+            Camera cam;
             switch (type) {
-            	//TODO: Parse camera type
                 case "Camera":
                     if (id == cameraId) {
-                        Camera cam = new PinholeCamera(getPosition(o),
-                                getRotation(o),
-                                o.getDouble("fieldOfView", 60));
+                        String cameraType = o.getString("cameraType", "");
+                        switch (cameraType) {
+                            case "Pinhole":
+                                 cam = new PinholeCamera(getPosition(o),
+                                        getRotation(o),
+                                        o.getDouble("fieldOfView", 60));
+                                break;
+                            case "ThinLens":
+                                cam = new ThinLensCamera(getPosition(o),
+                                        getRotation(o), o.getDouble("fieldOfView", 60), o.getDouble("focusDistance", 5),
+                                        o.getDouble("aperture", 0.2));
+                                break;
+                            default:
+                                cam = null;
+                                printWarning("Ignored camera with ID: " + String.valueOf(id));
+                        }
+                    } else {
+                    	cam = null;
+                    	printWarning("Ignored camera with ID: " + String.valueOf(id));
+                    }
+
+                    if (cam != null) {
                         scene.setCam(cam);
                         wo = cam;
                     } else {
-                    	wo = null;
-                    	printWarning("Ignored camera with ID: " + String.valueOf(id));
+                        wo = null;
                     }
                     break;
                 case "Light":
