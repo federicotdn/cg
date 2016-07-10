@@ -52,7 +52,7 @@ public class Scene {
 	// Path Tracing Variables
 	private boolean pathTracingEnabled = false;
 	private static final int SAMPLERS_PER_THREAD = 2;
-	private static final int SAMPLERS_SIZE = 1000000;
+	public static final int SAMPLERS_SIZE = 1000000;
 	private int pathTracingSamples;
 	private SamplerCacheQueue samplerCaches;
 	

@@ -292,7 +292,7 @@ public class SceneParser {
                             case "ThinLens":
                                 cam = new ThinLensCamera(getPosition(o),
                                         getRotation(o), o.getDouble("fieldOfView", 60), o.getDouble("focusDistance", 5),
-                                        o.getDouble("aperture", 0.2));
+                                        o.getDouble("aperture", 0.2), scene, materialFactory.getTextureIfPresent(o.getInt("bokehTextureId", -1)));
                                 break;
                             case "Cylindrical":
                                 cam = new CylindricalCamera(getPosition(o), getRotation(o), o.getDouble("height", 2.0));

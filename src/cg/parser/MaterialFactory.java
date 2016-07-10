@@ -81,6 +81,14 @@ public class MaterialFactory {
 
 		return defaultTexture;
 	}
+
+	public Texture getTextureIfPresent(int id) {
+		if (textures.containsKey(id)) {
+			return textures.get(id);
+		}
+
+		return null;
+	}
 	
 	public void registerPhong(Integer id, JsonObject o) {
 		Channel colorChan = Channel.getColorChannel(o);

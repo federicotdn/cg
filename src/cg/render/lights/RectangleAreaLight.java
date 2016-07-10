@@ -25,7 +25,7 @@ public class RectangleAreaLight extends Light {
     public RectangleAreaLight(Scene scene, Color color, double intensity, Vec3 t, Vec3 r, Vec3 s, double width, double height) {
         super(scene, color, intensity, t, r, s);
         double area = width * height;
-        this.intensity = intensity/area;
+        this.intensity = intensity/MathUtils.clamp(area, 1, area);
 
         plane = new FinitePlane(width, height, new Vec3(0, 0, 0), new Vec3(0, 0, 0), new Vec3(1, 1, 1), new Vec3(0,0,1));
         plane.setMaterial(new EmissiveMaterial(Channel.getBasicColorChannel(color), getIntensity()));
