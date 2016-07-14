@@ -1,11 +1,9 @@
 package cg.render.assets;
 
 import cg.accelerator.MeshKDTree;
+import cg.math.MathUtils;
 import cg.math.Vec3;
-import cg.render.BoundingBox;
-import cg.render.Collision;
-import cg.render.QuickCollision;
-import cg.render.Ray;
+import cg.render.*;
 import cg.render.shapes.MeshInstance;
 
 import java.util.List;
@@ -32,20 +30,6 @@ public class Mesh {
 
 	public QuickCollision calculateCollision(Ray ray, MeshInstance mesh) {
 		return kdTree.hit(ray, mesh);
-//		QuickCollision closestCol = null;
-//		for (int i =0; i< faces.length/9 ; i++) {
-//			QuickCollision col = checkCollision(ray, i, mesh);
-//
-//			if (col == null) {
-//				continue;
-//			}
-//
-//			if (closestCol == null || col.getLocalT() < closestCol.getLocalT()) {
-//				closestCol = col;
-//			}
-//		}
-//
-//		return closestCol;
 	}
 
 	public QuickCollision checkCollision(Ray ray, int index, MeshInstance mesh) {
@@ -103,12 +87,35 @@ public class Mesh {
 			double u1 = uv[faces[faceIndex + 1] * 2];
 			double u2 = uv[faces[faceIndex + 4] * 2];
 			double u3 = uv[faces[faceIndex + 7] * 2];
-			texU = ((1 - b2 - b1)*u1) + (u2 * b1) + (u3 * b2);
+			texU = ((1 - b2 - b1) * u1) + (u2 * b1) + (u3 * b2);
 
 			double v1 = uv[(faces[faceIndex + 1] * 2) + 1];
 			double v2 = uv[(faces[faceIndex + 4] * 2) + 1];
 			double v3 = uv[(faces[faceIndex + 7] * 2) + 1];
-			texV = ((1 - b2 - b1)*v1) + (v2 * b1) + (v3 * b2);
+			texV = ((1 - b2 - b1) * v1) + (v2 * b1) + (v3 * b2);
+
+			if (instance.getMaterial().hasNormalMap()) {
+				Vec3 mapNormal = instance.getMaterial().getNormal(texU, texV);
+
+				Vec3 p1 = vertexForIndex(faceIndex);
+				Vec3 p2 = vertexForIndex(faceIndex + 3);
+				Vec3 p3 = vertexForIndex(faceIndex + 6);
+
+				Vec3 deltaPos1 = p2.sub(p1);
+				Vec3 deltaPos2 = p3.sub(p1);
+
+				double deltaU1 = u2 - u1;
+				double deltaU2 = u3 - u1;
+
+				double deltaV1 = v2 - v1;
+				double deltaV2 = v3 - v1;
+
+				double r = 1.0 / ((deltaU1 * deltaV2) - (deltaV1 * deltaU2));
+				Vec3 tan = (deltaPos1.mul(deltaV2).sub(deltaPos2.mul(deltaV1))).mul(r).normalize();
+				Vec3 bitan = (deltaPos2.mul(deltaU1).sub(deltaPos1.mul(deltaU2))).mul(r).normalize();
+
+				normal = MathUtils.tbn(tan, bitan, normal, mapNormal);
+			}
 		}
 		
 		return new Collision(instance, qc.getLocalRay(), qc.getLocalT(), normal, texU, texV);

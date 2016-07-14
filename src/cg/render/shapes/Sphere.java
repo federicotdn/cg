@@ -1,5 +1,6 @@
 package cg.render.shapes;
 
+import cg.math.MathUtils;
 import cg.math.Matrix4;
 import cg.math.Vec2;
 import cg.math.Vec3;
@@ -86,6 +87,14 @@ public class Sphere extends Primitive {
 		Vec3 normal = orig.sum(dir.mul(t)).mul(1/radius);
 
 		Vec2 uvs = uvs(normal);
+
+		if (getMaterial().hasNormalMap()) {
+			Vec3 tan = normal.getSmallestAxis().cross(normal).normalize();
+			Vec3 bitan = tan.cross(normal).normalize();
+
+			Vec3 mapNormal = getMaterial().getNormal(uvs.x, uvs.y);
+			normal = MathUtils.tbn(tan, bitan, normal, mapNormal);
+		}
 
 		return new Collision(this, ray, t, normal, uvs.x, uvs.y);
 	}

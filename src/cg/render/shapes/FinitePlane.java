@@ -1,5 +1,6 @@
 package cg.render.shapes;
 
+import cg.math.MathUtils;
 import cg.math.Matrix4;
 import cg.math.Vec3;
 import cg.render.BoundingBox;
@@ -63,7 +64,30 @@ public class FinitePlane extends Primitive {
 		Vec3 colPos = qc.getLocalPosition();
 		double u = Math.abs(colPos.x - halfWidth) / (halfWidth*2);
 		double v = Math.abs(colPos.z - halfDepth) / (halfDepth * 2);
+
+		Vec3 normal = this.normal;
+
+		if (getMaterial().hasNormalMap()) {
+			Vec3 mapNormal = getMaterial().getNormal(u, v);
+			Vec3 tan = tanForNormal(this.normal);
+			Vec3 bitan = tan.cross(normal).normalize();
+			normal = MathUtils.tbn(tan, bitan, normal, mapNormal);
+		}
+
 		return new Collision(this, qc.getLocalRay(), qc.getLocalT(), normal, u, v);
+	}
+
+	public static Vec3 tanForNormal(Vec3 normal) {
+		if (Math.abs(normal.x) > 0.999999) {
+			return Vec3.Z_AXIS;
+		}
+
+		if (Math.abs(normal.y) > 0.999999) {
+			return Vec3.X_AXIS;
+		}
+
+
+		return Vec3.Y_AXIS;
 	}
 
 }

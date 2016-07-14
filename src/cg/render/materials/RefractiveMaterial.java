@@ -30,8 +30,9 @@ public class RefractiveMaterial extends Material {
 	private final Vec2 iorTextureOffset;
 	private final Vec2 iorTextureScale;
 
-	public RefractiveMaterial(Channel refractionColorChannel, Channel reflectivityColorChannel, Channel iorChannel) {
-        this.reflectiveMaterial = new ReflectiveMaterial(reflectivityColorChannel);
+	public RefractiveMaterial(Channel refractionColorChannel, Channel reflectivityColorChannel, Channel iorChannel, Channel normalChannel) {
+        super(normalChannel);
+        this.reflectiveMaterial = new ReflectiveMaterial(reflectivityColorChannel, null);
 		
 		this.refractionColor = refractionColorChannel.colorComponent;
 		if (refractionColorChannel.isTextured()) {

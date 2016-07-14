@@ -43,9 +43,6 @@ public abstract class Primitive extends WorldObject {
 	
 
 	public Collision completeCollision(QuickCollision qc) {
-//		if (qc.getPrimitive() != this) {
-//			throw new RuntimeException("Error: tried to complete a collision from another primitive.");
-//		}
 		Collision collision = internalCompleteCollision(qc);
 		
 		Vec4 localNormal = collision.getNormal().asDirection();

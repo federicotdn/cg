@@ -10,7 +10,7 @@ import cg.render.Light.VisibilityResult;
 import cg.render.assets.Texture;
 
 public class Diffuse extends Material {
-	public static final Diffuse DEFAULT_DIFFUSE = new Diffuse(Channel.getDefaultColorChannel());
+	public static final Diffuse DEFAULT_DIFFUSE = new Diffuse(Channel.getDefaultColorChannel(), null);
 	
 	//New fields:
 	private final Color color;
@@ -18,7 +18,8 @@ public class Diffuse extends Material {
 	private final Vec2 colorTextureOffset;
 	private final Vec2 colorTextureScale;
 	
-	public Diffuse(Channel colorChannel) {
+	public Diffuse(Channel colorChannel, Channel normalChannel) {
+		super(normalChannel);
 		this.color = colorChannel.colorComponent;
 		if (colorChannel.isTextured()) {
 			this.colorTexture = colorChannel.getTexture();

@@ -1,5 +1,6 @@
 package cg.render.shapes;
 
+import cg.math.MathUtils;
 import cg.math.Matrix4;
 import cg.math.Vec3;
 import cg.render.BoundingBox;
@@ -121,6 +122,13 @@ public class Box extends Primitive {
 			normal = new Vec3(0, 0, Math.signum(colPos.z));
 			u = Math.abs(colPos.x - width/2)/width;
 			v = Math.abs(colPos.y - height/2)/height;
+		}
+
+		if (getMaterial().hasNormalMap()) {
+			Vec3 mapNormal = getMaterial().getNormal(u, v);
+			Vec3 tan = FinitePlane.tanForNormal(normal);
+			Vec3 bitan = tan.cross(normal).normalize();
+			normal = MathUtils.tbn(tan, bitan, normal, mapNormal);
 		}
 
 		return new Collision(this, qc.getLocalRay(), qc.getLocalT(), normal, u, v);

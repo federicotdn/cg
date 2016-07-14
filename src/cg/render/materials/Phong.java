@@ -25,8 +25,9 @@ public class Phong extends Material {
 	private final Vec2 exponentTextureOffset;
 	private final Vec2 exponentTextureScale;
 
-	public Phong(Channel colorChannel, Channel specularColorChannel, Channel exponentChannel) {
-		diffuse = new Diffuse(colorChannel);
+	public Phong(Channel colorChannel, Channel specularColorChannel, Channel exponentChannel, Channel normalChannel) {
+		super(normalChannel);
+		diffuse = new Diffuse(colorChannel, null);
 		
 		this.specularColor = specularColorChannel.colorComponent;
 		if (specularColorChannel.isTextured()) {

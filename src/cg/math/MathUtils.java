@@ -91,6 +91,12 @@ public class MathUtils {
         return MathUtils.clamp(r);
     }
 
+    public static Vec3 tbn(Vec3 t, Vec3 b, Vec3 n, Vec3 v) {
+        return new Vec3(v.x * t.x + v.y * b.x + v.z * n.x,
+                v.x * t.y + v.y * b.y + v.z * n.y,
+                v.x * t.z + v.y * b.z + v.z * n.z).normalize();
+    }
+
     public static double schlick(double n, double cosI) {
         double r0 = Math.pow((1 - n) / (1 + n), 2);
 

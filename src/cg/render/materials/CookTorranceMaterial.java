@@ -28,8 +28,9 @@ public class CookTorranceMaterial extends Material {
     private final Vec2 roughnessTextureOffset;
     private final Vec2 roughnessTextureScale;
 
-    public CookTorranceMaterial(Channel colorChannel, Channel specularColorChannel, Channel roughnessChannel) {
-        diffuse = new Diffuse(colorChannel);
+    public CookTorranceMaterial(Channel colorChannel, Channel specularColorChannel, Channel roughnessChannel, Channel normalChannel) {
+        super(normalChannel);
+        diffuse = new Diffuse(colorChannel, null);
 
         this.specularColor = specularColorChannel.colorComponent;
         if (specularColorChannel.isTextured()) {

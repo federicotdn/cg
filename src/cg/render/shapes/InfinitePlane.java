@@ -1,5 +1,6 @@
 package cg.render.shapes;
 
+import cg.math.MathUtils;
 import cg.math.Matrix4;
 import cg.math.Vec3;
 import cg.render.BoundingBox;
@@ -50,6 +51,19 @@ public class InfinitePlane extends Primitive {
 	@Override
 	protected Collision internalCompleteCollision(QuickCollision qc) {
 		Vec3 colPos = qc.getLocalPosition();
-		return new Collision(this, qc.getLocalRay(), qc.getLocalT(), PLANE_NORMAL, colPos.x / 10, colPos.z / 10);
+
+        double u =  colPos.x / 10;
+        double v = colPos.z / 10;
+
+        Vec3 normal = PLANE_NORMAL;
+
+        if (getMaterial().hasNormalMap()) {
+            Vec3 mapNormal = getMaterial().getNormal(u, v);
+            Vec3 tan = new Vec3(1,0,0);
+            Vec3 bitan = tan.cross(PLANE_NORMAL).normalize();
+            normal = MathUtils.tbn(tan, bitan, normal, mapNormal);
+        }
+
+		return new Collision(this, qc.getLocalRay(), qc.getLocalT(), normal, u, v);
 	}
 }

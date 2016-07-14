@@ -58,19 +58,21 @@ public class MaterialFactory {
 	
 	public void registerDiffuse(Integer id, JsonObject o) {
 		Channel colorChan = Channel.getColorChannel(o);
-		
+		Channel normalChannel = Channel.getNormalChannel(o);
+
 		MaterialData md = new MaterialData(MaterialType.DIFFUSE);
 		md.addChan(colorChan);
+		md.addChan(normalChannel);
 		
 		materialData.put(id, md);
 	}
 	
 	public void registerColorMaterial(Integer id, JsonObject o) {
 		Channel colorChan = Channel.getColorChannel(o);
-		
+
 		MaterialData md = new MaterialData(MaterialType.COLOR);
 		md.addChan(colorChan);
-		
+
 		materialData.put(id, md);
 	}
 
@@ -94,20 +96,24 @@ public class MaterialFactory {
 		Channel colorChan = Channel.getColorChannel(o);
 		Channel specularChan = Channel.getSpecularChannel(o);
 		Channel exponentChan = Channel.getExponentChannel(o);
-		
+		Channel normalChannel = Channel.getNormalChannel(o);
+
 		MaterialData md = new MaterialData(MaterialType.PHONG);
 		md.addChan(colorChan);
 		md.addChan(specularChan);
 		md.addChan(exponentChan);
+		md.addChan(normalChannel);
 		
 		materialData.put(id, md);
 	}
 	
 	public void registerReflective(Integer id, JsonObject o) {
 		Channel reflectiveChan = Channel.getReflectiveChannel(o);
-		
+		Channel normalChannel = Channel.getNormalChannel(o);
+
 		MaterialData md = new MaterialData(MaterialType.REFLECTIVE);
 		md.addChan(reflectiveChan);
+		md.addChan(normalChannel);
 		
 		materialData.put(id, md);	
 	}
@@ -116,11 +122,13 @@ public class MaterialFactory {
 		Channel reflectiveChan = Channel.getReflectiveChannel(o);
 		Channel refractiveChan = Channel.getRefractiveChannel(o);
 		Channel iorChannel = Channel.getIorChannel(o);
-		
+		Channel normalChannel = Channel.getNormalChannel(o);
+
 		MaterialData md = new MaterialData(MaterialType.REFRACTIVE);
 		md.addChan(reflectiveChan);
 		md.addChan(iorChannel);
 		md.addChan(refractiveChan);
+		md.addChan(normalChannel);
 		
 		materialData.put(id, md);
 	}
@@ -129,11 +137,13 @@ public class MaterialFactory {
 		Channel colorChannel = Channel.getColorChannel(o);
 		Channel specularChannel = Channel.getSpecularChannel(o);
 		Channel roughnessChannel = Channel.getRoughnessChannel(o);
+		Channel normalChannel = Channel.getNormalChannel(o);
 
 		MaterialData md = new MaterialData(MaterialType.COOK_TORRANCE);
 		md.addChan(colorChannel);
 		md.addChan(specularChannel);
 		md.addChan(roughnessChannel);
+		md.addChan(normalChannel);
 
 		materialData.put(id, md);
 	}
@@ -177,19 +187,23 @@ public class MaterialFactory {
 					mat = new ColorMaterial(md.channels.get(ChanType.COLOR));
 					break;
 				case DIFFUSE:
-					mat = new Diffuse(md.channels.get(ChanType.COLOR));
+					mat = new Diffuse(md.channels.get(ChanType.COLOR), md.channels.get(ChanType.NORMAL_MAP));
 					break;
 				case PHONG:
-					mat = new Phong(md.channels.get(ChanType.COLOR), md.channels.get(ChanType.SPECULAR), md.channels.get(ChanType.EXPONENT));
+					mat = new Phong(md.channels.get(ChanType.COLOR), md.channels.get(ChanType.SPECULAR),
+							md.channels.get(ChanType.EXPONENT),  md.channels.get(ChanType.NORMAL_MAP));
 					break;
 				case REFLECTIVE:
-					mat = new ReflectiveMaterial(md.channels.get(ChanType.REFLECTIVE));
+					mat = new ReflectiveMaterial(md.channels.get(ChanType.REFLECTIVE),  md.channels.get(ChanType.NORMAL_MAP));
 					break;
 				case REFRACTIVE:
-					mat = new RefractiveMaterial(md.channels.get(ChanType.REFRACTIVE), md.channels.get(ChanType.REFLECTIVE), md.channels.get(ChanType.IOR));
+					mat = new RefractiveMaterial(md.channels.get(ChanType.REFRACTIVE),
+							md.channels.get(ChanType.REFLECTIVE), md.channels.get(ChanType.IOR),
+							md.channels.get(ChanType.NORMAL_MAP));
 					break;
 				case COOK_TORRANCE:
-					mat = new CookTorranceMaterial(md.channels.get(ChanType.COLOR), md.channels.get(ChanType.SPECULAR), md.channels.get(ChanType.ROUGHNESS));
+					mat = new CookTorranceMaterial(md.channels.get(ChanType.COLOR), md.channels.get(ChanType.SPECULAR),
+							md.channels.get(ChanType.ROUGHNESS),  md.channels.get(ChanType.NORMAL_MAP));
 					break;
 
 				default:

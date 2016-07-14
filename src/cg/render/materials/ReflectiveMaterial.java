@@ -17,7 +17,8 @@ public class ReflectiveMaterial extends Material {
 	private final Vec2 reflectivityColorTextureOffset;
 	private final Vec2 reflectivityColorTextureScale;
 	
-	public ReflectiveMaterial(Channel reflectivityColorChannel) {
+	public ReflectiveMaterial(Channel reflectivityColorChannel, Channel normalChannel) {
+		super(normalChannel);
 		this.reflectivityColor = reflectivityColorChannel.colorComponent;
 		if (reflectivityColorChannel.isTextured()) {
 			this.reflectivityColorTexture = reflectivityColorChannel.getTexture();

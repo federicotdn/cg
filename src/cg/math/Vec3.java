@@ -3,7 +3,7 @@ package cg.math;
 public class Vec3 {
 	/*
 	 * 3x1 Vector
-	 * 
+	 *
 	 * -----
 	 * | x |
 	 * |   |
@@ -11,16 +11,20 @@ public class Vec3 {
 	 * |   |
 	 * | z |
 	 * -----
-	 */	
+	 */
 
 	public final double x;
 	public final double y;
 	public final double z;
-	
+
+	public static final Vec3 X_AXIS = new Vec3(1, 0, 0);
+	public static final Vec3 Y_AXIS = new Vec3(0, 1, 0);
+	public static final Vec3 Z_AXIS = new Vec3(0, 0, 1);
+
 	public Vec3() {
 		this(0,0,0);
 	}
-	
+
 	public Vec3(double x, double y, double z) {
 		this.x = x;
 		this.y = y;
@@ -34,15 +38,15 @@ public class Vec3 {
 	public Vec3 div(double scalar) {
 		return mul(1/scalar);
 	}
-	
+
 	public Vec3 sum(Vec3 v) {
 		return new Vec3(x + v.x, y + v.y, z + v.z);
 	}
-	
+
 	public Vec3 sub(Vec3 v) {
 		return new Vec3(x - v.x, y - v.y, z - v.z);
 	}
-	
+
 	public double dot(Vec3 v) {
 		return (x * v.x) + (y * v.y) + (z * v.z);
 	}
@@ -50,7 +54,7 @@ public class Vec3 {
 	public Vec3 cross(Vec3 v) {
 		return new Vec3((y * v.z) - (z * v.y),(z * v.x) - (x * v.z), (x * v.y) - (y * v.x));
 	}
-	
+
 	public Vec4 asDirection() {
 		return new Vec4(x, y, z, 0);
 	}
@@ -113,11 +117,11 @@ public class Vec3 {
 	public Vec3 min(Vec3 v) {
 		return new Vec3(Math.min(x, v.x), Math.min(y, v.y), Math.min(z, v.z));
 	}
-	
+
 	public Vec4 asPosition() {
 		return new Vec4(x, y, z, 1);
 	}
-	
+
 	public Vec3 normalize() {
 		double len = len();
 		return new Vec3(x/len, y/len, z/len);
@@ -126,7 +130,7 @@ public class Vec3 {
 	public Vec3 reflect(Vec3 normal) {
 		return normal.mul(2 * normal.dot(this)).sub(this);
 	}
-	
+
 	public double len() {
 		return (double) Math.sqrt(x * x + y * y + z * z);
 	}
