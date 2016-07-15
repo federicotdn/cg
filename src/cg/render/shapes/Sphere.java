@@ -89,7 +89,10 @@ public class Sphere extends Primitive {
 		Vec2 uvs = uvs(normal);
 
 		if (getMaterial().hasNormalMap()) {
-			Vec3 tan = normal.getSmallestAxis().cross(normal).normalize();
+			Vec3 auxN = new Vec3(normal.x, 0, normal.z);
+
+			Vec3 tan = new Vec3(-normal.z, 0, normal.x);
+			tan = tan.cross(auxN).normalize();
 			Vec3 bitan = tan.cross(normal).normalize();
 
 			Vec3 mapNormal = getMaterial().getNormal(uvs.x, uvs.y);

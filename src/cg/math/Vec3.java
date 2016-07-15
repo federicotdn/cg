@@ -17,6 +17,9 @@ public class Vec3 {
 	public final double y;
 	public final double z;
 
+	public static final Vec3 NEG_X_AXIS = new Vec3(-1, 0, 0);
+	public static final Vec3 NEG_Y_AXIS = new Vec3(0, -1, 0);
+	public static final Vec3 NEG_Z_AXIS = new Vec3(0, 0, -1);
 	public static final Vec3 X_AXIS = new Vec3(1, 0, 0);
 	public static final Vec3 Y_AXIS = new Vec3(0, 1, 0);
 	public static final Vec3 Z_AXIS = new Vec3(0, 0, 1);

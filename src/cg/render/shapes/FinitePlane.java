@@ -78,16 +78,27 @@ public class FinitePlane extends Primitive {
 	}
 
 	public static Vec3 tanForNormal(Vec3 normal) {
-		if (Math.abs(normal.x) > 0.999999) {
+		if (normal.x > 0.999999) {
 			return Vec3.Z_AXIS;
 		}
 
-		if (Math.abs(normal.y) > 0.999999) {
+		if (normal.x < - 0.999999) {
+			return Vec3.NEG_Z_AXIS;
+		}
+
+		if (normal.y > 0.999999) {
 			return Vec3.X_AXIS;
 		}
 
+		if (normal.y < - 0.999999) {
+			return Vec3.NEG_X_AXIS;
+		}
 
-		return Vec3.Y_AXIS;
+		if (normal.z > 0.999999) {
+			return Vec3.Y_AXIS;
+		}
+
+		return Vec3.NEG_Y_AXIS;
 	}
 
 }
