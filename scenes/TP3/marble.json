@@ -1,0 +1,383 @@
+{
+    "mainCameraId": 1241,
+    "objects": [
+        {
+            "type": "Light",
+            "localScale": {
+                "y": 1.20000004768372,
+                "z": 1.20000004768372,
+                "x": 1.20000004768372
+            },
+            "name": "AreaLight",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 89.9801940917969
+            },
+            "lightType": "Rectangle",
+            "width": 1,
+            "color": {
+                "a": 1,
+                "r": 1,
+                "g": 1,
+                "b": 1
+            },
+            "id": 1249,
+            "intensity": 1.79999995231628,
+            "children": [
+                
+            ],
+            "height": 1,
+            "localPosition": {
+                "y": 5.45313310623169,
+                "z": 2.57999992370605,
+                "x": 0.120537623763084
+            }
+        },
+        {
+            "type": "Camera",
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Main Camera",
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "fieldOfView": 27,
+            "id": 1241,
+            "children": [
+                
+            ],
+            "localPosition": {
+                "y": 2.72722411155701,
+                "z": -10.5803899765015,
+                "x": 0.212301790714264
+            },
+            "cameraType": "ThinLens",
+            "focusDistance": 12.5
+        },
+        {
+            "id": 1248,
+            "localRotation": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            },
+            "children": [
+                {
+                    "type": "Shape",
+                    "materialID": 1243,
+                    "localScale": {
+                        "y": 1,
+                        "z": 1,
+                        "x": 1
+                    },
+                    "name": "ceiling",
+                    "localRotation": {
+                        "y": -180,
+                        "z": 0,
+                        "x": -89.9801940917969
+                    },
+                    "meshId": 1244,
+                    "id": 1242,
+                    "children": [
+                        
+                    ],
+                    "localPosition": {
+                        "y": 5.48577165603638,
+                        "z": 2.80036926269531,
+                        "x": 0.111319065093994
+                    },
+                    "shapeType": "Mesh"
+                },
+                {
+                    "type": "Shape",
+                    "materialID": 1246,
+                    "localScale": {
+                        "y": 0.699999988079071,
+                        "z": 0.699999988079071,
+                        "x": 0.699999988079071
+                    },
+                    "name": "GameObject",
+                    "localRotation": {
+                        "y": 0,
+                        "z": 0,
+                        "x": 0
+                    },
+                    "width": 10,
+                    "finite": true,
+                    "id": 1245,
+                    "children": [
+                        
+                    ],
+                    "height": 10,
+                    "localPosition": {
+                        "y": 0.0299999993294477,
+                        "z": 2.80999994277954,
+                        "x": 0
+                    },
+                    "shapeType": "Plane"
+                },
+                {
+                    "type": "Shape",
+                    "materialID": 1237,
+                    "localScale": {
+                        "y": 0.699999988079071,
+                        "z": 0.699999988079071,
+                        "x": 0.699999988079071
+                    },
+                    "name": "GameObject (1)",
+                    "localRotation": {
+                        "y": 0,
+                        "z": -90,
+                        "x": 0
+                    },
+                    "width": 10,
+                    "finite": true,
+                    "id": 1240,
+                    "children": [
+                        
+                    ],
+                    "height": 10,
+                    "localPosition": {
+                        "y": 2.54999995231628,
+                        "z": 2.80999994277954,
+                        "x": -2.65000009536743
+                    },
+                    "shapeType": "Plane"
+                },
+                {
+                    "type": "Shape",
+                    "materialID": 1237,
+                    "localScale": {
+                        "y": 0.699999868869781,
+                        "z": 0.699999988079071,
+                        "x": 0.699999868869781
+                    },
+                    "name": "GameObject (2)",
+                    "localRotation": {
+                        "y": 0,
+                        "z": 90,
+                        "x": 0
+                    },
+                    "width": 10,
+                    "finite": true,
+                    "id": 1239,
+                    "children": [
+                        
+                    ],
+                    "height": 10,
+                    "localPosition": {
+                        "y": 2.54999995231628,
+                        "z": 2.80999994277954,
+                        "x": 2.89000010490417
+                    },
+                    "shapeType": "Plane"
+                },
+                                {
+                    "type": "Shape",
+                    "materialID": 1237,
+                    "localScale": {
+                        "y": 0.699999868869781,
+                        "z": 0.699999988079071,
+                        "x": 0.699999868869781
+                    },
+                    "name": "GameObject (244444)",
+                    "localRotation": {
+                        "y": 90,
+                        "z": 90,
+                        "x": 0
+                    },
+                    "width": 10,
+                    "finite": true,
+                    "id": 1239,
+                    "children": [
+                        
+                    ],
+                    "height": 10,
+                    "localPosition": {
+                        "y": 2.55,
+                        "z": 0.041,
+                        "x": 0.53
+                    },
+                    "shapeType": "Plane"
+                },
+                {
+                    "type": "Shape",
+                    "materialID": 1237,
+                    "localScale": {
+                        "y": 0.699999749660492,
+                        "z": 0.699999988079071,
+                        "x": 0.699999749660492
+                    },
+                    "name": "GameObject (3)",
+                    "localRotation": {
+                        "y": 270,
+                        "z": 90,
+                        "x": 0
+                    },
+                    "width": 10,
+                    "finite": true,
+                    "id": 1236,
+                    "children": [
+                        
+                    ],
+                    "height": 10,
+                    "localPosition": {
+                        "y": 2.54999995231628,
+                        "z": 5.55999994277954,
+                        "x": 0.529999971389771
+                    },
+                    "shapeType": "Plane"
+                },
+                {
+                    "radius": 2,
+                    "type": "Shape",
+                    "materialID": 1235,
+                    "localScale": {
+                        "y": 0.699999868869781,
+                        "z": 0.700000107288361,
+                        "x": 0.699999868869781
+                    },
+                    "name": "GameObject (4)",
+                    "localRotation": {
+                        "y": -90,
+                        "z": 90,
+                        "x": 0
+                    },
+                    "id": 1234,
+                    "children": [
+                        
+                    ],
+                    "localPosition": {
+                        "y": 2,
+                        "z": 2.38000011444092,
+                        "x": 0.1205376
+                    },
+                    "shapeType": "Sphere"
+                }
+            ],
+            "type": "None",
+            "localScale": {
+                "y": 1,
+                "z": 1,
+                "x": 1
+            },
+            "name": "Scene",
+            "localPosition": {
+                "y": 0,
+                "z": 0,
+                "x": 0
+            }
+        }
+    ],
+    "assets": [
+        {
+            "id": 1235,
+            "reflectivityColor": {
+                "a": 1,
+                "r": 1,
+                "g": 1,
+                "b": 1
+            },
+            "name": "TestReflectionMaterial",
+            "materialType": "Reflective",
+            "assetType": "Material"
+        },
+        {
+            "colorScale": {
+                "y": 1,
+                "x": 1
+            },
+            "materialType": "Diffuse",
+            "colorTextureId": 1238,
+            "colorOffset": {
+                "y": 5,
+                "x": 5
+            },
+            "id": 1237,
+            "assetType": "Material",
+            "color": {
+                "a": 1,
+                "r": 0.919117629528046,
+                "g": 0.919117629528046,
+                "b": 0.919117629528046
+            },
+            "name": "New Material 1"
+        },
+        {
+            "id": 1238,
+            "name": "Checker",
+            "base64PNG": "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",
+            "assetType": "Texture",
+            "textureType": "Cloud",
+            "samples": 30,
+            "width": 500,
+            "height": 500,
+            "blackAndWhite": true
+        },
+        {
+            "id": 1243,
+            "name": "statue",
+            "color": {
+                "a": 1,
+                "r": 1,
+                "g": 1,
+                "b": 1
+            },
+            "materialType": "Diffuse",
+            "assetType": "Material"
+        },
+        {
+            "id": 1244,
+            "name": "ceiling",
+            "base64OBJ": "diAyLjc4IC0yLjc5NTk5OSAwLjAwMjIyNjM4Mw0KdiAtMi43OCAtMi43OTU5OTkgMC4wMDIyMjYzODMNCnYgLTIuNzggMi43OTU5OTkgLTAuMDAyMjI2MzgzDQp2IDIuNzggMi43OTU5OTkgLTAuMDAyMjI2MzgzDQp2biAwIC0wLjAwMDc5NjI3NDMgLTAuOTk5OTk5OA0Kdm4gMCAtMC4wMDA3OTYyNzQzIC0wLjk5OTk5OTgNCnZuIDAgLTAuMDAwNzk2Mjc0MyAtMC45OTk5OTk4DQp2biAwIC0wLjAwMDc5NjI3NDMgLTAuOTk5OTk5OA0KZiAxLzEvMSAyLzIvMiAzLzMvMw0KZiAxLzEvMSAzLzMvMyA0LzQvNA0K",
+            "assetType": "Mesh"
+        },
+        {
+            "colorScale": {
+                "y": 1,
+                "x": 1
+            },
+            "materialType": "Diffuse",
+            "colorTextureId": 1247,
+            "colorOffset": {
+                "y": 0,
+                "x": 0
+            },
+            "id": 1246,
+            "assetType": "Material",
+            "color": {
+                "a": 1,
+                "r": 1,
+                "g": 1,
+                "b": 1
+            },
+            "name": "table"
+        },
+        {
+            "id": 1247,
+            "name": "LightChecker",
+            "base64PNG": "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",
+            "assetType": "Texture",
+            "textureType": "Marble",
+            "samples": 30,
+            "width": 500,
+            "height": 500
+        }
+    ],
+    "renderOptions": {
+        "maxTraceDepth": 5,
+        "refractionTraceDepth": 5,
+        "antialiasing": 1,
+        "threads": 8,
+        "width": 760,
+        "reflectionTraceDepth": 5,
+        "bucketSize": 30,
+        "height": 760
+    }
+}
