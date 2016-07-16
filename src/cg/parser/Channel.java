@@ -1,11 +1,10 @@
 package cg.parser;
 
-import com.eclipsesource.json.JsonObject;
-import com.eclipsesource.json.JsonValue;
-
 import cg.math.Vec2;
 import cg.render.Color;
 import cg.render.assets.Texture;
+import com.eclipsesource.json.JsonObject;
+import com.eclipsesource.json.JsonValue;
 
 public class Channel {
 	public static final Color DEFAULT_COLOR = Color.WHITE;
@@ -51,7 +50,7 @@ public class Channel {
 	}
 
 	public static Channel getNormalChannel(JsonObject o) {
-		return coloredChannel(ChanType.NORMAL_MAP, "normal", o);
+		return coloredChannel(ChanType.NORMAL_MAP, "normal", o, false);
 	}
 
 	public static Channel getRoughnessChannel(JsonObject o) {
@@ -86,36 +85,42 @@ public class Channel {
 		return texture;
 	}
 
-	private static Channel coloredChannel(ChanType t, String chanPrefix, JsonObject o) {
+	private static Channel coloredChannel(ChanType t, String chanPrefix, JsonObject o, boolean hasColor) {
 		Color c = parseColor(o, chanPrefix);
 		Warnings warnings = new Warnings();
-		
-		if (c == null) {
+
+		if (c == null && hasColor) {
 			c = DEFAULT_COLOR;
 			warnings.add("Channel type: " + t + " using default color.");
 		}
 
 		Integer id = parseTextureId(o, chanPrefix);
 		Vec2 offset = null, scale = null;
-		
+
 		if (id != null) {
 			offset = parseTextureOffset(o, chanPrefix);
 			scale = parseTextureScale(o, chanPrefix);
-			
+
 			if (offset == null) {
 				offset = new Vec2(0, 0);
 				warnings.add("Channel type: " + t + " using default texture offset.");
 			}
-			
+
 			if (scale == null) {
 				scale = new Vec2(1, 1);
 				warnings.add("Channel type: " + t + " using default texture scale.");
 			}
 		}
-		
+
 		return new Channel(t, c, null, id, offset, scale, warnings);
+
 	}
-	
+
+	private static Channel coloredChannel(ChanType t, String chanPrefix, JsonObject o) {
+		return coloredChannel(t, chanPrefix, o, true);
+	}
+
+
 	private static Channel scalarChannel(ChanType t, String chanPrefix, JsonObject o) {
 		Warnings warnings = new Warnings();
 		Double scalar = parseScalar(o, chanPrefix);

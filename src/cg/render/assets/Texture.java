@@ -90,34 +90,4 @@ public class Texture {
 		}
 		return 1 - (Math.abs(coord) % 1);
 	}
-
-	// For debugging purposes. PLEASE REMOVE LATER
-	// *******************************************
-
-//	private BufferedImage getBufferedImage() {
-//		BufferedImage buffer = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-//		int[] data = new int[pixels.length / 4];
-//		int j = 0;
-//		for (int i = 0; i < data.length; i++) {
-//			data[i] = ((doubleToInt(pixels[j]) << 24) | doubleToInt(pixels[j + 1]) << 16) | (doubleToInt(pixels[j + 2]) << 8) | (doubleToInt(pixels[j + 3]));
-//			j += 4;
-//		}
-//
-//		SampleModel sm = buffer.getSampleModel();
-//		WritableRaster raster = Raster.createWritableRaster(sm, new DataBufferInt(data, data.length), null);
-//		buffer.setData(raster);
-//
-//		return buffer;
-//	}
-
-//	private int doubleToInt(double pixel) {
-//		byte ans = (byte) Math.round((pixel * 255));
-//		return byteToUnsigned(ans);
-//	}
-//
-//	private int byteToUnsigned(byte b) {
-//		return b & 0xFF;
-//	}
-
-	// *******************************************
 }
